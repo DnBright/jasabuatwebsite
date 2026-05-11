@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue';
-import { Check, Calculator, Store, Palette, Smartphone, Globe, Shield, Headphones, Wrench, Sparkles, ChevronRight } from 'lucide-vue-next';
+import { Check, Calculator, Store, Palette, Smartphone, Globe, Shield, Headphones, Wrench, Sparkles, ChevronRight, Info } from 'lucide-vue-next';
 
 // Tipe bisnis (untuk konteks/rekomendasi)
 const businessTypes = [
-    { id: 'kuliner', name: 'Kuliner & F&B', icon: Store },
-    { id: 'fashion', name: 'Fashion & Retail', icon: Palette },
-    { id: 'jasa', name: 'Jasa & Profesional', icon: Headphones },
-    { id: 'properti', name: 'Properti & Travel', icon: Globe },
-    { id: 'lainnya', name: 'Bisnis Lainnya', icon: Sparkles },
+    { id: 'kuliner', name: 'Kuliner & F&B', icon: Store, color: '#f59e0b' },
+    { id: 'fashion', name: 'Fashion & Retail', icon: Palette, color: '#ec4899' },
+    { id: 'jasa', name: 'Jasa & Profesional', icon: Headphones, color: '#3b82f6' },
+    { id: 'properti', name: 'Properti & Travel', icon: Globe, color: '#8b5cf6' },
+    { id: 'lainnya', name: 'Bisnis Lainnya', icon: Sparkles, color: '#10b981' },
 ];
 
 const selectedBusinessType = ref('kuliner');
@@ -60,14 +60,12 @@ const toggleFeature = (id: number) => {
 const totalPrice = computed(() => {
     let total = 0;
 
-    // Hitung fitur konten
     contentFeatures.value.forEach(feature => {
         if (selectedFeatures.value.has(feature.id)) {
             total += feature.price;
         }
     });
 
-    // Hitung layanan dukungan
     supportServices.value.forEach(service => {
         if (selectedFeatures.value.has(service.id)) {
             total += service.price;
@@ -134,9 +132,7 @@ const openWhatsApp = () => {
     <section id="kalkulator" class="calculator-section">
         <div class="calculator-container">
             <div class="calculator-header">
-                <div class="header-icon">
-                    <Calculator class="icon" />
-                </div>
+                <div class="badge-mini">Kalkulator Harga</div>
                 <h2 class="section-title">Rakit Paket <span>Website Anda</span></h2>
                 <p class="section-subtitle">
                     Pilih fitur sesuai kebutuhan bisnis Anda. Tidak ada biaya tersembunyi, transparan sepenuhnya!
@@ -147,14 +143,18 @@ const openWhatsApp = () => {
                 <!-- Left: Pilihan Fitur -->
                 <div class="calculator-left">
                     <!-- Pilihan Jenis Bisnis -->
-                    <div class="selection-group">
-                        <h3 class="group-title">1. Pilih Jenis Bisnis (Konteks)</h3>
+                    <div class="selection-group glass-effect">
+                        <div class="group-header">
+                            <div class="step-num">1</div>
+                            <h3 class="group-title">Pilih Jenis Bisnis</h3>
+                        </div>
                         <div class="business-types">
                             <button
                                 v-for="type in businessTypes"
                                 :key="type.id"
                                 @click="selectedBusinessType = type.id"
                                 :class="['business-btn', { active: selectedBusinessType === type.id }]"
+                                :style="{ '--active-color': type.color }"
                             >
                                 <component :is="type.icon" class="btn-icon" />
                                 <span>{{ type.name }}</span>
@@ -163,26 +163,27 @@ const openWhatsApp = () => {
                     </div>
 
                     <!-- Loading State -->
-                    <div v-if="loading" class="selection-group">
-                        <h3 class="group-title">Memuat Data...</h3>
-                        <div class="text-center py-8 text-gray-500">
-                            <Calculator class="w-8 h-8 mx-auto animate-pulse mb-2" />
-                            <p>Memuat fitur kalkulator...</p>
+                    <div v-if="loading" class="selection-group glass-effect">
+                        <div class="text-center py-12 text-slate-400">
+                            <Calculator class="w-10 h-10 mx-auto animate-bounce mb-4 text-slate-300" />
+                            <p class="font-bold">Menyiapkan fitur terbaik...</p>
                         </div>
                     </div>
 
                     <!-- Error State -->
-                    <div v-else-if="error" class="selection-group">
-                        <h3 class="group-title">Error</h3>
-                        <div class="text-center py-8 text-red-500">
-                            <p>{{ error }}</p>
-                            <button @click="fetchFeatures" class="mt-2 text-blue-600 hover:underline">Coba Lagi</button>
+                    <div v-else-if="error" class="selection-group glass-effect">
+                        <div class="text-center py-12 text-red-500">
+                            <p class="font-bold">{{ error }}</p>
+                            <button @click="fetchFeatures" class="mt-4 px-6 py-2 bg-red-100 rounded-full text-red-600 font-bold hover:bg-red-200 transition-colors">Coba Lagi</button>
                         </div>
                     </div>
 
                     <!-- Fitur Tambahan -->
-                    <div v-else class="selection-group">
-                        <h3 class="group-title">2. Fitur Website</h3>
+                    <div v-else class="selection-group glass-effect">
+                        <div class="group-header">
+                            <div class="step-num">2</div>
+                            <h3 class="group-title">Pilih Fitur Website</h3>
+                        </div>
                         <div class="features-grid">
                             <label
                                 v-for="feature in contentFeatures"
@@ -206,15 +207,15 @@ const openWhatsApp = () => {
                                     <span class="feature-price">Rp {{ formatPrice(feature.price) }}</span>
                                 </div>
                             </label>
-                            <div v-if="contentFeatures.length === 0" class="text-center py-4 text-gray-500">
-                                Belum ada fitur website tersedia
-                            </div>
                         </div>
                     </div>
 
                     <!-- Layanan Dukungan -->
-                    <div v-if="!loading && !error" class="selection-group">
-                        <h3 class="group-title">3. Layanan Dukungan</h3>
+                    <div v-if="!loading && !error" class="selection-group glass-effect">
+                        <div class="group-header">
+                            <div class="step-num">3</div>
+                            <h3 class="group-title">Layanan Dukungan</h3>
+                        </div>
                         <div class="features-grid">
                             <label
                                 v-for="service in supportServices"
@@ -242,27 +243,28 @@ const openWhatsApp = () => {
                                     </span>
                                 </div>
                             </label>
-                            <div v-if="supportServices.length === 0" class="text-center py-4 text-gray-500">
-                                Belum ada layanan dukungan tersedia
-                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Right: Ringkasan -->
                 <div class="calculator-right">
-                    <div class="summary-card">
+                    <div class="summary-card glass-effect">
                         <h3 class="summary-title">Ringkasan Pesanan</h3>
 
                         <div class="summary-content">
                             <div v-if="selectedItems.length === 0" class="empty-state">
-                                <p>Belum ada fitur yang dipilih</p>
-                                <span class="empty-hint">Silakan pilih fitur di sebelah kiri</span>
+                                <div class="empty-icon">💡</div>
+                                <p>Belum ada fitur dipilih</p>
+                                <span class="empty-hint">Silakan pilih fitur di sebelah kiri untuk melihat estimasi harga.</span>
                             </div>
 
                             <div v-else class="summary-list">
                                 <div v-for="(item, index) in selectedItems" :key="index" class="summary-item">
-                                    <span class="item-name">{{ item.name }}</span>
+                                    <div class="item-info">
+                                        <div class="dot"></div>
+                                        <span class="item-name">{{ item.name }}</span>
+                                    </div>
                                     <span class="item-price">Rp {{ formatPrice(item.price) }}</span>
                                 </div>
                             </div>
@@ -270,19 +272,23 @@ const openWhatsApp = () => {
                             <div class="summary-divider"></div>
 
                             <div class="summary-total">
-                                <span class="total-label">Total Estimasi</span>
-                                <span class="total-price">Rp {{ formatPrice(totalPrice) }}</span>
+                                <span class="total-label">Estimasi Total</span>
+                                <div class="total-price-box">
+                                    <span class="currency">Rp</span>
+                                    <span class="total-price">{{ formatPrice(totalPrice) }}</span>
+                                </div>
                             </div>
                         </div>
 
-                        <button @click="openWhatsApp" class="order-btn">
-                            <span>Pesan Sekarang</span>
+                        <button @click="openWhatsApp" class="order-btn" :disabled="selectedItems.length === 0">
+                            <span>Pesan Website Sekarang</span>
                             <ChevronRight class="btn-arrow" />
                         </button>
 
-                        <p class="summary-note">
-                            Klik tombol di atas untuk chat WhatsApp dengan detail pesanan yang sudah terisi otomatis.
-                        </p>
+                        <div class="info-box">
+                            <Info class="info-icon" />
+                            <p>Harga final akan dikonfirmasi kembali saat konsultasi.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -292,63 +298,73 @@ const openWhatsApp = () => {
 
 <style scoped>
 .calculator-section {
-    padding: 6rem 7%;
-    background: linear-gradient(135deg, #f8fafc 0%, #ffffff 50%, #f1f5f9 100%);
-    border-top: 1px solid #e2e8f0;
+    padding: 8rem 7%;
+    background-color: #ffffff;
+    position: relative;
+    overflow: hidden;
 }
 
 .calculator-container {
     max-width: 1400px;
     margin: 0 auto;
+    position: relative;
+    z-index: 2;
 }
 
 .calculator-header {
     text-align: center;
-    margin-bottom: 4rem;
+    margin-bottom: 5rem;
 }
 
-.header-icon {
-    width: 64px;
-    height: 64px;
-    background: linear-gradient(135deg, #002147 0%, #0c3461 100%);
-    border-radius: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 1.5rem;
-    box-shadow: 0 10px 30px rgba(0, 33, 71, 0.2);
-}
-
-.header-icon .icon {
-    width: 32px;
-    height: 32px;
-    color: white;
+.badge-mini {
+    display: inline-block;
+    padding: 0.5rem 1.25rem;
+    background: #f1f5f9;
+    color: #002147;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border: 1px solid #e2e8f0;
 }
 
 .section-title {
-    font-size: 2.75rem;
+    font-size: 3rem;
     color: #0f172a;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     font-weight: 800;
-    letter-spacing: -1px;
+    letter-spacing: -2px;
 }
 
 .section-title span {
-    color: #002147;
+    background: linear-gradient(90deg, #002147, #3b82f6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .section-subtitle {
     color: #64748b;
-    font-size: 1.1rem;
-    max-width: 600px;
+    font-size: 1.2rem;
+    max-width: 700px;
     margin: 0 auto;
     line-height: 1.6;
 }
 
 .calculator-grid {
     display: grid;
-    grid-template-columns: 1fr 380px;
+    grid-template-columns: 1fr 400px;
     gap: 3rem;
+}
+
+/* Glass Effect */
+.glass-effect {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    border-radius: 32px;
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
 }
 
 /* Left Side */
@@ -359,122 +375,139 @@ const openWhatsApp = () => {
 }
 
 .selection-group {
-    background: white;
-    border-radius: 20px;
-    padding: 1.75rem;
-    border: 1px solid #e2e8f0;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    padding: 2.5rem;
+    transition: all 0.3s ease;
+}
+
+.selection-group:hover {
+    box-shadow: 0 20px 40px -15px rgba(0, 33, 71, 0.05);
+}
+
+.group-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.step-num {
+    width: 32px;
+    height: 32px;
+    background: #002147;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 0.9rem;
 }
 
 .group-title {
-    font-size: 1.1rem;
+    font-size: 1.25rem;
     color: #0f172a;
-    font-weight: 700;
-    margin-bottom: 1.25rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
 }
 
 /* Business Types */
 .business-types {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.75rem;
+    gap: 1rem;
 }
 
 .business-btn {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1.25rem;
-    border: 2px solid #e2e8f0;
-    border-radius: 12px;
+    gap: 0.75rem;
+    padding: 1rem 1.5rem;
+    border: 2px solid #f1f5f9;
+    border-radius: 16px;
     background: white;
-    color: #475569;
-    font-weight: 600;
-    font-size: 0.9rem;
+    color: #64748b;
+    font-weight: 700;
+    font-size: 0.95rem;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .business-btn:hover {
-    border-color: #cbd5e1;
-    background: #f8fafc;
+    border-color: #e2e8f0;
+    transform: translateY(-3px);
 }
 
 .business-btn.active {
-    border-color: #002147;
-    background: #002147;
+    border-color: var(--active-color, #002147);
+    background: var(--active-color, #002147);
     color: white;
+    box-shadow: 0 10px 20px -5px var(--active-color, rgba(0, 33, 71, 0.3));
 }
 
 .btn-icon {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
 }
 
 /* Features Grid */
 .features-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.25rem;
 }
 
 .feature-card {
     position: relative;
-    border: 2px solid #e2e8f0;
-    border-radius: 12px;
-    padding: 1.25rem;
+    border: 2px solid #f1f5f9;
+    border-radius: 20px;
+    padding: 1.5rem;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
     background: white;
 }
 
 .feature-card:hover {
     border-color: #cbd5e1;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transform: translateY(-5px);
 }
 
 .feature-card.selected {
-    border-color: #002147;
-    background: #f8fafc;
-    box-shadow: 0 4px 12px rgba(0, 33, 71, 0.1);
+    border-color: #3b82f6;
+    background: #f0f7ff;
 }
 
 .feature-card.recommended {
     border-color: #10b981;
-    background: #ecfdf5;
+    background: #f0fdf4;
 }
 
 .feature-content {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.75rem;
 }
 
 .feature-header {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 0.25rem;
+    gap: 1rem;
 }
 
 .checkbox-indicator {
-    width: 22px;
-    height: 22px;
-    border: 2px solid #cbd5e1;
-    border-radius: 6px;
+    width: 24px;
+    height: 24px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
 }
 
 .feature-card.selected .checkbox-indicator {
-    background: #002147;
-    border-color: #002147;
+    background: #3b82f6;
+    border-color: #3b82f6;
 }
 
 .feature-card.recommended .checkbox-indicator {
@@ -489,34 +522,34 @@ const openWhatsApp = () => {
 }
 
 .feature-name {
-    font-weight: 700;
+    font-weight: 800;
     color: #0f172a;
-    font-size: 0.95rem;
+    font-size: 1rem;
 }
 
 .badge-gratis {
     background: #10b981;
     color: white;
     font-size: 0.65rem;
-    font-weight: 800;
-    padding: 0.2rem 0.5rem;
-    border-radius: 4px;
+    font-weight: 900;
+    padding: 0.25rem 0.6rem;
+    border-radius: 6px;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
 }
 
 .feature-description {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     color: #64748b;
-    line-height: 1.4;
-    margin-left: 2rem;
+    line-height: 1.5;
+    padding-left: 2.25rem;
 }
 
 .feature-price {
     font-weight: 800;
     color: #002147;
-    font-size: 1rem;
-    margin-left: 2rem;
+    font-size: 1.1rem;
+    padding-left: 2.25rem;
 }
 
 .hidden {
@@ -528,93 +561,124 @@ const openWhatsApp = () => {
 /* Right Side: Summary */
 .calculator-right {
     position: sticky;
-    top: 2rem;
+    top: 100px;
     height: fit-content;
 }
 
 .summary-card {
-    background: white;
-    border-radius: 20px;
-    padding: 1.75rem;
-    border: 1px solid #e2e8f0;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    padding: 2.5rem;
+    border-color: #3b82f6;
 }
 
 .summary-title {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     color: #0f172a;
     font-weight: 800;
-    margin-bottom: 1.5rem;
-    padding-bottom: 1rem;
-    border-bottom: 2px solid #f1f5f9;
+    margin-bottom: 2rem;
+    letter-spacing: -0.5px;
 }
 
 .summary-content {
-    margin-bottom: 1.5rem;
+    margin-bottom: 2.5rem;
 }
 
 .empty-state {
     text-align: center;
-    padding: 2rem 0;
-    color: #94a3b8;
+    padding: 3rem 0;
+}
+
+.empty-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
 }
 
 .empty-state p {
-    font-weight: 600;
+    font-weight: 800;
+    color: #0f172a;
     margin-bottom: 0.5rem;
 }
 
 .empty-hint {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
+    color: #94a3b8;
+    line-height: 1.5;
+    display: block;
 }
 
 .summary-list {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 1rem;
 }
 
 .summary-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 0.9rem;
-    padding: 0.5rem 0;
+    font-size: 0.95rem;
+}
+
+.item-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex: 1;
+}
+
+.dot {
+    width: 6px;
+    height: 6px;
+    background: #3b82f6;
+    border-radius: 50%;
 }
 
 .item-name {
     color: #475569;
-    flex: 1;
+    font-weight: 600;
 }
 
 .item-price {
     color: #0f172a;
-    font-weight: 700;
-    font-family: monospace;
+    font-weight: 800;
 }
 
 .summary-divider {
-    height: 2px;
-    background: linear-gradient(90deg, #e2e8f0 0%, #cbd5e1 50%, #e2e8f0 100%);
-    margin: 1rem 0;
+    height: 1px;
+    background: #e2e8f0;
+    margin: 2rem 0;
 }
 
 .summary-total {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
 .total-label {
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: 700;
-    color: #0f172a;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.total-price-box {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+}
+
+.currency {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #002147;
 }
 
 .total-price {
-    font-size: 1.5rem;
+    font-size: 2.5rem;
     font-weight: 800;
     color: #002147;
+    letter-spacing: -2px;
 }
 
 .order-btn {
@@ -622,44 +686,60 @@ const openWhatsApp = () => {
     background: linear-gradient(135deg, #002147 0%, #0c3461 100%);
     color: white;
     border: none;
-    padding: 1rem 1.5rem;
-    border-radius: 12px;
+    padding: 1.25rem;
+    border-radius: 20px;
     font-weight: 700;
-    font-size: 1rem;
+    font-size: 1.1rem;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-    box-shadow: 0 4px 14px rgba(0, 33, 71, 0.3);
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 15px 30px -10px rgba(0, 33, 71, 0.3);
 }
 
-.order-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 33, 71, 0.4);
+.order-btn:not(:disabled):hover {
+    transform: translateY(-5px);
+    box-shadow: 0 25px 50px -12px rgba(0, 33, 71, 0.4);
+}
+
+.order-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    filter: grayscale(1);
 }
 
 .btn-arrow {
     width: 20px;
     height: 20px;
-    transition: transform 0.2s ease;
 }
 
-.order-btn:hover .btn-arrow {
-    transform: translateX(4px);
+.info-box {
+    display: flex;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: #f8fafc;
+    border-radius: 16px;
 }
 
-.summary-note {
+.info-icon {
+    width: 18px;
+    height: 18px;
+    color: #3b82f6;
+    flex-shrink: 0;
+}
+
+.info-box p {
     font-size: 0.8rem;
-    color: #94a3b8;
-    text-align: center;
-    line-height: 1.5;
+    color: #64748b;
+    line-height: 1.4;
+    margin: 0;
 }
 
 /* Responsive */
-@media (max-width: 1024px) {
+@media (max-width: 1100px) {
     .calculator-grid {
         grid-template-columns: 1fr;
     }
@@ -669,32 +749,13 @@ const openWhatsApp = () => {
         top: 0;
         order: -1;
     }
-
-    .summary-card {
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
 }
 
 @media (max-width: 768px) {
-    .calculator-section {
-        padding: 4rem 5%;
-    }
-
-    .section-title {
-        font-size: 2rem;
-    }
-
-    .features-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .business-types {
-        justify-content: center;
-    }
-
-    .business-btn {
-        font-size: 0.85rem;
-        padding: 0.6rem 1rem;
-    }
+    .calculator-section { padding: 5rem 5%; }
+    .section-title { font-size: 2.25rem; }
+    .selection-group { padding: 1.5rem; }
+    .features-grid { grid-template-columns: 1fr; }
+    .total-price { font-size: 2rem; }
 }
 </style>

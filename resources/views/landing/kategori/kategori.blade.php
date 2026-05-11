@@ -251,10 +251,14 @@
     }
 
     @media (max-width: 768px) {
-        .categories-section { padding: 5rem 0; }
+        .categories-section { padding: 4rem 0; }
         .section-title { font-size: 2.25rem; }
-        .card-category { flex: 0 0 150px; padding: 1.5rem 1rem; }
-        .category-icon-bg { width: 70px; height: 70px; }
+        .section-subtitle { font-size: 1rem; margin-bottom: 3rem; padding: 0 5%; }
+        .card-category { flex: 0 0 150px; padding: 1.5rem 1rem; border-radius: 20px; }
+        .category-icon-bg { width: 70px; height: 70px; border-radius: 18px; }
+        .card-category h3 { font-size: 0.9rem; }
+        .category-grid { gap: 1.25rem; }
+        .scroll-hint { font-size: 0.8rem; margin-top: 1.5rem; }
     }
 </style>
 </style>

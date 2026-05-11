@@ -162,7 +162,7 @@
     }
 
     .hero-article p {
-        font-size: 1.2rem;
+        font-size: 1.25rem;
         color: #64748b;
         line-height: 1.6;
         max-width: 600px;
@@ -342,17 +342,79 @@
     }
 
     @media (max-width: 768px) {
-        .hero-container { flex-direction: column; text-align: center; gap: 3rem; padding: 2rem 7%; }
-        .hero-content { text-align: center; order: 2; }
-        .hero-visual { order: 1; justify-content: center; width: 100%; }
-        .hero-title { font-size: 2.5rem; }
-        .hero-actions { justify-content: center; flex-direction: column; }
-        .hero-article p { margin: 0 auto; font-size: 1.1rem; }
-        .trust-card { left: 50%; transform: translateX(-50%); bottom: -15px; width: 85%; padding: 0.75rem 1rem; }
-        .floating-card .icon { width: 35px; height: 35px; font-size: 1.2rem; }
-        .floating-card .label { font-size: 0.85rem; }
-        .image-overlay-text { font-size: 0.75rem; padding: 0.5rem 0.75rem; top: 10px; right: 10px; }
-        .hero-img-premium { transform: rotate(0); width: 100%; max-width: 300px; }
+        .hero-section { padding-top: 1rem; }
+        .hero-container { flex-direction: column; text-align: center; gap: 2rem; padding: 1rem 5% 4rem; }
+        .hero-content { text-align: center; order: 2; width: 100%; }
+        .hero-visual { order: 1; justify-content: center; width: 100%; margin-bottom: 1.5rem; }
+        
+        .badge { margin-bottom: 1rem; font-size: 0.75rem; }
+        
+        .hero-title { 
+            font-size: 2.25rem; 
+            margin-bottom: 1rem; 
+            line-height: 1.2; 
+            letter-spacing: -1px;
+        }
+        
+        .hero-article p { 
+            margin: 0 auto 2rem; 
+            font-size: 1rem; 
+            line-height: 1.5;
+            color: #475569;
+        }
+
+        .hero-actions { 
+            flex-direction: column; 
+            gap: 1rem; 
+            width: 100%;
+        }
+        
+        .btn-primary-custom, .btn-outline-custom {
+            width: 100%;
+            text-align: center;
+            padding: 1rem;
+            font-size: 1rem;
+        }
+
+        .image-wrapper {
+            max-width: 280px;
+        }
+
+        .hero-img-premium { 
+            border-width: 4px;
+            border-radius: 24px;
+            transform: rotate(0) !important;
+        }
+
+        .trust-card { 
+            position: relative;
+            left: 0;
+            bottom: 0;
+            transform: translateY(-20px) !important;
+            margin: 0 auto;
+            width: 90%;
+            padding: 0.75rem;
+            background: white;
+            box-shadow: 0 10px 25px rgba(0, 33, 71, 0.15);
+            border: 1px solid #f1f5f9;
+        }
+
+        .image-overlay-text { 
+            font-size: 0.7rem; 
+            padding: 0.4rem 0.8rem; 
+            top: 15px; 
+            right: 15px;
+            max-width: 140px;
+        }
+        
+        .floating-card .icon { width: 32px; height: 32px; font-size: 1.1rem; border-radius: 8px; }
+        .floating-card .label { font-size: 0.8rem; }
+        .floating-card .sub { font-size: 0.65rem; }
+    }
+
+    @media (max-width: 480px) {
+        .hero-title { font-size: 2rem; }
+        .hero-article p { font-size: 0.95rem; }
     }
 </style>
 

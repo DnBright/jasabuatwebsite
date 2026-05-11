@@ -265,9 +265,16 @@
     }
 
     @media (max-width: 768px) {
-        .card-template { flex: 0 0 320px; }
-        .template-info { padding: 1.5rem; }
-        .template-price { font-size: 1.75rem; }
+        .template-section { padding: 4rem 0; }
         .section-title { font-size: 2.25rem; }
+        .section-subtitle { font-size: 1rem; margin-bottom: 3rem; padding: 0 5%; }
+        .card-template { flex: 0 0 300px; border-radius: 24px; }
+        .template-image-box { height: 180px; }
+        .template-info { padding: 1.5rem; }
+        .template-info h3 { font-size: 1.25rem; margin-bottom: 1rem; }
+        .price-box { margin-bottom: 1.5rem; }
+        .template-price { font-size: 1.5rem; }
+        .btn-template-primary { padding: 0.85rem; font-size: 0.9rem; border-radius: 12px; }
+        .scroll-hint { font-size: 0.8rem; margin-top: 1.5rem; }
     }
 </style>

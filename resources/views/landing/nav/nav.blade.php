@@ -1,5 +1,5 @@
 <!-- NAVBAR -->
-<nav class="navbar">
+<nav class="navbar" id="mainNavbar">
     <div class="nav-container">
         <div class="nav-brand" onclick="window.location.href='#beranda'">
             <img src="{{ asset('images/logo.png') }}" alt="DarkandBright Logo" class="nav-logo" />
@@ -14,12 +14,83 @@
         </ul>
         
         <div class="nav-actions">
-            <a href="https://wa.me/6281234567890?text=Halo%20DarkandBright,%20saya%20tertarik%20memesan%20layanan%20Anda." target="_blank" class="btn-nav" style="text-decoration: none;">
+            <a href="https://wa.me/6285859044929?text=Halo%20DarkandBright,%20saya%20tertarik%20memesan%20layanan%20Anda." target="_blank" class="btn-nav desktop-only" style="text-decoration: none;">
                 Pesan Sekarang
             </a>
+            
+            <!-- Hamburger Button for Mobile -->
+            <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
         </div>
     </div>
 </nav>
+
+<!-- Mobile Menu Overlay -->
+<div class="mobile-menu-overlay" id="mobileMenu">
+    <div class="mobile-menu-content">
+        <div class="mobile-menu-header">
+            <img src="{{ asset('images/logo.png') }}" alt="Logo" class="mobile-logo" />
+            <button class="close-menu" id="closeMenuBtn">&times;</button>
+        </div>
+        
+        <nav class="mobile-nav-links">
+            <a href="#beranda" class="mobile-nav-link">Beranda</a>
+            <a href="#kategori" class="mobile-nav-link">Kategori</a>
+            <a href="#template" class="mobile-nav-link">Template</a>
+            <a href="#kalkulator" class="mobile-nav-link">Kalkulator</a>
+            <a href="#kontak" class="mobile-nav-link">Kontak</a>
+        </nav>
+        
+        <div class="mobile-menu-footer">
+            <p class="menu-tagline">Solusi Digital UMKM Naik Kelas</p>
+            <a href="https://wa.me/6285859044929" class="btn-mobile-wa" target="_blank">
+                Hubungi WhatsApp
+            </a>
+            <div class="mobile-socials">
+                <!-- Social icons can be added here if needed -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const closeMenuBtn = document.getElementById('closeMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+        const navbar = document.getElementById('mainNavbar');
+
+        // Toggle Menu
+        function toggleMenu() {
+            mobileMenu.classList.toggle('active');
+            document.body.classList.toggle('menu-open');
+        }
+
+        hamburgerBtn.addEventListener('click', toggleMenu);
+        closeMenuBtn.addEventListener('click', toggleMenu);
+
+        // Close menu when clicking a link
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                document.body.classList.remove('menu-open');
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    });
+</script>
 
 <style>
     .navbar {
@@ -30,14 +101,21 @@
         backdrop-filter: blur(15px);
         -webkit-backdrop-filter: blur(15px);
         border-bottom: 1px solid rgba(241, 245, 249, 0.7);
-        transition: all 0.3s ease;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        padding: 0.5rem 0;
+    }
+
+    .navbar.scrolled {
+        padding: 0.25rem 0;
+        background-color: rgba(255, 255, 255, 0.95);
+        box-shadow: 0 10px 30px -10px rgba(0, 33, 71, 0.1);
     }
 
     .nav-container {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 1.25rem 7%;
+        padding: 0.75rem 7%;
         max-width: 1400px;
         margin: 0 auto;
     }
@@ -49,21 +127,26 @@
     }
 
     .nav-logo {
-        height: 40px; /* Adjust height as needed */
+        height: 40px;
         width: auto;
         object-fit: contain;
+        transition: transform 0.3s ease;
+    }
+
+    .nav-brand:hover .nav-logo {
+        transform: scale(1.05);
     }
 
     .nav-links {
         display: flex;
         list-style: none;
-        gap: 3rem;
+        gap: 2.5rem;
     }
 
     .nav-link {
         text-decoration: none;
         color: #64748b;
-        font-weight: 600;
+        font-weight: 700;
         font-size: 0.95rem;
         transition: all 0.3s ease;
         position: relative;
@@ -77,7 +160,7 @@
         left: 0;
         width: 0;
         height: 2px;
-        background-color: #002147;
+        background: linear-gradient(90deg, #002147, #3b82f6);
         transition: width 0.3s ease;
     }
 
@@ -89,27 +172,161 @@
         width: 100%;
     }
 
+    .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+    }
+
     .btn-nav {
-        background-color: #002147;
+        background: linear-gradient(135deg, #002147 0%, #0c3461 100%);
         color: #fff;
-        border: none;
         padding: 0.75rem 1.75rem;
         border-radius: 12px;
-        font-weight: 700;
+        font-weight: 800;
         font-size: 0.9rem;
-        cursor: pointer;
         transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        box-shadow: 0 4px 6px -1px rgba(0, 33, 71, 0.15);
+        box-shadow: 0 10px 20px -5px rgba(0, 33, 71, 0.3);
     }
 
     .btn-nav:hover {
-        background-color: #0c3461;
         transform: translateY(-2px);
-        box-shadow: 0 10px 15px -3px rgba(0, 33, 71, 0.2);
+        box-shadow: 0 15px 30px -5px rgba(0, 33, 71, 0.4);
+    }
+
+    /* Hamburger Button */
+    .hamburger {
+        display: none;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 30px;
+        height: 21px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        z-index: 1100;
+    }
+
+    .bar {
+        width: 100%;
+        height: 3px;
+        background-color: #002147;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+    }
+
+    /* Mobile Menu Overlay */
+    .mobile-menu-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 33, 71, 0.95);
+        backdrop-filter: blur(10px);
+        z-index: 2000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        transform: translateX(100%);
+    }
+
+    .mobile-menu-overlay.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(0);
+    }
+
+    .mobile-menu-content {
+        width: 85%;
+        max-width: 400px;
+        height: 100%;
+        background: white;
+        margin-left: auto;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        box-shadow: -10px 0 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .mobile-menu-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 3rem;
+    }
+
+    .mobile-logo {
+        height: 35px;
+    }
+
+    .close-menu {
+        font-size: 2.5rem;
+        background: transparent;
+        border: none;
+        color: #002147;
+        cursor: pointer;
+    }
+
+    .mobile-nav-links {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        margin-bottom: auto;
+    }
+
+    .mobile-nav-link {
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: #0f172a;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        padding-left: 0;
+    }
+
+    .mobile-nav-link:hover {
+        color: #3b82f6;
+        padding-left: 10px;
+    }
+
+    .mobile-menu-footer {
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 1px solid #f1f5f9;
+    }
+
+    .menu-tagline {
+        color: #64748b;
+        font-size: 0.9rem;
+        margin-bottom: 1.5rem;
+        font-weight: 600;
+    }
+
+    .btn-mobile-wa {
+        display: block;
+        width: 100%;
+        background: #002147;
+        color: white;
+        text-align: center;
+        padding: 1.25rem;
+        border-radius: 16px;
+        text-decoration: none;
+        font-weight: 800;
+        box-shadow: 0 10px 20px rgba(0, 33, 71, 0.2);
+    }
+
+    body.menu-open {
+        overflow: hidden;
     }
 
     @media (max-width: 900px) {
-        .nav-links { display: none; }
-        .nav-container { padding: 1.25rem 5%; }
+        .nav-links, .desktop-only { display: none; }
+        .hamburger { display: flex; }
+        .nav-container { padding: 0.75rem 5%; }
+        .nav-logo { height: 35px; }
     }
 </style>
