@@ -6,8 +6,8 @@
             <div class="swiper-slide">
                 <div class="hero-container">
                     <div class="hero-content">
-                        <div class="badge">Solusi Digital UMKM</div>
-                        <h1 class="hero-title">Jasa Desain Website <br><span>Murah & Mewah</span></h1>
+                        <div class="badge">🔥 Penawaran Terbatas</div>
+                        <h1 class="hero-title">Website Mewah, <br><span>Mulai 500rb-an</span></h1>
                         <div class="hero-article">
                             <p><strong>Khusus buat UMKM:</strong> Tingkatkan orderan WA Anda dengan website profesional siap pakai. Sekali bayar, langsung online, hasil pasti memuaskan!</p>
                         </div>
@@ -19,6 +19,7 @@
                     <div class="hero-visual">
                         <div class="image-wrapper">
                             <img src="{{ asset('images/hero/entrepreneur.png') }}" alt="Sukses UMKM" class="hero-img-premium" />
+                            <div class="image-overlay-text">Jasa Pembuatan Website <br>Termurah Di Yogyakarta</div>
                             <div class="floating-card trust-card">
                                 <div class="icon">✨</div>
                                 <div>
@@ -36,7 +37,7 @@
                 <div class="hero-container">
                     <div class="hero-content">
                         <div class="badge">Partner Terpercaya</div>
-                        <h1 class="hero-title">Partner Digital <br><span>Terpercaya Anda</span></h1>
+                        <h1 class="hero-title">Solusi Hemat <br><span>Hanya 500rb-an</span></h1>
                         <div class="hero-article">
                             <p>Kami mengerti kebutuhan UMKM. Dapatkan website yang tidak hanya cantik, tapi juga fungsional untuk mendatangkan pelanggan baru setiap hari.</p>
                         </div>
@@ -48,6 +49,7 @@
                     <div class="hero-visual">
                         <div class="image-wrapper">
                             <img src="{{ asset('images/hero/collaboration.png') }}" alt="Kolaborasi Profesional" class="hero-img-premium" />
+                            <div class="image-overlay-text">Jasa Pembuatan Website <br>Termurah Di Yogyakarta</div>
                             <div class="floating-card support-card">
                                 <div class="icon">🤝</div>
                                 <div>
@@ -65,7 +67,7 @@
                 <div class="hero-container">
                     <div class="hero-content">
                         <div class="badge">Kualitas Premium</div>
-                        <h1 class="hero-title">Tampil Profesional <br><span>di Semua Perangkat</span></h1>
+                        <h1 class="hero-title">Go Digital Hari Ini <br><span>Cuma 500rb-an</span></h1>
                         <div class="hero-article">
                             <p>Website responsif yang memukau di HP, Tablet, dan Laptop. Bangun kredibilitas bisnis Anda dengan tampilan kelas dunia.</p>
                         </div>
@@ -77,6 +79,7 @@
                     <div class="hero-visual">
                         <div class="image-wrapper">
                             <img src="{{ asset('images/hero/showcase.png') }}" alt="Website Premium" class="hero-img-premium" />
+                            <div class="image-overlay-text">Jasa Pembuatan Website <br>Termurah Di Yogyakarta</div>
                             <div class="floating-card device-card">
                                 <div class="icon">📱</div>
                                 <div>
@@ -223,6 +226,25 @@
         max-width: 500px;
     }
 
+    .image-overlay-text {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: rgba(0, 33, 71, 0.85);
+        color: white;
+        padding: 0.75rem 1.25rem;
+        border-radius: 15px;
+        font-size: 0.9rem;
+        font-weight: 700;
+        z-index: 5;
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        text-align: right;
+        line-height: 1.3;
+        animation: fadeInRight 1s ease-out;
+    }
+
     .hero-img-premium {
         width: 100%;
         height: auto;
@@ -303,6 +325,11 @@
     @keyframes fadeInUp {
         from { opacity: 0; transform: translateY(30px); }
         to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInRight {
+        from { opacity: 0; transform: translateX(30px); }
+        to { opacity: 1; transform: translateX(0); }
     }
 
     @keyframes floating {
