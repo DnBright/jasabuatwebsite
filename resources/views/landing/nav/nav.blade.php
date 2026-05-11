@@ -1,8 +1,8 @@
 <!-- NAVBAR -->
 <nav class="navbar">
     <div class="nav-container">
-        <div class="nav-brand">
-            <span class="brand-dark">Dark</span><span class="brand-bright">andBright</span>
+        <div class="nav-brand" onclick="window.location.href='#beranda'">
+            <img src="{{ asset('images/logo.png') }}" alt="DarkandBright Logo" class="nav-logo" />
         </div>
         
         <ul class="nav-links">
@@ -43,16 +43,16 @@
     }
 
     .nav-brand {
-        font-size: 1.75rem;
-        font-weight: 800;
-        letter-spacing: -1.2px;
         display: flex;
         align-items: center;
         cursor: pointer;
     }
 
-    .nav-brand .brand-dark { color: #002147; }
-    .nav-brand .brand-bright { color: #3b82f6; }
+    .nav-logo {
+        height: 40px; /* Adjust height as needed */
+        width: auto;
+        object-fit: contain;
+    }
 
     .nav-links {
         display: flex;
