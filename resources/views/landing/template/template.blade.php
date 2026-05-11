@@ -2,6 +2,7 @@
 <section id="template" class="template-section">
     <div class="section-container">
         <div class="section-heading">
+            <div class="badge-mini">Koleksi Desain</div>
             <h2 class="section-title">Pilih <span>Template Website</span> Anda</h2>
             <p class="section-subtitle">Tersedia beragam pilihan desain elegan yang siap tayang untuk mendongkrak jualan UMKM Anda.</p>
         </div>
@@ -12,20 +13,31 @@
                 <div class="card-template">
                     <div class="template-image-box">
                         <a href="{{ route('template.details', $tmpl->id) }}">
-                            <img src="{{ Str::startsWith($tmpl->image, 'http') ? $tmpl->image : asset($tmpl->image) }}" alt="{{ $tmpl->name }}" />
+                            <img src="{{ Str::startsWith($tmpl->image, 'http') ? $tmpl->image : asset($tmpl->image) }}" alt="{{ $tmpl->name }}" loading="lazy" />
                         </a>
                         @if($loop->first)
                         <div class="template-badge">Terlaris</div>
                         @elseif($loop->iteration == 3 || $loop->iteration == 5)
                         <div class="template-badge badge-new">Baru</div>
                         @endif
+                        <div class="template-overlay">
+                            <a href="{{ route('template.demo', $tmpl->id) }}" class="btn-preview" target="_blank">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                                Lihat Demo
+                            </a>
+                        </div>
                     </div>
                     <div class="template-info">
+                        <div class="template-meta">
+                            <span class="category-tag">Premium UMKM</span>
+                        </div>
                         <h3>{{ $tmpl->name }}</h3>
-                        <p class="template-price">Rp {{ $tmpl->packages['basic']['price'] ?? '150.000' }}</p>
+                        <div class="price-box">
+                            <span class="price-label">Mulai dari</span>
+                            <p class="template-price">Rp {{ number_format(intval(str_replace(['.', ','], '', $tmpl->packages['basic']['price'] ?? '500000')), 0, ',', '.') }}</p>
+                        </div>
                         <div class="template-actions">
-                            <a href="{{ route('template.details', $tmpl->id) }}" class="btn-template-primary">Pesan Sekarang</a>
-                            <a href="{{ route('template.demo', $tmpl->id) }}" class="btn-template-outline" target="_blank">Demo</a>
+                            <a href="{{ route('template.details', $tmpl->id) }}" class="btn-template-primary">Detail & Pesan</a>
                         </div>
                     </div>
                 </div>
@@ -34,7 +46,8 @@
         </div>
 
         <div class="scroll-hint">
-            <span>← Geser untuk pilihan lainnya →</span>
+            <span class="hint-icon">↔</span>
+            <span>Geser untuk melihat koleksi lainnya</span>
         </div>
     </div>
 </section>
@@ -42,9 +55,8 @@
 <style>
     .template-section {
         padding: 8rem 0;
-        background-color: #f8fafc;
-        border-top: 1px solid #f1f5f9;
-        border-bottom: 1px solid #f1f5f9;
+        background-color: #ffffff;
+        position: relative;
     }
 
     .section-container {
@@ -58,17 +70,19 @@
         color: #0f172a;
         margin-bottom: 1.5rem;
         font-weight: 800;
-        letter-spacing: -1px;
+        letter-spacing: -2px;
         text-align: center;
     }
 
     .section-title span {
-        color: #002147;
+        background: linear-gradient(90deg, #002147, #3b82f6);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
     }
 
     .section-subtitle {
         color: #64748b;
-        font-size: 1.15rem;
+        font-size: 1.2rem;
         margin-bottom: 5rem;
         max-width: 700px;
         margin-left: auto;
@@ -92,31 +106,31 @@
 
     .template-grid {
         display: flex;
-        gap: 3rem;
-        scroll-snap-type: x mandatory;
+        gap: 2.5rem;
+        padding-bottom: 1rem;
     }
 
     .card-template {
         background: #ffffff;
         border-radius: 32px;
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         border: 1px solid #f1f5f9;
-        flex: 0 0 400px;
-        scroll-snap-align: center;
+        flex: 0 0 380px;
         overflow: hidden;
-        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+        position: relative;
     }
 
     .card-template:hover {
-        transform: translateY(-12px);
-        box-shadow: 0 30px 60px -15px rgba(0, 33, 71, 0.15);
-        border-color: #002147;
+        transform: translateY(-15px);
+        box-shadow: 0 40px 80px -20px rgba(0, 33, 71, 0.15);
+        border-color: #3b82f6;
     }
 
     .template-image-box {
         position: relative;
-        height: 250px;
-        background-color: #f1f5f9;
+        height: 240px;
+        background-color: #f8fafc;
         overflow: hidden;
     }
 
@@ -124,108 +138,136 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-        transition: transform 0.6s ease;
+        transition: transform 0.8s ease;
     }
 
     .card-template:hover .template-image-box img {
         transform: scale(1.1);
     }
 
+    .template-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 33, 71, 0.4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(4px);
+    }
+
+    .card-template:hover .template-overlay {
+        opacity: 1;
+    }
+
+    .btn-preview {
+        background: white;
+        color: #002147;
+        padding: 0.75rem 1.5rem;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transform: translateY(20px);
+        transition: all 0.4s ease;
+    }
+
+    .btn-preview svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .card-template:hover .btn-preview {
+        transform: translateY(0);
+    }
+
     .template-badge {
         position: absolute;
         top: 20px;
-        right: 20px;
-        background-color: #ef4444;
+        left: 20px;
+        background: #ef4444;
         color: white;
-        padding: 0.4rem 1rem;
+        padding: 0.5rem 1.25rem;
         border-radius: 50px;
         font-size: 0.75rem;
         font-weight: 800;
         z-index: 10;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        box-shadow: 0 10px 20px -5px rgba(239, 68, 68, 0.4);
     }
 
     .badge-new {
-        background-color: #3b82f6;
+        background: #3b82f6;
+        box-shadow: 0 10px 20px -5px rgba(59, 130, 246, 0.4);
     }
 
     .template-info {
         padding: 2.5rem;
     }
 
+    .category-tag {
+        color: #3b82f6;
+        font-size: 0.8rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
     .template-info h3 {
         color: #0f172a;
         font-size: 1.5rem;
-        margin-bottom: 0.5rem;
+        margin: 0.5rem 0 1.5rem 0;
         font-weight: 800;
+    }
+
+    .price-box {
+        margin-bottom: 2rem;
+    }
+
+    .price-label {
+        font-size: 0.85rem;
+        color: #64748b;
+        font-weight: 600;
+        display: block;
+        margin-bottom: 0.25rem;
     }
 
     .template-price {
         color: #002147;
-        font-size: 1.75rem;
+        font-size: 2rem;
         font-weight: 800;
-        margin-bottom: 2rem;
-        display: block;
-    }
-
-    .template-actions {
-        display: flex;
-        gap: 1rem;
+        margin-bottom: 0;
+        letter-spacing: -1px;
     }
 
     .btn-template-primary {
-        flex: 1.5;
-        background-color: #002147;
+        display: block;
+        width: 100%;
+        background: linear-gradient(135deg, #002147 0%, #0c3461 100%);
         color: #fff;
-        border: none;
-        padding: 0.85rem;
-        border-radius: 12px;
+        text-decoration: none;
+        padding: 1.1rem;
+        border-radius: 16px;
         font-weight: 700;
-        cursor: pointer;
+        text-align: center;
         transition: all 0.3s ease;
+        box-shadow: 0 10px 20px -5px rgba(0, 33, 71, 0.3);
     }
 
     .btn-template-primary:hover {
-        background-color: #0c3461;
-        transform: translateY(-2px);
+        transform: translateY(-3px);
+        box-shadow: 0 20px 35px -10px rgba(0, 33, 71, 0.4);
     }
 
-    .btn-template-outline {
-        flex: 1;
-        background-color: transparent;
-        color: #002147;
-        border: 2px solid #e2e8f0;
-        padding: 0.85rem;
-        border-radius: 12px;
-        font-weight: 700;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-
-    .btn-template-outline:hover {
-        border-color: #002147;
-        background-color: #f8fafc;
-    }
-
-    .scroll-hint {
-        text-align: center;
-        color: #94a3b8;
-        font-weight: 600;
-        font-size: 0.9rem;
-        margin-top: 1rem;
-        animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-        0%, 100% { opacity: 0.5; }
-        50% { opacity: 1; }
-    }
-
-    @media (max-width: 900px) {
+    @media (max-width: 768px) {
         .card-template { flex: 0 0 320px; }
-        .template-image-box { height: 200px; }
         .template-info { padding: 1.5rem; }
-        .template-price { font-size: 1.5rem; }
+        .template-price { font-size: 1.75rem; }
         .section-title { font-size: 2.25rem; }
     }
 </style>
