@@ -50,7 +50,7 @@
                         <div class="image-wrapper">
                             <img src="{{ asset('images/hero/collaboration.png') }}" alt="Kolaborasi Profesional" class="hero-img-premium" />
                             <div class="image-overlay-text">Jasa Pembuatan Website <br>Termurah Di Yogyakarta</div>
-                            <div class="floating-card support-card">
+                            <div class="floating-card trust-card">
                                 <div class="icon">🤝</div>
                                 <div>
                                     <div class="label">Bantuan 24/7</div>
@@ -80,7 +80,7 @@
                         <div class="image-wrapper">
                             <img src="{{ asset('images/hero/showcase.png') }}" alt="Website Premium" class="hero-img-premium" />
                             <div class="image-overlay-text">Jasa Pembuatan Website <br>Termurah Di Yogyakarta</div>
-                            <div class="floating-card device-card">
+                            <div class="floating-card trust-card">
                                 <div class="icon">📱</div>
                                 <div>
                                     <div class="label">100% Responsif</div>
@@ -277,8 +277,6 @@
     }
 
     .trust-card { bottom: 30px; left: -40px; }
-    .support-card { top: 40px; left: -30px; }
-    .device-card { bottom: 50px; left: -20px; }
 
     .floating-card .icon {
         width: 45px;
@@ -349,9 +347,12 @@
         .hero-visual { order: 1; justify-content: center; width: 100%; }
         .hero-title { font-size: 2.5rem; }
         .hero-actions { justify-content: center; flex-direction: column; }
-        .hero-article p { margin: 0 auto; }
-        .trust-card, .support-card, .device-card { left: 50%; transform: translateX(-50%); bottom: -20px; }
-        .hero-img-premium { transform: rotate(0); width: 80%; }
+        .hero-article p { margin: 0 auto; font-size: 1.1rem; }
+        .trust-card { left: 50%; transform: translateX(-50%); bottom: -15px; width: 85%; padding: 0.75rem 1rem; }
+        .floating-card .icon { width: 35px; height: 35px; font-size: 1.2rem; }
+        .floating-card .label { font-size: 0.85rem; }
+        .image-overlay-text { font-size: 0.75rem; padding: 0.5rem 0.75rem; top: 10px; right: 10px; }
+        .hero-img-premium { transform: rotate(0); width: 100%; max-width: 300px; }
     }
 </style>
 
