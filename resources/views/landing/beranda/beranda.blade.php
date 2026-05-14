@@ -7,7 +7,7 @@
                 <div class="hero-container">
                     <div class="hero-content">
                         <div class="badge">🔥 Penawaran Terbatas</div>
-                        <h1 class="hero-title">Website Mewah, <br><span>Mulai 500rb-an</span></h1>
+                        <h1 class="hero-title">Website Mewah, <br><span>Mulai 1jt-an</span></h1>
                         <div class="hero-article">
                             <p><strong>Khusus buat UMKM:</strong> Tingkatkan orderan WA Anda dengan website profesional siap pakai. Sekali bayar, langsung online, hasil pasti memuaskan!</p>
                         </div>
@@ -37,7 +37,7 @@
                 <div class="hero-container">
                     <div class="hero-content">
                         <div class="badge">Partner Terpercaya</div>
-                        <h1 class="hero-title">Solusi Hemat <br><span>Hanya 500rb-an</span></h1>
+                        <h1 class="hero-title">Solusi Hemat <br><span>Hanya 1jt-an</span></h1>
                         <div class="hero-article">
                             <p>Kami mengerti kebutuhan UMKM. Dapatkan website yang tidak hanya cantik, tapi juga fungsional untuk mendatangkan pelanggan baru setiap hari.</p>
                         </div>
@@ -67,7 +67,7 @@
                 <div class="hero-container">
                     <div class="hero-content">
                         <div class="badge">Kualitas Premium</div>
-                        <h1 class="hero-title">Go Digital Hari Ini <br><span>Cuma 500rb-an</span></h1>
+                        <h1 class="hero-title">Go Digital Hari Ini <br><span>Cuma 1jt-an</span></h1>
                         <div class="hero-article">
                             <p>Website responsif yang memukau di HP, Tablet, dan Laptop. Bangun kredibilitas bisnis Anda dengan tampilan kelas dunia.</p>
                         </div>
