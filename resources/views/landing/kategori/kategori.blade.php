@@ -21,6 +21,58 @@
                     </div>
                 </div>
             </div>
+
+            <div class="portfolio-card glass-premium">
+                <div class="portfolio-image-wrapper">
+                    <img src="{{ asset('images/kecantikan.png') }}" alt="Portfolio Klinik Kecantikan" class="portfolio-img" />
+                    <div class="portfolio-overlay">
+                        <div class="overlay-content">
+                            <span class="category-tag">Beauty & Wellness</span>
+                            <h3>Website Klinik Kecantikan</h3>
+                            <p>Tampilan elegan, integrasi booking layanan, dan galeri treatment eksklusif.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="portfolio-card glass-premium">
+                <div class="portfolio-image-wrapper">
+                    <img src="{{ asset('images/petshop.png') }}" alt="Portfolio Pet Shop" class="portfolio-img" />
+                    <div class="portfolio-overlay">
+                        <div class="overlay-content">
+                            <span class="category-tag">Pet Shop & Care</span>
+                            <h3>Website Pet Shop</h3>
+                            <p>Katalog produk lengkap, informasi grooming, dan kemudahan layanan pelanggan.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="portfolio-card glass-premium">
+                <div class="portfolio-image-wrapper">
+                    <img src="{{ asset('images/potografi_.png') }}" alt="Portfolio Fotografi" class="portfolio-img" />
+                    <div class="portfolio-overlay">
+                        <div class="overlay-content">
+                            <span class="category-tag">Photography</span>
+                            <h3>Website Portofolio Fotografi</h3>
+                            <p>Galeri foto memukau, tampilan paket layanan profesional, dan form booking.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="portfolio-card glass-premium">
+                <div class="portfolio-image-wrapper">
+                    <img src="{{ asset('images/retail atau marketplace.png') }}" alt="Portfolio Retail" class="portfolio-img" />
+                    <div class="portfolio-overlay">
+                        <div class="overlay-content">
+                            <span class="category-tag">Retail & E-Commerce</span>
+                            <h3>Website Toko Online</h3>
+                            <p>Katalog produk dinamis, navigasi mudah, dan optimasi konversi penjualan.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
@@ -94,13 +146,13 @@
 
     .portfolio-showcase {
         margin-top: 2rem;
-        display: flex;
-        justify-content: center;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 2rem;
         perspective: 1000px;
     }
 
     .portfolio-card {
-        max-width: 1000px;
         width: 100%;
         background: rgba(255, 255, 255, 0.7);
         backdrop-filter: blur(20px);
@@ -197,6 +249,7 @@
         .section-title { font-size: 2.25rem; }
         .section-subtitle { font-size: 1rem; margin-bottom: 3rem; padding: 0 5%; }
         .portfolio-card { padding: 1rem; border-radius: 24px; }
+        .portfolio-showcase { grid-template-columns: 1fr; gap: 1.5rem; }
         .portfolio-image-wrapper { aspect-ratio: 4/3; }
         .portfolio-overlay { padding: 1.5rem; }
         .overlay-content h3 { font-size: 1.5rem; }
