@@ -1,6 +1,5 @@
 <!-- PORTFOLIO / KATEGORI SECTION -->
 <section id="kategori" class="categories-section">
-    <div class="category-bg-pattern"></div>
     <div class="section-container">
         <div class="section-heading">
             <div class="badge-mini">Portfolio Unggulan</div>
@@ -12,77 +11,77 @@
             <div class="swiper-wrapper">
                 <!-- F&B -->
                 <div class="swiper-slide">
-                    <div class="umkm-card glass-premium">
+                    <a href="#kontak" class="umkm-card">
                         <div class="umkm-img-wrap">
-                            <img src="{{ asset('images/FNB.png') }}" alt="Website Restoran & Cafe" />
+                            <img src="{{ asset('images/FNB.png') }}" alt="Website Restoran" />
                         </div>
                         <div class="umkm-content">
                             <span class="umkm-tag">Kuliner / F&B</span>
-                            <h3>Website Restoran & Cafe</h3>
-                            <p>Tampilkan menu digital Anda dan terima pesanan langsung via WhatsApp. Sangat cocok untuk cafe, warung makan, dan katering.</p>
-                            <a href="#kontak" class="btn-outline umkm-btn">Konsultasi Sekarang</a>
+                            <h3>Website Restoran</h3>
+                            <p>Terima pesanan via WhatsApp. Cocok untuk cafe dan katering.</p>
+                            <span class="umkm-action">Pilih Paket Ini <span aria-hidden="true">&rarr;</span></span>
                         </div>
-                    </div>
+                    </a>
                 </div>
 
                 <!-- Kecantikan -->
                 <div class="swiper-slide">
-                    <div class="umkm-card glass-premium">
+                    <a href="#kontak" class="umkm-card">
                         <div class="umkm-img-wrap">
                             <img src="{{ asset('images/kecantikan.png') }}" alt="Website Klinik Kecantikan" />
                         </div>
                         <div class="umkm-content">
                             <span class="umkm-tag">Klinik / Salon</span>
                             <h3>Website Kecantikan</h3>
-                            <p>Jadikan klinik atau salon Anda lebih profesional. Pelanggan bisa melihat layanan dan melakukan reservasi dengan mudah.</p>
-                            <a href="#kontak" class="btn-outline umkm-btn">Konsultasi Sekarang</a>
+                            <p>Tampilkan layanan dan mudahkan pelanggan melakukan reservasi jadwal.</p>
+                            <span class="umkm-action">Pilih Paket Ini <span aria-hidden="true">&rarr;</span></span>
                         </div>
-                    </div>
+                    </a>
                 </div>
 
                 <!-- Pet Shop -->
                 <div class="swiper-slide">
-                    <div class="umkm-card glass-premium">
+                    <a href="#kontak" class="umkm-card">
                         <div class="umkm-img-wrap">
                             <img src="{{ asset('images/petshop.png') }}" alt="Website Pet Shop" />
                         </div>
                         <div class="umkm-content">
                             <span class="umkm-tag">Pet Shop & Care</span>
                             <h3>Website Pet Shop</h3>
-                            <p>Tampilkan katalog produk, layanan grooming, dan informasi klinik hewan peliharaan untuk menjangkau lebih banyak pelanggan.</p>
-                            <a href="#kontak" class="btn-outline umkm-btn">Konsultasi Sekarang</a>
+                            <p>Katalog produk terpusat, layanan grooming, dan info klinik hewan.</p>
+                            <span class="umkm-action">Pilih Paket Ini <span aria-hidden="true">&rarr;</span></span>
                         </div>
-                    </div>
+                    </a>
                 </div>
 
                 <!-- Fotografi -->
                 <div class="swiper-slide">
-                    <div class="umkm-card glass-premium">
+                    <a href="#kontak" class="umkm-card">
                         <div class="umkm-img-wrap">
                             <img src="{{ asset('images/potografi_.png') }}" alt="Website Fotografi" />
                         </div>
                         <div class="umkm-content">
                             <span class="umkm-tag">Jasa / Profesional</span>
-                            <h3>Website Portofolio</h3>
-                            <p>Tunjukkan hasil karya terbaik dan paket harga Anda. Permudah calon klien untuk melihat portofolio dan menyewa jasa Anda.</p>
-                            <a href="#kontak" class="btn-outline umkm-btn">Konsultasi Sekarang</a>
+                            <h3>Web Portofolio</h3>
+                            <p>Tunjukkan portofolio karya terbaik dan kemudahan booking jasa Anda.</p>
+                            <span class="umkm-action">Pilih Paket Ini <span aria-hidden="true">&rarr;</span></span>
                         </div>
-                    </div>
+                    </a>
                 </div>
 
                 <!-- Retail -->
                 <div class="swiper-slide">
-                    <div class="umkm-card glass-premium">
+                    <a href="#kontak" class="umkm-card">
                         <div class="umkm-img-wrap">
                             <img src="{{ asset('images/retail atau marketplace.png') }}" alt="Website Toko Online" />
                         </div>
                         <div class="umkm-content">
                             <span class="umkm-tag">Retail / Olshop</span>
-                            <h3>Website Toko Online</h3>
-                            <p>Punya produk fisik? Kami buatkan toko online agar Anda bisa berjualan 24 jam dengan tampilan katalog yang rapi dan menarik.</p>
-                            <a href="#kontak" class="btn-outline umkm-btn">Konsultasi Sekarang</a>
+                            <h3>Toko Online</h3>
+                            <p>Jangkau lebih jauh dengan toko online 24 jam dan katalog produk.</p>
+                            <span class="umkm-action">Pilih Paket Ini <span aria-hidden="true">&rarr;</span></span>
                         </div>
-                    </div>
+                    </a>
                 </div>
             </div>
             
@@ -98,23 +97,10 @@
 
 <style>
     .categories-section {
-        padding: 8rem 0;
+        padding: 5rem 0;
         text-align: center;
-        background-color: #fcfdfe;
+        background-color: #f8fafc;
         position: relative;
-        overflow: hidden;
-    }
-
-    .category-bg-pattern {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 100%;
-        background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
-        background-size: 30px 30px;
-        opacity: 0.3;
-        pointer-events: none;
     }
 
     .section-container {
@@ -179,40 +165,43 @@
 
     .umkm-card {
         background: #ffffff;
-        border: 1px solid #e2e8f0;
-        border-radius: 24px;
+        border: 1px solid #f1f5f9;
+        border-radius: 20px;
         overflow: hidden;
         display: flex;
         flex-direction: column;
         height: 100%;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        text-decoration: none;
+        box-shadow: 0 4px 15px -3px rgba(0, 0, 0, 0.05);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     .umkm-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 20px 40px -10px rgba(0, 33, 71, 0.1);
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px -5px rgba(0, 33, 71, 0.1);
     }
 
     .umkm-img-wrap {
         width: 100%;
-        aspect-ratio: 16/10;
+        aspect-ratio: 4/3;
         overflow: hidden;
-        border-bottom: 1px solid #f1f5f9;
+        border-bottom: 1px solid #f8fafc;
+        background-color: #f8fafc;
     }
 
     .umkm-img-wrap img {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        transition: transform 0.5s ease;
+        transition: transform 0.4s ease;
     }
     
     .umkm-card:hover .umkm-img-wrap img {
-        transform: scale(1.05);
+        transform: scale(1.03);
     }
 
     .umkm-content {
-        padding: 2rem;
+        padding: 1.5rem;
         text-align: left;
         display: flex;
         flex-direction: column;
@@ -220,40 +209,43 @@
     }
 
     .umkm-tag {
-        display: inline-block;
-        padding: 0.4rem 1rem;
-        background: #f1f5f9;
+        display: block;
         color: #3b82f6;
-        border-radius: 50px;
-        font-size: 0.8rem;
+        font-size: 0.75rem;
         font-weight: 700;
-        margin-bottom: 1rem;
+        margin-bottom: 0.4rem;
         text-transform: uppercase;
-        align-self: flex-start;
+        letter-spacing: 0.5px;
     }
 
     .umkm-content h3 {
         color: #0f172a;
-        font-size: 1.4rem;
+        font-size: 1.25rem;
         font-weight: 800;
-        margin-bottom: 0.75rem;
+        margin-bottom: 0.5rem;
         line-height: 1.3;
     }
 
     .umkm-content p {
         color: #64748b;
-        font-size: 1rem;
-        line-height: 1.6;
+        font-size: 0.95rem;
+        line-height: 1.5;
         margin-bottom: 1.5rem;
         flex-grow: 1;
     }
     
-    .umkm-btn {
-        width: 100%;
-        text-align: center;
-        padding: 0.7rem 1rem;
+    .umkm-action {
+        color: #002147;
         font-size: 0.95rem;
-        border-radius: 10px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+        transition: color 0.2s ease;
+    }
+
+    .umkm-card:hover .umkm-action {
+        color: #3b82f6;
     }
 
     .swiper-nav-wrapper {
@@ -298,9 +290,9 @@
         .section-title { font-size: 2.25rem; }
         .section-subtitle { font-size: 1rem; margin-bottom: 3rem; padding: 0 5%; }
         .portfolio-showcase { padding-bottom: 2rem; }
-        .umkm-content { padding: 1.5rem; }
-        .umkm-content h3 { font-size: 1.25rem; }
-        .umkm-content p { font-size: 0.95rem; margin-bottom: 1.2rem; }
+        .umkm-content { padding: 1.25rem; }
+        .umkm-content h3 { font-size: 1.15rem; }
+        .umkm-content p { font-size: 0.9rem; margin-bottom: 1.2rem; }
         .swiper-button-prev, .swiper-button-next { display: none !important; }
         .swiper-nav-wrapper { margin-top: 1.5rem; }
     }
