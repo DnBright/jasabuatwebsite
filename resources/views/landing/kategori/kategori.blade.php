@@ -8,71 +8,86 @@
             <p class="section-subtitle">Lihat bagaimana kami mentransformasi bisnis F&B menjadi lebih profesional dan modern dengan website kelas dunia.</p>
         </div>
 
-        <div class="portfolio-showcase">
-            <div class="portfolio-card glass-premium">
-                <div class="portfolio-image-wrapper">
-                    <img src="{{ asset('images/FNB.png') }}" alt="Portfolio F&B DarkandBright" class="portfolio-img" />
-                    <div class="portfolio-overlay">
-                        <div class="overlay-content">
-                            <span class="category-tag">F&B Industry</span>
-                            <h3>Website Restoran & Cafe</h3>
-                            <p>Desain responsif, integrasi menu digital, dan optimasi order WhatsApp.</p>
+        <div class="swiper kategori-swiper portfolio-showcase">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <div class="portfolio-card glass-premium">
+                        <div class="portfolio-image-wrapper">
+                            <img src="{{ asset('images/FNB.png') }}" alt="Portfolio F&B DarkandBright" class="portfolio-img" />
+                            <div class="portfolio-overlay">
+                                <div class="overlay-content">
+                                    <span class="category-tag">F&B Industry</span>
+                                    <h3>Website Restoran & Cafe</h3>
+                                    <p>Desain responsif, integrasi menu digital, dan optimasi order WhatsApp.</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="portfolio-card glass-premium">
-                <div class="portfolio-image-wrapper">
-                    <img src="{{ asset('images/kecantikan.png') }}" alt="Portfolio Klinik Kecantikan" class="portfolio-img" />
-                    <div class="portfolio-overlay">
-                        <div class="overlay-content">
-                            <span class="category-tag">Beauty & Wellness</span>
-                            <h3>Website Klinik Kecantikan</h3>
-                            <p>Tampilan elegan, integrasi booking layanan, dan galeri treatment eksklusif.</p>
+                <div class="swiper-slide">
+                    <div class="portfolio-card glass-premium">
+                        <div class="portfolio-image-wrapper">
+                            <img src="{{ asset('images/kecantikan.png') }}" alt="Portfolio Klinik Kecantikan" class="portfolio-img" />
+                            <div class="portfolio-overlay">
+                                <div class="overlay-content">
+                                    <span class="category-tag">Beauty & Wellness</span>
+                                    <h3>Website Klinik Kecantikan</h3>
+                                    <p>Tampilan elegan, integrasi booking layanan, dan galeri treatment eksklusif.</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="portfolio-card glass-premium">
-                <div class="portfolio-image-wrapper">
-                    <img src="{{ asset('images/petshop.png') }}" alt="Portfolio Pet Shop" class="portfolio-img" />
-                    <div class="portfolio-overlay">
-                        <div class="overlay-content">
-                            <span class="category-tag">Pet Shop & Care</span>
-                            <h3>Website Pet Shop</h3>
-                            <p>Katalog produk lengkap, informasi grooming, dan kemudahan layanan pelanggan.</p>
+                <div class="swiper-slide">
+                    <div class="portfolio-card glass-premium">
+                        <div class="portfolio-image-wrapper">
+                            <img src="{{ asset('images/petshop.png') }}" alt="Portfolio Pet Shop" class="portfolio-img" />
+                            <div class="portfolio-overlay">
+                                <div class="overlay-content">
+                                    <span class="category-tag">Pet Shop & Care</span>
+                                    <h3>Website Pet Shop</h3>
+                                    <p>Katalog produk lengkap, informasi grooming, dan kemudahan layanan pelanggan.</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="portfolio-card glass-premium">
-                <div class="portfolio-image-wrapper">
-                    <img src="{{ asset('images/potografi_.png') }}" alt="Portfolio Fotografi" class="portfolio-img" />
-                    <div class="portfolio-overlay">
-                        <div class="overlay-content">
-                            <span class="category-tag">Photography</span>
-                            <h3>Website Portofolio Fotografi</h3>
-                            <p>Galeri foto memukau, tampilan paket layanan profesional, dan form booking.</p>
+                <div class="swiper-slide">
+                    <div class="portfolio-card glass-premium">
+                        <div class="portfolio-image-wrapper">
+                            <img src="{{ asset('images/potografi_.png') }}" alt="Portfolio Fotografi" class="portfolio-img" />
+                            <div class="portfolio-overlay">
+                                <div class="overlay-content">
+                                    <span class="category-tag">Photography</span>
+                                    <h3>Website Portofolio Fotografi</h3>
+                                    <p>Galeri foto memukau, tampilan paket layanan profesional, dan form booking.</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="portfolio-card glass-premium">
-                <div class="portfolio-image-wrapper">
-                    <img src="{{ asset('images/retail atau marketplace.png') }}" alt="Portfolio Retail" class="portfolio-img" />
-                    <div class="portfolio-overlay">
-                        <div class="overlay-content">
-                            <span class="category-tag">Retail & E-Commerce</span>
-                            <h3>Website Toko Online</h3>
-                            <p>Katalog produk dinamis, navigasi mudah, dan optimasi konversi penjualan.</p>
+                <div class="swiper-slide">
+                    <div class="portfolio-card glass-premium">
+                        <div class="portfolio-image-wrapper">
+                            <img src="{{ asset('images/retail atau marketplace.png') }}" alt="Portfolio Retail" class="portfolio-img" />
+                            <div class="portfolio-overlay">
+                                <div class="overlay-content">
+                                    <span class="category-tag">Retail & E-Commerce</span>
+                                    <h3>Website Toko Online</h3>
+                                    <p>Katalog produk dinamis, navigasi mudah, dan optimasi konversi penjualan.</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+            
+            <!-- Swiper Pagination -->
+            <div class="swiper-pagination" style="position: absolute; bottom: 0;"></div>
         </div>
     </div>
 </section>
@@ -146,10 +161,16 @@
 
     .portfolio-showcase {
         margin-top: 2rem;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-        gap: 2rem;
-        perspective: 1000px;
+        padding-bottom: 4rem;
+        position: relative;
+    }
+
+    .kategori-swiper .swiper-slide {
+        height: auto;
+    }
+
+    .swiper-pagination-bullet-active {
+        background: #3b82f6 !important;
     }
 
     .portfolio-card {
@@ -249,11 +270,44 @@
         .section-title { font-size: 2.25rem; }
         .section-subtitle { font-size: 1rem; margin-bottom: 3rem; padding: 0 5%; }
         .portfolio-card { padding: 1rem; border-radius: 24px; }
-        .portfolio-showcase { grid-template-columns: 1fr; gap: 1.5rem; }
+        .portfolio-showcase { padding-bottom: 3rem; }
         .portfolio-image-wrapper { aspect-ratio: 4/3; }
         .portfolio-overlay { padding: 1.5rem; }
         .overlay-content h3 { font-size: 1.5rem; }
         .overlay-content p { font-size: 0.9rem; }
     }
 </style>
-</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        if (typeof Swiper !== 'undefined') {
+            new Swiper('.kategori-swiper', {
+                slidesPerView: 1,
+                spaceBetween: 20,
+                loop: true,
+                grabCursor: true,
+                autoplay: {
+                    delay: 4000,
+                    disableOnInteraction: false,
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                    dynamicBullets: true,
+                },
+                breakpoints: {
+                    768: {
+                        slidesPerView: 1.5,
+                        spaceBetween: 30,
+                        centeredSlides: true,
+                    },
+                    1024: {
+                        slidesPerView: 2,
+                        spaceBetween: 40,
+                        centeredSlides: false,
+                    }
+                }
+            });
+        }
+    });
+</script>
