@@ -86,10 +86,13 @@
             </div>
             
             <!-- Swiper Navigation & Pagination -->
-            <div class="swiper-nav-wrapper">
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-pagination"></div>
-                <div class="swiper-button-next"></div>
+            <div class="swiper-controls-container">
+                <p class="swipe-hint">Geser untuk melihat kategori lain</p>
+                <div class="swiper-nav-wrapper">
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-next"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -248,12 +251,37 @@
         color: #3b82f6;
     }
 
+    .swiper-controls-container {
+        margin-top: 2.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .swipe-hint {
+        color: #64748b;
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        letter-spacing: 0.5px;
+    }
+
+    .swipe-hint::before, .swipe-hint::after {
+        content: '';
+        display: block;
+        width: 30px;
+        height: 1px;
+        background-color: #cbd5e1;
+    }
+
     .swiper-nav-wrapper {
         display: flex;
         align-items: center;
         justify-content: center;
         gap: 1.5rem;
-        margin-top: 2.5rem;
     }
 
     .swiper-button-prev, .swiper-button-next {
@@ -293,8 +321,14 @@
         .umkm-content { padding: 1.25rem; }
         .umkm-content h3 { font-size: 1.15rem; }
         .umkm-content p { font-size: 0.9rem; margin-bottom: 1.2rem; }
-        .swiper-button-prev, .swiper-button-next { display: none !important; }
-        .swiper-nav-wrapper { margin-top: 1.5rem; }
+        .swiper-button-prev, .swiper-button-next { 
+            width: 40px !important; 
+            height: 40px !important; 
+        }
+        .swiper-button-prev::after, .swiper-button-next::after {
+            font-size: 0.85rem !important;
+        }
+        .swiper-controls-container { margin-top: 1.5rem; }
     }
 </style>
 
