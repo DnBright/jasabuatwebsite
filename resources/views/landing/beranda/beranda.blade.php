@@ -6,10 +6,10 @@
             <div class="swiper-slide">
                 <div class="hero-container">
                     <div class="hero-content">
-                        <div class="badge">🔥 Penawaran Terbatas</div>
-                        <h1 class="hero-title">Website Mewah, <br><span>Mulai 1jt-an</span></h1>
+                        <div class="badge">🔥 Jasa Pembuatan Website</div>
+                        <h1 class="hero-title">Bikin Website Bisnis, <br><span>Mulai 1jt-an</span></h1>
                         <div class="hero-article">
-                            <p><strong>Khusus buat UMKM:</strong> Tingkatkan orderan WA Anda dengan website profesional siap pakai. Sekali bayar, langsung online, hasil pasti memuaskan!</p>
+                            <p><strong>Terima Beres:</strong> Tingkatkan kredibilitas dan orderan bisnis Anda dengan website profesional. Kami bantu buatkan dari nol sampai online!</p>
                         </div>
                         <div class="hero-actions">
                             <a href="{{ $hero->button_link ?? '#' }}" class="btn-primary-custom" target="_blank">{{ $hero->button_text ?? 'Pesan Sekarang' }}</a>
@@ -36,10 +36,10 @@
             <div class="swiper-slide">
                 <div class="hero-container">
                     <div class="hero-content">
-                        <div class="badge">Partner Terpercaya</div>
-                        <h1 class="hero-title">Solusi Hemat <br><span>Hanya 1jt-an</span></h1>
+                        <div class="badge">Partner Digital UMKM</div>
+                        <h1 class="hero-title">Desain Premium, <br><span>Hanya 1jt-an</span></h1>
                         <div class="hero-article">
-                            <p>Kami mengerti kebutuhan UMKM. Dapatkan website yang tidak hanya cantik, tapi juga fungsional untuk mendatangkan pelanggan baru setiap hari.</p>
+                            <p>Tidak perlu pusing mikir teknis. Dapatkan website toko online, portofolio, atau profil perusahaan yang siap mendatangkan pelanggan baru.</p>
                         </div>
                         <div class="hero-actions">
                             <a href="{{ $hero->button_link ?? '#' }}" class="btn-primary-custom" target="_blank">Konsultasi Gratis</a>
@@ -66,10 +66,10 @@
             <div class="swiper-slide">
                 <div class="hero-container">
                     <div class="hero-content">
-                        <div class="badge">Kualitas Premium</div>
-                        <h1 class="hero-title">Go Digital Hari Ini <br><span>Cuma 1jt-an</span></h1>
+                        <div class="badge">Layanan All-in-One</div>
+                        <h1 class="hero-title">Go Digital Hari Ini, <br><span>Cuma 1jt-an</span></h1>
                         <div class="hero-article">
-                            <p>Website responsif yang memukau di HP, Tablet, dan Laptop. Bangun kredibilitas bisnis Anda dengan tampilan kelas dunia.</p>
+                            <p>Website super responsif di HP dan Laptop lengkap dengan fitur integrasi WhatsApp. Wujudkan tampilan bisnis yang lebih terpercaya sekarang juga.</p>
                         </div>
                         <div class="hero-actions">
                             <a href="{{ $hero->button_link ?? '#' }}" class="btn-primary-custom" target="_blank">Mulai Sekarang</a>
