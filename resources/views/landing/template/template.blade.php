@@ -34,7 +34,7 @@
                         <h3>{{ $tmpl->name }}</h3>
                         <div class="price-box">
                             <span class="price-label">Mulai dari</span>
-                            <p class="template-price">Rp {{ number_format(intval(str_replace(['.', ','], '', $tmpl->packages['basic']['price'] ?? '500000')), 0, ',', '.') }}</p>
+                            <p class="template-price">Rp {{ number_format(intval(str_replace(['.', ','], '', $tmpl->packages['basic']['price'] ?? '1000000')), 0, ',', '.') }}</p>
                         </div>
                         <div class="template-actions">
                             <a href="{{ route('template.details', $tmpl->id) }}" class="btn-template-primary">Detail & Pesan</a>
