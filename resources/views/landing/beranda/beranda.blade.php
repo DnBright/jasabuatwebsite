@@ -25,7 +25,7 @@
 
             <div class="hero-actions">
                 <a href="#kontak" class="btn-primary-custom">Konsultasi Gratis</a>
-                <a href="#template" class="btn-outline-custom">Lihat Desain</a>
+                <a href="#kategori" class="btn-outline-custom">Karya Kami</a>
             </div>
         </div>
         

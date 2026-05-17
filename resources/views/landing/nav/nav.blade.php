@@ -12,7 +12,6 @@
         <ul class="nav-links">
             <li><a href="#beranda" class="nav-link">Beranda</a></li>
             <li><a href="#kategori" class="nav-link">Kategori</a></li>
-            <li><a href="#template" class="nav-link">Template</a></li>
             <li><a href="#kalkulator" class="nav-link">Kalkulator</a></li>
             <li><a href="#kontak" class="nav-link">Kontak</a></li>
         </ul>
@@ -43,7 +42,6 @@
         <nav class="mobile-nav-links">
             <a href="#beranda" class="mobile-nav-link">Beranda</a>
             <a href="#kategori" class="mobile-nav-link">Kategori</a>
-            <a href="#template" class="mobile-nav-link">Template</a>
             <a href="#kalkulator" class="mobile-nav-link">Kalkulator</a>
             <a href="#kontak" class="mobile-nav-link">Kontak</a>
         </nav>
