@@ -120,7 +120,7 @@
     @include('landing.nav.nav')
     @include('landing.beranda.beranda')
     @include('landing.kategori.kategori')
-
+    @include('landing.langkah.langkah')
     @include('landing.kalkulator.kalkulator')
     @include('landing.kontak.kontak')
 
