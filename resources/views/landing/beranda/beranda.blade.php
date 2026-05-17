@@ -31,7 +31,7 @@
         
         <div class="hero-visual">
             <div class="image-wrapper">
-                <img src="{{ asset('images/hero/showcase.png') }}" alt="Website Premium UMKM" class="hero-img-simple" />
+                <img src="{{ asset('images/hero/showcase_asia.png') }}" alt="Website Premium UMKM" class="hero-img-simple" />
             </div>
         </div>
     </div>
