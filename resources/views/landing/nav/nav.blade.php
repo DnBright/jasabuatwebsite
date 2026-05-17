@@ -1,11 +1,12 @@
 <!-- NAVBAR -->
 <nav class="navbar" id="mainNavbar">
-    <div class="nav-announcement">
-        <span class="pulse-dot"></span> Jasa Pembuatan Website Termurah Di Yogyakarta
-    </div>
     <div class="nav-container">
         <div class="nav-brand" onclick="window.location.href='#beranda'">
             <img src="{{ asset('images/logo.png') }}" alt="DarkandBright Logo" class="nav-logo" />
+            <div class="brand-seo-text desktop-only">
+                <strong>Jasa Pembuatan Website</strong>
+                <span>Termurah Di Yogyakarta</span>
+            </div>
         </div>
         
         <ul class="nav-links">
@@ -100,46 +101,12 @@
         position: sticky;
         top: 0;
         z-index: 1000;
-        background-color: rgba(255, 255, 255, 0.95);
+        background-color: rgba(255, 255, 255, 0.85);
         backdrop-filter: blur(15px);
         -webkit-backdrop-filter: blur(15px);
         border-bottom: 1px solid rgba(241, 245, 249, 0.7);
         transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        padding: 0;
-    }
-
-    .nav-announcement {
-        background: linear-gradient(90deg, #002147, #0c3461);
-        color: #ffffff;
-        text-align: center;
-        padding: 0.4rem 5%;
-        font-size: 0.75rem;
-        font-weight: 600;
-        letter-spacing: 0.5px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.5rem;
-        transition: all 0.3s ease;
-    }
-
-    .navbar.scrolled .nav-announcement {
-        display: none;
-    }
-
-    .pulse-dot {
-        width: 6px;
-        height: 6px;
-        background-color: #22c55e;
-        border-radius: 50%;
-        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
-        animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-        0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
-        70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
-        100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+        padding: 0.5rem 0;
     }
 
     .navbar.scrolled {
@@ -161,6 +128,27 @@
         display: flex;
         align-items: center;
         cursor: pointer;
+        gap: 1rem;
+    }
+
+    .brand-seo-text {
+        display: flex;
+        flex-direction: column;
+        border-left: 2px solid #e2e8f0;
+        padding-left: 1rem;
+        line-height: 1.2;
+    }
+
+    .brand-seo-text strong {
+        color: #0f172a;
+        font-size: 0.85rem;
+        font-weight: 800;
+    }
+
+    .brand-seo-text span {
+        color: #64748b;
+        font-size: 0.7rem;
+        font-weight: 600;
     }
 
     .nav-logo {
