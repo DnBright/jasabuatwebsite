@@ -49,6 +49,46 @@ jobs:
           README.md
           **/vendor/**
 
+    - name: Run FTP Diagnostics
+      run: |
+        python3 -c '
+        import ftplib
+        import urllib.request
+        import json
+        try:
+            print("Connecting to FTP...")
+            ftp = ftplib.FTP("${{ secrets.FTP_SERVER }}")
+            ftp.login("${{ secrets.FTP_USERNAME }}", "${{ secrets.FTP_PASSWORD }}")
+            pwd = ftp.pwd()
+            output = f"FTP PWD: {pwd}\n\n"
+            
+            files = []
+            ftp.dir(files.append)
+            output += "FTP ROOT DIR LIST:\n" + "\n".join(files) + "\n\n"
+            
+            for path in ["public_html", "thedarkandbright.com", "public_html/thedarkandbright.com"]:
+                try:
+                    subfiles = []
+                    ftp.dir(path, subfiles.append)
+                    output += f"FTP DIR {path} LIST:\n" + "\n".join(subfiles) + "\n\n"
+                except Exception as ex:
+                    output += f"FTP DIR {path} ERROR: {str(ex)}\n\n"
+            
+            ftp.quit()
+            
+            # Post output to our server
+            req = urllib.request.Request(
+                "https://thedarkandbright.com/diagnose-ftp.php?token=bPXwtuggH5qk81",
+                data=output.encode("utf-8"),
+                headers={"Content-Type": "text/plain"},
+                method="POST"
+            )
+            with urllib.request.urlopen(req) as res:
+                print("Diagnostics sent successfully. Server responded:", res.read().decode())
+        except Exception as e:
+            print("Diagnostics script error:", str(e))
+        ' || true
+
     - name: Trigger Post-Deployment Artisan Tasks
       run: |
         curl -i "https://thedarkandbright.com/deploy-maintenance-trigger?token=bPXwtuggH5qk81"
