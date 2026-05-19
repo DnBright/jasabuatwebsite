@@ -75,4 +75,63 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 });
 
+use Illuminate\Support\Facades\Artisan;
+
+Route::get('/deploy-maintenance-trigger', function (Request $request) {
+    if ($request->query('token') !== 'bPXwtuggH5qk81') {
+        abort(403, 'Unauthorized');
+    }
+
+    $output = [];
+    
+    // 1. Run migrations
+    try {
+        Artisan::call('migrate', ['--force' => true]);
+        $output[] = 'Migrasi: ' . trim(Artisan::output());
+    } catch (\Exception $e) {
+        $output[] = 'Migrasi Gagal: ' . $e->getMessage();
+    }
+
+    // 2. Storage symlink native
+    try {
+        $target = storage_path('app/public');
+        $link = public_path('storage');
+        if (!file_exists($link)) {
+            @symlink($target, $link);
+            $output[] = 'Symlink Storage: Sukses dibuat secara native!';
+        } else {
+            $output[] = 'Symlink Storage: Sudah ada.';
+        }
+    } catch (\Exception $e) {
+        $output[] = 'Symlink Storage Gagal: ' . $e->getMessage();
+    }
+
+    // 3. Database seeding if empty
+    try {
+        if (\App\Models\Template::count() === 0) {
+            Artisan::call('db:seed', ['--class' => 'DashboardDataSeeder', '--force' => true]);
+            Artisan::call('db:seed', ['--class' => 'CalculatorFeatureSeeder', '--force' => true]);
+            Artisan::call('db:seed', ['--class' => 'UmkmTrendSeeder', '--force' => true]);
+            $output[] = 'Seeding Data Awal: Sukses!';
+        } else {
+            $output[] = 'Seeding Data Awal: Dilewati (database sudah berisi data).';
+        }
+    } catch (\Exception $e) {
+        $output[] = 'Seeding Gagal: ' . $e->getMessage();
+    }
+
+    // 4. Optimize Cache
+    try {
+        Artisan::call('optimize');
+        $output[] = 'Cache Optimize: ' . trim(Artisan::output());
+    } catch (\Exception $e) {
+        $output[] = 'Optimize Gagal: ' . $e->getMessage();
+    }
+
+    return response()->json([
+        'status' => 'success',
+        'log' => $output
+    ]);
+});
+
 require __DIR__.'/settings.php';
