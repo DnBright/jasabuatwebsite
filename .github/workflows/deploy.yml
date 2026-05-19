@@ -47,6 +47,7 @@ jobs:
           .env
           phpunit.xml
           README.md
+          vendor/**
 
     - name: Trigger Post-Deployment Artisan Tasks
       run: |
