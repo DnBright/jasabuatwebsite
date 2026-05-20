@@ -58,6 +58,37 @@ Route::get('/demo/{id}', function ($id) {
     return view($demoView, compact('template'));
 })->name('template.demo');
 
+Route::get('/debug-files', function () {
+    $output = "Public Path: " . public_path() . "\n\n";
+    $output .= "Files in public:\n";
+    $files = scandir(public_path());
+    foreach ($files as $file) {
+        $output .= $file . "\n";
+    }
+    
+    $imagesPath = public_path('images');
+    $output .= "\nImages Path: " . $imagesPath . "\n\n";
+    if (is_dir($imagesPath)) {
+        $output .= "Files in public/images:\n";
+        $files = scandir($imagesPath);
+        foreach ($files as $file) {
+            $output .= $file . "\n";
+        }
+        
+        // Also check hero
+        if (is_dir($imagesPath . '/hero')) {
+            $output .= "\nFiles in public/images/hero:\n";
+            $files = scandir($imagesPath . '/hero');
+            foreach ($files as $file) {
+                $output .= $file . "\n";
+            }
+        }
+    } else {
+        $output .= "public/images is NOT a directory\n";
+    }
+    return response($output)->header('Content-Type', 'text/plain');
+});
+
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
