@@ -32,6 +32,52 @@ jobs:
         npm install
         npm run build
 
+    - name: Force Upload Images via FTP
+      run: |
+        python3 << 'PYEOF'
+        import ftplib
+        import os
+
+        server   = "${{ secrets.FTP_SERVER }}"
+        username = "${{ secrets.FTP_USERNAME }}"
+        password = "${{ secrets.FTP_PASSWORD }}"
+        remote_base = "/public_html/thedarkandbright.com/public/images"
+        local_base  = "public/images"
+
+        def ensure_dir(ftp, path):
+            try:
+                ftp.mkd(path)
+            except ftplib.error_perm:
+                pass  # sudah ada
+
+        try:
+            ftp = ftplib.FTP(server)
+            ftp.login(username, password)
+            ftp.set_pasv(True)
+
+            for root, dirs, files in os.walk(local_base):
+                rel_root = os.path.relpath(root, local_base)
+                if rel_root == '.':
+                    remote_dir = remote_base
+                else:
+                    remote_dir = remote_base + '/' + rel_root.replace('\\', '/')
+
+                ensure_dir(ftp, remote_dir)
+                ftp.cwd(remote_dir)
+
+                for filename in files:
+                    local_file = os.path.join(root, filename)
+                    print(f"Uploading: {local_file} -> {remote_dir}/{filename}")
+                    with open(local_file, 'rb') as f:
+                        ftp.storbinary(f'STOR {filename}', f)
+
+            ftp.quit()
+            print("All images uploaded successfully!")
+        except Exception as e:
+            print(f"FTP Image Upload Error: {e}")
+            raise
+        PYEOF
+
     - name: Sync Files via FTP
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
       with:
