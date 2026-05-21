@@ -307,6 +307,10 @@
     .swiper-pagination {
         position: static !important;
         width: auto !important;
+        margin: 0 !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .swiper-pagination-bullet-active {
