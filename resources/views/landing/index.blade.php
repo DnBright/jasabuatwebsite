@@ -122,6 +122,7 @@
     @include('landing.beranda.beranda')
     @include('landing.kategori.kategori')
     @include('landing.langkah.langkah')
+    @include('landing.paket.paket')
     @include('landing.kontak.kontak')
 
     <!-- Floating WhatsApp Button -->

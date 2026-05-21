@@ -12,6 +12,7 @@
         <ul class="nav-links">
             <li><a href="#beranda" class="nav-link">Beranda</a></li>
             <li><a href="#kategori" class="nav-link">Kategori</a></li>
+            <li><a href="#paket" class="nav-link">Harga Paket</a></li>
             <li><a href="#kontak" class="nav-link">Kontak</a></li>
         </ul>
         
