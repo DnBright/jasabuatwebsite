@@ -2,10 +2,10 @@
 <header id="beranda" class="hero-section">
     <div class="hero-container">
         <div class="hero-content">
-            <div class="badge">🚀 Jasa Pembuatan Website</div>
-            <h1 class="hero-title">Bikin Website Bisnis, <br><span>Mulai 1jt-an</span></h1>
+            <div class="badge">Jasa Pembuatan Website</div>
+            <h1 class="hero-title">{!! $hero->title ?? 'Bikin Website Bisnis,' !!} <br><span>{{ $hero->title_highlight ?? 'Mulai 1jt-an' }}</span></h1>
             <p class="hero-subtitle">
-                Tingkatkan kredibilitas dan orderan bisnis Anda dengan website profesional siap pakai. <strong>Terima beres</strong>, dari nol sampai online!
+                {!! $hero->description ?? 'Tingkatkan kredibilitas dan orderan bisnis Anda dengan website profesional siap pakai. <strong>Terima beres</strong>, dari nol sampai online!' !!}
             </p>
             
             <div class="hero-features">
@@ -24,14 +24,14 @@
             </div>
 
             <div class="hero-actions">
-                <a href="#kontak" class="btn-primary-custom">Konsultasi Gratis</a>
-                <a href="#kategori" class="btn-outline-custom">Karya Kami</a>
+                <a href="{{ $hero->button_link ?? '#kontak' }}" class="btn-primary-custom">{{ $hero->button_text ?? 'Konsultasi Gratis' }}</a>
+                <a href="{{ $hero->secondary_button_link ?? '#kategori' }}" class="btn-outline-custom">{{ $hero->secondary_button_text ?? 'Karya Kami' }}</a>
             </div>
         </div>
         
         <div class="hero-visual">
             <div class="image-wrapper">
-                <img src="{{ asset('images/hero/showcase_asia.png') }}" alt="Website Premium UMKM" class="hero-img-simple" />
+                <img src="{{ !empty($hero->image) ? (str_starts_with($hero->image, 'http') ? $hero->image : asset($hero->image)) : asset('images/hero/showcase_asia.png') }}" alt="Website Premium UMKM" class="hero-img-simple" />
             </div>
         </div>
     </div>
