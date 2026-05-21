@@ -64,8 +64,12 @@
                 <i data-lucide="layout-template" class="mr-3 w-5 h-5"></i> Templates
             </a>
 
-            <a href="{{ route('dashboard.calculator-features.index') }}" class="flex items-center px-4 py-3 rounded-md transition-colors {{ request()->routeIs('dashboard.calculator-features.*') ? 'active' : '' }}">
-                <i data-lucide="calculator" class="mr-3 w-5 h-5"></i> Kalkulator
+            <a href="{{ route('dashboard.packages.index') }}" class="flex items-center px-4 py-3 rounded-md transition-colors {{ request()->routeIs('dashboard.packages.*') ? 'active' : '' }}">
+                <i data-lucide="package" class="mr-3 w-5 h-5"></i> Paket Harga
+            </a>
+
+            <a href="{{ route('dashboard.settings.index') }}" class="flex items-center px-4 py-3 rounded-md transition-colors {{ request()->routeIs('dashboard.settings.*') ? 'active' : '' }}">
+                <i data-lucide="settings" class="mr-3 w-5 h-5"></i> Pengaturan Umum
             </a>
         </nav>
         <div class="p-4 border-t border-gray-800">

@@ -8,126 +8,46 @@
         </div>
 
         <div class="pricing-grid">
-            <!-- Paket 1 -->
-            <div class="pricing-card">
-                <div class="pricing-card-header">
-                    <h3>Paket Basic</h3>
-                    <div class="price-box">
-                        <span class="currency">Rp</span>
-                        <span class="amount">2.5</span>
-                        <span class="period">Juta</span>
-                    </div>
-                    <p class="payment-terms">Bisa dicicil <strong>3x bayar</strong> per bulan</p>
-                </div>
-                <div class="pricing-card-body">
-                    <ul class="features-list">
-                        <li>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                            Website <strong>Terima Jadi</strong>
-                        </li>
-                        <li>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                            <strong>Gratis</strong> Domain Pilihan
-                        </li>
-                        <li>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                            Desain Responsif & Modern
-                        </li>
-                        <li class="disabled">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="#cbd5e1" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                            <span>Dashboard Admin Khusus</span>
-                        </li>
-                        <li class="disabled">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="#cbd5e1" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                            <span>Support Optimasi SEO</span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="pricing-card-footer">
-                    <a href="https://wa.me/6285859044929?text=Halo%20DarkandBright,%20saya%20tertarik%20dengan%20Paket%20Basic%20seharga%202.5%20Juta." target="_blank" class="btn-pricing btn-outline">Pilih Paket Basic</a>
-                </div>
-            </div>
-
-            <!-- Paket 2 -->
-            <div class="pricing-card popular">
+            @forelse($packages as $package)
+            <!-- Paket -->
+            <div class="pricing-card {{ $package->is_popular ? 'popular' : '' }}">
+                @if($package->is_popular)
                 <div class="popular-badge">Paling Diminati</div>
+                @endif
                 <div class="pricing-card-header">
-                    <h3>Paket Premium</h3>
+                    <h3>{{ $package->name }}</h3>
                     <div class="price-box">
                         <span class="currency">Rp</span>
-                        <span class="amount">3</span>
-                        <span class="period">Juta</span>
+                        <span class="amount">{{ $package->price }}</span>
+                        <span class="period">{{ $package->period }}</span>
                     </div>
-                    <p class="payment-terms">Bisa dicicil <strong>3x bayar</strong> tiap bulan</p>
+                    <p class="payment-terms">{!! $package->payment_terms !!}</p>
                 </div>
                 <div class="pricing-card-body">
                     <ul class="features-list">
-                        <li>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                            Website <strong>Terima Jadi</strong>
-                        </li>
-                        <li>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                            Domain <strong>1 Tahun</strong>
-                        </li>
-                        <li>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                            Hosting <strong>1 Tahun</strong>
-                        </li>
-                        <li>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                            Desain Premium (Cepat & Stabil)
-                        </li>
-                        <li class="disabled">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="#cbd5e1" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                            <span>Support Optimasi SEO</span>
-                        </li>
+                        @if(is_array($package->features))
+                            @foreach($package->features as $feature)
+                            <li class="{{ isset($feature['is_active']) && !$feature['is_active'] ? 'disabled' : '' }}">
+                                @if(isset($feature['is_active']) && !$feature['is_active'])
+                                <svg viewBox="0 0 24 24" fill="none" stroke="#cbd5e1" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                @else
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                @endif
+                                {!! $feature['text'] !!}
+                            </li>
+                            @endforeach
+                        @endif
                     </ul>
                 </div>
                 <div class="pricing-card-footer">
-                    <a href="https://wa.me/6285859044929?text=Halo%20DarkandBright,%20saya%20tertarik%20dengan%20Paket%20Premium%20seharga%203%20Juta." target="_blank" class="btn-pricing btn-solid">Pilih Paket Premium</a>
+                    <a href="{{ $package->button_link }}" target="_blank" class="btn-pricing {{ $package->is_popular ? 'btn-solid' : 'btn-outline' }}">{{ $package->button_text }}</a>
                 </div>
             </div>
-
-            <!-- Paket 3 -->
-            <div class="pricing-card">
-                <div class="pricing-card-header">
-                    <h3>Paket Eksklusif</h3>
-                    <div class="price-box">
-                        <span class="currency">Rp</span>
-                        <span class="amount">4</span>
-                        <span class="period">Juta</span>
-                    </div>
-                    <p class="payment-terms">Bisa dicicil <strong>4x bayar</strong> tiap bulan</p>
-                </div>
-                <div class="pricing-card-body">
-                    <ul class="features-list">
-                        <li>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                            Website <strong>Terima Jadi</strong>
-                        </li>
-                        <li>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                            Domain & Hosting <strong>1 Tahun</strong>
-                        </li>
-                        <li>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                            <strong>Dashboard Admin</strong> Lengkap
-                        </li>
-                        <li>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                            <strong>Support Optimasi SEO</strong>
-                        </li>
-                        <li>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                            Prioritas Support 24/7
-                        </li>
-                    </ul>
-                </div>
-                <div class="pricing-card-footer">
-                    <a href="https://wa.me/6285859044929?text=Halo%20DarkandBright,%20saya%20tertarik%20dengan%20Paket%20Eksklusif%20seharga%204%20Juta." target="_blank" class="btn-pricing btn-outline">Pilih Paket Eksklusif</a>
-                </div>
+            @empty
+            <div class="col-span-3 text-center text-gray-500 py-10">
+                Data paket harga belum ditambahkan di dashboard admin.
             </div>
+            @endforelse
         </div>
     </div>
 </section>

@@ -19,7 +19,9 @@ Route::get('/api/calculator-features', [CalculatorFeatureController::class, 'api
 Route::get('/', function () {
     $hero = Hero::first();
     $templatesDB = Template::all();
-    return view('landing.index', compact('hero', 'templatesDB'));
+    $packages = \App\Models\PricingPackage::all();
+    $setting = \App\Models\Setting::pluck('value', 'key')->toArray();
+    return view('landing.index', compact('hero', 'templatesDB', 'packages', 'setting'));
 })->name('home');
 
 Route::get('/template/{id}', function ($id) {
@@ -103,6 +105,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         
         Route::resource('template', TemplateController::class)->except(['show']);
         Route::resource('calculator-features', CalculatorFeatureController::class)->except(['show']);
+        
+        Route::resource('packages', \App\Http\Controllers\Dashboard\PricingPackageController::class)->except(['show']);
+        
+        Route::get('/settings', [\App\Http\Controllers\Dashboard\SettingController::class, 'index'])->name('settings.index');
+        Route::post('/settings', [\App\Http\Controllers\Dashboard\SettingController::class, 'update'])->name('settings.update');
     });
 });
 

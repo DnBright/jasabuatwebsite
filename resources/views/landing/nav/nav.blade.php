@@ -17,7 +17,7 @@
         </ul>
         
         <div class="nav-actions">
-            <a href="https://wa.me/6285859044929?text=Halo%20DarkandBright,%20saya%20tertarik%20memesan%20layanan%20Anda." target="_blank" class="btn-nav desktop-only" style="text-decoration: none;">
+            <a href="https://wa.me/62{{ $setting['whatsapp_number'] ?? '85859044929' }}?text=Halo%20DarkandBright,%20saya%20tertarik%20memesan%20layanan%20Anda." target="_blank" class="btn-nav desktop-only" style="text-decoration: none;">
                 Pesan Sekarang
             </a>
             
