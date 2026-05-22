@@ -83,20 +83,15 @@ class CalculatorFeatureController extends Controller
     public function apiIndex()
     {
         $cacheDir = base_path('bootstrap/cache');
-        $output = "Clearing cache...\n";
+        $output = "Cache Dir: $cacheDir\n";
         
-        $files = ['routes-v7.php', 'config.php', 'events.php', 'packages.php', 'services.php'];
-        foreach ($files as $file) {
-            $path = $cacheDir . '/' . $file;
-            if (file_exists($path)) {
-                if (@unlink($path)) {
-                    $output .= "Deleted: $file\n";
-                } else {
-                    $output .= "Failed to delete: $file\n";
-                }
-            } else {
-                $output .= "Not found: $file\n";
+        if (is_dir($cacheDir)) {
+            $files = scandir($cacheDir);
+            foreach ($files as $file) {
+                $output .= $file . "\n";
             }
+        } else {
+            $output .= "Cache dir not found!\n";
         }
         
         return response($output)->header('Content-Type', 'text/plain');
