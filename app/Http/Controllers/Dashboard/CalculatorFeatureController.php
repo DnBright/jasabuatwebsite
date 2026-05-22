@@ -82,10 +82,11 @@ class CalculatorFeatureController extends Controller
     // API untuk landing page
     public function apiIndex()
     {
-        // Show first 60 lines of routes/web.php from server
-        $webPhp = base_path('routes/web.php');
-        $lines = file($webPhp);
-        $output = implode('', array_slice($lines, 0, 60));
-        return response($output)->header('Content-Type', 'text/plain');
+        $features = CalculatorFeature::active()->ordered()->get();
+
+        return response()->json([
+            'contentFeatures' => $features->where('category', 'feature')->values(),
+            'supportServices' => $features->where('category', 'service')->values(),
+        ]);
     }
 }

@@ -19,8 +19,19 @@ Route::get('/api/calculator-features', [CalculatorFeatureController::class, 'api
 Route::get('/', function () {
     $hero = Hero::first();
     $templatesDB = Template::all();
-    $packages = \App\Models\PricingPackage::all();
-    $setting = \App\Models\Setting::pluck('value', 'key')->toArray();
+
+    // Wrap in try-catch in case tables don't exist yet on server
+    try {
+        $packages = \App\Models\PricingPackage::all();
+    } catch (\Exception $e) {
+        $packages = collect();
+    }
+    try {
+        $setting = \App\Models\Setting::pluck('value', 'key')->toArray();
+    } catch (\Exception $e) {
+        $setting = [];
+    }
+
     return view('landing.index', compact('hero', 'templatesDB', 'packages', 'setting'));
 })->name('home');
 
