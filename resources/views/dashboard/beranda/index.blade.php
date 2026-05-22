@@ -23,7 +23,7 @@
             <div class="grid grid-cols-1 gap-y-6">
                 <div>
                     <label class="block text-sm font-bold text-slate-700 mb-2">Judul Utama</label>
-                    <input type="text" name="title" value="{{ old('title', $hero->title ?? '') }}" class="w-full rounded-xl border-slate-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition-colors @error('title') border-red-500 @enderror" placeholder="Contoh: Jasa Desain Website">
+                    <input type="text" name="title" value="{{ old('title', $hero->title ?? '') }}" class="w-full rounded-xl border-slate-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition-colors @error('title') border-red-500 @enderror" placeholder="Contoh: Jasa Buat Website">
                     @error('title') <p class="text-red-500 text-xs font-medium mt-1">{{ $message }}</p> @enderror
                 </div>
 
