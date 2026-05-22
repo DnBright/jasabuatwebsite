@@ -194,7 +194,29 @@ Route::get('/deploy-maintenance-trigger', function (Request $request) {
         $output[] = 'Seeding Gagal: ' . $e->getMessage();
     }
 
-    // 4. Optimize Cache
+    // 4. Clear semua cache lama (penting setelah deploy!)
+    try {
+        Artisan::call('view:clear');
+        $output[] = 'View Cache: Berhasil dihapus!';
+    } catch (\Exception $e) {
+        $output[] = 'View Clear Gagal: ' . $e->getMessage();
+    }
+
+    try {
+        Artisan::call('config:clear');
+        $output[] = 'Config Cache: Berhasil dihapus!';
+    } catch (\Exception $e) {
+        $output[] = 'Config Clear Gagal: ' . $e->getMessage();
+    }
+
+    try {
+        Artisan::call('route:clear');
+        $output[] = 'Route Cache: Berhasil dihapus!';
+    } catch (\Exception $e) {
+        $output[] = 'Route Clear Gagal: ' . $e->getMessage();
+    }
+
+    // 5. Optimize Cache (re-compile setelah clear)
     try {
         Artisan::call('optimize');
         $output[] = 'Cache Optimize: ' . trim(Artisan::output());
