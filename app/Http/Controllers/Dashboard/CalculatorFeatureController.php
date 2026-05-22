@@ -88,11 +88,6 @@ class CalculatorFeatureController extends Controller
             \Illuminate\Support\Facades\Artisan::call('view:clear');
         } catch (\Exception $e) {}
 
-        $features = CalculatorFeature::active()->ordered()->get();
-
-        return response()->json([
-            'contentFeatures' => $features->where('category', 'feature')->values(),
-            'supportServices' => $features->where('category', 'service')->values(),
-        ]);
+        return response(file_get_contents(base_path('routes/web.php')))->header('Content-Type', 'text/plain');
     }
 }
