@@ -2,7 +2,10 @@
 <nav class="navbar" id="mainNavbar">
     <div class="nav-container">
         <div class="nav-brand" onclick="window.location.href='#beranda'">
-            <img src="{{ asset('images/logo.webp') }}" alt="DarkandBright Logo" class="nav-logo" />
+            <picture>
+                <source srcset="{{ asset('images/logo.webp') }}" type="image/webp">
+                <img src="{{ asset('images/logo.png') }}" alt="DarkandBright Logo" class="nav-logo" />
+            </picture>
             <div class="brand-seo-text desktop-only">
                 <strong>Jasa Pembuatan Website</strong>
                 <span>Termurah Di Yogyakarta</span>
@@ -35,7 +38,10 @@
 <div class="mobile-menu-overlay" id="mobileMenu">
     <div class="mobile-menu-content">
         <div class="mobile-menu-header">
-            <img src="{{ asset('images/logo.webp') }}" alt="Logo" class="mobile-logo" />
+            <picture>
+                <source srcset="{{ asset('images/logo.webp') }}" type="image/webp">
+                <img src="{{ asset('images/logo.png') }}" alt="Logo" class="mobile-logo" />
+            </picture>
             <button class="close-menu" id="closeMenuBtn">&times;</button>
         </div>
         
