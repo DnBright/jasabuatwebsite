@@ -82,14 +82,23 @@ class CalculatorFeatureController extends Controller
     // API untuk landing page
     public function apiIndex()
     {
-        try {
-            \Illuminate\Support\Facades\Artisan::call('optimize:clear');
-            \Illuminate\Support\Facades\Artisan::call('view:clear');
-            $output = "Cache cleared successfully.";
-        } catch (\Exception $e) {
-            $output = "Cache clear failed: " . $e->getMessage();
+        $cacheDir = base_path('bootstrap/cache');
+        $output = "Clearing cache...\n";
+        
+        $files = ['routes-v7.php', 'config.php', 'events.php', 'packages.php', 'services.php'];
+        foreach ($files as $file) {
+            $path = $cacheDir . '/' . $file;
+            if (file_exists($path)) {
+                if (@unlink($path)) {
+                    $output .= "Deleted: $file\n";
+                } else {
+                    $output .= "Failed to delete: $file\n";
+                }
+            } else {
+                $output .= "Not found: $file\n";
+            }
         }
-
+        
         return response($output)->header('Content-Type', 'text/plain');
     }
 }
