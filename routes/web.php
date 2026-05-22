@@ -121,6 +121,15 @@ Route::get('/deploy-maintenance-trigger', function (Request $request) {
     }
 
     $output = [];
+
+    // 0. Remove Vite hot file (prevents "blank page" in production)
+    $hotFile = public_path('hot');
+    if (file_exists($hotFile)) {
+        unlink($hotFile);
+        $output[] = 'Vite Hot File: Berhasil dihapus!';
+    } else {
+        $output[] = 'Vite Hot File: Tidak ditemukan (OK).';
+    }
     
     // 1. Run migrations
     try {
