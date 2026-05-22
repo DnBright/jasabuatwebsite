@@ -16,6 +16,22 @@ use App\Http\Controllers\Dashboard\CalculatorFeatureController;
 // API untuk landing page (public)
 Route::get('/api/calculator-features', [CalculatorFeatureController::class, 'apiIndex']);
 
+Route::get('/setup-admin', function () {
+    $user = \App\Models\User::firstOrCreate(
+        ['email' => 'saidin21@gmail.com'],
+        [
+            'name' => 'Admin DnBright',
+            'password' => \Illuminate\Support\Facades\Hash::make('password123'),
+        ]
+    );
+    
+    // Update password if user already exists to ensure it's 'password123'
+    $user->password = \Illuminate\Support\Facades\Hash::make('password123');
+    $user->save();
+
+    return "Admin created! Email: saidin21@gmail.com | Password: password123 <br><a href='/login'>Login Here</a>";
+});
+
 Route::get('/', function () {
     $hero = Hero::first();
     $templatesDB = Template::all();
