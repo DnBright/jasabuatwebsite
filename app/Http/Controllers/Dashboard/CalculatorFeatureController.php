@@ -82,12 +82,14 @@ class CalculatorFeatureController extends Controller
     // API untuk landing page
     public function apiIndex()
     {
-        // CLEAR CACHE TEMPORARILY
         try {
             \Illuminate\Support\Facades\Artisan::call('optimize:clear');
             \Illuminate\Support\Facades\Artisan::call('view:clear');
-        } catch (\Exception $e) {}
+            $output = "Cache cleared successfully.";
+        } catch (\Exception $e) {
+            $output = "Cache clear failed: " . $e->getMessage();
+        }
 
-        return response(file_get_contents(base_path('routes/web.php')))->header('Content-Type', 'text/plain');
+        return response($output)->header('Content-Type', 'text/plain');
     }
 }
