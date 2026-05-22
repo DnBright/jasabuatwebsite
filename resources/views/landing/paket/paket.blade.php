@@ -5,19 +5,27 @@
             <span class="badge-mini">Investasi Fleksibel</span>
             <h2 class="section-title">Pilih Paket Sesuai <span>Kebutuhan Bisnis</span> Anda</h2>
             <p class="section-subtitle">Semua paket dirancang "Terima Jadi". Anda cukup fokus pada bisnis, kami urus semua teknisnya. Pembayaran juga bisa dicicil!</p>
-            
-            <div class="pricing-toggle-container">
-                <span class="toggle-label text-full active">Bayar Penuh</span>
-                <label class="switch">
-                    <input type="checkbox" id="pricing-toggle" aria-label="Toggle Cicilan">
-                    <span class="slider round"></span>
-                </label>
-                <span class="toggle-label text-installment">Cicilan Bulanan <span class="badge-installment">Mulai 800rb-an</span></span>
-            </div>
         </div>
 
         <div class="pricing-grid">
             @forelse($packages as $package)
+            @php
+                // Hitung nominal harga asli (mendukung 2.5 Juta atau 2.500.000)
+                $priceVal = (float) str_replace(',', '.', str_replace('.', '', $package->price));
+                if ($priceVal < 100) {
+                    $priceVal = $priceVal * 1000000;
+                }
+                
+                // Dapatkan jumlah tenor cicilan dari string payment_terms (misal: "3x" -> 3)
+                $installments = 3;
+                if (preg_match('/(\d+)x/', strip_tags($package->payment_terms), $matches)) {
+                    $installments = (int) $matches[1];
+                }
+                
+                // Hitung nominal cicilan per bulan
+                $monthlyVal = (int) round($priceVal / $installments);
+                $monthlyFormatted = 'Rp ' . number_format($monthlyVal, 0, ',', '.');
+            @endphp
             <!-- Paket -->
             <div class="pricing-card {{ $package->is_popular ? 'popular' : '' }}">
                 @if($package->is_popular)
@@ -30,7 +38,7 @@
                         <span class="amount">{{ $package->price }}</span>
                         <span class="period">{{ $package->period }}</span>
                     </div>
-                    <p class="payment-terms">{!! $package->payment_terms !!}</p>
+                    <p class="payment-terms">Bisa dicicil <strong>{{ $installments }}x</strong> ({{ $monthlyFormatted }} / bln)</p>
                 </div>
                 <div class="pricing-card-body">
                     <ul class="features-list">
@@ -236,17 +244,20 @@
 
     .payment-terms {
         font-size: 0.95rem;
-        color: #3b82f6;
+        color: #1d4ed8;
         background: #eff6ff;
         display: inline-block;
-        padding: 0.4rem 1rem;
-        border-radius: 8px;
-        font-weight: 500;
+        padding: 0.5rem 1.25rem;
+        border-radius: 50px;
+        font-weight: 700;
+        border: 1px solid #bfdbfe;
+        box-shadow: 0 2px 4px rgba(59, 130, 246, 0.05);
     }
 
     .pricing-card.popular .payment-terms {
-        background: rgba(59, 130, 246, 0.2);
-        color: #93c5fd;
+        background: rgba(255, 255, 255, 0.15);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.25);
     }
 
     .pricing-card-body {
@@ -370,279 +381,3 @@
         }
     }
 
-    /* PREMIUM INSTALLMENT SWITCH & ANIMATIONS */
-    .pricing-toggle-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 1rem;
-        margin: 2.5rem auto 0;
-        background: #f8fafc;
-        padding: 0.65rem 1.5rem;
-        border-radius: 50px;
-        width: fit-content;
-        border: 1px solid #e2e8f0;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), inset 0 2px 4px rgba(0, 0, 0, 0.02);
-    }
-
-    .switch {
-        position: relative;
-        display: inline-block;
-        width: 50px;
-        height: 28px;
-    }
-
-    .switch input {
-        opacity: 0;
-        width: 0;
-        height: 0;
-    }
-
-    .slider {
-        position: absolute;
-        cursor: pointer;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: #cbd5e1;
-        transition: .3s;
-    }
-
-    .slider:before {
-        position: absolute;
-        content: "";
-        height: 20px;
-        width: 20px;
-        left: 4px;
-        bottom: 4px;
-        background-color: white;
-        transition: .3s;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    input:checked + .slider {
-        background-color: #3b82f6;
-    }
-
-    input:checked + .slider:before {
-        transform: translateX(22px);
-    }
-
-    .slider.round {
-        border-radius: 34px;
-    }
-
-    .slider.round:before {
-        border-radius: 50%;
-    }
-
-    .toggle-label {
-        font-size: 0.95rem;
-        font-weight: 700;
-        color: #64748b;
-        cursor: pointer;
-        transition: color 0.3s ease;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        user-select: none;
-    }
-
-    .toggle-label.active {
-        color: #002147;
-    }
-
-    .badge-installment {
-        background: #3b82f6;
-        color: white;
-        font-size: 0.75rem;
-        padding: 0.15rem 0.5rem;
-        border-radius: 50px;
-        font-weight: 800;
-        text-transform: uppercase;
-        animation: pulseBadge 2.5s infinite;
-    }
-
-    @@keyframes pulseBadge {
-        0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4); }
-        70% { transform: scale(1.05); box-shadow: 0 0 0 6px rgba(59, 130, 246, 0); }
-        100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
-    }
-
-    .payment-terms {
-        transition: all 0.3s ease;
-        border: 2px dashed transparent;
-    }
-
-    .payment-terms.highlight-installment {
-        background: #eff6ff;
-        color: #1d4ed8;
-        border-color: #3b82f6;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 10px rgba(59, 130, 246, 0.1);
-        font-weight: 700;
-        animation: pulseHighlight 2.5s infinite;
-    }
-
-    .pricing-card.popular .payment-terms.highlight-installment {
-        background: rgba(255, 255, 255, 0.15);
-        color: white;
-        border-color: rgba(255, 255, 255, 0.3);
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    }
-
-    @@keyframes pulseHighlight {
-        0% { transform: translateY(-2px) scale(1.02); }
-        50% { transform: translateY(-2px) scale(1.06); }
-        100% { transform: translateY(-2px) scale(1.02); }
-    }
-
-    .amount, .period {
-        transition: opacity 0.15s ease, transform 0.15s ease;
-    }
-
-    .pricing-animate {
-        opacity: 0;
-        transform: scale(0.92);
-    }
-</style>
-
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    const cards = document.querySelectorAll('.pricing-card');
-    const toggle = document.getElementById('pricing-toggle');
-    
-    if (!toggle) return;
-    
-    // Parse cards data
-    cards.forEach(card => {
-        const amountEl = card.querySelector('.amount');
-        const periodEl = card.querySelector('.period');
-        const termsEl = card.querySelector('.payment-terms');
-        
-        if (!amountEl || !termsEl) return;
-        
-        // 1. Get raw price from text
-        const rawPriceText = amountEl.textContent.trim();
-        let priceNum = parseFloat(rawPriceText.replace(/\./g, '').replace(',', '.'));
-        
-        // Handle millions
-        if (priceNum < 100) {
-            priceNum = priceNum * 1000000;
-        }
-        
-        // 2. Parse payments count from terms text (look for digit before 'x')
-        const termsText = termsEl.textContent || termsEl.innerText;
-        let paymentsCount = 3; // default fallback
-        const match = termsText.match(/(\d+)x/);
-        if (match) {
-            paymentsCount = parseInt(match[1]);
-        }
-        
-        // 3. Calculate monthly installment
-        const monthlyPrice = Math.round(priceNum / paymentsCount);
-        
-        // Format display values
-        const fullPriceDisplay = rawPriceText;
-        const fullPeriodDisplay = periodEl ? periodEl.textContent.trim() : '';
-        
-        let monthlyPriceDisplay = '';
-        let monthlyPeriodDisplay = '';
-        
-        if (monthlyPrice >= 1000000) {
-            const formatted = (monthlyPrice / 1000000).toFixed(1).replace('.0', '').replace('.', ',');
-            monthlyPriceDisplay = formatted;
-            monthlyPeriodDisplay = 'Juta/bln';
-        } else {
-            const formatted = Math.round(monthlyPrice / 1000).toString();
-            monthlyPriceDisplay = formatted;
-            monthlyPeriodDisplay = 'Ribu/bln';
-        }
-        
-        // Save attributes
-        card.dataset.fullPrice = fullPriceDisplay;
-        card.dataset.fullPeriod = fullPeriodDisplay;
-        card.dataset.monthlyPrice = monthlyPriceDisplay;
-        card.dataset.monthlyPeriod = monthlyPeriodDisplay;
-    });
-    
-    // Switch handler
-    toggle.addEventListener('change', () => {
-        const isInstallment = toggle.checked;
-        const fullLabels = document.querySelectorAll('.toggle-label.text-full');
-        const instLabels = document.querySelectorAll('.toggle-label.text-installment');
-        
-        if (isInstallment) {
-            fullLabels.forEach(l => l.classList.remove('active'));
-            instLabels.forEach(l => l.classList.add('active'));
-        } else {
-            fullLabels.forEach(l => l.classList.add('active'));
-            instLabels.forEach(l => l.classList.remove('active'));
-        }
-        
-        cards.forEach(card => {
-            const amountEl = card.querySelector('.amount');
-            const periodEl = card.querySelector('.period');
-            const termsEl = card.querySelector('.payment-terms');
-            
-            if (!amountEl) return;
-            
-            // Trigger animation
-            amountEl.classList.add('pricing-animate');
-            if (periodEl) periodEl.classList.add('pricing-animate');
-            
-            setTimeout(() => {
-                if (isInstallment) {
-                    amountEl.textContent = card.dataset.monthlyPrice;
-                    if (periodEl) {
-                        periodEl.textContent = card.dataset.monthlyPeriod;
-                        periodEl.style.display = 'inline';
-                    }
-                    if (termsEl) {
-                        termsEl.classList.add('highlight-installment');
-                    }
-                } else {
-                    amountEl.textContent = card.dataset.fullPrice;
-                    if (periodEl) {
-                        if (card.dataset.fullPeriod) {
-                            periodEl.textContent = card.dataset.fullPeriod;
-                            periodEl.style.display = 'inline';
-                        } else {
-                            periodEl.style.display = 'none';
-                        }
-                    }
-                    if (termsEl) {
-                        termsEl.classList.remove('highlight-installment');
-                    }
-                }
-                
-                // Fade back in
-                setTimeout(() => {
-                    amountEl.classList.remove('pricing-animate');
-                    if (periodEl) periodEl.classList.remove('pricing-animate');
-                }, 50);
-            }, 150);
-        });
-    });
-    
-    // Allow clicking the labels to toggle
-    const textFull = document.querySelector('.toggle-label.text-full');
-    const textInstallment = document.querySelector('.toggle-label.text-installment');
-    
-    if (textFull && textInstallment) {
-        textFull.addEventListener('click', () => {
-            if (toggle.checked) {
-                toggle.checked = false;
-                toggle.dispatchEvent(new Event('change'));
-            }
-        });
-        textInstallment.addEventListener('click', () => {
-            if (!toggle.checked) {
-                toggle.checked = true;
-                toggle.dispatchEvent(new Event('change'));
-            }
-        });
-    }
-});
-</script>
