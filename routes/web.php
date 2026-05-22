@@ -171,8 +171,12 @@ Route::get('/deploy-maintenance-trigger', function (Request $request) {
         $target = storage_path('app/public');
         $link = public_path('storage');
         if (!file_exists($link)) {
-            @symlink($target, $link);
-            $output[] = 'Symlink Storage: Sukses dibuat secara native!';
+            if (function_exists('symlink')) {
+                @symlink($target, $link);
+                $output[] = 'Symlink Storage: Sukses dibuat secara native!';
+            } else {
+                $output[] = 'Symlink Storage: Lewat (fungsi symlink dinonaktifkan di server).';
+            }
         } else {
             $output[] = 'Symlink Storage: Sudah ada.';
         }
