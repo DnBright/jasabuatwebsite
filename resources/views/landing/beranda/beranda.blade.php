@@ -193,23 +193,23 @@
         object-fit: cover;
     }
 
-    @keyframes fadeInUp {
+    @@keyframes fadeInUp {
         from { opacity: 0; transform: translateY(20px); }
         to { opacity: 1; transform: translateY(0); }
     }
 
-    @keyframes fadeIn {
+    @@keyframes fadeIn {
         from { opacity: 0; }
         to { opacity: 1; }
     }
 
     /* RESPONSIVE */
-    @media (max-width: 1024px) {
+    @@media (max-width: 1024px) {
         .hero-container { gap: 2rem; }
         .hero-title { font-size: 3rem; }
     }
 
-    @media (max-width: 768px) {
+    @@media (max-width: 768px) {
         .hero-section { padding: 3rem 0 3rem; }
         .hero-container { 
             flex-direction: column; 
@@ -256,7 +256,7 @@
         }
     }
 
-    @media (max-width: 480px) {
+    @@media (max-width: 480px) {
         .hero-title { font-size: 2.2rem; }
     }
 </style>

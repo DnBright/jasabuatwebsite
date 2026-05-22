@@ -136,7 +136,7 @@
         .review-count { font-size: 1.5rem; font-weight: 700; color: var(--text-main); }
 
         /* RESPONSIVE */
-        @media (max-width: 1000px) {
+        @@media (max-width: 1000px) {
             .main-container { grid-template-columns: 1fr; }
             .sidebar { position: static; margin-top: 3rem; }
         }

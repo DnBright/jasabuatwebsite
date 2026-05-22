@@ -324,7 +324,7 @@
         box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
     }
 
-    @media (max-width: 1024px) {
+    @@media (max-width: 1024px) {
         .pricing-grid {
             grid-template-columns: repeat(2, 1fr);
             gap: 2.5rem;
@@ -342,7 +342,7 @@
         }
     }
 
-    @media (max-width: 768px) {
+    @@media (max-width: 768px) {
         .pricing-section {
             padding: 4rem 0;
         }

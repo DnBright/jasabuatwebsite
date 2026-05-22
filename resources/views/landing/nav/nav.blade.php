@@ -352,7 +352,7 @@
         overflow: hidden;
     }
 
-    @media (max-width: 900px) {
+    @@media (max-width: 900px) {
         .nav-links, .desktop-only { display: none; }
         .hamburger { display: flex; }
         .nav-container { padding: 0.75rem 5%; }

@@ -332,7 +332,7 @@
         background: #3b82f6 !important;
     }
 
-    @media (max-width: 768px) {
+    @@media (max-width: 768px) {
         .categories-section { padding: 4rem 0; }
         .section-title { font-size: 2.25rem; }
         .section-subtitle { font-size: 1rem; margin-bottom: 3rem; padding: 0 5%; }

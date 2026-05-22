@@ -270,7 +270,7 @@
         font-size: 1rem;
     }
 
-    @media (max-width: 900px) {
+    @@media (max-width: 900px) {
         .cta-section { padding: 4rem 5%; }
         .cta-title { font-size: 2.25rem; }
         .cta-subtitle { font-size: 1rem; margin-bottom: 2.5rem; }
@@ -286,7 +286,7 @@
         .cta-footer-note { font-size: 0.85rem; margin-top: 3rem; }
     }
 
-    @media (max-width: 480px) {
+    @@media (max-width: 480px) {
         .cta-title { font-size: 1.85rem; }
         .social-grid { grid-template-columns: repeat(2, 1fr); }
     }
