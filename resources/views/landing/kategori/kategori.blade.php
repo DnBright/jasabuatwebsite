@@ -13,7 +13,7 @@
                 <div class="swiper-slide">
                     <a href="#kontak" class="umkm-card">
                         <div class="umkm-img-wrap">
-                            <img src="{{ asset('images/FNB.png') }}" alt="Website Restoran" />
+                            <img src="{{ asset('images/FNB.webp') }}" alt="Website Restoran" loading="lazy" decoding="async" width="2200" height="1571" />
                         </div>
                         <div class="umkm-content">
                             <span class="umkm-tag">Kuliner / F&B</span>
@@ -28,7 +28,7 @@
                 <div class="swiper-slide">
                     <a href="#kontak" class="umkm-card">
                         <div class="umkm-img-wrap">
-                            <img src="{{ asset('images/kecantikan.png') }}" alt="Website Klinik Kecantikan" />
+                            <img loading="lazy" decoding="async" src="{{ asset('images/kecantikan.webp') }}" alt="Website Klinik Kecantikan" />
                         </div>
                         <div class="umkm-content">
                             <span class="umkm-tag">Klinik / Salon</span>
@@ -43,7 +43,7 @@
                 <div class="swiper-slide">
                     <a href="#kontak" class="umkm-card">
                         <div class="umkm-img-wrap">
-                            <img src="{{ asset('images/petshop.png') }}" alt="Website Pet Shop" />
+                            <img loading="lazy" decoding="async" src="{{ asset('images/petshop.webp') }}" alt="Website Pet Shop" />
                         </div>
                         <div class="umkm-content">
                             <span class="umkm-tag">Pet Shop & Care</span>
@@ -58,7 +58,7 @@
                 <div class="swiper-slide">
                     <a href="#kontak" class="umkm-card">
                         <div class="umkm-img-wrap">
-                            <img src="{{ asset('images/potografi_.png') }}" alt="Website Fotografi" />
+                            <img loading="lazy" decoding="async" src="{{ asset('images/potografi_.webp') }}" alt="Website Fotografi" />
                         </div>
                         <div class="umkm-content">
                             <span class="umkm-tag">Jasa / Profesional</span>
@@ -73,7 +73,7 @@
                 <div class="swiper-slide">
                     <a href="#kontak" class="umkm-card">
                         <div class="umkm-img-wrap">
-                            <img src="{{ asset('images/retail atau marketplace.png') }}" alt="Website Toko Online" />
+                            <img loading="lazy" decoding="async" src="{{ asset('images/retail atau marketplace.webp') }}" alt="Website Toko Online" />
                         </div>
                         <div class="umkm-content">
                             <span class="umkm-tag">Retail / Olshop</span>

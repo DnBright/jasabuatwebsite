@@ -3,14 +3,100 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Jasa Bikin Website Termurah Di Yogyakarta</title>
-    <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
-    
+
+    {{-- ===== PRIMARY SEO ===== --}}
+    <title>Jasa Bikin Website UMKM Murah & Profesional | The Dark and Bright</title>
+    <meta name="description" content="Jasa pembuatan website profesional untuk UMKM mulai Rp 2.500.000. Desain modern, mobile friendly, SEO, dan siap dalam 7 hari. Melayani seluruh Indonesia.">
+    <meta name="keywords" content="jasa bikin website, jasa website UMKM, jasa pembuatan website murah, website profesional, jasa website Yogyakarta, dark and bright, thedarkandbright">
+    <meta name="author" content="The Dark and Bright">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <link rel="canonical" href="https://thedarkandbright.com/">
+
+    {{-- ===== FAVICON ===== --}}
+    <link rel="icon" type="image/webp" href="{{ asset('images/logo.webp') }}">
+    <link rel="apple-touch-icon" href="{{ asset('images/logo.webp') }}">
+
+    {{-- ===== OPEN GRAPH (Facebook, WhatsApp, LinkedIn) ===== --}}
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://thedarkandbright.com/">
+    <meta property="og:title" content="Jasa Bikin Website UMKM Murah & Profesional | The Dark and Bright">
+    <meta property="og:description" content="Jasa pembuatan website profesional untuk UMKM mulai Rp 2.500.000. Desain modern, mobile friendly, SEO, dan siap dalam 7 hari.">
+    <meta property="og:image" content="{{ asset('images/elegant_hero_umkm.webp') }}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="id_ID">
+    <meta property="og:site_name" content="The Dark and Bright">
+
+    {{-- ===== TWITTER CARD ===== --}}
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Jasa Bikin Website UMKM Murah & Profesional | The Dark and Bright">
+    <meta name="twitter:description" content="Jasa pembuatan website profesional untuk UMKM mulai Rp 2.500.000. Desain modern, mobile friendly, SEO ready.">
+    <meta name="twitter:image" content="{{ asset('images/elegant_hero_umkm.webp') }}">
+
+    {{-- ===== SCHEMA.ORG (Google Rich Results) ===== --}}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "The Dark and Bright",
+      "description": "Jasa pembuatan website profesional untuk UMKM. Website modern, mobile friendly, SEO ready mulai Rp 2.500.000.",
+      "url": "https://thedarkandbright.com",
+      "logo": "{{ asset('images/logo.webp') }}",
+      "image": "{{ asset('images/elegant_hero_umkm.webp') }}",
+      "telephone": "+6285859044929",
+      "priceRange": "Rp 2.500.000 - Rp 4.000.000",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Yogyakarta",
+        "addressCountry": "ID"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "-7.7956",
+        "longitude": "110.3695"
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+        "opens": "08:00",
+        "closes": "22:00"
+      },
+      "sameAs": [
+        "https://wa.me/6285859044929"
+      ],
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "Paket Starter",
+          "price": "2500000",
+          "priceCurrency": "IDR"
+        },
+        {
+          "@type": "Offer",
+          "name": "Paket Business",
+          "price": "3000000",
+          "priceCurrency": "IDR"
+        },
+        {
+          "@type": "Offer",
+          "name": "Paket Premium",
+          "price": "4000000",
+          "priceCurrency": "IDR"
+        }
+      ]
+    }
+    </script>
+
+    {{-- ===== PERFORMANCE: PRECONNECT & FONT ===== --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
 
-    <!-- Swiper CSS -->
+    {{-- ===== PRELOAD CRITICAL IMAGES ===== --}}
+    <link rel="preload" as="image" href="{{ asset('images/elegant_hero_umkm.webp') }}" type="image/webp">
+
+    {{-- Swiper CSS --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
     @vite(['resources/css/app.css', 'resources/js/landing.ts'])
