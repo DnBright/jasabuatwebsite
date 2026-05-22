@@ -10,10 +10,23 @@
         <div class="pricing-grid">
             @forelse($packages as $package)
             @php
-                // Hitung nominal harga asli (mendukung 2.5 Juta atau 2.500.000)
-                $priceVal = (float) str_replace(',', '.', str_replace('.', '', $package->price));
-                if ($priceVal < 100) {
-                    $priceVal = $priceVal * 1000000;
+                $priceStr = trim($package->price);
+                // Ganti koma dengan titik untuk standarisasi decimal
+                $priceStr = str_replace(',', '.', $priceStr);
+                $dotCount = substr_count($priceStr, '.');
+                
+                if ($dotCount === 1 && strlen($priceStr) <= 5) {
+                    // Seperti "2.5" atau "3.5"
+                    $priceVal = (float) $priceStr * 1000000;
+                } elseif ($dotCount >= 1) {
+                    // Seperti "2.500.000"
+                    $priceVal = (float) str_replace('.', '', $priceStr);
+                } else {
+                    // Seperti "3" atau "4"
+                    $priceVal = (float) $priceStr;
+                    if ($priceVal < 100) {
+                        $priceVal = $priceVal * 1000000;
+                    }
                 }
                 
                 // Dapatkan jumlah tenor cicilan dari string payment_terms (misal: "3x" -> 3)
