@@ -283,13 +283,13 @@
             transform: translateX(0);
         }
 
-        @keyframes bounceIn {
+        @@keyframes bounceIn {
             0% { transform: scale(0); opacity: 0; }
             70% { transform: scale(1.1); }
             100% { transform: scale(1); opacity: 1; }
         }
 
-        @media (max-width: 768px) {
+        @@media (max-width: 768px) {
             .floating-wa {
                 bottom: 20px;
                 right: 20px;
