@@ -36,8 +36,8 @@
     {{-- ===== SCHEMA.ORG (Google Rich Results) ===== --}}
     <script type="application/ld+json">
     {
-      "@context": "https://schema.org",
-      "@type": "LocalBusiness",
+      "@@context": "https://schema.org",
+      "@@type": "LocalBusiness",
       "name": "The Dark and Bright",
       "description": "Jasa pembuatan website profesional untuk UMKM. Website modern, mobile friendly, SEO ready mulai Rp 2.500.000.",
       "url": "https://thedarkandbright.com",
@@ -46,17 +46,17 @@
       "telephone": "+6285859044929",
       "priceRange": "Rp 2.500.000 - Rp 4.000.000",
       "address": {
-        "@type": "PostalAddress",
+        "@@type": "PostalAddress",
         "addressLocality": "Yogyakarta",
         "addressCountry": "ID"
       },
       "geo": {
-        "@type": "GeoCoordinates",
+        "@@type": "GeoCoordinates",
         "latitude": "-7.7956",
         "longitude": "110.3695"
       },
       "openingHoursSpecification": {
-        "@type": "OpeningHoursSpecification",
+        "@@type": "OpeningHoursSpecification",
         "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
         "opens": "08:00",
         "closes": "22:00"
@@ -66,19 +66,19 @@
       ],
       "offers": [
         {
-          "@type": "Offer",
+          "@@type": "Offer",
           "name": "Paket Starter",
           "price": "2500000",
           "priceCurrency": "IDR"
         },
         {
-          "@type": "Offer",
+          "@@type": "Offer",
           "name": "Paket Business",
           "price": "3000000",
           "priceCurrency": "IDR"
         },
         {
-          "@type": "Offer",
+          "@@type": "Offer",
           "name": "Paket Premium",
           "price": "4000000",
           "priceCurrency": "IDR"
