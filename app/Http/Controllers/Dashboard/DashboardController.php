@@ -13,13 +13,6 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        // CLEAR CACHE TEMPORARILY
-        try {
-            \Illuminate\Support\Facades\Artisan::call('optimize:clear');
-        } catch (\Exception $e) {
-            // ignore
-        }
-
         $stats = [
             'total_templates' => Template::count(),
             'high_prospects' => UmkmTrend::where('score_value', '>=', 80)->count(),

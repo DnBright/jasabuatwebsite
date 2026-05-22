@@ -6,16 +6,6 @@ use Illuminate\Http\Request;
 define('LARAVEL_START', microtime(true));
 
 // Determine if the application is in maintenance mode...
-// TEMPORARY HACK TO FIX SERVER ISSUES
-if (file_exists(__DIR__.'/hot')) {
-    @unlink(__DIR__.'/hot');
-}
-if (isset($_GET['force_clear'])) {
-    \Illuminate\Support\Facades\Artisan::call('optimize:clear');
-    \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
-    die('Cache cleared and migrated!');
-}
-
 if (file_exists($maintenance = __DIR__.'/../storage/framework/maintenance.php')) {
     require $maintenance;
 }

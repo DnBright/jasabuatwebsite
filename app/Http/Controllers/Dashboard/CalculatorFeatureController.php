@@ -82,13 +82,6 @@ class CalculatorFeatureController extends Controller
     // API untuk landing page
     public function apiIndex()
     {
-        // CLEAR CACHE TEMPORARILY TO FIX ROUTE CACHE ISSUE
-        try {
-            \Illuminate\Support\Facades\Artisan::call('optimize:clear');
-        } catch (\Exception $e) {
-            // ignore
-        }
-        
         $features = CalculatorFeature::active()->ordered()->get();
 
         return response()->json([
