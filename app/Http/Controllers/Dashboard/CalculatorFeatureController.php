@@ -82,18 +82,10 @@ class CalculatorFeatureController extends Controller
     // API untuk landing page
     public function apiIndex()
     {
-        $cacheDir = base_path('bootstrap/cache');
-        $output = "Cache Dir: $cacheDir\n";
-        
-        if (is_dir($cacheDir)) {
-            $files = scandir($cacheDir);
-            foreach ($files as $file) {
-                $output .= $file . "\n";
-            }
-        } else {
-            $output .= "Cache dir not found!\n";
-        }
-        
+        // Show first 60 lines of routes/web.php from server
+        $webPhp = base_path('routes/web.php');
+        $lines = file($webPhp);
+        $output = implode('', array_slice($lines, 0, 60));
         return response($output)->header('Content-Type', 'text/plain');
     }
 }
