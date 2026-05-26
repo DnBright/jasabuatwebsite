@@ -231,6 +231,13 @@ Route::get('/deploy-maintenance-trigger', function (Request $request) {
         $output[] = 'Route Clear Gagal: ' . $e->getMessage();
     }
 
+    try {
+        Artisan::call('cache:clear');
+        $output[] = 'Application Cache: Berhasil dihapus!';
+    } catch (\Exception $e) {
+        $output[] = 'Application Cache Clear Gagal: ' . $e->getMessage();
+    }
+
     // 5. Optimize Cache (re-compile setelah clear)
     try {
         Artisan::call('optimize');

@@ -66,6 +66,9 @@
       ],
       "offers": [
         @forelse($packages as $package)
+        @if(is_string($package) || !is_object($package))
+            @continue
+        @endif
         @php
             $priceStr = trim($package->price);
             $priceStr = str_replace(',', '.', $priceStr);

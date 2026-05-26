@@ -7,6 +7,9 @@
         <priority>1.0</priority>
     </url>
     @foreach ($templates as $template)
+    @if(is_string($template) || !is_object($template))
+        @continue
+    @endif
     <url>
         <loc>https://thedarkandbright.com/template/{{ $template->id }}</loc>
         <lastmod>{{ $template->updated_at->toAtomString() }}</lastmod>
