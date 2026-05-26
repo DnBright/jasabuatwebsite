@@ -70,7 +70,7 @@
                     </ul>
                 </div>
                 <div class="pricing-card-footer">
-                    <a href="{{ $package->button_link }}" target="_blank" class="btn-pricing {{ $package->is_popular ? 'btn-solid' : 'btn-outline' }}">{{ $package->button_text }}</a>
+                    <a href="{{ $package->button_link }}" target="_blank" rel="noopener" class="btn-pricing {{ $package->is_popular ? 'btn-solid' : 'btn-outline' }}">{{ $package->button_text }}</a>
                 </div>
             </div>
             @empty

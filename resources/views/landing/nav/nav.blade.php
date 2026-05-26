@@ -20,7 +20,7 @@
         </ul>
         
         <div class="nav-actions">
-            <a href="https://wa.me/62{{ $setting['whatsapp_number'] ?? '85859044929' }}?text=Halo%20DarkandBright,%20saya%20tertarik%20memesan%20layanan%20Anda." target="_blank" class="btn-nav desktop-only" style="text-decoration: none;">
+            <a href="https://wa.me/62{{ $setting['whatsapp_number'] ?? '85859044929' }}?text=Halo%20DarkandBright,%20saya%20tertarik%20memesan%20layanan%20Anda." target="_blank" rel="noopener" class="btn-nav desktop-only" style="text-decoration: none;">
                 Pesan Sekarang
             </a>
             
@@ -40,9 +40,9 @@
         <div class="mobile-menu-header">
             <picture>
                 <source srcset="{{ asset('images/logo.webp') }}" type="image/webp">
-                <img src="{{ asset('images/logo.png') }}" alt="Logo" class="mobile-logo" />
+                <img src="{{ asset('images/logo.png') }}" alt="DarkandBright Logo" class="mobile-logo" />
             </picture>
-            <button class="close-menu" id="closeMenuBtn">&times;</button>
+            <button class="close-menu" id="closeMenuBtn" aria-label="Tutup Menu">&times;</button>
         </div>
         
         <nav class="mobile-nav-links">
@@ -54,7 +54,7 @@
         
         <div class="mobile-menu-footer">
             <p class="menu-tagline">Solusi Digital UMKM Naik Kelas</p>
-            <a href="https://wa.me/6285859044929" class="btn-mobile-wa" target="_blank">
+            <a href="https://wa.me/6285859044929" class="btn-mobile-wa" target="_blank" rel="noopener">
                 Hubungi WhatsApp
             </a>
             <div class="mobile-socials">
@@ -228,12 +228,12 @@
         display: none;
         flex-direction: column;
         justify-content: space-between;
-        width: 30px;
-        height: 21px;
+        width: 48px;
+        height: 48px;
         background: transparent;
         border: none;
         cursor: pointer;
-        padding: 0;
+        padding: 13px 9px;
         z-index: 1100;
     }
 
@@ -299,6 +299,11 @@
         border: none;
         color: #002147;
         cursor: pointer;
+        width: 48px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .mobile-nav-links {

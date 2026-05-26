@@ -33,7 +33,7 @@
             <div class="image-wrapper">
                 <picture>
                     <source srcset="{{ !empty($hero->image) ? (str_starts_with($hero->image, 'http') ? $hero->image : asset($hero->image)) : asset('images/hero/showcase_asia.webp') }}" type="image/webp">
-                    <img src="{{ !empty($hero->image) ? (str_starts_with($hero->image, 'http') ? $hero->image : asset($hero->image)) : asset('images/hero/showcase_asia.png') }}" alt="Website Premium UMKM" class="hero-img-simple" loading="eager" />
+                    <img src="{{ !empty($hero->image) ? (str_starts_with($hero->image, 'http') ? $hero->image : asset($hero->image)) : asset('images/hero/showcase_asia.png') }}" alt="Website Premium UMKM" class="hero-img-simple" loading="eager" fetchpriority="high" />
                 </picture>
             </div>
         </div>

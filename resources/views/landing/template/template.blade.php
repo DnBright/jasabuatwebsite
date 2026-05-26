@@ -21,7 +21,7 @@
                         <div class="template-badge badge-new">Baru</div>
                         @endif
                         <div class="template-overlay">
-                            <a href="{{ route('template.demo', $tmpl->id) }}" class="btn-preview" target="_blank">
+                            <a href="{{ route('template.demo', $tmpl->id) }}" class="btn-preview" target="_blank" rel="noopener">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
                                 Lihat Demo
                             </a>
