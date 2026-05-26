@@ -13,6 +13,12 @@ class Template extends Model
         'reviews' => 'array',
     ];
 
+    protected static function booted()
+    {
+        static::saved(fn () => \Illuminate\Support\Facades\Cache::forget('landing_templates'));
+        static::deleted(fn () => \Illuminate\Support\Facades\Cache::forget('landing_templates'));
+    }
+
     public function templateReviews()
     {
         return $this->hasMany(TemplateReview::class)->where('is_approved', true)->latest();

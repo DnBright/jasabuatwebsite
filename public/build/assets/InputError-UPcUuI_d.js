@@ -1,1 +1,0 @@
-import{J as e,P as t,a as n,g as r,gt as i,p as a,y as o}from"./vue.runtime.esm-bundler-0enIvXNX.js";var s={class:`text-sm text-red-600 dark:text-red-500`},c=o({__name:`InputError`,props:{message:{}},setup(o){return(c,l)=>e((t(),r(`div`,null,[a(`p`,s,i(o.message),1)],512)),[[n,o.message]])}});export{c as t};

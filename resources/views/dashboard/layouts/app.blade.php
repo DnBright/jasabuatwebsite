@@ -85,10 +85,6 @@
                 <i data-lucide="package" class="mr-3 w-5 h-5 {{ request()->routeIs('dashboard.packages.*') ? 'text-blue-500' : '' }}"></i> Paket Harga
             </a>
 
-            <a href="{{ route('dashboard.calculator-features.index') }}" class="flex items-center px-4 py-3 rounded-lg transition-all duration-200 {{ request()->routeIs('dashboard.calculator-features.*') ? 'active shadow-md' : '' }}">
-                <i data-lucide="calculator" class="mr-3 w-5 h-5 {{ request()->routeIs('dashboard.calculator-features.*') ? 'text-blue-500' : '' }}"></i> Kalkulator
-            </a>
-
             <a href="{{ route('dashboard.settings.index') }}" class="flex items-center px-4 py-3 rounded-lg transition-all duration-200 {{ request()->routeIs('dashboard.settings.*') ? 'active shadow-md' : '' }}">
                 <i data-lucide="settings" class="mr-3 w-5 h-5 {{ request()->routeIs('dashboard.settings.*') ? 'text-blue-500' : '' }}"></i> Pengaturan
             </a>

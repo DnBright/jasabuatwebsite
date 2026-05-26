@@ -12,4 +12,10 @@ class PricingPackage extends Model
         'features' => 'array',
         'is_popular' => 'boolean',
     ];
+
+    protected static function booted()
+    {
+        static::saved(fn () => \Illuminate\Support\Facades\Cache::forget('landing_packages'));
+        static::deleted(fn () => \Illuminate\Support\Facades\Cache::forget('landing_packages'));
+    }
 }

@@ -11,10 +11,14 @@ use App\Http\Controllers\Dashboard\BerandaController;
 use App\Http\Controllers\Dashboard\TemplateController;
 use App\Http\Controllers\Dashboard\AnalyticsController;
 use App\Http\Controllers\Dashboard\DashboardController;
-use App\Http\Controllers\Dashboard\CalculatorFeatureController;
 
-// API untuk landing page (public)
-Route::get('/api/calculator-features', [CalculatorFeatureController::class, 'apiIndex']);
+Route::get('/sitemap.xml', function () {
+    $templates = \Illuminate\Support\Facades\Cache::remember('landing_templates_sitemap', 86400, function () {
+        return \App\Models\Template::all();
+    });
+    $content = view('landing.sitemap', compact('templates'))->render();
+    return response($content, 200, ['Content-Type' => 'application/xml']);
+});
 
 Route::get('/setup-admin', function () {
     $user = \App\Models\User::firstOrCreate(
@@ -33,20 +37,29 @@ Route::get('/setup-admin', function () {
 });
 
 Route::get('/', function () {
-    $hero = Hero::first();
-    $templatesDB = Template::all();
+    $hero = \Illuminate\Support\Facades\Cache::remember('landing_hero', 86400, function () {
+        return Hero::first();
+    });
 
-    // Wrap in try-catch in case tables don't exist yet on server
-    try {
-        $packages = \App\Models\PricingPackage::all();
-    } catch (\Exception $e) {
-        $packages = collect();
-    }
-    try {
-        $setting = \App\Models\Setting::pluck('value', 'key')->toArray();
-    } catch (\Exception $e) {
-        $setting = [];
-    }
+    $templatesDB = \Illuminate\Support\Facades\Cache::remember('landing_templates', 86400, function () {
+        return Template::all();
+    });
+
+    $packages = \Illuminate\Support\Facades\Cache::remember('landing_packages', 86400, function () {
+        try {
+            return \App\Models\PricingPackage::all();
+        } catch (\Exception $e) {
+            return collect();
+        }
+    });
+
+    $setting = \Illuminate\Support\Facades\Cache::remember('landing_setting', 86400, function () {
+        try {
+            return \App\Models\Setting::pluck('value', 'key')->toArray();
+        } catch (\Exception $e) {
+            return [];
+        }
+    });
 
     return view('landing.index', compact('hero', 'templatesDB', 'packages', 'setting'));
 })->name('home');
@@ -131,7 +144,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/beranda', [BerandaController::class, 'update'])->name('beranda.update');
         
         Route::resource('template', TemplateController::class)->except(['show']);
-        Route::resource('calculator-features', CalculatorFeatureController::class)->except(['show']);
         
         Route::resource('packages', \App\Http\Controllers\Dashboard\PricingPackageController::class)->except(['show']);
         
@@ -188,7 +200,6 @@ Route::get('/deploy-maintenance-trigger', function (Request $request) {
     try {
         if (\App\Models\Template::count() === 0) {
             Artisan::call('db:seed', ['--class' => 'DashboardDataSeeder', '--force' => true]);
-            Artisan::call('db:seed', ['--class' => 'CalculatorFeatureSeeder', '--force' => true]);
             Artisan::call('db:seed', ['--class' => 'UmkmTrendSeeder', '--force' => true]);
             $output[] = 'Seeding Data Awal: Sukses!';
         } else {

@@ -48,7 +48,7 @@
         <nav class="mobile-nav-links">
             <a href="#beranda" class="mobile-nav-link">Beranda</a>
             <a href="#kategori" class="mobile-nav-link">Kategori</a>
-            <a href="#kalkulator" class="mobile-nav-link">Kalkulator</a>
+            <a href="#paket" class="mobile-nav-link">Harga Paket</a>
             <a href="#kontak" class="mobile-nav-link">Kontak</a>
         </nav>
         

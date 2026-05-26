@@ -65,24 +65,37 @@
         "https://wa.me/6285859044929"
       ],
       "offers": [
+        @forelse($packages as $package)
+        @php
+            $priceStr = trim($package->price);
+            $priceStr = str_replace(',', '.', $priceStr);
+            $dotCount = substr_count($priceStr, '.');
+            
+            if ($dotCount === 1 && strlen($priceStr) <= 5) {
+                $priceVal = (float) $priceStr * 1000000;
+            } elseif ($dotCount >= 1) {
+                $priceVal = (float) str_replace('.', '', $priceStr);
+            } else {
+                $priceVal = (float) $priceStr;
+                if ($priceVal < 100) {
+                    $priceVal = $priceVal * 1000000;
+                }
+            }
+        @endphp
         {
           "@@type": "Offer",
-          "name": "Paket Starter",
+          "name": "{{ $package->name }}",
+          "price": "{{ (int) $priceVal }}",
+          "priceCurrency": "IDR"
+        }{{ !$loop->last ? ',' : '' }}
+        @empty
+        {
+          "@@type": "Offer",
+          "name": "Jasa Website UMKM",
           "price": "2500000",
           "priceCurrency": "IDR"
-        },
-        {
-          "@@type": "Offer",
-          "name": "Paket Business",
-          "price": "3000000",
-          "priceCurrency": "IDR"
-        },
-        {
-          "@@type": "Offer",
-          "name": "Paket Premium",
-          "price": "4000000",
-          "priceCurrency": "IDR"
         }
+        @endforelse
       ]
     }
     </script>
@@ -90,7 +103,13 @@
     {{-- ===== PERFORMANCE: PRECONNECT & FONT ===== --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://wa.me">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    <link rel="dns-prefetch" href="https://wa.me">
+    <link rel="dns-prefetch" href="https://maps.app.goo.gl">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
 
     {{-- ===== PRELOAD CRITICAL IMAGES ===== --}}

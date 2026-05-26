@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { MessageCircle, Calculator, FileText, Rocket, ArrowRight } from 'lucide-vue-next';
+import { MessageCircle, Package, FileText, Rocket, ArrowRight } from 'lucide-vue-next';
 
 const steps = [
     {
         number: '01',
-        icon: Calculator,
-        title: 'Rakit Paket Anda',
-        description: 'Gunakan kalkulator di atas untuk memilih fitur website sesuai kebutuhan dan budget bisnis Anda.',
-        highlight: 'Gratis konsultasi',
+        icon: Package,
+        title: 'Pilih Paket Anda',
+        description: 'Tentukan paket website yang paling sesuai dengan target pasar dan kebutuhan bisnis Anda di kolom Paket Harga.',
+        highlight: 'Investasi Fleksibel',
     },
     {
         number: '02',
@@ -71,7 +71,7 @@ const steps = [
                         <div class="pulse-icon">💬</div>
                     </div>
                     <div class="cta-content">
-                        <h3>Masih bingung memilih fitur?</h3>
+                        <h3>Masih bingung memilih paket?</h3>
                         <p>Jangan ragu untuk berkonsultasi secara gratis. Kami akan bantu rekomendasikan paket yang paling efektif untuk budget dan jenis bisnis Anda.</p>
                     </div>
                     <a href="https://wa.me/6285859044929?text=Halo%20DarkandBright,%20saya%20butuh%20bantuan%20memilih%20paket%20website" target="_blank" class="cta-btn">
