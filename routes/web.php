@@ -48,32 +48,6 @@ Route::get('/sitemap.xml', function () {
     return response($content, 200, ['Content-Type' => 'application/xml']);
 });
 
-Route::get('/debug-sitemap-file', function () {
-    $path = resource_path('views/landing/sitemap.blade.php');
-    if (!file_exists($path)) {
-        return response()->json(['error' => 'File not found']);
-    }
-
-    $blade = app('view')->getEngineResolver()->resolve('blade')->getCompiler();
-    $compiledPath = $blade->getCompiledPath($path);
-    $compiledContent = file_exists($compiledPath) ? file_get_contents($compiledPath) : 'Not compiled yet';
-
-    // Compile it dynamically right now to see what it produces
-    try {
-        $dynamicCompiled = $blade->compileString(file_get_contents($path));
-    } catch (Throwable $e) {
-        $dynamicCompiled = 'Error compiling: ' . $e->getMessage();
-    }
-
-    return response()->json([
-        'original_content' => file_get_contents($path),
-        'compiled_path' => $compiledPath,
-        'compiled_exists' => file_exists($compiledPath),
-        'compiled_content' => $compiledContent,
-        'dynamic_compiled' => $dynamicCompiled,
-    ]);
-});
-
 Route::get('/setup-admin', function () {
     $user = User::firstOrCreate(
         ['email' => 'saidin21@gmail.com'],
