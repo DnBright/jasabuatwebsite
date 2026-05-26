@@ -220,9 +220,13 @@ Route::get('/deploy-maintenance-trigger', function (Request $request) {
 
     // 00. Git Pull latest changes from GitHub
     try {
-        $pullOutput = shell_exec('git pull origin main 2>&1');
-        $output[] = 'Git Pull: '.trim($pullOutput);
-    } catch (Exception $e) {
+        if (function_exists('shell_exec')) {
+            $pullOutput = @shell_exec('git pull origin main 2>&1');
+            $output[] = 'Git Pull: ' . (is_string($pullOutput) ? trim($pullOutput) : 'Tidak ada output/Gagal');
+        } else {
+            $output[] = 'Git Pull: Dilewati (fungsi shell_exec dinonaktifkan di server).';
+        }
+    } catch (\Throwable $e) {
         $output[] = 'Git Pull Gagal: '.$e->getMessage();
     }
 
@@ -239,7 +243,7 @@ Route::get('/deploy-maintenance-trigger', function (Request $request) {
     try {
         Artisan::call('migrate', ['--force' => true]);
         $output[] = 'Migrasi: '.trim(Artisan::output());
-    } catch (Exception $e) {
+    } catch (\Throwable $e) {
         $output[] = 'Migrasi Gagal: '.$e->getMessage();
     }
 
@@ -257,7 +261,7 @@ Route::get('/deploy-maintenance-trigger', function (Request $request) {
         } else {
             $output[] = 'Symlink Storage: Sudah ada.';
         }
-    } catch (Exception $e) {
+    } catch (\Throwable $e) {
         $output[] = 'Symlink Storage Gagal: '.$e->getMessage();
     }
 
@@ -270,7 +274,7 @@ Route::get('/deploy-maintenance-trigger', function (Request $request) {
         } else {
             $output[] = 'Seeding Data Awal: Dilewati (database sudah berisi data).';
         }
-    } catch (Exception $e) {
+    } catch (\Throwable $e) {
         $output[] = 'Seeding Gagal: '.$e->getMessage();
     }
 
@@ -278,28 +282,28 @@ Route::get('/deploy-maintenance-trigger', function (Request $request) {
     try {
         Artisan::call('view:clear');
         $output[] = 'View Cache: Berhasil dihapus!';
-    } catch (Exception $e) {
+    } catch (\Throwable $e) {
         $output[] = 'View Clear Gagal: '.$e->getMessage();
     }
 
     try {
         Artisan::call('config:clear');
         $output[] = 'Config Cache: Berhasil dihapus!';
-    } catch (Exception $e) {
+    } catch (\Throwable $e) {
         $output[] = 'Config Clear Gagal: '.$e->getMessage();
     }
 
     try {
         Artisan::call('route:clear');
         $output[] = 'Route Cache: Berhasil dihapus!';
-    } catch (Exception $e) {
+    } catch (\Throwable $e) {
         $output[] = 'Route Clear Gagal: '.$e->getMessage();
     }
 
     try {
         Artisan::call('cache:clear');
         $output[] = 'Application Cache: Berhasil dihapus!';
-    } catch (Exception $e) {
+    } catch (\Throwable $e) {
         $output[] = 'Application Cache Clear Gagal: '.$e->getMessage();
     }
 
@@ -307,7 +311,7 @@ Route::get('/deploy-maintenance-trigger', function (Request $request) {
     try {
         Artisan::call('optimize');
         $output[] = 'Cache Optimize: '.trim(Artisan::output());
-    } catch (Exception $e) {
+    } catch (\Throwable $e) {
         $output[] = 'Optimize Gagal: '.$e->getMessage();
     }
 
