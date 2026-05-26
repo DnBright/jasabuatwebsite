@@ -25,9 +25,24 @@ class_exists(PricingPackage::class);
 class_exists(Setting::class);
 
 Route::get('/sitemap.xml', function () {
-    $templates = Cache::remember('landing_templates_sitemap', 86400, function () {
-        return Template::all();
-    });
+    try {
+        $templates = Cache::remember('landing_templates_sitemap', 86400, function () {
+            return Template::all();
+        });
+        if (!is_object($templates) || get_class($templates) === '__PHP_Incomplete_Class') {
+            throw new Exception('Corrupted Templates sitemap cache');
+        }
+        if ($templates instanceof \Illuminate\Support\Collection) {
+            foreach ($templates as $t) {
+                if (!is_object($t) || get_class($t) === '__PHP_Incomplete_Class') {
+                    throw new Exception('Corrupted Template model inside collection');
+                }
+            }
+        }
+    } catch (Throwable $e) {
+        Cache::forget('landing_templates_sitemap');
+        $templates = Template::all();
+    }
     $content = view('landing.sitemap', compact('templates'))->render();
 
     return response($content, 200, ['Content-Type' => 'application/xml']);
