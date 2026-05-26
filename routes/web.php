@@ -53,10 +53,24 @@ Route::get('/debug-sitemap-file', function () {
     if (!file_exists($path)) {
         return response()->json(['error' => 'File not found']);
     }
+
+    $blade = app('view')->getEngineResolver()->resolve('blade')->getCompiler();
+    $compiledPath = $blade->getCompiledPath($path);
+    $compiledContent = file_exists($compiledPath) ? file_get_contents($compiledPath) : 'Not compiled yet';
+
+    // Compile it dynamically right now to see what it produces
+    try {
+        $dynamicCompiled = $blade->compileString(file_get_contents($path));
+    } catch (Throwable $e) {
+        $dynamicCompiled = 'Error compiling: ' . $e->getMessage();
+    }
+
     return response()->json([
-        'content' => file_get_contents($path),
-        'mtime' => filemtime($path),
-        'current_time' => time(),
+        'original_content' => file_get_contents($path),
+        'compiled_path' => $compiledPath,
+        'compiled_exists' => file_exists($compiledPath),
+        'compiled_content' => $compiledContent,
+        'dynamic_compiled' => $dynamicCompiled,
     ]);
 });
 
