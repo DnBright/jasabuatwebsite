@@ -48,6 +48,18 @@ Route::get('/sitemap.xml', function () {
     return response($content, 200, ['Content-Type' => 'application/xml']);
 });
 
+Route::get('/debug-sitemap-file', function () {
+    $path = resource_path('views/landing/sitemap.blade.php');
+    if (!file_exists($path)) {
+        return response()->json(['error' => 'File not found']);
+    }
+    return response()->json([
+        'content' => file_get_contents($path),
+        'mtime' => filemtime($path),
+        'current_time' => time(),
+    ]);
+});
+
 Route::get('/setup-admin', function () {
     $user = User::firstOrCreate(
         ['email' => 'saidin21@gmail.com'],
