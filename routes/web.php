@@ -322,6 +322,18 @@ Route::get('/deploy-maintenance-trigger', function (Request $request) {
         $output[] = 'Application Cache Clear Gagal: '.$e->getMessage();
     }
 
+    // 4.5. Reset OPcache (penting untuk LiteSpeed/PHP-FPM)
+    try {
+        if (function_exists('opcache_reset')) {
+            @opcache_reset();
+            $output[] = 'OPcache: Berhasil di-reset!';
+        } else {
+            $output[] = 'OPcache: Lewat (fungsi opcache_reset dinonaktifkan/tidak tersedia).';
+        }
+    } catch (\Throwable $e) {
+        $output[] = 'OPcache Gagal: '.$e->getMessage();
+    }
+
     // 5. Optimize Cache (re-compile setelah clear)
     try {
         Artisan::call('optimize');
