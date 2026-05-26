@@ -333,21 +333,31 @@
     }
 
     @@media (max-width: 768px) {
-        .categories-section { padding: 4rem 0; }
-        .section-title { font-size: 2.25rem; }
-        .section-subtitle { font-size: 1rem; margin-bottom: 3rem; padding: 0 5%; }
-        .portfolio-showcase { padding-bottom: 2rem; }
-        .umkm-content { padding: 1.25rem; }
-        .umkm-content h3 { font-size: 1.15rem; }
-        .umkm-content p { font-size: 0.9rem; margin-bottom: 1.2rem; }
+        .categories-section { padding: 3rem 0; }
+        .section-container { padding: 0 5%; }
+        .badge-mini { margin-bottom: 1rem; font-size: 0.75rem; padding: 0.4rem 1rem; }
+        .section-title { font-size: 1.75rem; margin-bottom: 1rem; }
+        .section-subtitle { font-size: 0.95rem; margin-bottom: 2.5rem; padding: 0; }
+        .portfolio-showcase { padding-bottom: 1rem; }
+        
+        .umkm-card { border-radius: 16px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); }
+        .umkm-img-wrap { aspect-ratio: 16/9; }
+        .umkm-content { padding: 1rem; }
+        .umkm-tag { font-size: 0.7rem; margin-bottom: 0.3rem; }
+        .umkm-content h3 { font-size: 1.1rem; margin-bottom: 0.4rem; }
+        .umkm-content p { font-size: 0.85rem; margin-bottom: 1rem; line-height: 1.4; }
+        .umkm-action { font-size: 0.9rem; }
+        
         .swiper-button-prev, .swiper-button-next { 
-            width: 40px !important; 
-            height: 40px !important; 
+            width: 36px !important; 
+            height: 36px !important; 
         }
         .swiper-button-prev::after, .swiper-button-next::after {
-            font-size: 0.85rem !important;
+            font-size: 0.8rem !important;
         }
         .swiper-controls-container { margin-top: 1.5rem; }
+        .swipe-hint { font-size: 0.8rem; margin-bottom: 0.75rem; }
+        .swiper-nav-wrapper { gap: 1rem; }
     }
 </style>
 
@@ -355,8 +365,8 @@
     document.addEventListener('DOMContentLoaded', function () {
         if (typeof Swiper !== 'undefined') {
             new Swiper('.kategori-swiper', {
-                slidesPerView: 1.1,
-                spaceBetween: 16,
+                slidesPerView: 1.15,
+                spaceBetween: 12,
                 loop: false,
                 grabCursor: true,
                 autoplay: {
