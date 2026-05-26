@@ -23,6 +23,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Force preloading of Eloquent models to prevent unserialize() failures on incomplete classes
+        class_exists(\App\Models\Hero::class);
+        class_exists(\App\Models\Template::class);
+        class_exists(\App\Models\PricingPackage::class);
+        class_exists(\App\Models\Setting::class);
+
         $this->configureDefaults();
     }
 
