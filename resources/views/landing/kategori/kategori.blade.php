@@ -15,7 +15,7 @@
                         <div class="umkm-img-wrap">
                             <picture>
                                 <source srcset="{{ asset('images/FNB.webp') }}" type="image/webp">
-                                <img src="{{ asset('images/FNB.png') }}" alt="Website Restoran" loading="lazy" decoding="async" width="2200" height="1571" />
+                                <img src="{{ asset('images/FNB.png') }}" alt="Website Restoran" loading="lazy" decoding="async" width="800" height="571" />
                             </picture>
                         </div>
                         <div class="umkm-content">
@@ -33,7 +33,7 @@
                         <div class="umkm-img-wrap">
                             <picture>
                                 <source srcset="{{ asset('images/kecantikan.webp') }}" type="image/webp">
-                                <img src="{{ asset('images/kecantikan.png') }}" alt="Website Klinik Kecantikan" loading="lazy" decoding="async" />
+                                <img src="{{ asset('images/kecantikan.png') }}" alt="Website Klinik Kecantikan" loading="lazy" decoding="async" width="800" height="571" />
                             </picture>
                         </div>
                         <div class="umkm-content">
@@ -51,7 +51,7 @@
                         <div class="umkm-img-wrap">
                             <picture>
                                 <source srcset="{{ asset('images/petshop.webp') }}" type="image/webp">
-                                <img src="{{ asset('images/petshop.png') }}" alt="Website Pet Shop" loading="lazy" decoding="async" />
+                                <img src="{{ asset('images/petshop.png') }}" alt="Website Pet Shop" loading="lazy" decoding="async" width="800" height="571" />
                             </picture>
                         </div>
                         <div class="umkm-content">
@@ -69,7 +69,7 @@
                         <div class="umkm-img-wrap">
                             <picture>
                                 <source srcset="{{ asset('images/potografi_.webp') }}" type="image/webp">
-                                <img src="{{ asset('images/potografi_.png') }}" alt="Website Fotografi" loading="lazy" decoding="async" />
+                                <img src="{{ asset('images/potografi_.png') }}" alt="Website Fotografi" loading="lazy" decoding="async" width="800" height="571" />
                             </picture>
                         </div>
                         <div class="umkm-content">
@@ -87,7 +87,7 @@
                         <div class="umkm-img-wrap">
                             <picture>
                                 <source srcset="{{ asset('images/retail atau marketplace.webp') }}" type="image/webp">
-                                <img src="{{ asset('images/retail atau marketplace.png') }}" alt="Website Toko Online" loading="lazy" decoding="async" />
+                                <img src="{{ asset('images/retail atau marketplace.png') }}" alt="Website Toko Online" loading="lazy" decoding="async" width="800" height="571" />
                             </picture>
                         </div>
                         <div class="umkm-content">
@@ -104,9 +104,9 @@
             <div class="swiper-controls-container">
                 <p class="swipe-hint">Geser untuk melihat kategori lain</p>
                 <div class="swiper-nav-wrapper">
-                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-prev" aria-label="Slide sebelumnya"></div>
                     <div class="swiper-pagination"></div>
-                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-next" aria-label="Slide berikutnya"></div>
                 </div>
             </div>
         </div>

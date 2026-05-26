@@ -13,7 +13,7 @@
                 <div class="card-template">
                     <div class="template-image-box">
                         <a href="{{ route('template.details', $tmpl->id) }}">
-                            <img src="{{ Str::startsWith($tmpl->image, 'http') ? $tmpl->image : asset($tmpl->image) }}" alt="{{ $tmpl->name }}" loading="lazy" />
+                            <img src="{{ Str::startsWith($tmpl->image, 'http') ? $tmpl->image : asset($tmpl->image) }}" alt="{{ $tmpl->name }}" loading="lazy" width="512" height="512" />
                         </a>
                         @if($loop->first)
                         <div class="template-badge">Terlaris</div>

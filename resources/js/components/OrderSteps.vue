@@ -74,7 +74,7 @@ const steps = [
                         <h3>Masih bingung memilih paket?</h3>
                         <p>Jangan ragu untuk berkonsultasi secara gratis. Kami akan bantu rekomendasikan paket yang paling efektif untuk budget dan jenis bisnis Anda.</p>
                     </div>
-                    <a href="https://wa.me/6285859044929?text=Halo%20DarkandBright,%20saya%20butuh%20bantuan%20memilih%20paket%20website" target="_blank" class="cta-btn">
+                    <a href="https://wa.me/6285859044929?text=Halo%20DarkandBright,%20saya%20butuh%20bantuan%20memilih%20paket%20website" target="_blank" rel="noopener" class="cta-btn">
                         <span>Konsultasi Gratis Sekarang</span>
                         <ArrowRight class="btn-icon" />
                     </a>

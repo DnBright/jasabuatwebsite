@@ -141,12 +141,15 @@
             --color-text-muted: #64748b;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Outfit', 'Inter', sans-serif;
-            scroll-behavior: smooth;
         }
 
         body {

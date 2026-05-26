@@ -4,7 +4,7 @@
         <div class="nav-brand" onclick="window.location.href='#beranda'">
             <picture>
                 <source srcset="{{ asset('images/logo.webp') }}" type="image/webp">
-                <img src="{{ asset('images/logo.png') }}" alt="DarkandBright Logo" class="nav-logo" />
+                <img src="{{ asset('images/logo.png') }}" alt="DarkandBright Logo" class="nav-logo" width="300" height="275" />
             </picture>
             <div class="brand-seo-text desktop-only">
                 <strong>Jasa Pembuatan Website</strong>
@@ -40,7 +40,7 @@
         <div class="mobile-menu-header">
             <picture>
                 <source srcset="{{ asset('images/logo.webp') }}" type="image/webp">
-                <img src="{{ asset('images/logo.png') }}" alt="DarkandBright Logo" class="mobile-logo" />
+                <img src="{{ asset('images/logo.png') }}" alt="DarkandBright Logo" class="mobile-logo" width="300" height="275" />
             </picture>
             <button class="close-menu" id="closeMenuBtn" aria-label="Tutup Menu">&times;</button>
         </div>
