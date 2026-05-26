@@ -18,6 +18,12 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 
+// Force preloading of Eloquent models to prevent unserialize() failures on incomplete classes
+class_exists(Hero::class);
+class_exists(Template::class);
+class_exists(PricingPackage::class);
+class_exists(Setting::class);
+
 Route::get('/sitemap.xml', function () {
     $templates = Cache::remember('landing_templates_sitemap', 86400, function () {
         return Template::all();
@@ -49,7 +55,7 @@ Route::get('/', function () {
         $hero = Cache::remember('landing_hero', 86400, function () {
             return Hero::first();
         });
-        if ($hero instanceof __PHP_Incomplete_Class) {
+        if (!is_object($hero) || get_class($hero) === '__PHP_Incomplete_Class') {
             throw new Exception('Corrupted Hero cache');
         }
     } catch (Throwable $e) {
@@ -62,7 +68,7 @@ Route::get('/', function () {
         $templatesDB = Cache::remember('landing_templates', 86400, function () {
             return Template::all();
         });
-        if ($templatesDB instanceof __PHP_Incomplete_Class) {
+        if (!is_object($templatesDB) || get_class($templatesDB) === '__PHP_Incomplete_Class') {
             throw new Exception('Corrupted Templates cache');
         }
     } catch (Throwable $e) {
@@ -79,7 +85,7 @@ Route::get('/', function () {
                 return collect();
             }
         });
-        if ($packages instanceof __PHP_Incomplete_Class) {
+        if (!is_object($packages) || get_class($packages) === '__PHP_Incomplete_Class') {
             throw new Exception('Corrupted Packages cache');
         }
     } catch (Throwable $e) {
@@ -100,7 +106,7 @@ Route::get('/', function () {
                 return [];
             }
         });
-        if ($setting instanceof __PHP_Incomplete_Class || ! is_array($setting)) {
+        if (!is_array($setting) || (is_object($setting) && get_class($setting) === '__PHP_Incomplete_Class')) {
             throw new Exception('Corrupted Setting cache');
         }
     } catch (Throwable $e) {
