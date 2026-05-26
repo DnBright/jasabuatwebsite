@@ -3,11 +3,19 @@
 use App\Http\Controllers\Dashboard\AnalyticsController;
 use App\Http\Controllers\Dashboard\BerandaController;
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Dashboard\PricingPackageController;
+use App\Http\Controllers\Dashboard\SettingController;
 use App\Http\Controllers\Dashboard\TemplateController;
 use App\Models\Hero;
+use App\Models\PricingPackage;
+use App\Models\Setting;
 use App\Models\Template;
 use App\Models\TemplateReview;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/sitemap.xml', function () {
@@ -36,29 +44,73 @@ Route::get('/setup-admin', function () {
 });
 
 Route::get('/', function () {
-    $hero = Cache::remember('landing_hero', 86400, function () {
-        return Hero::first();
-    });
-
-    $templatesDB = Cache::remember('landing_templates', 86400, function () {
-        return Template::all();
-    });
-
-    $packages = Cache::remember('landing_packages', 86400, function () {
-        try {
-            return PricingPackage::all();
-        } catch (Exception $e) {
-            return collect();
+    // 1. Hero Caching with Self-Healing
+    try {
+        $hero = Cache::remember('landing_hero', 86400, function () {
+            return Hero::first();
+        });
+        if ($hero instanceof __PHP_Incomplete_Class) {
+            throw new Exception('Corrupted Hero cache');
         }
-    });
+    } catch (Throwable $e) {
+        Cache::forget('landing_hero');
+        $hero = Hero::first();
+    }
 
-    $setting = Cache::remember('landing_setting', 86400, function () {
-        try {
-            return Setting::pluck('value', 'key')->toArray();
-        } catch (Exception $e) {
-            return [];
+    // 2. Templates Caching with Self-Healing
+    try {
+        $templatesDB = Cache::remember('landing_templates', 86400, function () {
+            return Template::all();
+        });
+        if ($templatesDB instanceof __PHP_Incomplete_Class) {
+            throw new Exception('Corrupted Templates cache');
         }
-    });
+    } catch (Throwable $e) {
+        Cache::forget('landing_templates');
+        $templatesDB = Template::all();
+    }
+
+    // 3. Packages Caching with Self-Healing
+    try {
+        $packages = Cache::remember('landing_packages', 86400, function () {
+            try {
+                return PricingPackage::all();
+            } catch (Exception $e) {
+                return collect();
+            }
+        });
+        if ($packages instanceof __PHP_Incomplete_Class) {
+            throw new Exception('Corrupted Packages cache');
+        }
+    } catch (Throwable $e) {
+        Cache::forget('landing_packages');
+        try {
+            $packages = PricingPackage::all();
+        } catch (Exception $ex) {
+            $packages = collect();
+        }
+    }
+
+    // 4. Setting Caching with Self-Healing
+    try {
+        $setting = Cache::remember('landing_setting', 86400, function () {
+            try {
+                return Setting::pluck('value', 'key')->toArray();
+            } catch (Exception $e) {
+                return [];
+            }
+        });
+        if ($setting instanceof __PHP_Incomplete_Class || ! is_array($setting)) {
+            throw new Exception('Corrupted Setting cache');
+        }
+    } catch (Throwable $e) {
+        Cache::forget('landing_setting');
+        try {
+            $setting = Setting::pluck('value', 'key')->toArray();
+        } catch (Exception $ex) {
+            $setting = [];
+        }
+    }
 
     return view('landing.index', compact('hero', 'templatesDB', 'packages', 'setting'));
 })->name('home');
@@ -152,15 +204,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/settings', [SettingController::class, 'update'])->name('settings.update');
     });
 });
-
-use App\Http\Controllers\Dashboard\PricingPackageController;
-use App\Http\Controllers\Dashboard\SettingController;
-use App\Models\PricingPackage;
-use App\Models\Setting;
-use App\Models\User;
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Hash;
 
 Route::get('/deploy-maintenance-trigger', function (Request $request) {
     if ($request->query('token') !== 'bPXwtuggH5qk81') {
