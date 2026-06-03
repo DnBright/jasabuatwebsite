@@ -315,7 +315,7 @@
                     <a href="{{ route('template.demo', $template['id']) }}" target="_blank" class="btn-demo">
                         🎨 LIHAT DEMO LIVE
                     </a>
-                    <a href="https://wa.me/6285859044929?text=Halo%20DarkandBright,%20saya%20tertarik%20untuk%20memesan%20template%20{{ urlencode($template['name']) }}%20paket%20{{ ucfirst($key) }}.%20Mohon%20infonya." target="_blank" class="btn-order" style="text-align: center; text-decoration: none; display: block;">
+                    <a href="https://wa.me/6285190894806?text=Halo%20DarkandBright,%20saya%20tertarik%20untuk%20memesan%20template%20{{ urlencode($template['name']) }}%20paket%20{{ ucfirst($key) }}.%20Mohon%20infonya." target="_blank" class="btn-order" style="text-align: center; text-decoration: none; display: block;">
                         PESAN SEKARANG (WHATSAPP)
                     </a>
                     <button class="btn-contact">Hubungi Penjual</button>

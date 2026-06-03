@@ -14,7 +14,7 @@ class PricingPackageSeeder extends Seeder
     {
         \App\Models\Setting::updateOrCreate(
             ['key' => 'whatsapp_number'],
-            ['value' => '85859044929']
+            ['value' => '85190894806']
         );
 
         // Clear existing packages before re-seeding
@@ -28,7 +28,7 @@ class PricingPackageSeeder extends Seeder
                 'payment_terms' => 'Bisa dicicil <strong>3x pembayaran</strong>',
                 'is_popular' => false,
                 'button_text' => 'Pilih Paket Starter',
-                'button_link' => 'https://wa.me/6285859044929?text=Halo%20DarkandBright,%20saya%20tertarik%20dengan%20Paket%20Starter%20seharga%20Rp%202.500.000.',
+                'button_link' => 'https://wa.me/6285190894806?text=Halo%20DarkandBright,%20saya%20tertarik%20dengan%20Paket%20Starter%20seharga%20Rp%202.500.000.',
                 'features' => [
                     ['text' => 'Website profesional', 'is_active' => true],
                     ['text' => 'Mobile friendly', 'is_active' => true],
@@ -46,7 +46,7 @@ class PricingPackageSeeder extends Seeder
                 'payment_terms' => 'Bisa dicicil <strong>3x pembayaran</strong>',
                 'is_popular' => true,
                 'button_text' => 'Pilih Paket Business',
-                'button_link' => 'https://wa.me/6285859044929?text=Halo%20DarkandBright,%20saya%20tertarik%20dengan%20Paket%20Business%20seharga%20Rp%203.000.000.',
+                'button_link' => 'https://wa.me/6285190894806?text=Halo%20DarkandBright,%20saya%20tertarik%20dengan%20Paket%20Business%20seharga%20Rp%203.000.000.',
                 'features' => [
                     ['text' => 'Semua fitur Paket Starter', 'is_active' => true],
                     ['text' => '<strong>Gratis domain + hosting 1 tahun</strong>', 'is_active' => true],
@@ -64,7 +64,7 @@ class PricingPackageSeeder extends Seeder
                 'payment_terms' => 'Bisa dicicil <strong>4x pembayaran</strong>',
                 'is_popular' => false,
                 'button_text' => 'Pilih Paket Premium',
-                'button_link' => 'https://wa.me/6285859044929?text=Halo%20DarkandBright,%20saya%20tertarik%20dengan%20Paket%20Premium%20seharga%20Rp%204.000.000.',
+                'button_link' => 'https://wa.me/6285190894806?text=Halo%20DarkandBright,%20saya%20tertarik%20dengan%20Paket%20Premium%20seharga%20Rp%204.000.000.',
                 'features' => [
                     ['text' => 'Semua fitur Paket Business', 'is_active' => true],
                     ['text' => '<strong>Gratis domain + hosting 1 tahun</strong>', 'is_active' => true],

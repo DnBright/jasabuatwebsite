@@ -17,7 +17,7 @@ class DashboardDataSeeder extends Seeder
             'title_highlight' => 'Murah & Mewah',
             'description' => 'Khusus buat UMKM: Tingkatkan orderan WA Anda dengan website profesional siap pakai. Sekali bayar, langsung online, hasil pasti memuaskan!',
             'button_text' => 'Pesan Sekarang',
-            'button_link' => 'https://wa.me/6281234567890?text=Halo%20DarkandBright,%20saya%20tertarik%20buat%20website%20murah.',
+            'button_link' => 'https://wa.me/6285190894806?text=Halo%20DarkandBright,%20saya%20tertarik%20buat%20website%20murah.',
             'secondary_button_text' => 'Lihat Desain',
             'secondary_button_link' => '#template',
             'image' => 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=300'

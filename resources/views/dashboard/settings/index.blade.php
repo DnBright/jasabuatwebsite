@@ -28,7 +28,7 @@
                         <span class="inline-flex items-center px-4 rounded-l-xl border border-r-0 border-blue-200 bg-blue-100 text-blue-700 font-bold">
                             +62
                         </span>
-                        <input type="text" name="whatsapp_number" value="{{ old('whatsapp_number', $settings['whatsapp_number'] ?? '85859044929') }}" class="flex-1 w-full rounded-none rounded-r-xl border-blue-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition-colors" placeholder="81234567890">
+                        <input type="text" name="whatsapp_number" value="{{ old('whatsapp_number', $settings['whatsapp_number'] ?? '85190894806') }}" class="flex-1 w-full rounded-none rounded-r-xl border-blue-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition-colors" placeholder="81234567890">
                     </div>
                     <div class="flex items-start mt-3 text-blue-600/80">
                         <i data-lucide="info" class="w-4 h-4 mr-1.5 mt-0.5 flex-shrink-0"></i>

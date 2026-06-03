@@ -20,7 +20,7 @@
         </ul>
         
         <div class="nav-actions">
-            <a href="https://wa.me/62{{ $setting['whatsapp_number'] ?? '85859044929' }}?text=Halo%20DarkandBright,%20saya%20tertarik%20memesan%20layanan%20Anda." target="_blank" rel="noopener" class="btn-nav desktop-only" style="text-decoration: none;">
+            <a href="https://wa.me/62{{ $setting['whatsapp_number'] ?? '85190894806' }}?text=Halo%20DarkandBright,%20saya%20tertarik%20memesan%20layanan%20Anda." target="_blank" rel="noopener" class="btn-nav desktop-only" style="text-decoration: none;">
                 Pesan Sekarang
             </a>
             
@@ -54,7 +54,7 @@
         
         <div class="mobile-menu-footer">
             <p class="menu-tagline">Solusi Digital UMKM Naik Kelas</p>
-            <a href="https://wa.me/6285859044929" class="btn-mobile-wa" target="_blank" rel="noopener">
+            <a href="https://wa.me/6285190894806" class="btn-mobile-wa" target="_blank" rel="noopener">
                 Hubungi WhatsApp
             </a>
             <div class="mobile-socials">
