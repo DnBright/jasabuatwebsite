@@ -1,7 +1,7 @@
 <!-- PAKET HARGA SECTION -->
 <section id="paket" class="pricing-section">
     <div class="pricing-container">
-        <div class="pricing-header" data-aos="fade-up">
+        <div class="pricing-header">
             <span class="badge-mini">Investasi Fleksibel</span>
             <h2 class="section-title">Pilih Paket Sesuai <span>Kebutuhan Bisnis</span> Anda</h2>
             <p class="section-subtitle">Semua paket dirancang "Terima Jadi". Anda cukup fokus pada bisnis, kami urus semua teknisnya. Pembayaran juga bisa dicicil!</p>
@@ -40,7 +40,7 @@
                 $monthlyFormatted = 'Rp ' . number_format($monthlyVal, 0, ',', '.');
             @endphp
             <!-- Paket -->
-            <div class="pricing-card {{ $package->is_popular ? 'popular' : '' }}" data-aos="fade-up" data-aos-delay="{{ $loop->iteration * 150 }}">
+            <div class="pricing-card {{ $package->is_popular ? 'popular' : '' }}">
                 @if($package->is_popular)
                 <div class="popular-badge">Paling Diminati</div>
                 @endif
