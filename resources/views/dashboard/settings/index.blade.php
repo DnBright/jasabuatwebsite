@@ -36,6 +36,36 @@
                     </div>
                 </div>
             </div>
+
+            <!-- SEO & Identitas Website -->
+            <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <h3 class="font-bold text-slate-700 mb-4 flex items-center"><i data-lucide="globe" class="w-4 h-4 mr-2"></i> Identitas Website</h3>
+                <div class="grid grid-cols-1 gap-y-4">
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">Nama Website</label>
+                        <input type="text" name="website_name" value="{{ old('website_name', $settings['website_name'] ?? 'DnBright') }}" class="w-full rounded-xl border border-slate-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition-colors">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">Meta Deskripsi (Untuk SEO)</label>
+                        <textarea name="website_description" rows="3" class="w-full rounded-xl border border-slate-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition-colors">{{ old('website_description', $settings['website_description'] ?? 'Jasa Buat Website Profesional') }}</textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kontak Lainnya -->
+            <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <h3 class="font-bold text-slate-700 mb-4 flex items-center"><i data-lucide="map-pin" class="w-4 h-4 mr-2"></i> Kontak & Sosial Media</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">Link Instagram</label>
+                        <input type="text" name="social_instagram" value="{{ old('social_instagram', $settings['social_instagram'] ?? 'https://instagram.com/') }}" class="w-full rounded-xl border border-slate-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition-colors" placeholder="https://instagram.com/...">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">Alamat Perusahaan</label>
+                        <input type="text" name="company_address" value="{{ old('company_address', $settings['company_address'] ?? 'Jakarta') }}" class="w-full rounded-xl border border-slate-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition-colors">
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="flex justify-end gap-3 pt-8 mt-8 border-t border-slate-100">

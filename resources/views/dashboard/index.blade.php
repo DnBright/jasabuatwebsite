@@ -3,7 +3,7 @@
 @section('header', 'Overview Dashboard')
 
 @section('content')
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
     <!-- Stat 1 -->
     <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow flex items-center">
         <div class="p-4 bg-blue-50/50 rounded-xl mr-5 text-blue-600 border border-blue-100">
@@ -28,12 +28,23 @@
 
     <!-- Stat 3 -->
     <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow flex items-center">
-        <div class="p-4 bg-{{ $stats['hero_exists'] ? 'green' : 'red' }}-50/50 rounded-xl mr-5 text-{{ $stats['hero_exists'] ? 'green' : 'red' }}-600 border border-{{ $stats['hero_exists'] ? 'green' : 'red' }}-100">
-            <i data-lucide="{{ $stats['hero_exists'] ? 'check-circle' : 'x-circle' }}" class="w-7 h-7"></i>
+        <div class="p-4 bg-amber-50/50 rounded-xl mr-5 text-amber-600 border border-amber-100">
+            <i data-lucide="message-square" class="w-7 h-7"></i>
         </div>
         <div>
-            <p class="text-sm font-semibold text-slate-500 mb-1 uppercase tracking-wider">Status Beranda</p>
-            <h3 class="text-3xl font-bold text-slate-800 tracking-tight">{{ $stats['hero_exists'] ? 'Aktif' : 'Kosong' }}</h3>
+            <p class="text-sm font-semibold text-slate-500 mb-1 uppercase tracking-wider">Total Ulasan</p>
+            <h3 class="text-3xl font-bold text-slate-800 tracking-tight">{{ $stats['total_reviews'] }}</h3>
+        </div>
+    </div>
+
+    <!-- Stat 4 -->
+    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow flex items-center">
+        <div class="p-4 bg-orange-50/50 rounded-xl mr-5 text-orange-600 border border-orange-100">
+            <i data-lucide="clock" class="w-7 h-7"></i>
+        </div>
+        <div>
+            <p class="text-sm font-semibold text-slate-500 mb-1 uppercase tracking-wider">Review Baru</p>
+            <h3 class="text-3xl font-bold text-slate-800 tracking-tight">{{ $stats['pending_reviews'] }}</h3>
         </div>
     </div>
 </div>

@@ -81,6 +81,10 @@
                 <i data-lucide="layout-template" class="mr-3 w-5 h-5 {{ request()->routeIs('dashboard.template.*') ? 'text-blue-500' : '' }}"></i> Templates
             </a>
 
+            <a href="{{ route('dashboard.reviews.index') }}" class="flex items-center px-4 py-3 rounded-lg transition-all duration-200 {{ request()->routeIs('dashboard.reviews.*') ? 'active shadow-md' : '' }}">
+                <i data-lucide="message-square" class="mr-3 w-5 h-5 {{ request()->routeIs('dashboard.reviews.*') ? 'text-blue-500' : '' }}"></i> Ulasan
+            </a>
+
             <a href="{{ route('dashboard.packages.index') }}" class="flex items-center px-4 py-3 rounded-lg transition-all duration-200 {{ request()->routeIs('dashboard.packages.*') ? 'active shadow-md' : '' }}">
                 <i data-lucide="package" class="mr-3 w-5 h-5 {{ request()->routeIs('dashboard.packages.*') ? 'text-blue-500' : '' }}"></i> Paket Harga
             </a>

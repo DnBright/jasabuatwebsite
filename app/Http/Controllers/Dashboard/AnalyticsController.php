@@ -37,43 +37,6 @@ class AnalyticsController extends Controller
 
     public function refresh()
     {
-        // Mark current latest as old
-        UmkmTrend::where('is_latest', true)->update(['is_latest' => false]);
-
-        // Get the "current" trends to base the new prediction on
-        $oldTrends = UmkmTrend::orderBy('created_at', 'desc')->take(5)->get();
-        
-        $newBatchName = "Pekan ke-" . (UmkmTrend::distinct('batch_name')->count() + 1);
-        
-        foreach ($oldTrends as $trend) {
-            // Simulate weekly fluctuation
-            $fluctuation = rand(-8, 12); // Market bias slightly upwards
-            $newScore = max(10, min(98, $trend->score_value + $fluctuation));
-            
-            $growthFluctuation = rand(-3, 6);
-            $newGrowthInt = (int)filter_var($trend->growth_percentage, FILTER_SANITIZE_NUMBER_INT) + $growthFluctuation;
-            $newGrowth = "+" . max(5, $newGrowthInt) . "%";
-
-            // Determine textual score
-            $newTextScore = "Tinggi";
-            if($newScore >= 90) $newTextScore = "Sangat Tinggi";
-            elseif($newScore >= 70) $newTextScore = "Tinggi";
-            elseif($newScore >= 50) $newTextScore = "Sedang";
-            else $newTextScore = "Rendah";
-
-            UmkmTrend::create([
-                'category' => $trend->category,
-                'trend_name' => $trend->trend_name,
-                'growth_percentage' => $newGrowth,
-                'score_value' => $newScore,
-                'website_need_score' => $newTextScore,
-                'website_features' => $trend->website_features,
-                'description' => $trend->description,
-                'batch_name' => $newBatchName,
-                'is_latest' => true
-            ]);
-        }
-
-        return redirect()->route('dashboard.analytics.index')->with('success', "Analisis pasar baru ($newBatchName) telah digenerate!");
+        return redirect()->route('dashboard.analytics.index')->with('success', 'Fitur simulasi prospek target telah dinonaktifkan. Silakan integrasikan dengan API analitik nyata (seperti Google Analytics) untuk mendapatkan data akurat.');
     }
 }

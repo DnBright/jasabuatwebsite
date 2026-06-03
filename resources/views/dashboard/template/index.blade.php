@@ -13,7 +13,25 @@
     </a>
 </div>
 
-<div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+<div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden mb-6">
+    <div class="p-4 border-b border-slate-100 flex flex-col md:flex-row gap-4 justify-between items-center bg-slate-50">
+        <form method="GET" action="{{ route('dashboard.template.index') }}" class="flex flex-col md:flex-row gap-3 w-full md:w-auto">
+            <div class="relative">
+                <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400"></i>
+                <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari nama template..." class="pl-9 pr-4 py-2 w-full md:w-64 rounded-xl border border-slate-200 text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm transition-all">
+            </div>
+            <select name="category" class="py-2 px-4 rounded-xl border border-slate-200 text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm transition-all text-slate-600">
+                <option value="">Semua Kategori</option>
+                @foreach($categories as $cat)
+                    <option value="{{ $cat }}" {{ request('category') == $cat ? 'selected' : '' }}>{{ $cat }}</option>
+                @endforeach
+            </select>
+            <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-xl text-sm font-medium transition-colors shadow-sm">Filter</button>
+            @if(request('search') || request('category'))
+                <a href="{{ route('dashboard.template.index') }}" class="bg-slate-200 hover:bg-slate-300 text-slate-700 px-4 py-2 rounded-xl text-sm font-medium transition-colors shadow-sm text-center">Reset</a>
+            @endif
+        </form>
+    </div>
     <div class="overflow-x-auto">
         <table class="w-full text-left border-collapse">
             <thead>
@@ -69,5 +87,10 @@
             </tbody>
         </table>
     </div>
+    @if($templates->hasPages())
+    <div class="p-4 border-t border-slate-100">
+        {{ $templates->links('pagination::tailwind') }}
+    </div>
+    @endif
 </div>
 @endsection

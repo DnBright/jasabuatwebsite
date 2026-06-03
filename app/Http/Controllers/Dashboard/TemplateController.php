@@ -9,10 +9,24 @@ use App\Models\Template;
 
 class TemplateController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $templates = Template::all();
-        return view('dashboard.template.index', compact('templates'));
+        $query = Template::query();
+
+        if ($request->has('search') && $request->search != '') {
+            $query->where('name', 'like', '%' . $request->search . '%');
+        }
+
+        if ($request->has('category') && $request->category != '') {
+            $query->where('category', $request->category);
+        }
+
+        $templates = $query->paginate(10)->withQueryString();
+        
+        // Get unique categories for the filter dropdown
+        $categories = Template::select('category')->distinct()->pluck('category');
+
+        return view('dashboard.template.index', compact('templates', 'categories'));
     }
 
     public function create()
@@ -49,14 +63,22 @@ class TemplateController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'category' => 'required|string|max:255',
-            'image' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
             'rating' => 'required',
             'reviews_count' => 'required|numeric',
             'description' => 'required',
         ]);
 
-        $data = $request->except('_token');
+        $data = $request->except('_token', 'image');
         $data = $this->formatData($data);
+
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('images/templates'), $filename);
+            $data['image'] = '/images/templates/' . $filename;
+        }
+
         Template::create($data);
         return redirect()->route('dashboard.template.index')->with('success', 'Template berhasil ditambah.');
     }
@@ -71,20 +93,42 @@ class TemplateController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'category' => 'required|string|max:255',
-            'image' => 'required',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'rating' => 'required',
             'reviews_count' => 'required|numeric',
             'description' => 'required',
         ]);
 
-        $data = $request->except('_token', '_method');
+        $data = $request->except('_token', '_method', 'image');
         $data = $this->formatData($data);
+
+        if ($request->hasFile('image')) {
+            // Delete old image if it's stored locally
+            if ($template->image && str_starts_with($template->image, '/images/templates/')) {
+                $oldPath = public_path($template->image);
+                if (file_exists($oldPath)) {
+                    unlink($oldPath);
+                }
+            }
+
+            $file = $request->file('image');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('images/templates'), $filename);
+            $data['image'] = '/images/templates/' . $filename;
+        }
+
         $template->update($data);
         return redirect()->route('dashboard.template.index')->with('success', 'Template berhasil diperbarui.');
     }
 
     public function destroy(Template $template)
     {
+        if ($template->image && str_starts_with($template->image, '/images/templates/')) {
+            $oldPath = public_path($template->image);
+            if (file_exists($oldPath)) {
+                unlink($oldPath);
+            }
+        }
         $template->delete();
         return redirect()->route('dashboard.template.index')->with('success', 'Template berhasil dihapus.');
     }

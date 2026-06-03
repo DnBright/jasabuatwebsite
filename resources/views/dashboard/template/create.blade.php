@@ -12,7 +12,7 @@
 </div>
 
 <div class="max-w-4xl bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-    <form action="{{ route('dashboard.template.store') }}" method="POST">
+    <form action="{{ route('dashboard.template.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         
         <div class="bg-slate-50 px-8 py-5 border-b border-slate-100 flex items-center">
@@ -37,10 +37,9 @@
             </div>
 
             <div>
-                <label class="block text-sm font-bold text-slate-700 mb-2">URL Gambar Thumbnail</label>
-                <div class="flex">
-                    <span class="inline-flex items-center px-4 rounded-l-xl border border-r-0 border-slate-200 bg-slate-50 text-slate-500 font-medium">URL</span>
-                    <input type="text" name="image" value="{{ old('image') }}" required class="flex-1 w-full rounded-none rounded-r-xl border-slate-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition-colors @error('image') border-red-500 @enderror" placeholder="/images/template_food.png atau https://...">
+                <label class="block text-sm font-bold text-slate-700 mb-2">Upload Gambar Thumbnail</label>
+                <div class="flex items-center">
+                    <input type="file" name="image" accept="image/*" required class="w-full rounded-xl border border-slate-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition-colors file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 @error('image') border-red-500 @enderror">
                 </div>
                 @error('image') <p class="text-red-500 text-xs font-medium mt-1">{{ $message }}</p> @enderror
             </div>

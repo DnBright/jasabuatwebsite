@@ -4,6 +4,7 @@ use App\Http\Controllers\Dashboard\AnalyticsController;
 use App\Http\Controllers\Dashboard\BerandaController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\PricingPackageController;
+use App\Http\Controllers\Dashboard\ReviewController;
 use App\Http\Controllers\Dashboard\SettingController;
 use App\Http\Controllers\Dashboard\TemplateController;
 use App\Models\Hero;
@@ -46,22 +47,6 @@ Route::get('/sitemap.xml', function () {
     $content = view('landing.sitemap', compact('templates'))->render();
 
     return response($content, 200, ['Content-Type' => 'application/xml']);
-});
-
-Route::get('/setup-admin', function () {
-    $user = User::firstOrCreate(
-        ['email' => 'saidin21@gmail.com'],
-        [
-            'name' => 'Admin DnBright',
-            'password' => Hash::make('password123'),
-        ]
-    );
-
-    // Update password if user already exists to ensure it's 'password123'
-    $user->password = Hash::make('password123');
-    $user->save();
-
-    return "Admin created! Email: saidin21@gmail.com | Password: password123 <br><a href='/login'>Login Here</a>";
 });
 
 Route::get('/', function () {
@@ -221,13 +206,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::resource('packages', PricingPackageController::class)->except(['show']);
 
+        Route::get('/reviews', [ReviewController::class, 'index'])->name('reviews.index');
+        Route::patch('/reviews/{review}/toggle-approve', [ReviewController::class, 'toggleApprove'])->name('reviews.toggle');
+        Route::delete('/reviews/{review}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
+
         Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
         Route::post('/settings', [SettingController::class, 'update'])->name('settings.update');
     });
 });
 
 Route::get('/deploy-maintenance-trigger', function (Request $request) {
-    if ($request->query('token') !== 'bPXwtuggH5qk81') {
+    if ($request->query('token') !== env('DEPLOY_TOKEN', 'bPXwtuggH5qk81')) {
         abort(403, 'Unauthorized');
     }
 

@@ -18,6 +18,10 @@ class SettingController extends Controller
     {
         $validated = $request->validate([
             'whatsapp_number' => 'required|string|max:255',
+            'website_name' => 'required|string|max:255',
+            'website_description' => 'required|string',
+            'social_instagram' => 'required|string|max:255',
+            'company_address' => 'required|string|max:255',
         ]);
 
         foreach ($validated as $key => $value) {
