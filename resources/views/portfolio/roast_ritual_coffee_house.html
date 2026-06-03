@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roast & Ritual | Every Cup Tells A Story</title>
+    <meta name="description" content="Crafted Coffee. Meaningful Moments. Experience specialty coffee, artisan brewing, and a welcoming atmosphere.">
+
+    <!-- Google Fonts: Cormorant Garamond (Heading) & Inter (Body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2D1E16',   /* Dark Espresso */
+                        secondary: '#4B352A', /* Medium Roast */
+                        accent: '#C49A6C',    /* Caramel Gold */
+                        highlight: '#E6C8A0', /* Light Crema */
+                        bgbase: '#F8F4EE',    /* Warm Off-White */
+                        surface: '#FFFFFF',   /* White */
+                        textdark: '#2B2B2B',  /* Dark Gray */
+                        bordercol: '#E5DED5', /* Light border */
+                    },
+                    fontFamily: {
+                        heading: ['"Cormorant Garamond"', 'serif'],
+                        body: ['Inter', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'premium': '0 20px 40px -10px rgba(45, 30, 22, 0.12)',
+                        'card': '0 4px 20px -2px rgba(45, 30, 22, 0.05)',
+                        'glass': '0 8px 32px 0 rgba(45, 30, 22, 0.15)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base & Resets */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: theme('colors.bgbase');
+            color: theme('colors.textdark');
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4, h5, h6, .font-heading {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        ::selection {
+            background-color: theme('colors.accent');
+            color: theme('colors.surface');
+        }
+
+        /* Loading Screen */
+        #loader {
+            position: fixed;
+            inset: 0;
+            background-color: theme('colors.bgbase');
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+        .loader-icon {
+            font-size: 3rem;
+            color: theme('colors.primary');
+            animation: pulse-coffee 1.5s ease-in-out infinite alternate;
+        }
+        @keyframes pulse-coffee {
+            0% { transform: scale(0.9); opacity: 0.6; }
+            100% { transform: scale(1.1); opacity: 1; }
+        }
+
+        /* Navbar & Glassmorphism */
+        .nav-glass {
+            background: rgba(248, 244, 238, 0.95);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(196, 154, 108, 0.2);
+            box-shadow: 0 4px 30px rgba(45, 30, 22, 0.05);
+            transition: all 0.5s ease;
+        }
+        .nav-transparent {
+            background: transparent;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: theme('boxShadow.glass');
+        }
+
+        .glass-dark {
+            background: rgba(45, 30, 22, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(196, 154, 108, 0.2);
+        }
+
+        /* Parallax Backgrounds */
+        .parallax-bg {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        #hero { background-image: url('https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&q=80&w=2000'); }
+        #parallax-coffee { background-image: url('https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&q=80&w=2000'); }
+        #parallax-ambience { background-image: url('https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&q=80&w=2000'); }
+        #parallax-reservation { background-image: url('https://images.unsplash.com/photo-1445116572658-2207407149c8?auto=format&fit=crop&q=80&w=2000'); }
+
+        .overlay-dark { background: linear-gradient(to bottom, rgba(45, 30, 22, 0.6), rgba(45, 30, 22, 0.85)); }
+        .overlay-warm { background: linear-gradient(to right, rgba(45, 30, 22, 0.9) 0%, rgba(45, 30, 22, 0.3) 100%); }
+
+        /* Scroll Reveal Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .delay-100 { transition-delay: 0.1s; }
+        .delay-200 { transition-delay: 0.2s; }
+        .delay-300 { transition-delay: 0.3s; }
+
+        /* Floating Elements */
+        .float-anim { animation: float 6s ease-in-out infinite; }
+        .float-anim-delay { animation: float 7s ease-in-out infinite; animation-delay: -3s; }
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(2deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background-color: theme('colors.primary');
+            color: theme('colors.bgbase');
+            transition: all 0.4s ease;
+            border: 1px solid theme('colors.primary');
+        }
+        .btn-primary:hover {
+            background-color: theme('colors.secondary');
+            border-color: theme('colors.secondary');
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -5px rgba(45, 30, 22, 0.3);
+        }
+        .btn-accent {
+            background-color: theme('colors.accent');
+            color: theme('colors.primary');
+            transition: all 0.4s ease;
+            border: 1px solid theme('colors.accent');
+        }
+        .btn-accent:hover {
+            background-color: transparent;
+            color: theme('colors.accent');
+        }
+        .btn-outline-light {
+            background-color: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            color: theme('colors.surface');
+            transition: all 0.4s ease;
+        }
+        .btn-outline-light:hover {
+            background-color: theme('colors.surface');
+            color: theme('colors.primary');
+        }
+
+        /* Cards & Badges */
+        .menu-card {
+            background: theme('colors.surface');
+            border-radius: 12px;
+            border: 1px solid theme('colors.bordercol');
+            transition: all 0.4s ease;
+            overflow: hidden;
+            position: relative;
+        }
+        .menu-card:hover {
+            transform: translateY(-5px);
+            box-shadow: theme('boxShadow.premium');
+            border-color: theme('colors.accent');
+        }
+        
+        .img-zoom-wrap { overflow: hidden; position: relative; }
+        .img-zoom-wrap img { transition: transform 0.8s ease; }
+        .menu-card:hover .img-zoom-wrap img { transform: scale(1.05); }
+
+        .badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            padding: 4px 10px;
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 700;
+            z-index: 10;
+            border-radius: 4px;
+        }
+        .badge-best { background-color: theme('colors.primary'); color: theme('colors.accent'); }
+        .badge-new { background-color: theme('colors.accent'); color: theme('colors.surface'); }
+
+        /* Timeline (Coffee Journey) */
+        .timeline-container { position: relative; }
+        .timeline-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 24px;
+            width: 1px;
+            background: theme('colors.accent');
+            opacity: 0.3;
+        }
+        @media (min-width: 768px) {
+            .timeline-container::before { left: 50%; transform: translateX(-50%); }
+        }
+        .timeline-item { position: relative; margin-bottom: 3rem; }
+        .timeline-dot {
+            position: absolute;
+            left: 24px;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: theme('colors.accent');
+            box-shadow: 0 0 0 6px theme('colors.bgbase');
+            z-index: 10;
+        }
+        @media (min-width: 768px) {
+            .timeline-dot { left: 50%; }
+            .timeline-content { width: 45%; }
+            .timeline-item:nth-child(odd) .timeline-content { margin-left: auto; }
+            .timeline-item:nth-child(even) .timeline-content { margin-right: auto; text-align: right; }
+        }
+
+        /* Masonry Gallery */
+        .masonry {
+            column-count: 1;
+            column-gap: 1.5rem;
+        }
+        @media (min-width: 640px) { .masonry { column-count: 2; } }
+        @media (min-width: 1024px) { .masonry { column-count: 3; } }
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            cursor: pointer;
+        }
+        .masonry-item img {
+            width: 100%;
+            display: block;
+            transition: transform 0.8s ease;
+        }
+        .masonry-item:hover img { transform: scale(1.05); }
+        .masonry-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(45, 30, 22, 0.4);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .masonry-item:hover .masonry-overlay { opacity: 1; }
+
+        /* Custom Forms */
+        .form-input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid theme('colors.bordercol');
+            padding: 12px 0;
+            color: theme('colors.textdark');
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+        .form-input:focus {
+            outline: none;
+            border-bottom-color: theme('colors.accent');
+        }
+        .form-input-light {
+            border-bottom-color: rgba(255,255,255,0.3);
+            color: theme('colors.surface');
+        }
+        .form-input-light:focus {
+            border-bottom-color: theme('colors.accent');
+        }
+        .form-input-light option { color: theme('colors.textdark'); }
+
+        /* FAQ Accordion */
+        .faq-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+        }
+        .faq-icon { transition: transform 0.4s ease; }
+        .faq-item.active .faq-icon { transform: rotate(180deg); color: theme('colors.accent'); }
+    </style>
+</head>
+<body class="relative">
+
+    <!-- Loading Screen -->
+    <div id="loader">
+        <i class="ph-fill ph-coffee loader-icon mb-4"></i>
+        <div class="font-heading font-semibold text-2xl text-primary tracking-widest uppercase">Roast & Ritual</div>
+        <div class="text-secondary tracking-[0.25em] text-[10px] uppercase font-medium mt-1">Coffee House</div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full top-0 z-50 py-5 transition-all duration-500 nav-transparent text-surface">
+        <div class="container mx-auto px-6 md:px-12 flex justify-between items-center">
+            
+            <!-- Logo -->
+            <a href="#" class="flex flex-col group">
+                <span class="font-heading font-bold text-xl md:text-2xl tracking-widest uppercase leading-none">Roast & Ritual</span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden lg:flex items-center gap-8 font-medium text-xs uppercase tracking-[0.15em]">
+                <a href="#about" class="hover:text-accent transition-colors">Our Story</a>
+                <a href="#menu" class="hover:text-accent transition-colors">Signature Menu</a>
+                <a href="#journey" class="hover:text-accent transition-colors">Coffee Journey</a>
+                <a href="#gallery" class="hover:text-accent transition-colors">Gallery</a>
+                <a href="#community" class="hover:text-accent transition-colors">Community</a>
+            </div>
+
+            <!-- Header Actions -->
+            <div class="hidden lg:flex items-center gap-4">
+                <a href="#reservation" class="btn-accent px-6 py-2.5 rounded font-bold text-xs uppercase tracking-widest flex items-center gap-2">
+                    <i class="ph-bold ph-calendar-plus text-base"></i> Reserve Table
+                </a>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button id="mobile-menu-btn" class="lg:hidden text-2xl focus:outline-none">
+                <i class="ph ph-list"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="fixed inset-y-0 right-0 w-80 bg-bgbase shadow-2xl transform translate-x-full transition-transform duration-500 z-50 flex flex-col text-primary">
+            <div class="p-6 border-b border-bordercol flex justify-between items-center">
+                <span class="font-heading font-bold text-xl tracking-widest uppercase">Roast & Ritual</span>
+                <button id="close-menu-btn" class="text-2xl text-secondary"><i class="ph ph-x"></i></button>
+            </div>
+            <div class="flex flex-col p-8 gap-6 font-heading text-xl flex-1">
+                <a href="#about" class="mobile-link hover:text-accent transition-colors">Our Story</a>
+                <a href="#menu" class="mobile-link hover:text-accent transition-colors">Signature Menu</a>
+                <a href="#journey" class="mobile-link hover:text-accent transition-colors">Coffee Journey</a>
+                <a href="#gallery" class="mobile-link hover:text-accent transition-colors">Gallery</a>
+                <a href="#community" class="mobile-link hover:text-accent transition-colors">Community</a>
+                
+                <div class="border-t border-bordercol pt-8 mt-2">
+                    <a href="#reservation" class="btn-primary w-full flex justify-center py-4 rounded font-bold text-xs uppercase tracking-widest font-body">Reserve Table</a>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-overlay" class="fixed inset-0 bg-primary/80 backdrop-blur-sm hidden z-40"></div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative min-h-screen flex items-center parallax-bg overflow-hidden pt-20">
+        <!-- Background Overlay -->
+        <div class="absolute inset-0 overlay-warm z-0"></div>
+
+        <div class="container mx-auto px-6 md:px-12 relative z-10 grid lg:grid-cols-12 gap-8 items-center h-full">
+            
+            <!-- Text Content -->
+            <div class="lg:col-span-8 text-surface mt-10 lg:mt-0">
+                <div class="reveal">
+                    <span class="inline-flex items-center gap-2 px-3 py-1.5 border border-accent/40 rounded bg-accent/10 text-[10px] font-bold uppercase tracking-[0.2em] mb-6 text-highlight backdrop-blur-sm">
+                        <i class="ph-fill ph-star"></i> Specialty Coffee Since 2018
+                    </span>
+                </div>
+                <h1 class="font-heading text-5xl md:text-6xl lg:text-[5.5rem] font-medium leading-[1.05] mb-6 reveal delay-100">
+                    Crafted Coffee. <br><span class="italic font-light text-highlight">Meaningful Moments.</span>
+                </h1>
+                <p class="text-sm md:text-base text-surface/80 max-w-xl mb-10 leading-relaxed reveal delay-200 font-light">
+                    Experience carefully sourced beans, artisan brewing methods, and a welcoming atmosphere designed for every coffee lover.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 reveal delay-300">
+                    <a href="#menu" class="btn-accent px-8 py-4 rounded font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2">
+                        View Menu <i class="ph-bold ph-coffee"></i>
+                    </a>
+                    <a href="#reservation" class="btn-outline-light px-8 py-4 rounded font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 backdrop-blur-sm">
+                        Reserve Table
+                    </a>
+                </div>
+            </div>
+
+            <!-- Floating Info Cards (Parallax & Anim) -->
+            <div class="hidden lg:block lg:col-span-4 relative h-full w-full" id="hero-parallax">
+                <!-- Card 1 -->
+                <div class="absolute top-1/4 right-0 glass-dark p-4 rounded-lg shadow-luxury flex items-center gap-4 float-anim mouse-p w-64" data-speed="1.2">
+                    <div class="w-12 h-12 bg-accent/20 text-accent rounded flex items-center justify-center text-xl shrink-0">
+                        <i class="ph-fill ph-coffee-bean"></i>
+                    </div>
+                    <div class="text-surface">
+                        <p class="font-heading font-bold text-sm">Single Origin</p>
+                        <p class="text-[10px] text-surface/60 uppercase tracking-widest mt-1">Ethically Sourced</p>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="absolute bottom-1/4 -left-10 glass-dark p-4 rounded-lg shadow-luxury flex items-center gap-4 float-anim-delay mouse-p w-64 z-10" data-speed="-0.8">
+                    <div class="w-12 h-12 bg-accent/20 text-accent rounded flex items-center justify-center text-xl shrink-0">
+                        <i class="ph-fill ph-mug"></i>
+                    </div>
+                    <div class="text-surface">
+                        <p class="font-heading font-bold text-sm">Artisan Brew</p>
+                        <p class="text-[10px] text-surface/60 uppercase tracking-widest mt-1">Master Baristas</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 reveal delay-300">
+            <a href="#about" class="text-surface/60 hover:text-highlight transition-colors flex flex-col items-center gap-2">
+                <span class="text-[9px] uppercase tracking-[0.2em]">Discover More</span>
+                <i class="ph-light ph-arrow-down animate-bounce text-xl"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 lg:py-32 bg-surface relative">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-center">
+                <!-- Left: Image -->
+                <div class="relative reveal">
+                    <div class="relative overflow-hidden rounded-t-full aspect-[4/5] p-2 border border-bordercol">
+                        <img src="https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?auto=format&fit=crop&q=80&w=1000" alt="Cafe Interior" class="w-full h-full object-cover rounded-t-full">
+                    </div>
+                    <!-- Decorative element -->
+                    <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-accent/10 rounded-full -z-10 blur-2xl"></div>
+                </div>
+
+                <!-- Right: Content -->
+                <div class="reveal delay-100">
+                    <span class="text-accent font-bold text-[10px] mb-4 block uppercase tracking-[0.2em]">Our Story</span>
+                    <h2 class="font-heading text-4xl md:text-5xl font-bold text-primary mb-6 leading-tight">
+                        Rooted In Passion. <br><span class="italic font-light text-secondary">Brewed With Precision.</span>
+                    </h2>
+                    <div class="w-12 h-[2px] bg-accent mb-8"></div>
+                    
+                    <p class="text-secondary/80 leading-relaxed mb-6 font-light text-sm md:text-base">
+                        Berawal dari sebuah pemanggangan kopi kecil di sudut kota, Roast & Ritual Coffee House lahir dari kecintaan mendalam terhadap biji kopi berkualitas dan seni menyeduh. Kami percaya bahwa setiap cangkir kopi memiliki ceritanya sendiri—dari mana biji itu berasal hingga bagaimana ia disajikan.
+                    </p>
+                    <p class="text-secondary/80 leading-relaxed mb-10 font-light text-sm md:text-base">
+                        Lebih dari sekadar tempat minum kopi, kami membangun ruang di mana ide-ide bermunculan, persahabatan terjalin, dan ritual harian Anda menjadi momen yang berharga.
+                    </p>
+
+                    <!-- Stats Grid -->
+                    <div class="grid grid-cols-2 gap-y-8 gap-x-6 border-t border-bordercol pt-8" id="counter-wrap">
+                        <div>
+                            <h3 class="font-heading text-4xl font-medium text-primary mb-1 flex items-center"><span class="counter" data-target="50">0</span>k+</h3>
+                            <p class="text-[10px] text-secondary/60 font-bold uppercase tracking-widest">Cups Served</p>
+                        </div>
+                        <div>
+                            <h3 class="font-heading text-4xl font-medium text-primary mb-1 flex items-center"><span class="counter" data-target="4.9">0</span><i class="ph-fill ph-star text-accent text-xl ml-1"></i></h3>
+                            <p class="text-[10px] text-secondary/60 font-bold uppercase tracking-widest">Customer Rating</p>
+                        </div>
+                        <div>
+                            <h3 class="font-heading text-4xl font-medium text-primary mb-1 flex items-center"><span class="counter" data-target="20">0</span>+</h3>
+                            <p class="text-[10px] text-secondary/60 font-bold uppercase tracking-widest">Signature Drinks</p>
+                        </div>
+                        <div>
+                            <h3 class="font-heading text-4xl font-medium text-primary mb-1 flex items-center"><span class="counter" data-target="7">0</span></h3>
+                            <p class="text-[10px] text-secondary/60 font-bold uppercase tracking-widest">Years Experience</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Parallax Coffee Experience -->
+    <section id="parallax-coffee" class="relative h-[70vh] flex items-center justify-center parallax-bg">
+        <div class="absolute inset-0 overlay-dark"></div>
+        <div class="container mx-auto px-6 relative z-10 text-center reveal">
+            <i class="ph-fill ph-quotes text-accent text-5xl mb-6 opacity-60"></i>
+            <h2 class="font-heading text-4xl md:text-5xl lg:text-7xl font-bold text-surface tracking-wide leading-tight max-w-4xl mx-auto drop-shadow-lg">
+                Coffee Is More Than A Drink. <br>
+                <span class="italic font-light text-highlight">It's A Daily Ritual.</span>
+            </h2>
+        </div>
+    </section>
+
+    <!-- Signature Menu Section -->
+    <section id="menu" class="py-24 lg:py-32 bg-bgbase">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+                <span class="text-accent font-bold text-[10px] mb-4 block uppercase tracking-[0.2em]">Handcrafted Menu</span>
+                <h2 class="font-heading text-4xl md:text-5xl font-bold text-primary mb-4">Signature Offerings</h2>
+                <p class="text-secondary/80 font-light">Disajikan secara ahli oleh para barista kami menggunakan biji kopi spesialti terbaik yang dipanggang dengan profil sempurna.</p>
+            </div>
+
+            <!-- Categories Tabs (Visual only) -->
+            <div class="flex flex-wrap justify-center gap-4 mb-12 reveal delay-100">
+                <button class="px-6 py-2 bg-primary text-surface rounded-full font-semibold text-xs tracking-widest uppercase">Coffee</button>
+                <button class="px-6 py-2 bg-surface text-secondary border border-bordercol rounded-full font-semibold text-xs tracking-widest uppercase hover:text-accent transition-colors">Manual Brew</button>
+                <button class="px-6 py-2 bg-surface text-secondary border border-bordercol rounded-full font-semibold text-xs tracking-widest uppercase hover:text-accent transition-colors">Non Coffee</button>
+                <button class="px-6 py-2 bg-surface text-secondary border border-bordercol rounded-full font-semibold text-xs tracking-widest uppercase hover:text-accent transition-colors">Pastries</button>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Item 1 -->
+                <div class="menu-card group reveal">
+                    <span class="badge badge-best">Best Seller</span>
+                    <div class="img-zoom-wrap aspect-square bg-white p-6 pb-0 flex items-end justify-center">
+                        <img src="https://images.unsplash.com/photo-1572442388796-11668a67ef84?auto=format&fit=crop&q=80&w=400" alt="Espresso" class="w-full h-full object-cover rounded-t-xl mix-blend-multiply">
+                    </div>
+                    <div class="p-6 text-center border-t border-bordercol bg-surface">
+                        <h3 class="font-heading font-bold text-primary text-xl mb-1">House Espresso</h3>
+                        <p class="text-xs text-secondary/70 font-light mb-4 h-8">Ekstraksi pekat dari house blend rahasia kami.</p>
+                        <div class="font-heading font-bold text-accent text-lg">Rp 25.000</div>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="menu-card group reveal delay-100">
+                    <div class="img-zoom-wrap aspect-square bg-white p-6 pb-0 flex items-end justify-center">
+                        <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&q=80&w=400" alt="Latte" class="w-full h-full object-cover rounded-t-xl mix-blend-multiply">
+                    </div>
+                    <div class="p-6 text-center border-t border-bordercol bg-surface">
+                        <h3 class="font-heading font-bold text-primary text-xl mb-1">Classic Latte</h3>
+                        <p class="text-xs text-secondary/70 font-light mb-4 h-8">Espresso dipadu steam milk lembut & micro-foam.</p>
+                        <div class="font-heading font-bold text-accent text-lg">Rp 35.000</div>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="menu-card group reveal delay-200">
+                    <span class="badge badge-new">New Menu</span>
+                    <div class="img-zoom-wrap aspect-square bg-white p-6 pb-0 flex items-end justify-center">
+                        <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&q=80&w=400" alt="V60" class="w-full h-full object-cover rounded-t-xl mix-blend-multiply">
+                    </div>
+                    <div class="p-6 text-center border-t border-bordercol bg-surface">
+                        <h3 class="font-heading font-bold text-primary text-xl mb-1">V60 Pour Over</h3>
+                        <p class="text-xs text-secondary/70 font-light mb-4 h-8">Penyeduhan manual untuk profil rasa yang clean & kompleks.</p>
+                        <div class="font-heading font-bold text-accent text-lg">Rp 45.000</div>
+                    </div>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="menu-card group reveal delay-300">
+                    <div class="img-zoom-wrap aspect-square bg-white p-6 pb-0 flex items-end justify-center">
+                        <img src="https://images.unsplash.com/photo-1576208643809-5a50785191f6?auto=format&fit=crop&q=80&w=400" alt="Matcha" class="w-full h-full object-cover rounded-t-xl mix-blend-multiply">
+                    </div>
+                    <div class="p-6 text-center border-t border-bordercol bg-surface">
+                        <h3 class="font-heading font-bold text-primary text-xl mb-1">Kyoto Matcha Latte</h3>
+                        <p class="text-xs text-secondary/70 font-light mb-4 h-8">Matcha organik Jepang dipadu dengan susu krim.</p>
+                        <div class="font-heading font-bold text-accent text-lg">Rp 40.000</div>
+                    </div>
+                </div>
+                
+                <!-- Item 5 -->
+                <div class="menu-card group reveal">
+                    <span class="badge badge-best">Must Try</span>
+                    <div class="img-zoom-wrap aspect-square bg-white p-6 pb-0 flex items-end justify-center">
+                        <img src="https://images.unsplash.com/photo-1495147466023-ac5c588e2e94?auto=format&fit=crop&q=80&w=400" alt="Croissant" class="w-full h-full object-cover rounded-t-xl mix-blend-multiply">
+                    </div>
+                    <div class="p-6 text-center border-t border-bordercol bg-surface">
+                        <h3 class="font-heading font-bold text-primary text-xl mb-1">Butter Croissant</h3>
+                        <p class="text-xs text-secondary/70 font-light mb-4 h-8">Dipanggang segar setiap pagi dengan mentega Prancis.</p>
+                        <div class="font-heading font-bold text-accent text-lg">Rp 28.000</div>
+                    </div>
+                </div>
+
+                <!-- Item 6 -->
+                <div class="menu-card group reveal delay-100">
+                    <div class="img-zoom-wrap aspect-square bg-white p-6 pb-0 flex items-end justify-center">
+                        <img src="https://images.unsplash.com/photo-1541513220816-521b44ecbd27?auto=format&fit=crop&q=80&w=400" alt="Americano" class="w-full h-full object-cover rounded-t-xl mix-blend-multiply">
+                    </div>
+                    <div class="p-6 text-center border-t border-bordercol bg-surface">
+                        <h3 class="font-heading font-bold text-primary text-xl mb-1">Iced Americano</h3>
+                        <p class="text-xs text-secondary/70 font-light mb-4 h-8">Espresso ganda dengan air dingin dan es batu.</p>
+                        <div class="font-heading font-bold text-accent text-lg">Rp 30.000</div>
+                    </div>
+                </div>
+
+                <!-- Item 7 -->
+                <div class="menu-card group reveal delay-200">
+                    <div class="img-zoom-wrap aspect-square bg-white p-6 pb-0 flex items-end justify-center">
+                        <img src="https://images.unsplash.com/photo-1588195538326-c5b1e9f80a1b?auto=format&fit=crop&q=80&w=400" alt="Cheesecake" class="w-full h-full object-cover rounded-t-xl mix-blend-multiply">
+                    </div>
+                    <div class="p-6 text-center border-t border-bordercol bg-surface">
+                        <h3 class="font-heading font-bold text-primary text-xl mb-1">Basque Cheesecake</h3>
+                        <p class="text-xs text-secondary/70 font-light mb-4 h-8">Cheesecake panggang ala Spanyol yang lembut.</p>
+                        <div class="font-heading font-bold text-accent text-lg">Rp 45.000</div>
+                    </div>
+                </div>
+
+                <!-- Item 8 -->
+                <div class="menu-card group reveal delay-300">
+                    <div class="img-zoom-wrap aspect-square bg-white p-6 pb-0 flex items-end justify-center">
+                        <img src="https://images.unsplash.com/photo-1559525839-b184a4d698c7?auto=format&fit=crop&q=80&w=400" alt="Aeropress" class="w-full h-full object-cover rounded-t-xl mix-blend-multiply">
+                    </div>
+                    <div class="p-6 text-center border-t border-bordercol bg-surface">
+                        <h3 class="font-heading font-bold text-primary text-xl mb-1">Aeropress Brew</h3>
+                        <p class="text-xs text-secondary/70 font-light mb-4 h-8">Ekstraksi tekanan yang menghasilkan bodi kopi tebal.</p>
+                        <div class="font-heading font-bold text-accent text-lg">Rp 40.000</div>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="text-center mt-12 reveal">
+                <a href="#menu" class="text-xs uppercase tracking-widest text-primary border-b border-primary pb-1 font-bold hover:text-accent hover:border-accent transition-colors">Download Full Menu</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Coffee Journey (Timeline) -->
+    <section id="journey" class="py-24 bg-surface border-y border-bordercol">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="text-center mb-20 reveal">
+                <span class="text-accent font-bold text-[10px] mb-4 block uppercase tracking-[0.2em]">The Process</span>
+                <h2 class="font-heading text-4xl md:text-5xl font-bold text-primary">From Seed To Cup</h2>
+            </div>
+
+            <div class="timeline-container max-w-4xl mx-auto pl-8 md:pl-0">
+                <!-- Step 1 -->
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot mt-2"></div>
+                    <div class="timeline-content md:pr-12">
+                        <h4 class="font-heading font-bold text-primary text-2xl mb-3">Bean Selection</h4>
+                        <img src="https://images.unsplash.com/photo-1524350876685-274059332603?auto=format&fit=crop&q=80&w=400" alt="Beans" class="w-full h-40 object-cover rounded-lg mb-4 shadow-sm">
+                        <p class="text-sm text-secondary/80 font-light leading-relaxed">Perjalanan dimulai dari perkebunan terbaik. Kami bekerja sama dengan petani lokal dan internasional untuk menyeleksi biji kopi spesialti organik (Grade 1).</p>
+                    </div>
+                </div>
+                <!-- Step 2 -->
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot mt-2"></div>
+                    <div class="timeline-content md:pl-12">
+                        <h4 class="font-heading font-bold text-primary text-2xl mb-3">Small-Batch Roasting</h4>
+                        <img src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&q=80&w=400" alt="Roasting" class="w-full h-40 object-cover rounded-lg mb-4 shadow-sm">
+                        <p class="text-sm text-secondary/80 font-light leading-relaxed">Kami memproses sangrai (roast) secara mandiri dalam jumlah kecil (small-batch) untuk memastikan setiap biji mencapai profil rasa (flavor profile) puncaknya.</p>
+                    </div>
+                </div>
+                <!-- Step 3 -->
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot mt-2"></div>
+                    <div class="timeline-content md:pr-12">
+                        <h4 class="font-heading font-bold text-primary text-2xl mb-3">Artisan Brewing</h4>
+                        <img src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&q=80&w=400" alt="Brewing" class="w-full h-40 object-cover rounded-lg mb-4 shadow-sm">
+                        <p class="text-sm text-secondary/80 font-light leading-relaxed">Barista bersertifikat kami menghitung rasio, suhu air, dan waktu ekstraksi dengan presisi matematis menggunakan peralatan espresso & manual brew premium.</p>
+                    </div>
+                </div>
+                <!-- Step 4 -->
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot mt-2"></div>
+                    <div class="timeline-content md:pl-12">
+                        <h4 class="font-heading font-bold text-primary text-2xl mb-3">The Ritual</h4>
+                        <img src="https://images.unsplash.com/photo-1559525839-b184a4d698c7?auto=format&fit=crop&q=80&w=400" alt="Serving" class="w-full h-40 object-cover rounded-lg mb-4 shadow-sm">
+                        <p class="text-sm text-secondary/80 font-light leading-relaxed">Tahap akhir adalah saat cangkir tiba di meja Anda. Disajikan dengan kehangatan di ruang yang dirancang untuk menginspirasi hari Anda.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Parallax Ambience Section -->
+    <section id="parallax-ambience" class="relative h-[60vh] md:h-[70vh] flex items-center justify-center parallax-bg">
+        <div class="absolute inset-0 overlay-dark"></div>
+        <div class="container mx-auto px-6 relative z-10 text-center reveal">
+            <h2 class="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-surface tracking-tight leading-tight max-w-4xl mx-auto">
+                Designed For Conversations, <br>
+                <span class="text-highlight italic font-light">Creativity, And Connection.</span>
+            </h2>
+        </div>
+    </section>
+
+    <!-- Gallery Section (Masonry) -->
+    <section id="gallery" class="py-24 bg-bgbase">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 reveal">
+                <div>
+                    <span class="text-accent font-bold text-[10px] mb-4 block uppercase tracking-[0.2em]">The Atmosphere</span>
+                    <h2 class="font-heading text-4xl md:text-5xl font-bold text-primary">Visual Diary</h2>
+                </div>
+                <a href="#" class="text-[10px] font-bold uppercase tracking-widest text-primary border-b border-primary pb-1 hover:text-accent hover:border-accent transition-all mt-6 md:mt-0 flex items-center gap-1">
+                    <i class="ph-bold ph-instagram-logo"></i> Follow @RoastAndRitual
+                </a>
+            </div>
+
+            <div class="masonry">
+                <div class="masonry-item reveal">
+                    <img src="https://images.unsplash.com/photo-1445116572658-2207407149c8?auto=format&fit=crop&q=80&w=600" alt="Cafe Interior">
+                    <div class="masonry-overlay"><i class="ph-light ph-plus text-surface text-4xl"></i></div>
+                </div>
+                <div class="masonry-item reveal delay-100">
+                    <img src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&q=80&w=600" alt="Latte Art">
+                    <div class="masonry-overlay"><i class="ph-light ph-plus text-surface text-4xl"></i></div>
+                </div>
+                <div class="masonry-item reveal delay-200">
+                    <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&q=80&w=600" alt="Working">
+                    <div class="masonry-overlay"><i class="ph-light ph-plus text-surface text-4xl"></i></div>
+                </div>
+                <div class="masonry-item reveal">
+                    <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&q=80&w=600" alt="Community">
+                    <div class="masonry-overlay"><i class="ph-light ph-plus text-surface text-4xl"></i></div>
+                </div>
+                <div class="masonry-item reveal delay-100">
+                    <img src="https://images.unsplash.com/photo-1524350876685-274059332603?auto=format&fit=crop&q=80&w=600" alt="Coffee Beans">
+                    <div class="masonry-overlay"><i class="ph-light ph-plus text-surface text-4xl"></i></div>
+                </div>
+                <div class="masonry-item reveal delay-200">
+                    <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&q=80&w=600" alt="Pour Over">
+                    <div class="masonry-overlay"><i class="ph-light ph-plus text-surface text-4xl"></i></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="py-24 bg-surface border-y border-bordercol">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="text-center max-w-2xl mx-auto mb-20 reveal">
+                <h2 class="font-heading text-4xl font-bold text-primary mb-4">Why Roast & Ritual?</h2>
+                <p class="text-secondary/80 font-light">Kami memastikan setiap aspek dari kunjungan Anda memberikan pengalaman yang tak terlupakan.</p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-10 md:gap-16 text-center">
+                <div class="reveal">
+                    <div class="w-16 h-16 mx-auto bg-bgbase rounded-full border border-bordercol flex items-center justify-center text-3xl text-accent mb-4">
+                        <i class="ph-light ph-coffee-bean"></i>
+                    </div>
+                    <h4 class="font-heading font-bold text-lg text-primary mb-2">Specialty Beans</h4>
+                    <p class="text-xs text-secondary/70 font-light leading-relaxed">Grade kopi tertinggi dengan cupping score 80+.</p>
+                </div>
+                <div class="reveal delay-100">
+                    <div class="w-16 h-16 mx-auto bg-bgbase rounded-full border border-bordercol flex items-center justify-center text-3xl text-accent mb-4">
+                        <i class="ph-light ph-medal"></i>
+                    </div>
+                    <h4 class="font-heading font-bold text-lg text-primary mb-2">Expert Baristas</h4>
+                    <p class="text-xs text-secondary/70 font-light leading-relaxed">Dilatih secara profesional untuk ekstraksi sempurna.</p>
+                </div>
+                <div class="reveal delay-200">
+                    <div class="w-16 h-16 mx-auto bg-bgbase rounded-full border border-bordercol flex items-center justify-center text-3xl text-accent mb-4">
+                        <i class="ph-light ph-armchair"></i>
+                    </div>
+                    <h4 class="font-heading font-bold text-lg text-primary mb-2">Cozy Atmosphere</h4>
+                    <p class="text-xs text-secondary/70 font-light leading-relaxed">Desain interior yang hangat, estetis, dan sangat nyaman.</p>
+                </div>
+                <div class="reveal">
+                    <div class="w-16 h-16 mx-auto bg-bgbase rounded-full border border-bordercol flex items-center justify-center text-3xl text-accent mb-4">
+                        <i class="ph-light ph-wifi-high"></i>
+                    </div>
+                    <h4 class="font-heading font-bold text-lg text-primary mb-2">Fast WiFi & Plugs</h4>
+                    <p class="text-xs text-secondary/70 font-light leading-relaxed">Ideal untuk remote worker dan digital nomad.</p>
+                </div>
+                <div class="reveal delay-100">
+                    <div class="w-16 h-16 mx-auto bg-bgbase rounded-full border border-bordercol flex items-center justify-center text-3xl text-accent mb-4">
+                        <i class="ph-light ph-users-three"></i>
+                    </div>
+                    <h4 class="font-heading font-bold text-lg text-primary mb-2">Community Hub</h4>
+                    <p class="text-xs text-secondary/70 font-light leading-relaxed">Ruang berkumpul untuk diskusi kreatif dan event.</p>
+                </div>
+                <div class="reveal delay-200">
+                    <div class="w-16 h-16 mx-auto bg-bgbase rounded-full border border-bordercol flex items-center justify-center text-3xl text-accent mb-4">
+                        <i class="ph-light ph-plant"></i>
+                    </div>
+                    <h4 class="font-heading font-bold text-lg text-primary mb-2">Premium Ingredients</h4>
+                    <p class="text-xs text-secondary/70 font-light leading-relaxed">Susu segar, sirup artisan, dan bahan natural.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-24 bg-bgbase relative overflow-hidden">
+        <!-- Decor -->
+        <div class="absolute top-0 right-0 w-96 h-96 bg-accent/10 rounded-full blur-[100px] z-0 pointer-events-none"></div>
+
+        <div class="container mx-auto px-6 md:px-12 relative z-10">
+            <div class="text-center mb-16 reveal">
+                <span class="text-accent font-bold text-[10px] mb-4 block uppercase tracking-[0.2em]">Words From Them</span>
+                <h2 class="font-heading text-4xl md:text-5xl font-bold text-primary">Loved By The Community</h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Testi 1 -->
+                <div class="glass-panel p-8 rounded-xl shadow-card border border-bordercol reveal">
+                    <div class="flex text-accent mb-6 text-sm">
+                        <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+                    </div>
+                    <p class="text-secondary/80 text-sm font-light leading-relaxed mb-8 italic">"V60 Pour Over di sini adalah yang terbaik di kota. Baristanya sangat berpengetahuan dan suasananya sangat mendukung untuk bekerja berjam-jam."</p>
+                    <div class="flex items-center gap-4 pt-6 border-t border-bordercol">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Customer" class="w-12 h-12 rounded-full object-cover">
+                        <div>
+                            <h4 class="font-heading font-bold text-primary text-sm">Aditya Pratama</h4>
+                            <p class="text-[10px] text-accent uppercase tracking-widest font-semibold">Fav: V60 Pour Over</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testi 2 -->
+                <div class="glass-panel p-8 rounded-xl shadow-card border border-bordercol reveal delay-100">
+                    <div class="flex text-accent mb-6 text-sm">
+                        <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+                    </div>
+                    <p class="text-secondary/80 text-sm font-light leading-relaxed mb-8 italic">"Tempat favorit untuk meeting santai atau sekadar me-time. Kyoto Matcha Latte dan Butter Croissant-nya wajib dicoba. Sangat highly recommended!"</p>
+                    <div class="flex items-center gap-4 pt-6 border-t border-bordercol">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Customer" class="w-12 h-12 rounded-full object-cover">
+                        <div>
+                            <h4 class="font-heading font-bold text-primary text-sm">Natasha Wilona</h4>
+                            <p class="text-[10px] text-accent uppercase tracking-widest font-semibold">Fav: Kyoto Matcha</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testi 3 -->
+                <div class="glass-panel p-8 rounded-xl shadow-card border border-bordercol reveal delay-200">
+                    <div class="flex text-accent mb-6 text-sm">
+                        <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star-half"></i>
+                    </div>
+                    <p class="text-secondary/80 text-sm font-light leading-relaxed mb-8 italic">"Vibes-nya hangat, musiknya tidak terlalu keras, dan interior desainnya memanjakan mata. Tempat yang tepat untuk mencari inspirasi di akhir pekan."</p>
+                    <div class="flex items-center gap-4 pt-6 border-t border-bordercol">
+                        <img src="https://randomuser.me/api/portraits/men/68.jpg" alt="Customer" class="w-12 h-12 rounded-full object-cover">
+                        <div>
+                            <h4 class="font-heading font-bold text-primary text-sm">Kevin Sanjaya</h4>
+                            <p class="text-[10px] text-accent uppercase tracking-widest font-semibold">Fav: House Espresso</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Events -->
+    <section id="community" class="py-24 bg-surface border-t border-bordercol">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 reveal">
+                <div class="max-w-xl">
+                    <span class="text-accent font-bold text-[10px] mb-4 block uppercase tracking-[0.2em]">Join The Club</span>
+                    <h2 class="font-heading text-4xl md:text-5xl font-bold text-primary mb-4">Community Events</h2>
+                    <p class="text-secondary/80 font-light text-sm leading-relaxed">Kami sering mengadakan kelas dan meetup untuk menyatukan komunitas pecinta kopi dan para insan kreatif.</p>
+                </div>
+                <a href="#" class="text-[10px] font-bold uppercase tracking-widest text-primary border-b border-primary pb-1 hover:text-accent hover:border-accent transition-all mt-6 md:mt-0">View All Events</a>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Event 1 -->
+                <div class="flex flex-col sm:flex-row gap-6 group cursor-pointer reveal">
+                    <div class="w-full sm:w-48 aspect-square overflow-hidden rounded-lg">
+                        <img src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&q=80&w=400" alt="Brewing Class" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    </div>
+                    <div class="flex-1 flex flex-col justify-center">
+                        <span class="text-accent text-[10px] font-bold uppercase tracking-widest mb-2">Every Saturday</span>
+                        <h3 class="font-heading text-2xl font-bold text-primary mb-2 group-hover:text-accent transition-colors">Manual Brew Masterclass</h3>
+                        <p class="text-xs text-secondary/70 font-light leading-relaxed mb-4">Pelajari teknik dasar V60, Kalita Wave, dan French Press langsung dari Head Barista kami.</p>
+                        <a href="#" class="text-xs font-semibold text-primary group-hover:text-accent flex items-center gap-1"><i class="ph-bold ph-ticket"></i> RSVP Now</a>
+                    </div>
+                </div>
+                <!-- Event 2 -->
+                <div class="flex flex-col sm:flex-row gap-6 group cursor-pointer reveal delay-100">
+                    <div class="w-full sm:w-48 aspect-square overflow-hidden rounded-lg">
+                        <img src="https://images.unsplash.com/photo-1524350876685-274059332603?auto=format&fit=crop&q=80&w=400" alt="Cupping" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    </div>
+                    <div class="flex-1 flex flex-col justify-center">
+                        <span class="text-accent text-[10px] font-bold uppercase tracking-widest mb-2">Monthly Event</span>
+                        <h3 class="font-heading text-2xl font-bold text-primary mb-2 group-hover:text-accent transition-colors">Public Coffee Cupping</h3>
+                        <p class="text-xs text-secondary/70 font-light leading-relaxed mb-4">Uji cita rasa dan aroma biji kopi single origin terbaru kami dalam sesi cupping terbuka.</p>
+                        <a href="#" class="text-xs font-semibold text-primary group-hover:text-accent flex items-center gap-1"><i class="ph-bold ph-ticket"></i> Free Entry</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Special Promo Banner -->
+    <section class="py-16 bg-bgbase">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="bg-primary overflow-hidden relative reveal flex flex-col md:flex-row rounded-xl shadow-premium">
+                <!-- Decor -->
+                <div class="absolute -right-20 -top-20 w-64 h-64 bg-accent/20 rounded-full blur-[50px] z-0 pointer-events-none"></div>
+                
+                <div class="p-10 md:p-14 md:w-2/3 relative z-10">
+                    <span class="inline-block px-3 py-1 bg-accent text-primary text-[10px] font-bold uppercase tracking-widest rounded mb-4">Member Exclusive</span>
+                    <h2 class="font-heading text-3xl md:text-4xl font-bold text-highlight mb-4">Morning Coffee Deals</h2>
+                    <p class="text-surface/80 font-light text-sm leading-relaxed mb-8 max-w-md">
+                        Dapatkan diskon 30% untuk semua menu kopi sebelum jam 10:00 pagi. Daftarkan diri Anda ke dalam Loyalty Program kami secara gratis.
+                    </p>
+                    <a href="#" class="btn-accent px-8 py-3.5 rounded font-bold text-xs tracking-widest uppercase inline-block text-center">
+                        Claim Offer
+                    </a>
+                </div>
+                <div class="md:w-1/3 bg-[url('https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&q=80&w=600')] bg-cover bg-center min-h-[250px] relative z-10 border-l-4 border-accent mix-blend-luminosity opacity-80"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reservation Section -->
+    <section id="reservation" class="py-24 lg:py-32 relative parallax-bg overflow-hidden">
+        <div class="absolute inset-0 overlay-dark"></div>
+        
+        <div class="container mx-auto px-6 md:px-12 relative z-10 grid lg:grid-cols-2 gap-16 items-center">
+            
+            <!-- Text CTA -->
+            <div class="reveal text-surface">
+                <span class="inline-flex items-center gap-2 px-3 py-1 rounded bg-accent/20 border border-accent/40 text-[10px] font-bold uppercase tracking-[0.2em] mb-6 text-highlight backdrop-blur-sm">
+                    <i class="ph-bold ph-calendar-plus"></i> Priority Seating
+                </span>
+                <h2 class="font-heading text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+                    Reserve Your <br><span class="italic font-light text-highlight">Favorite Spot.</span>
+                </h2>
+                <p class="text-surface/80 text-sm md:text-base mb-8 leading-relaxed font-light">
+                    Pastikan Anda mendapatkan tempat terbaik untuk meeting, bekerja, atau sekadar bersantai. Kami merekomendasikan reservasi terutama untuk akhir pekan.
+                </p>
+            </div>
+
+            <!-- Form Card -->
+            <div class="glass-dark p-8 md:p-10 rounded-xl shadow-premium reveal delay-200">
+                <h3 class="font-heading text-2xl font-bold text-highlight mb-8 text-center">Book A Table</h3>
+                <form>
+                    <div class="space-y-6">
+                        <div>
+                            <input type="text" class="form-input form-input-light" placeholder="Full Name" required>
+                        </div>
+                        <div>
+                            <input type="tel" class="form-input form-input-light" placeholder="WhatsApp Number" required>
+                        </div>
+                        <div class="grid grid-cols-2 gap-5">
+                            <div>
+                                <select class="form-input form-input-light appearance-none" required>
+                                    <option value="" disabled selected class="text-primary">Guest Count</option>
+                                    <option class="text-primary">1 Person</option>
+                                    <option class="text-primary">2 Persons</option>
+                                    <option class="text-primary">3-4 Persons</option>
+                                    <option class="text-primary">5+ Persons</option>
+                                </select>
+                            </div>
+                            <div>
+                                <input type="date" class="form-input form-input-light appearance-none" required style="color: rgba(255,255,255,0.7);" onfocus="this.style.color='#fff'">
+                            </div>
+                        </div>
+                        <div>
+                            <select class="form-input form-input-light appearance-none" required>
+                                <option value="" disabled selected class="text-primary">Time Slot</option>
+                                <option class="text-primary">Morning (08:00 - 11:00)</option>
+                                <option class="text-primary">Noon (11:00 - 14:00)</option>
+                                <option class="text-primary">Afternoon (14:00 - 17:00)</option>
+                                <option class="text-primary">Evening (17:00 - 21:00)</option>
+                            </select>
+                        </div>
+                        <button type="button" class="btn-accent w-full py-4 rounded font-bold text-xs tracking-widest uppercase mt-4">
+                            Confirm Reservation
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-24 bg-surface">
+        <div class="container mx-auto px-6 md:px-12 max-w-3xl">
+            <div class="text-center mb-16 reveal">
+                <span class="text-accent font-bold text-[10px] mb-3 block uppercase tracking-[0.2em]">Questions & Answers</span>
+                <h2 class="font-heading text-3xl md:text-4xl font-bold text-primary mb-4">Frequently Asked Questions</h2>
+            </div>
+
+            <div class="space-y-4">
+                <!-- FAQ 1 -->
+                <div class="faq-item border-b border-bordercol cursor-pointer reveal">
+                    <div class="flex justify-between items-center py-6">
+                        <h4 class="font-heading font-bold text-lg text-primary">Apakah tersedia fasilitas WiFi dan stop kontak?</h4>
+                        <i class="ph-bold ph-caret-down text-accent faq-icon"></i>
+                    </div>
+                    <div class="faq-content">
+                        <p class="pb-6 text-sm text-secondary/80 font-light leading-relaxed">Ya, kami menyediakan koneksi WiFi berkecepatan tinggi secara gratis dan setiap meja kerja dilengkapi dengan stop kontak yang mudah dijangkau.</p>
+                    </div>
+                </div>
+                <!-- FAQ 2 -->
+                <div class="faq-item border-b border-bordercol cursor-pointer reveal delay-100">
+                    <div class="flex justify-between items-center py-6">
+                        <h4 class="font-heading font-bold text-lg text-primary">Apakah cafe ini memiliki area non-smoking?</h4>
+                        <i class="ph-bold ph-caret-down text-accent faq-icon"></i>
+                    </div>
+                    <div class="faq-content">
+                        <p class="pb-6 text-sm text-secondary/80 font-light leading-relaxed">Tentu. Area utama indoor kami adalah 100% bebas asap rokok dengan pendingin ruangan. Kami menyediakan area teras outdoor yang sejuk khusus bagi perokok.</p>
+                    </div>
+                </div>
+                <!-- FAQ 3 -->
+                <div class="faq-item border-b border-bordercol cursor-pointer reveal delay-200">
+                    <div class="flex justify-between items-center py-6">
+                        <h4 class="font-heading font-bold text-lg text-primary">Apakah wajib melakukan reservasi?</h4>
+                        <i class="ph-bold ph-caret-down text-accent faq-icon"></i>
+                    </div>
+                    <div class="faq-content">
+                        <p class="pb-6 text-sm text-secondary/80 font-light leading-relaxed">Tidak wajib, Anda dapat langsung datang (*walk-in*). Namun untuk rombongan lebih dari 4 orang atau saat akhir pekan, reservasi sangat disarankan agar Anda mendapat tempat.</p>
+                    </div>
+                </div>
+                <!-- FAQ 4 -->
+                <div class="faq-item border-b border-bordercol cursor-pointer reveal">
+                    <div class="flex justify-between items-center py-6">
+                        <h4 class="font-heading font-bold text-lg text-primary">Kapan jam operasional cafe ini?</h4>
+                        <i class="ph-bold ph-caret-down text-accent faq-icon"></i>
+                    </div>
+                    <div class="faq-content">
+                        <p class="pb-6 text-sm text-secondary/80 font-light leading-relaxed">Kami buka setiap hari. Senin-Jumat dari pukul 08:00 hingga 22:00 WIB, sedangkan Sabtu-Minggu kami buka lebih awal dari pukul 07:00 hingga 23:00 WIB.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-bgbase border-t border-bordercol">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+                <!-- Contact Info -->
+                <div class="reveal">
+                    <span class="text-accent font-bold text-[10px] mb-4 block uppercase tracking-[0.2em]">Visit Us</span>
+                    <h2 class="font-heading text-4xl md:text-5xl font-bold text-primary mb-6">Drop By For A Cup.</h2>
+                    <p class="text-secondary/80 font-light mb-12 leading-relaxed text-sm md:text-base">
+                        Lokasi kami tersembunyi dari hiruk pikuk jalan utama, menawarkan oasis ketenangan di tengah kota. Pintu kami selalu terbuka untuk Anda.
+                    </p>
+
+                    <div class="space-y-8">
+                        <div class="flex items-start gap-5">
+                            <div class="mt-1"><i class="ph-light ph-map-pin text-2xl text-accent"></i></div>
+                            <div>
+                                <h4 class="font-heading font-bold text-primary text-lg mb-1">Our Location</h4>
+                                <p class="text-sm text-secondary/70 font-light leading-relaxed">Jl. Kopi Artisan No. 42, Senopati<br>Jakarta Selatan 12190</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-5">
+                            <div class="mt-1"><i class="ph-light ph-whatsapp-logo text-2xl text-accent"></i></div>
+                            <div>
+                                <h4 class="font-heading font-bold text-primary text-lg mb-1">WhatsApp / Call</h4>
+                                <p class="text-sm text-secondary/70 font-light">+62 811 0000 9999</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-5">
+                            <div class="mt-1"><i class="ph-light ph-envelope-simple text-2xl text-accent"></i></div>
+                            <div>
+                                <h4 class="font-heading font-bold text-primary text-lg mb-1">Email</h4>
+                                <p class="text-sm text-secondary/70 font-light">hello@roastandritual.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Map Placeholder -->
+                <div class="relative overflow-hidden aspect-square md:aspect-[4/3] rounded-lg border border-bordercol shadow-card reveal delay-200">
+                    <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&q=80&w=800" alt="Map Location" class="w-full h-full object-cover grayscale opacity-60 mix-blend-multiply">
+                    <div class="absolute inset-0 bg-accent/10 flex flex-col items-center justify-center">
+                        <div class="w-16 h-16 bg-surface text-accent rounded-full flex items-center justify-center text-3xl mb-4 shadow-lg">
+                            <i class="ph-fill ph-map-pin"></i>
+                        </div>
+                        <div class="bg-surface/90 backdrop-blur px-6 py-3 rounded font-heading font-bold text-primary text-sm shadow-lg">
+                            Get Directions
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-primary pt-20 pb-10 text-surface/70 border-t border-accent/20">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <!-- Brand Info -->
+                <div class="lg:col-span-1">
+                    <a href="#" class="flex flex-col mb-6">
+                        <span class="font-heading font-bold text-2xl tracking-widest uppercase leading-none text-highlight">Roast & Ritual</span>
+                        <span class="text-[9px] text-surface/60 tracking-[0.25em] uppercase font-medium mt-1">Coffee House</span>
+                    </a>
+                    <p class="text-sm font-light leading-relaxed mb-8">
+                        Every Cup Tells A Story. Specialty coffee roaster and cafe dedicated to quality and community.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded border border-surface/20 flex items-center justify-center hover:bg-highlight hover:text-primary transition-colors"><i class="ph-fill ph-instagram-logo text-lg"></i></a>
+                        <a href="#" class="w-10 h-10 rounded border border-surface/20 flex items-center justify-center hover:bg-highlight hover:text-primary transition-colors"><i class="ph-fill ph-tiktok-logo text-lg"></i></a>
+                        <a href="#" class="w-10 h-10 rounded border border-surface/20 flex items-center justify-center hover:bg-highlight hover:text-primary transition-colors"><i class="ph-fill ph-twitter-logo text-lg"></i></a>
+                    </div>
+                </div>
+
+                <!-- Navigation -->
+                <div>
+                    <h4 class="font-heading font-bold text-highlight mb-6 uppercase tracking-wider text-sm">Quick Links</h4>
+                    <ul class="space-y-3 text-sm font-light">
+                        <li><a href="#about" class="hover:text-highlight transition-colors">Our Story</a></li>
+                        <li><a href="#menu" class="hover:text-highlight transition-colors">Signature Menu</a></li>
+                        <li><a href="#journey" class="hover:text-highlight transition-colors">Coffee Journey</a></li>
+                        <li><a href="#gallery" class="hover:text-highlight transition-colors">Gallery</a></li>
+                        <li><a href="#community" class="hover:text-highlight transition-colors">Events</a></li>
+                    </ul>
+                </div>
+
+                <!-- Support -->
+                <div>
+                    <h4 class="font-heading font-bold text-highlight mb-6 uppercase tracking-wider text-sm">Support</h4>
+                    <ul class="space-y-3 text-sm font-light">
+                        <li><a href="#reservation" class="hover:text-highlight transition-colors">Reservations</a></li>
+                        <li><a href="#" class="hover:text-highlight transition-colors">Wholesale Beans</a></li>
+                        <li><a href="#" class="hover:text-highlight transition-colors">Careers</a></li>
+                        <li><a href="#" class="hover:text-highlight transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-highlight transition-colors">Terms of Service</a></li>
+                    </ul>
+                </div>
+
+                <!-- Opening Hours -->
+                <div>
+                    <h4 class="font-heading font-bold text-highlight mb-6 uppercase tracking-wider text-sm">Opening Hours</h4>
+                    <ul class="space-y-3 text-sm font-light text-surface/60">
+                        <li class="flex justify-between border-b border-surface/20 pb-2">
+                            <span>Mon - Fri</span>
+                            <span class="text-highlight">08:00 - 22:00</span>
+                        </li>
+                        <li class="flex justify-between border-b border-surface/20 pb-2">
+                            <span>Sat - Sun</span>
+                            <span class="text-highlight">07:00 - 23:00</span>
+                        </li>
+                        <li class="flex justify-between pt-2 text-[10px] uppercase tracking-widest text-accent font-semibold">
+                            Open on Public Holidays
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-surface/10 pt-8 flex flex-col md:flex-row justify-between items-center text-[10px] uppercase tracking-widest text-surface/40">
+                <p class="mb-2 md:mb-0">&copy; 2026 Roast & Ritual Coffee House. All rights reserved.</p>
+                <p>Crafted With Passion.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="btt" class="fixed bottom-8 right-8 w-12 h-12 bg-accent text-primary rounded shadow-premium flex items-center justify-center opacity-0 translate-y-10 transition-all duration-500 z-40 hover:bg-highlight focus:outline-none">
+        <i class="ph-bold ph-arrow-up text-xl"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // 1. Loader Removal
+            setTimeout(() => {
+                const loader = document.getElementById('loader');
+                loader.style.opacity = '0';
+                setTimeout(() => { loader.style.visibility = 'hidden'; }, 800);
+            }, 1200);
+
+            // 2. Sticky Navbar & Back to Top Logic
+            const navbar = document.getElementById('navbar');
+            const btt = document.getElementById('btt');
+            
+            window.addEventListener('scroll', () => {
+                // Navbar Glassmorphism vs Transparent
+                if (window.scrollY > 50) {
+                    navbar.classList.add('nav-glass', 'text-primary');
+                    navbar.classList.remove('nav-transparent', 'text-surface');
+                    
+                    // Update Icons color
+                    navbar.querySelectorAll('.ph-magnifying-glass, .ph-heart, .ph-shopping-bag, .ph-list').forEach(icon => {
+                        icon.classList.remove('text-surface');
+                    });
+                } else {
+                    navbar.classList.remove('nav-glass', 'text-primary');
+                    navbar.classList.add('nav-transparent', 'text-surface');
+                    
+                    // Revert Icons color
+                    navbar.querySelectorAll('.ph-magnifying-glass, .ph-heart, .ph-shopping-bag, .ph-list').forEach(icon => {
+                        icon.classList.add('text-surface');
+                    });
+                }
+
+                // Back to Top Button
+                if (window.scrollY > 600) {
+                    btt.classList.remove('opacity-0', 'translate-y-10');
+                    btt.classList.add('opacity-100', 'translate-y-0');
+                } else {
+                    btt.classList.add('opacity-0', 'translate-y-10');
+                    btt.classList.remove('opacity-100', 'translate-y-0');
+                }
+            });
+
+            btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+            // 3. Mobile Menu Toggle
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            const closeBtn = document.getElementById('close-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileOverlay = document.getElementById('mobile-overlay');
+            const mobileLinks = document.querySelectorAll('.mobile-link');
+
+            function openMenu() {
+                mobileMenu.classList.remove('translate-x-full');
+                mobileOverlay.classList.remove('hidden');
+                document.body.style.overflow = 'hidden'; // Prevent scroll
+            }
+
+            function closeMenu() {
+                mobileMenu.classList.add('translate-x-full');
+                mobileOverlay.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+
+            menuBtn.addEventListener('click', openMenu);
+            closeBtn.addEventListener('click', closeMenu);
+            mobileOverlay.addEventListener('click', closeMenu);
+            mobileLinks.forEach(link => link.addEventListener('click', closeMenu));
+
+            // 4. Scroll Reveal (Intersection Observer)
+            const revealElements = document.querySelectorAll('.reveal');
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        // Unobserve to animate only once
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+            
+            revealElements.forEach(el => revealObserver.observe(el));
+
+            // 5. Mouse Parallax (Hero Floating Elements)
+            const mouseParallaxElements = document.querySelectorAll('.mouse-p');
+            const heroSection = document.getElementById('hero');
+
+            if(window.innerWidth > 1024) { 
+                heroSection.addEventListener('mousemove', (e) => {
+                    const x = (window.innerWidth - e.pageX * 2) / 100;
+                    const y = (window.innerHeight - e.pageY * 2) / 100;
+
+                    mouseParallaxElements.forEach(el => {
+                        const speed = el.getAttribute('data-speed');
+                        el.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
+                    });
+                });
+                heroSection.addEventListener('mouseleave', () => {
+                    mouseParallaxElements.forEach(el => {
+                        el.style.transform = `translate(0px, 0px)`;
+                    });
+                });
+            }
+
+            // 6. FAQ Accordion Logic
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const content = item.querySelector('.faq-content');
+                    const isActive = item.classList.contains('active');
+
+                    // Close all
+                    faqItems.forEach(otherItem => {
+                        otherItem.classList.remove('active');
+                        otherItem.querySelector('.faq-content').style.maxHeight = null;
+                    });
+
+                    // Open current
+                    if (!isActive) {
+                        item.classList.add('active');
+                        content.style.maxHeight = content.scrollHeight + "px";
+                    }
+                });
+            });
+
+            // 7. Counter Animation for Stats
+            const counters = document.querySelectorAll('.counter');
+            let hasAnimated = false;
+
+            const animateCounters = () => {
+                counters.forEach(counter => {
+                    const targetText = counter.getAttribute('data-target');
+                    const isFloat = targetText.includes('.');
+                    const target = parseFloat(targetText);
+                    const duration = 2000; // ms
+                    const step = target / (duration / 16); // 60fps
+                    let current = 0;
+
+                    const updateCounter = () => {
+                        current += step;
+                        if(current < target) {
+                            counter.innerText = isFloat ? current.toFixed(1) : Math.ceil(current);
+                            requestAnimationFrame(updateCounter);
+                        } else {
+                            counter.innerText = isFloat ? target.toFixed(1) : target;
+                        }
+                    };
+                    updateCounter();
+                });
+            };
+
+            // Observer for Counters
+            const counterSection = document.getElementById('counter-wrap');
+            if(counterSection) {
+                const counterObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if(entry.isIntersecting && !hasAnimated) {
+                            animateCounters();
+                            hasAnimated = true;
+                        }
+                    });
+                }, { threshold: 0.5 });
+                counterObserver.observe(counterSection);
+            }
+        });
+    </script>
+</body>
+</html>

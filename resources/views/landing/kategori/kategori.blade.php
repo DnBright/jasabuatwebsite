@@ -1,13 +1,13 @@
 <!-- PORTFOLIO / KATEGORI SECTION -->
 <section id="kategori" class="categories-section">
     <div class="section-container">
-        <div class="section-heading">
+        <div class="section-heading" data-aos="fade-up">
             <div class="badge-mini">Portfolio Unggulan</div>
             <h2 class="section-title">Karya Terbaik untuk <span>Bisnis Anda</span></h2>
             <p class="section-subtitle">Lihat bagaimana kami mentransformasi berbagai jenis bisnis UMKM menjadi lebih profesional, terpercaya, dan siap bersaing di era digital dengan website kelas dunia.</p>
         </div>
 
-        <div class="swiper kategori-swiper portfolio-showcase">
+        <div class="swiper kategori-swiper portfolio-showcase" data-aos="fade-up" data-aos-delay="200">
             <div class="swiper-wrapper">
                 <!-- F&B -->
                 <div class="swiper-slide">

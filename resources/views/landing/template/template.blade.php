@@ -264,7 +264,7 @@
         box-shadow: 0 20px 35px -10px rgba(0, 33, 71, 0.4);
     }
 
-    @@media (max-width: 768px) {
+    @media (max-width: 768px) {
         .template-section { padding: 4rem 0; }
         .section-title { font-size: 2.25rem; }
         .section-subtitle { font-size: 1rem; margin-bottom: 3rem; padding: 0 5%; }

@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paw Haven | Premium Pet Care & Clinic</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1F4E5F',
+                        secondary: '#4FB286',
+                        accent: '#FFD166',
+                        bglight: '#F8FAFC',
+                        textdark: '#1E293B',
+                    },
+                    fontFamily: {
+                        heading: ['Outfit', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'premium': '0 20px 40px -10px rgba(31, 78, 95, 0.08)',
+                        'glass': '0 8px 32px 0 rgba(31, 78, 95, 0.1)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base & Resets */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: theme('colors.bglight');
+            color: theme('colors.textdark');
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4, h5, h6, .font-heading {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* Loading Screen */
+        #loader {
+            position: fixed;
+            inset: 0;
+            background-color: theme('colors.primary');
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.6s ease-out, visibility 0.6s ease-out;
+        }
+        .loader-paw {
+            font-size: 4rem;
+            color: theme('colors.accent');
+            animation: pulse 1.5s infinite alternate ease-in-out;
+        }
+
+        /* Navbar Glassmorphism */
+        .nav-glass {
+            background: rgba(248, 250, 252, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
+            transition: all 0.4s ease;
+        }
+
+        /* CSS Parallax Backgrounds */
+        .parallax-section {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        #hero { background-image: url('https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&q=80&w=2000'); }
+        #experience { background-image: url('https://images.unsplash.com/photo-1450778869180-41d0601e046e?auto=format&fit=crop&q=80&w=2000'); }
+        #booking { background-image: url('https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&q=80&w=2000'); }
+
+        .overlay-dark { background: rgba(31, 78, 95, 0.65); }
+        .overlay-light { background: rgba(248, 250, 252, 0.85); }
+
+        /* Floating Paws Animation */
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+        .float-anim { animation: float 6s ease-in-out infinite; }
+        .float-anim.delay-1 { animation-delay: 1s; }
+        .float-anim.delay-2 { animation-delay: 2s; }
+
+        /* Reveal Animation on Scroll */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .delay-100 { transition-delay: 0.1s; }
+        .delay-200 { transition-delay: 0.2s; }
+        .delay-300 { transition-delay: 0.3s; }
+
+        /* Cards & Buttons */
+        .premium-card {
+            background: white;
+            border-radius: 24px;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+        .premium-card:hover {
+            transform: translateY(-8px);
+            box-shadow: theme('boxShadow.premium');
+        }
+
+        .btn-primary {
+            background-color: theme('colors.primary');
+            color: white;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: theme('colors.secondary');
+            transform: translateY(-2px);
+        }
+
+        .btn-accent {
+            background-color: theme('colors.accent');
+            color: theme('colors.textdark');
+            transition: all 0.3s ease;
+        }
+        .btn-accent:hover {
+            background-color: #ffd87a;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(255, 209, 102, 0.4);
+        }
+
+        /* Glassmorphism Panel */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: theme('boxShadow.glass');
+        }
+
+        /* Form Inputs */
+        .form-input {
+            width: 100%;
+            background: rgba(255,255,255,0.9);
+            border: 1px solid #E2E8F0;
+            border-radius: 12px;
+            padding: 14px 16px;
+            color: theme('colors.textdark');
+            transition: all 0.3s ease;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: theme('colors.secondary');
+            box-shadow: 0 0 0 3px rgba(79, 178, 134, 0.1);
+        }
+
+        /* Gallery Masonry Approximation */
+        .masonry {
+            column-count: 1;
+            column-gap: 1.5rem;
+        }
+        @media (min-width: 768px) { .masonry { column-count: 2; } }
+        @media (min-width: 1024px) { .masonry { column-count: 3; } }
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 1.5rem;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+        .masonry-item img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.6s ease;
+            display: block;
+        }
+        .masonry-item:hover img { transform: scale(1.05); }
+        .masonry-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(31,78,95,0.8), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            display: flex;
+            align-items: flex-end;
+            padding: 24px;
+        }
+        .masonry-item:hover .masonry-overlay { opacity: 1; }
+
+        /* FAQ Accordion */
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+            opacity: 0;
+        }
+        .faq-answer.open {
+            opacity: 1;
+        }
+        .faq-icon { transition: transform 0.4s ease; }
+        .faq-btn.active .faq-icon { transform: rotate(45deg); color: theme('colors.secondary'); }
+
+        /* Back to Top */
+        #btt {
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        #btt.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Smooth Background Zoom for Experience Section */
+        #experience-bg {
+            position: absolute;
+            inset: 0;
+            background-image: url('https://images.unsplash.com/photo-1450778869180-41d0601e046e?auto=format&fit=crop&q=80&w=2000');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            transition: transform 0.1s linear;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Loading Animation -->
+    <div id="loader">
+        <i class="ph-fill ph-paw-print loader-paw"></i>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full top-0 z-50 py-5 transition-all duration-300">
+        <div class="container mx-auto px-6 lg:px-12 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-2 z-50">
+                <i class="ph-fill ph-paw-print text-3xl text-secondary"></i>
+                <span class="font-heading font-bold text-2xl text-primary tracking-tight">Paw Haven<span class="text-accent">.</span></span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden lg:flex items-center gap-8 font-medium text-textdark">
+                <a href="#about" class="hover:text-secondary transition-colors">Tentang Kami</a>
+                <a href="#services" class="hover:text-secondary transition-colors">Layanan</a>
+                <a href="#products" class="hover:text-secondary transition-colors">Produk</a>
+                <a href="#gallery" class="hover:text-secondary transition-colors">Galeri</a>
+            </div>
+
+            <!-- CTA Desktop -->
+            <div class="hidden lg:block">
+                <a href="#booking" class="btn-primary px-6 py-3 rounded-full font-semibold text-sm">Buat Janji</a>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button id="mobile-menu-btn" class="lg:hidden text-primary text-3xl z-50 focus:outline-none">
+                <i class="ph ph-list"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="fixed inset-0 bg-white z-40 transform translate-x-full transition-transform duration-300 flex flex-col justify-center items-center gap-8 text-xl font-heading font-semibold shadow-2xl">
+            <a href="#about" class="mobile-link text-primary hover:text-secondary">Tentang Kami</a>
+            <a href="#services" class="mobile-link text-primary hover:text-secondary">Layanan</a>
+            <a href="#products" class="mobile-link text-primary hover:text-secondary">Produk</a>
+            <a href="#gallery" class="mobile-link text-primary hover:text-secondary">Galeri</a>
+            <a href="#booking" class="mobile-link btn-primary px-8 py-4 rounded-full mt-4">Buat Janji Sekarang</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative h-screen flex items-center justify-center parallax-section overflow-hidden">
+        <div class="absolute inset-0 overlay-dark"></div>
+        
+        <!-- Floating Paws Decoration -->
+        <i class="ph-fill ph-paw-print text-white opacity-10 text-5xl absolute top-1/4 left-1/4 float-anim"></i>
+        <i class="ph-fill ph-paw-print text-white opacity-10 text-7xl absolute bottom-1/4 right-1/4 float-anim delay-1"></i>
+        <i class="ph-fill ph-paw-print text-white opacity-10 text-4xl absolute top-1/3 right-1/3 float-anim delay-2"></i>
+
+        <div class="container mx-auto px-6 relative z-10 text-center text-white mt-16">
+            <span class="inline-block py-1 px-4 rounded-full bg-white/20 backdrop-blur-md text-sm font-medium mb-6 border border-white/30 text-accent reveal">Premium Pet Care Center</span>
+            <h1 class="font-heading text-5xl md:text-7xl font-bold mb-6 leading-tight max-w-4xl mx-auto reveal delay-100">
+                Because Your Pets Deserve <span class="text-accent">The Best Care</span>
+            </h1>
+            <p class="text-lg md:text-xl font-light text-white/90 mb-10 max-w-2xl mx-auto reveal delay-200">
+                Professional Grooming, Pet Hotel, Veterinary Care, and Premium Pet Supplies. Semua yang anabul Anda butuhkan dalam satu atap yang nyaman.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4 reveal delay-300">
+                <a href="#booking" class="btn-accent px-8 py-4 rounded-full font-bold text-lg flex items-center justify-center gap-2">
+                    Book Appointment <i class="ph-bold ph-arrow-right"></i>
+                </a>
+                <a href="#services" class="bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/30 px-8 py-4 rounded-full font-bold text-lg text-white transition-all flex items-center justify-center">
+                    Explore Services
+                </a>
+            </div>
+        </div>
+        
+        <!-- Scroll Down Indicator -->
+        <a href="#about" class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white animate-bounce">
+            <i class="ph ph-arrow-down text-3xl opacity-70 hover:opacity-100 transition-opacity"></i>
+        </a>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 lg:py-32 bg-white">
+        <div class="container mx-auto px-6 lg:px-12">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                <!-- Left: Image -->
+                <div class="w-full lg:w-1/2 relative reveal">
+                    <div class="rounded-3xl overflow-hidden relative z-10 shadow-2xl">
+                        <img src="https://images.unsplash.com/photo-1576201836106-db1758fd1c97?auto=format&fit=crop&q=80&w=800" alt="Veterinarian with dog" class="w-full h-auto object-cover hover:scale-105 transition-transform duration-700">
+                    </div>
+                    <!-- Decorative block -->
+                    <div class="absolute -bottom-6 -right-6 w-full h-full bg-accent rounded-3xl z-0 opacity-20"></div>
+                    
+                    <!-- Floating Badge -->
+                    <div class="absolute -left-6 top-12 bg-white p-5 rounded-2xl shadow-xl z-20 flex items-center gap-4 float-anim">
+                        <div class="w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center text-secondary text-2xl">
+                            <i class="ph-fill ph-heart"></i>
+                        </div>
+                        <div>
+                            <p class="font-heading font-bold text-xl text-primary">Certified</p>
+                            <p class="text-sm text-gray-500">Professionals</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Content -->
+                <div class="w-full lg:w-1/2 reveal delay-100">
+                    <h4 class="text-secondary font-bold tracking-wider uppercase text-sm mb-3">Kisah Kami</h4>
+                    <h2 class="font-heading text-4xl lg:text-5xl font-bold text-primary mb-6">Lebih dari sekadar pet shop, kami adalah keluarga.</h2>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        Sejak didirikan, Paw Haven memiliki satu misi sederhana: memberikan standar perawatan tertinggi untuk hewan kesayangan Anda. Kami mengerti bahwa anjing dan kucing Anda bukan sekadar hewan peliharaan, mereka adalah bagian dari keluarga.
+                    </p>
+                    <p class="text-gray-600 mb-10 leading-relaxed">
+                        Fasilitas modern kami dirancang khusus untuk kenyamanan dan keamanan, didukung oleh tim dokter hewan, groomer profesional, dan *pet sitter* yang penuh kasih sayang.
+                    </p>
+
+                    <!-- Stats -->
+                    <div class="grid grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="font-heading text-4xl font-bold text-primary mb-1">10+</h3>
+                            <p class="text-sm text-gray-500 font-medium">Years Experience</p>
+                        </div>
+                        <div>
+                            <h3 class="font-heading text-4xl font-bold text-primary mb-1">5K+</h3>
+                            <p class="text-sm text-gray-500 font-medium">Happy Pets</p>
+                        </div>
+                        <div>
+                            <h3 class="font-heading text-4xl font-bold text-primary mb-1">98%</h3>
+                            <p class="text-sm text-gray-500 font-medium">Client Satisfaction</p>
+                        </div>
+                        <div>
+                            <h3 class="font-heading text-4xl font-bold text-primary mb-1">24/7</h3>
+                            <p class="text-sm text-gray-500 font-medium">Pet Support</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-24 lg:py-32 bg-bglight">
+        <div class="container mx-auto px-6 lg:px-12">
+            <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+                <h4 class="text-secondary font-bold tracking-wider uppercase text-sm mb-3">Layanan Kami</h4>
+                <h2 class="font-heading text-4xl font-bold text-primary">Perawatan komprehensif untuk kesejahteraan anabul.</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="premium-card p-8 reveal">
+                    <div class="w-16 h-16 rounded-2xl bg-primary/5 text-primary flex items-center justify-center text-3xl mb-6">
+                        <i class="ph-fill ph-scissors"></i>
+                    </div>
+                    <h3 class="font-heading text-2xl font-bold text-primary mb-3">Pet Grooming</h3>
+                    <p class="text-gray-600 leading-relaxed mb-6">Styling profesional, mandi spa aromaterapi, potong kuku, dan pembersihan telinga dengan produk hypoallergenic.</p>
+                    <a href="#" class="text-secondary font-semibold flex items-center gap-2 hover:text-primary transition-colors">Pelajari <i class="ph-bold ph-arrow-right"></i></a>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="premium-card p-8 reveal delay-100">
+                    <div class="w-16 h-16 rounded-2xl bg-secondary/10 text-secondary flex items-center justify-center text-3xl mb-6">
+                        <i class="ph-fill ph-house-line"></i>
+                    </div>
+                    <h3 class="font-heading text-2xl font-bold text-primary mb-3">Pet Hotel</h3>
+                    <p class="text-gray-600 leading-relaxed mb-6">Kamar eksklusif ber-AC, area bermain luas, laporan video harian, dan pengawasan 24 jam untuk ketenangan pikiran Anda.</p>
+                    <a href="#" class="text-secondary font-semibold flex items-center gap-2 hover:text-primary transition-colors">Pelajari <i class="ph-bold ph-arrow-right"></i></a>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="premium-card p-8 reveal delay-200">
+                    <div class="w-16 h-16 rounded-2xl bg-accent/20 text-accent flex items-center justify-center text-3xl mb-6">
+                        <i class="ph-fill ph-first-aid-kit"></i>
+                    </div>
+                    <h3 class="font-heading text-2xl font-bold text-primary mb-3">Veterinary Care</h3>
+                    <p class="text-gray-600 leading-relaxed mb-6">Pemeriksaan kesehatan rutin, vaksinasi, perawatan gigi, hingga penanganan medis darurat oleh dokter hewan bersertifikat.</p>
+                    <a href="#" class="text-secondary font-semibold flex items-center gap-2 hover:text-primary transition-colors">Pelajari <i class="ph-bold ph-arrow-right"></i></a>
+                </div>
+
+                <!-- Service 4 -->
+                <div class="premium-card p-8 reveal">
+                    <div class="w-16 h-16 rounded-2xl bg-accent/20 text-accent flex items-center justify-center text-3xl mb-6">
+                        <i class="ph-fill ph-bone"></i>
+                    </div>
+                    <h3 class="font-heading text-2xl font-bold text-primary mb-3">Pet Supplies</h3>
+                    <p class="text-gray-600 leading-relaxed mb-6">Koleksi makanan premium, suplemen kesehatan, mainan edukatif, dan aksesoris berkualitas tinggi dari merek ternama.</p>
+                    <a href="#" class="text-secondary font-semibold flex items-center gap-2 hover:text-primary transition-colors">Pelajari <i class="ph-bold ph-arrow-right"></i></a>
+                </div>
+
+                <!-- Service 5 -->
+                <div class="premium-card p-8 reveal delay-100">
+                    <div class="w-16 h-16 rounded-2xl bg-primary/5 text-primary flex items-center justify-center text-3xl mb-6">
+                        <i class="ph-fill ph-tennis-ball"></i>
+                    </div>
+                    <h3 class="font-heading text-2xl font-bold text-primary mb-3">Pet Training</h3>
+                    <p class="text-gray-600 leading-relaxed mb-6">Kelas kepatuhan dasar hingga modifikasi perilaku positif oleh pelatih ahli untuk menciptakan harmoni antara Anda dan peliharaan.</p>
+                    <a href="#" class="text-secondary font-semibold flex items-center gap-2 hover:text-primary transition-colors">Pelajari <i class="ph-bold ph-arrow-right"></i></a>
+                </div>
+
+                <!-- Service 6 -->
+                <div class="premium-card p-8 reveal delay-200">
+                    <div class="w-16 h-16 rounded-2xl bg-secondary/10 text-secondary flex items-center justify-center text-3xl mb-6">
+                        <i class="ph-fill ph-hands-clapping"></i>
+                    </div>
+                    <h3 class="font-heading text-2xl font-bold text-primary mb-3">Pet Adoption</h3>
+                    <p class="text-gray-600 leading-relaxed mb-6">Program adopsi yang bertanggung jawab. Temukan sahabat baru Anda yang telah diselamatkan dan dirawat dengan baik.</p>
+                    <a href="#" class="text-secondary font-semibold flex items-center gap-2 hover:text-primary transition-colors">Pelajari <i class="ph-bold ph-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Parallax Experience Break -->
+    <section class="relative h-[70vh] flex items-center justify-center overflow-hidden">
+        <!-- Separate div for background to allow zoom effect via JS without affecting layout -->
+        <div id="experience-bg"></div>
+        <div class="absolute inset-0 bg-primary/40"></div>
+        
+        <div class="relative z-10 text-center px-6 max-w-4xl mx-auto reveal">
+            <i class="ph-fill ph-quotes text-accent text-5xl mb-6 opacity-80"></i>
+            <h2 class="font-heading text-5xl md:text-7xl font-bold text-white leading-tight mb-8">
+                We Treat Every Pet <br/> <span class="italic font-light">Like Family.</span>
+            </h2>
+            <div class="w-24 h-1 bg-accent mx-auto rounded-full"></div>
+        </div>
+    </section>
+
+    <!-- Featured Products Section -->
+    <section id="products" class="py-24 lg:py-32 bg-white">
+        <div class="container mx-auto px-6 lg:px-12">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12 reveal">
+                <div class="max-w-xl">
+                    <h4 class="text-secondary font-bold tracking-wider uppercase text-sm mb-3">Boutique Store</h4>
+                    <h2 class="font-heading text-4xl font-bold text-primary">Produk Premium Pilihan</h2>
+                </div>
+                <a href="#" class="text-secondary font-semibold hover:text-primary transition-colors mt-4 md:mt-0 flex items-center gap-2">
+                    Lihat Semua <i class="ph-bold ph-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Product 1 -->
+                <div class="group reveal">
+                    <div class="bg-bglight rounded-3xl p-6 mb-4 relative overflow-hidden flex justify-center items-center h-64 border border-gray-100">
+                        <!-- Placeholder using Unsplash image masked as product -->
+                        <img src="https://images.unsplash.com/photo-1589924691995-400dc9ecc119?auto=format&fit=crop&q=80&w=400" alt="Dog Food" class="h-full w-full object-cover rounded-2xl group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute top-4 right-4 bg-white p-2 rounded-full shadow-md text-gray-400 hover:text-red-500 cursor-pointer transition-colors">
+                            <i class="ph-fill ph-heart text-xl"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="text-xs text-secondary font-bold mb-1">PREMIUM FOOD</div>
+                        <h3 class="font-heading font-bold text-primary text-lg mb-2">Royal Nutrition Dog Food</h3>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-xl text-primary">Rp 450.000</span>
+                            <button class="bg-primary text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-secondary transition-colors">
+                                <i class="ph-bold ph-shopping-cart-simple"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="group reveal delay-100">
+                    <div class="bg-bglight rounded-3xl p-6 mb-4 relative overflow-hidden flex justify-center items-center h-64 border border-gray-100">
+                        <img src="https://images.unsplash.com/photo-1623366302587-bcaad545dfc2?auto=format&fit=crop&q=80&w=400" alt="Cat Toy" class="h-full w-full object-cover rounded-2xl group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div>
+                        <div class="text-xs text-secondary font-bold mb-1">ACCESSORIES</div>
+                        <h3 class="font-heading font-bold text-primary text-lg mb-2">Interactive Cat Teaser</h3>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-xl text-primary">Rp 120.000</span>
+                            <button class="bg-primary text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-secondary transition-colors">
+                                <i class="ph-bold ph-shopping-cart-simple"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="group reveal delay-200">
+                    <div class="bg-bglight rounded-3xl p-6 mb-4 relative overflow-hidden flex justify-center items-center h-64 border border-gray-100">
+                        <img src="https://images.unsplash.com/photo-1596492784531-6e6eb5ea9993?auto=format&fit=crop&q=80&w=400" alt="Grooming Kit" class="h-full w-full object-cover rounded-2xl group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div>
+                        <div class="text-xs text-secondary font-bold mb-1">GROOMING</div>
+                        <h3 class="font-heading font-bold text-primary text-lg mb-2">Organic Pet Shampoo</h3>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-xl text-primary">Rp 185.000</span>
+                            <button class="bg-primary text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-secondary transition-colors">
+                                <i class="ph-bold ph-shopping-cart-simple"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="group reveal delay-300">
+                    <div class="bg-bglight rounded-3xl p-6 mb-4 relative overflow-hidden flex justify-center items-center h-64 border border-gray-100">
+                        <img src="https://images.unsplash.com/photo-1606214532662-ceb20d3d52cb?auto=format&fit=crop&q=80&w=400" alt="Supplements" class="h-full w-full object-cover rounded-2xl group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div>
+                        <div class="text-xs text-secondary font-bold mb-1">HEALTH</div>
+                        <h3 class="font-heading font-bold text-primary text-lg mb-2">Multivitamin Drops</h3>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-xl text-primary">Rp 210.000</span>
+                            <button class="bg-primary text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-secondary transition-colors">
+                                <i class="ph-bold ph-shopping-cart-simple"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section (Masonry) -->
+    <section id="gallery" class="py-24 bg-bglight">
+        <div class="container mx-auto px-6 lg:px-12">
+            <div class="text-center mb-16 reveal">
+                <h4 class="text-secondary font-bold tracking-wider uppercase text-sm mb-3">Momen Bahagia</h4>
+                <h2 class="font-heading text-4xl font-bold text-primary">Galeri Paw Haven</h2>
+            </div>
+
+            <div class="masonry">
+                <div class="masonry-item reveal">
+                    <img src="https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&q=80&w=600" alt="Happy dog">
+                    <div class="masonry-overlay">
+                        <h3 class="text-white font-heading text-xl font-bold">Grooming Time</h3>
+                    </div>
+                </div>
+                <div class="masonry-item reveal delay-100">
+                    <img src="https://images.unsplash.com/photo-1513360371669-4adf3dd7dff8?auto=format&fit=crop&q=80&w=600" alt="Cat looking">
+                    <div class="masonry-overlay">
+                        <h3 class="text-white font-heading text-xl font-bold">Cat Hotel Suite</h3>
+                    </div>
+                </div>
+                <div class="masonry-item reveal delay-200">
+                    <img src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&q=80&w=600" alt="Dog Vet">
+                    <div class="masonry-overlay">
+                        <h3 class="text-white font-heading text-xl font-bold">Health Checkup</h3>
+                    </div>
+                </div>
+                <div class="masonry-item reveal">
+                    <img src="https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&q=80&w=600" alt="Dog play">
+                    <div class="masonry-overlay">
+                        <h3 class="text-white font-heading text-xl font-bold">Play Area</h3>
+                    </div>
+                </div>
+                <div class="masonry-item reveal delay-100">
+                    <img src="https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13?auto=format&fit=crop&q=80&w=600" alt="Cat resting">
+                    <div class="masonry-overlay">
+                        <h3 class="text-white font-heading text-xl font-bold">Cozy Corner</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-24 lg:py-32 bg-white relative overflow-hidden">
+        <!-- Decoration -->
+        <div class="absolute top-0 right-0 w-64 h-64 bg-accent/10 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 w-80 h-80 bg-secondary/10 rounded-full blur-3xl"></div>
+
+        <div class="container mx-auto px-6 lg:px-12 relative z-10">
+            <div class="text-center mb-16 reveal">
+                <h4 class="text-secondary font-bold tracking-wider uppercase text-sm mb-3">Testimoni</h4>
+                <h2 class="font-heading text-4xl font-bold text-primary">Apa Kata Pet Parents</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Testi 1 -->
+                <div class="glass-panel p-8 reveal">
+                    <div class="flex text-accent mb-4">
+                        <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+                    </div>
+                    <p class="text-gray-600 mb-6 italic">"Grooming di sini sangat profesional. Bulu Golden Retriever saya menjadi sangat lembut dan wangi berminggu-minggu. Stafnya juga sangat sabar menghadapi anjing saya yang super aktif."</p>
+                    <div class="flex items-center gap-4">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User" class="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm">
+                        <div>
+                            <h4 class="font-heading font-bold text-primary">Sarah Wijaya</h4>
+                            <p class="text-xs text-gray-500">Mom of Max (Golden Retriever)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testi 2 -->
+                <div class="glass-panel p-8 reveal delay-100">
+                    <div class="flex text-accent mb-4">
+                        <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+                    </div>
+                    <p class="text-gray-600 mb-6 italic">"Sangat tenang meninggalkan kucing saya di Pet Hotel Paw Haven saat dinas luar kota. Setiap hari dapat update video, kamarnya bersih, dan dokter hewannya standby."</p>
+                    <div class="flex items-center gap-4">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" class="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm">
+                        <div>
+                            <h4 class="font-heading font-bold text-primary">Reza Pratama</h4>
+                            <p class="text-xs text-gray-500">Dad of Luna (Persian)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testi 3 -->
+                <div class="glass-panel p-8 reveal delay-200">
+                    <div class="flex text-accent mb-4">
+                        <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+                    </div>
+                    <p class="text-gray-600 mb-6 italic">"Klinik hewannya luar biasa. Dokter menjelaskan diagnosa dengan sangat detail dan menenangkan. Vaksinasi jadi pengalaman yang tidak menakutkan buat puppy saya."</p>
+                    <div class="flex items-center gap-4">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="User" class="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm">
+                        <div>
+                            <h4 class="font-heading font-bold text-primary">Anya Geraldine</h4>
+                            <p class="text-xs text-gray-500">Mom of Milo (Poodle)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Section with Parallax -->
+    <section id="booking" class="py-24 lg:py-32 relative parallax-section">
+        <div class="absolute inset-0 bg-primary/70 backdrop-blur-sm"></div>
+        
+        <div class="container mx-auto px-6 lg:px-12 relative z-10 flex justify-center">
+            <div class="glass-panel p-8 md:p-12 w-full max-w-3xl reveal">
+                <div class="text-center mb-10">
+                    <h2 class="font-heading text-3xl md:text-4xl font-bold text-primary mb-3">Reservasi Jadwal</h2>
+                    <p class="text-gray-600">Pesan layanan untuk anabul kesayangan Anda sekarang. Kami akan menghubungi Anda untuk konfirmasi jadwal.</p>
+                </div>
+
+                <form>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label class="block text-sm font-semibold text-primary mb-2">Nama Pemilik</label>
+                            <input type="text" class="form-input" placeholder="Masukkan nama lengkap">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-primary mb-2">Nomor WhatsApp</label>
+                            <input type="tel" class="form-input" placeholder="0812-xxxx-xxxx">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-primary mb-2">Jenis Hewan</label>
+                            <select class="form-input text-gray-600">
+                                <option>Pilih jenis hewan</option>
+                                <option>Anjing</option>
+                                <option>Kucing</option>
+                                <option>Lainnya</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-primary mb-2">Layanan Utama</label>
+                            <select class="form-input text-gray-600">
+                                <option>Pilih layanan</option>
+                                <option>Pet Grooming</option>
+                                <option>Pet Hotel</option>
+                                <option>Klinik / Dokter Hewan</option>
+                                <option>Pet Training</option>
+                            </select>
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-semibold text-primary mb-2">Tanggal Pilihan</label>
+                            <input type="date" class="form-input text-gray-600">
+                        </div>
+                    </div>
+                    
+                    <button type="button" class="btn-primary w-full py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl">
+                        Book Appointment Now
+                    </button>
+                    <p class="text-center text-xs text-gray-500 mt-4">*Tim kami akan menghubungi Anda maksimal 1x24 jam.</p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-24 bg-white">
+        <div class="container mx-auto px-6 lg:px-12 max-w-4xl">
+            <div class="text-center mb-16 reveal">
+                <h4 class="text-secondary font-bold tracking-wider uppercase text-sm mb-3">FAQ</h4>
+                <h2 class="font-heading text-4xl font-bold text-primary">Pertanyaan Umum</h2>
+            </div>
+
+            <div class="space-y-4">
+                <!-- FAQ 1 -->
+                <div class="border border-gray-100 rounded-2xl overflow-hidden reveal">
+                    <button class="faq-btn w-full px-6 py-5 text-left flex justify-between items-center bg-bglight focus:outline-none">
+                        <span class="font-heading font-bold text-primary text-lg">Apakah menerima semua jenis kucing dan anjing?</span>
+                        <i class="ph-bold ph-plus text-xl faq-icon"></i>
+                    </button>
+                    <div class="faq-answer bg-white px-6">
+                        <p class="text-gray-600 py-4 border-t border-gray-100">Ya, kami menerima semua ras kucing dan anjing. Untuk anjing dengan ras besar atau perilaku agresif, kami sarankan untuk melakukan konsultasi terlebih dahulu agar kami dapat menyiapkan penanganan khusus.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ 2 -->
+                <div class="border border-gray-100 rounded-2xl overflow-hidden reveal delay-100">
+                    <button class="faq-btn w-full px-6 py-5 text-left flex justify-between items-center bg-bglight focus:outline-none">
+                        <span class="font-heading font-bold text-primary text-lg">Apakah tersedia layanan antar jemput (Pet Taxi)?</span>
+                        <i class="ph-bold ph-plus text-xl faq-icon"></i>
+                    </button>
+                    <div class="faq-answer bg-white px-6">
+                        <p class="text-gray-600 py-4 border-t border-gray-100">Tentu. Kami menyediakan layanan Pet Taxi ber-AC dengan staf pendamping untuk jangkauan area hingga 15km dari lokasi klinik kami. Terdapat biaya tambahan sesuai jarak tempuh.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ 3 -->
+                <div class="border border-gray-100 rounded-2xl overflow-hidden reveal delay-200">
+                    <button class="faq-btn w-full px-6 py-5 text-left flex justify-between items-center bg-bglight focus:outline-none">
+                        <span class="font-heading font-bold text-primary text-lg">Berapa lama proses Full Grooming?</span>
+                        <i class="ph-bold ph-plus text-xl faq-icon"></i>
+                    </button>
+                    <div class="faq-answer bg-white px-6">
+                        <p class="text-gray-600 py-4 border-t border-gray-100">Proses full grooming memakan waktu sekitar 1.5 hingga 2.5 jam tergantung pada ukuran hewan, ketebalan bulu, dan kondisi saat dibawa. Kami tidak menggunakan obat penenang, sehingga kami bekerja mengikuti kenyamanan hewan.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ 4 -->
+                <div class="border border-gray-100 rounded-2xl overflow-hidden reveal delay-300">
+                    <button class="faq-btn w-full px-6 py-5 text-left flex justify-between items-center bg-bglight focus:outline-none">
+                        <span class="font-heading font-bold text-primary text-lg">Apakah ada dokter hewan yang jaga setiap saat?</span>
+                        <i class="ph-bold ph-plus text-xl faq-icon"></i>
+                    </button>
+                    <div class="faq-answer bg-white px-6">
+                        <p class="text-gray-600 py-4 border-t border-gray-100">Untuk layanan reguler, dokter hewan praktek dari jam 09.00 - 21.00. Namun untuk kasus darurat (Emergency) dan pengawasan pasien rawat inap/pet hotel, fasilitas kami memiliki dokter dan paramedis yang stand-by 24/7.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-primary pt-20 pb-10 text-white/80">
+        <div class="container mx-auto px-6 lg:px-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <!-- Col 1 -->
+                <div>
+                    <a href="#" class="flex items-center gap-2 mb-6">
+                        <i class="ph-fill ph-paw-print text-3xl text-accent"></i>
+                        <span class="font-heading font-bold text-2xl text-white tracking-tight">Paw Haven<span class="text-accent">.</span></span>
+                    </a>
+                    <p class="text-sm leading-relaxed mb-6">
+                        Pusat perawatan hewan peliharaan premium yang menyediakan layanan medis, grooming, hotel, dan produk berkualitas untuk sahabat berbulu Anda.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-accent hover:text-primary transition-all"><i class="ph-fill ph-instagram-logo text-xl"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-accent hover:text-primary transition-all"><i class="ph-fill ph-facebook-logo text-xl"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-accent hover:text-primary transition-all"><i class="ph-fill ph-tiktok-logo text-xl"></i></a>
+                    </div>
+                </div>
+
+                <!-- Col 2 -->
+                <div>
+                    <h4 class="font-heading font-bold text-white text-lg mb-6">Layanan</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#" class="hover:text-accent transition-colors">Pet Grooming</a></li>
+                        <li><a href="#" class="hover:text-accent transition-colors">Premium Pet Hotel</a></li>
+                        <li><a href="#" class="hover:text-accent transition-colors">Veterinary Clinic</a></li>
+                        <li><a href="#" class="hover:text-accent transition-colors">Pet Training</a></li>
+                        <li><a href="#" class="hover:text-accent transition-colors">Boutique Store</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3 -->
+                <div>
+                    <h4 class="font-heading font-bold text-white text-lg mb-6">Informasi</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#about" class="hover:text-accent transition-colors">Tentang Kami</a></li>
+                        <li><a href="#" class="hover:text-accent transition-colors">Karir</a></li>
+                        <li><a href="#" class="hover:text-accent transition-colors">Kebijakan Privasi</a></li>
+                        <li><a href="#" class="hover:text-accent transition-colors">Syarat & Ketentuan</a></li>
+                        <li><a href="#" class="hover:text-accent transition-colors">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 4 -->
+                <div>
+                    <h4 class="font-heading font-bold text-white text-lg mb-6">Kontak Kami</h4>
+                    <ul class="space-y-4 text-sm">
+                        <li class="flex items-start gap-3">
+                            <i class="ph-fill ph-map-pin text-accent text-lg shrink-0 mt-0.5"></i>
+                            <span>Jl. Senopati Raya No. 123, Kebayoran Baru, Jakarta Selatan 12190</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="ph-fill ph-phone text-accent text-lg shrink-0"></i>
+                            <span>+62 811-9999-8888</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="ph-fill ph-envelope-simple text-accent text-lg shrink-0"></i>
+                            <span>hello@pawhaven.id</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-xs">
+                <p>&copy; 2026 Paw Haven Pet Care. All rights reserved.</p>
+                <p class="mt-2 md:mt-0">Designed with <i class="ph-fill ph-heart text-accent"></i> for pets.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="btt" class="fixed bottom-8 right-8 w-12 h-12 bg-accent text-primary rounded-full shadow-lg flex items-center justify-center hover:bg-[#ffd87a] hover:-translate-y-1 z-40 focus:outline-none">
+        <i class="ph-bold ph-caret-up text-xl"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // 1. Remove Loader
+            setTimeout(() => {
+                const loader = document.getElementById('loader');
+                loader.style.opacity = '0';
+                setTimeout(() => { loader.style.visibility = 'hidden'; }, 600);
+            }, 800); // Small delay to ensure styles are loaded
+
+            // 2. Navbar Scroll Effect & Back to Top
+            const navbar = document.getElementById('navbar');
+            const btt = document.getElementById('btt');
+            
+            window.addEventListener('scroll', () => {
+                // Navbar
+                if (window.scrollY > 50) {
+                    navbar.classList.add('nav-glass', 'py-3');
+                    navbar.classList.remove('py-5');
+                } else {
+                    navbar.classList.remove('nav-glass', 'py-3');
+                    navbar.classList.add('py-5');
+                }
+
+                // Back to Top Button
+                if (window.scrollY > 500) {
+                    btt.classList.add('show');
+                } else {
+                    btt.classList.remove('show');
+                }
+            });
+
+            // Back to top click
+            btt.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // 3. Mobile Menu Toggle
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileLinks = document.querySelectorAll('.mobile-link');
+            let menuOpen = false;
+
+            function toggleMenu() {
+                menuOpen = !menuOpen;
+                if (menuOpen) {
+                    mobileMenu.classList.remove('translate-x-full');
+                    menuBtn.innerHTML = '<i class="ph ph-x"></i>';
+                    document.body.style.overflow = 'hidden'; // Prevent scrolling
+                } else {
+                    mobileMenu.classList.add('translate-x-full');
+                    menuBtn.innerHTML = '<i class="ph ph-list"></i>';
+                    document.body.style.overflow = '';
+                }
+            }
+
+            menuBtn.addEventListener('click', toggleMenu);
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if(menuOpen) toggleMenu();
+                });
+            });
+
+            // 4. Reveal Animations (Intersection Observer)
+            const revealElements = document.querySelectorAll('.reveal');
+            
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target); // Optional: only animate once
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px"
+            });
+
+            revealElements.forEach(el => revealObserver.observe(el));
+
+            // 5. Parallax Zoom Effect for Experience Section
+            const expSection = document.getElementById('experience-bg');
+            window.addEventListener('scroll', () => {
+                const scrolled = window.scrollY;
+                // Simple zoom logic based on scroll position
+                // Start zooming slightly as user scrolls down
+                const scale = 1 + (scrolled * 0.0002);
+                if (scale < 1.15) { // Cap the zoom
+                    expSection.style.transform = `scale(${scale})`;
+                }
+            });
+
+            // 6. Custom FAQ Accordion
+            const faqBtns = document.querySelectorAll('.faq-btn');
+            
+            faqBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Close others (Optional, if you want only one open at a time)
+                    /*
+                    faqBtns.forEach(otherBtn => {
+                        if (otherBtn !== btn) {
+                            otherBtn.classList.remove('active');
+                            const otherContent = otherBtn.nextElementSibling;
+                            otherContent.style.maxHeight = null;
+                            otherContent.classList.remove('open');
+                        }
+                    });
+                    */
+
+                    this.classList.toggle('active');
+                    const content = this.nextElementSibling;
+                    
+                    if (content.style.maxHeight) {
+                        content.style.maxHeight = null;
+                        content.classList.remove('open');
+                    } else {
+                        // Set specific max-height for transition
+                        content.style.maxHeight = content.scrollHeight + "px";
+                        content.classList.add('open');
+                    }
+                });
+            });
+
+        });
+    </script>
+</body>
+</html>

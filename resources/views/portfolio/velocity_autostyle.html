@@ -1,0 +1,1582 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Velocity AutoStyle | Upgrade Your Ride. Express Your Style.</title>
+    <meta name="description" content="Premium automotive accessories, performance upgrades, and professional installation services.">
+
+    <!-- Google Fonts: Montserrat (Heading) & Inter (Body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0F172A',   /* Slate 900 */
+                        secondary: '#1E293B', /* Slate 800 */
+                        accent: '#EF4444',    /* Red 500 */
+                        highlight: '#F97316', /* Orange 500 */
+                        bgbase: '#F8FAFC',    /* Slate 50 */
+                        surface: '#FFFFFF',   /* White */
+                        textdark: '#111827',  /* Gray 900 */
+                        bordercol: '#E2E8F0', /* Slate 200 */
+                    },
+                    fontFamily: {
+                        heading: ['Montserrat', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'premium': '0 15px 40px -10px rgba(15, 23, 42, 0.2)',
+                        'card': '0 4px 20px -2px rgba(15, 23, 42, 0.08)',
+                        'glass': '0 8px 32px 0 rgba(15, 23, 42, 0.3)',
+                        'red': '0 8px 25px -5px rgba(239, 68, 68, 0.5)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base Styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: theme('colors.bgbase');
+            color: theme('colors.textdark');
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4, h5, h6, .font-heading {
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: -0.02em;
+        }
+
+        ::selection {
+            background-color: theme('colors.accent');
+            color: theme('colors.surface');
+        }
+
+        /* Loading Screen */
+        #loader {
+            position: fixed;
+            inset: 0;
+            background-color: theme('colors.primary');
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+        .loader-icon {
+            font-size: 4rem;
+            color: theme('colors.accent');
+            animation: pulse-engine 1.2s ease-in-out infinite alternate;
+        }
+        @keyframes pulse-engine {
+            0% { transform: scale(0.9); opacity: 0.8; }
+            100% { transform: scale(1.1); opacity: 1; filter: drop-shadow(0 0 15px rgba(239, 68, 68, 0.6)); }
+        }
+
+        /* Navbar & Glassmorphism */
+        .nav-main {
+            transition: all 0.4s ease;
+            background: transparent;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .nav-scrolled {
+            background: rgba(15, 23, 42, 0.95); /* Primary color */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            padding-top: 1rem !important;
+            padding-bottom: 1rem !important;
+        }
+        
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: theme('boxShadow.card');
+        }
+
+        .glass-dark {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Parallax Backgrounds */
+        .parallax-bg {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        #hero { background-image: url('https://images.unsplash.com/photo-1542282088-fe8426682b8f?auto=format&fit=crop&q=80&w=2000'); }
+        #parallax-identity { background-image: url('https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?auto=format&fit=crop&q=80&w=2000'); }
+        #parallax-garage { background-image: url('https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&q=80&w=2000'); }
+        #consultation { background-image: url('https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&q=80&w=2000'); }
+
+        .overlay-dark { background: linear-gradient(to right, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.4) 100%); }
+        .overlay-center { background: rgba(15, 23, 42, 0.7); }
+
+        /* Scroll Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .delay-100 { transition-delay: 0.1s; }
+        .delay-200 { transition-delay: 0.2s; }
+        .delay-300 { transition-delay: 0.3s; }
+
+        /* Floating Info Cards (Hero) */
+        .float-anim { animation: float 6s ease-in-out infinite; }
+        .float-anim-delay { animation: float 7s ease-in-out infinite; animation-delay: -3s; }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background-color: theme('colors.accent');
+            color: theme('colors.surface');
+            transition: all 0.3s ease;
+            box-shadow: theme('boxShadow.red');
+            position: relative;
+            overflow: hidden;
+            border: 1px solid theme('colors.accent');
+        }
+        .btn-primary:hover {
+            background-color: #B91C1C; /* Darker Red */
+            border-color: #B91C1C;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px -5px rgba(239, 68, 68, 0.6);
+        }
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid theme('colors.surface');
+            color: theme('colors.surface');
+            transition: all 0.3s ease;
+        }
+        .btn-outline:hover {
+            background-color: theme('colors.surface');
+            color: theme('colors.primary');
+        }
+
+        /* Category Cards */
+        .category-card {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            transition: all 0.5s ease;
+        }
+        .category-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+        .category-card:hover img {
+            transform: scale(1.1);
+        }
+        .category-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(15, 23, 42, 0.9), transparent);
+            transition: opacity 0.5s ease;
+        }
+        .category-card:hover {
+            box-shadow: theme('boxShadow.premium');
+        }
+
+        /* Product Cards */
+        .product-card {
+            background: theme('colors.surface');
+            border-radius: 12px;
+            border: 1px solid theme('colors.bordercol');
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: theme('boxShadow.premium');
+            border-color: theme('colors.secondary');
+        }
+        .prod-img-wrap {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 1/1;
+            background-color: theme('colors.bgbase');
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .prod-img-wrap img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            transition: transform 0.6s ease;
+            mix-blend-mode: multiply;
+        }
+        .product-card:hover .prod-img-wrap img {
+            transform: scale(1.1);
+        }
+        .prod-actions {
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.4s ease;
+            opacity: 0;
+            padding-bottom: 1rem;
+        }
+        .product-card:hover .prod-actions {
+            bottom: 0;
+            opacity: 1;
+        }
+        .action-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: theme('colors.primary');
+            color: theme('colors.surface');
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        .action-btn:hover { background: theme('colors.accent'); }
+        
+        /* Badges */
+        .badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            font-size: 0.65rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 4px 10px;
+            border-radius: 4px;
+            z-index: 10;
+        }
+        .badge-red { background: theme('colors.accent'); color: theme('colors.surface'); }
+        .badge-dark { background: theme('colors.primary'); color: theme('colors.surface'); }
+
+        /* Installation Services */
+        .install-card {
+            border: 1px solid theme('colors.bordercol');
+            border-radius: 12px;
+            padding: 2rem;
+            background: theme('colors.surface');
+            transition: all 0.4s ease;
+        }
+        .install-card:hover {
+            background: theme('colors.primary');
+            color: theme('colors.surface');
+            transform: translateY(-5px);
+            box-shadow: theme('boxShadow.premium');
+        }
+        .install-card .icon {
+            color: theme('colors.accent');
+            transition: all 0.4s ease;
+        }
+
+        /* Before & After Slider */
+        .ba-container {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            aspect-ratio: 16/9;
+            border-radius: 16px;
+            user-select: none;
+            box-shadow: theme('boxShadow.premium');
+        }
+        .ba-image-after {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 10;
+        }
+        .ba-image-before {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 50%; /* JS controlled */
+            overflow: hidden;
+            z-index: 20;
+            border-right: 3px solid theme('colors.accent');
+        }
+        .ba-image-before img {
+            /* Width must match container width to prevent squishing */
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            object-fit: cover;
+            max-width: none;
+        }
+        .ba-slider {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: ew-resize;
+            z-index: 30;
+        }
+        .ba-handle {
+            position: absolute;
+            top: 50%;
+            left: 50%; /* JS controlled */
+            transform: translate(-50%, -50%);
+            width: 44px;
+            height: 44px;
+            background: theme('colors.accent');
+            border: 3px solid theme('colors.surface');
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: theme('colors.surface');
+            z-index: 25;
+            pointer-events: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        /* Masonry Gallery */
+        .masonry {
+            column-count: 1;
+            column-gap: 1.5rem;
+        }
+        @media (min-width: 640px) { .masonry { column-count: 2; } }
+        @media (min-width: 1024px) { .masonry { column-count: 3; } }
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            cursor: pointer;
+        }
+        .masonry-item img {
+            width: 100%;
+            display: block;
+            transition: transform 0.8s ease;
+        }
+        .masonry-item:hover img { transform: scale(1.05); }
+        .masonry-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.4);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .masonry-item:hover .masonry-overlay { opacity: 1; }
+
+        /* Custom Forms */
+        .form-input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 16px;
+            color: theme('colors.surface');
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: theme('colors.accent');
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .form-input option { color: theme('colors.primary'); }
+
+        /* FAQ Accordion */
+        .faq-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+        }
+        .faq-icon { transition: transform 0.3s ease; }
+        .faq-item.active .faq-icon { transform: rotate(180deg); color: theme('colors.accent'); }
+    </style>
+</head>
+<body class="relative">
+
+    <!-- Loading Screen -->
+    <div id="loader">
+        <i class="ph-bold ph-engine loader-icon mb-4"></i>
+        <div class="font-heading font-black text-3xl text-surface tracking-tight uppercase">Velocity <span class="text-accent">AutoStyle</span></div>
+        <div class="text-surface/50 text-xs mt-2 tracking-[0.2em] uppercase font-bold">Performance & Style</div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="nav-main fixed w-full z-50 py-5 text-surface">
+        <div class="container mx-auto px-6 md:px-12 flex justify-between items-center">
+            
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-2 group">
+                <i class="ph-bold ph-steering-wheel text-3xl text-accent group-hover:rotate-45 transition-transform duration-500"></i>
+                <div class="flex flex-col">
+                    <span class="font-heading font-black text-xl tracking-tight leading-none uppercase">Velocity</span>
+                    <span class="text-[9px] text-surface/60 font-bold uppercase tracking-[0.2em] mt-1">AutoStyle</span>
+                </div>
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden lg:flex items-center gap-8 font-semibold text-sm tracking-wide">
+                <a href="#about" class="hover:text-accent transition-colors">About Us</a>
+                <a href="#products" class="hover:text-accent transition-colors">Products</a>
+                <a href="#install" class="hover:text-accent transition-colors">Installation</a>
+                <a href="#gallery" class="hover:text-accent transition-colors">Gallery</a>
+                <a href="#consultation" class="hover:text-accent transition-colors">Contact</a>
+            </div>
+
+            <!-- Header Actions -->
+            <div class="hidden lg:flex items-center gap-6">
+                <a href="#" class="hover:text-accent transition-colors"><i class="ph-bold ph-heart text-xl"></i></a>
+                <a href="#" class="hover:text-accent transition-colors"><i class="ph-bold ph-shopping-cart text-xl"></i></a>
+                <a href="#consultation" class="btn-primary px-6 py-2.5 rounded font-bold text-xs uppercase tracking-wider flex items-center gap-2">
+                    <i class="ph-bold ph-wrench"></i> Book Install
+                </a>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button id="mobile-menu-btn" class="lg:hidden text-2xl focus:outline-none hover:text-accent transition-colors">
+                <i class="ph-bold ph-list"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="fixed inset-y-0 right-0 w-80 bg-primary shadow-2xl transform translate-x-full transition-transform duration-500 z-50 flex flex-col">
+            <div class="p-6 border-b border-surface/10 flex justify-between items-center">
+                <div class="flex items-center gap-2">
+                    <i class="ph-bold ph-steering-wheel text-2xl text-accent"></i>
+                    <span class="font-heading font-black text-xl tracking-tight text-surface uppercase">Velocity</span>
+                </div>
+                <button id="close-menu-btn" class="text-2xl text-surface/70 hover:text-accent"><i class="ph-bold ph-x"></i></button>
+            </div>
+            <div class="flex flex-col p-8 gap-6 font-bold text-lg flex-1 overflow-y-auto text-surface">
+                <a href="#about" class="mobile-link hover:text-accent border-b border-surface/10 pb-4">About Us</a>
+                <a href="#products" class="mobile-link hover:text-accent border-b border-surface/10 pb-4">Products</a>
+                <a href="#install" class="mobile-link hover:text-accent border-b border-surface/10 pb-4">Installation</a>
+                <a href="#gallery" class="mobile-link hover:text-accent border-b border-surface/10 pb-4">Gallery</a>
+                <a href="#consultation" class="mobile-link hover:text-accent border-b border-surface/10 pb-4">Contact</a>
+                
+                <div class="pt-4 flex flex-col gap-4">
+                    <a href="#consultation" class="btn-primary flex justify-center py-4 rounded font-bold text-sm uppercase tracking-wider">
+                        Book Installation
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-overlay" class="fixed inset-0 bg-primary/90 backdrop-blur-sm hidden z-40"></div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative min-h-screen flex items-center parallax-bg overflow-hidden pt-20">
+        <!-- Background Overlay -->
+        <div class="absolute inset-0 overlay-dark z-0"></div>
+
+        <div class="container mx-auto px-6 md:px-12 relative z-10 grid lg:grid-cols-12 gap-12 items-center h-full">
+            
+            <!-- Text Content -->
+            <div class="lg:col-span-8 text-surface">
+                <div class="reveal">
+                    <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded bg-surface/10 border border-surface/20 text-xs font-bold uppercase tracking-widest mb-6 backdrop-blur-md">
+                        <i class="ph-fill ph-star text-accent"></i> Premium Auto Accessories
+                    </span>
+                </div>
+                <h1 class="font-heading text-5xl md:text-6xl lg:text-[5.5rem] font-black leading-[1.05] mb-6 reveal delay-100 uppercase tracking-tight">
+                    Transform Your <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-highlight">Vehicle.</span>
+                </h1>
+                <p class="text-base md:text-lg text-surface/80 max-w-xl mb-10 leading-relaxed reveal delay-200 font-medium">
+                    Discover premium accessories, performance upgrades, and professional installation services designed for true automotive enthusiasts.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 reveal delay-300">
+                    <a href="#products" class="btn-primary px-8 py-4 rounded font-bold flex items-center justify-center gap-2 text-sm md:text-base uppercase tracking-wider">
+                        Explore Products <i class="ph-bold ph-shopping-cart"></i>
+                    </a>
+                    <a href="#consultation" class="btn-outline px-8 py-4 rounded font-bold flex items-center justify-center gap-2 text-sm md:text-base uppercase tracking-wider backdrop-blur-sm">
+                        Book Installation <i class="ph-bold ph-wrench"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Floating Info Cards (Mouse Parallax) -->
+            <div class="hidden lg:block lg:col-span-4 relative h-[500px] w-full" id="hero-parallax">
+                <!-- Card 1 -->
+                <div class="absolute top-10 right-0 glass-dark p-4 rounded-xl border border-surface/20 shadow-premium flex items-center gap-4 float-anim mouse-p w-64" data-speed="1.5">
+                    <div class="w-12 h-12 bg-accent/20 text-accent rounded-lg flex items-center justify-center text-2xl shrink-0">
+                        <i class="ph-fill ph-medal"></i>
+                    </div>
+                    <div class="text-surface">
+                        <p class="font-heading font-bold text-sm uppercase">Official Products</p>
+                        <p class="text-[10px] text-surface/60 font-semibold mt-1">100% Genuine Brands</p>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="absolute top-1/2 -translate-y-1/2 -left-5 glass-dark p-4 rounded-xl border border-surface/20 shadow-premium flex items-center gap-4 float-anim-delay mouse-p w-64 z-10" data-speed="-1">
+                    <div class="w-12 h-12 bg-surface/10 text-surface rounded-lg flex items-center justify-center text-2xl shrink-0">
+                        <i class="ph-fill ph-wrench"></i>
+                    </div>
+                    <div class="text-surface">
+                        <p class="font-heading font-bold text-sm uppercase">Pro Installation</p>
+                        <p class="text-[10px] text-surface/60 font-semibold mt-1">Expert Technicians</p>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="absolute bottom-10 right-10 glass-dark p-4 rounded-xl border border-surface/20 shadow-premium flex items-center gap-4 float-anim mouse-p w-64" data-speed="1.2">
+                    <div class="w-12 h-12 bg-highlight/20 text-highlight rounded-lg flex items-center justify-center text-2xl shrink-0">
+                        <i class="ph-fill ph-shield-check"></i>
+                    </div>
+                    <div class="text-surface">
+                        <p class="font-heading font-bold text-sm uppercase">Warranty Support</p>
+                        <p class="text-[10px] text-surface/60 font-semibold mt-1">Peace of Mind</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section & Stats -->
+    <section id="about" class="py-24 lg:py-32 bg-bgbase relative">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-center">
+                <!-- Left: Image Layout -->
+                <div class="relative reveal">
+                    <div class="relative rounded-xl overflow-hidden shadow-premium aspect-[4/3] border border-bordercol">
+                        <img src="https://images.unsplash.com/photo-1632823462991-3ce1a54728d8?auto=format&fit=crop&q=80&w=1000" alt="Showroom" class="w-full h-full object-cover">
+                    </div>
+                    <!-- Overlapping image -->
+                    <div class="absolute -bottom-8 -right-8 w-1/2 rounded-xl overflow-hidden shadow-premium border-4 border-bgbase hidden md:block aspect-square">
+                        <img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&q=80&w=600" alt="Installation" class="w-full h-full object-cover">
+                    </div>
+                </div>
+
+                <!-- Right: Content -->
+                <div class="reveal delay-100 lg:pl-10 mt-10 lg:mt-0">
+                    <span class="text-accent font-bold text-xs mb-3 block uppercase tracking-widest flex items-center gap-2">
+                        <i class="ph-fill ph-steering-wheel"></i> The Lifestyle
+                    </span>
+                    <h2 class="font-heading text-4xl md:text-5xl font-black text-primary mb-6 leading-tight uppercase">
+                        More Than Just <br><span class="text-accent">Modifications.</span>
+                    </h2>
+                    
+                    <p class="text-secondary/80 leading-relaxed mb-6 font-medium">
+                        Velocity AutoStyle adalah destinasi premium bagi para pecinta otomotif yang menginginkan sentuhan personal pada kendaraannya. Kami mengurasi produk variasi terbaik dari brand internasional ternama.
+                    </p>
+                    <p class="text-secondary/80 leading-relaxed mb-10 font-medium">
+                        Dari estetika eksterior hingga sistem audio *high-fidelity*, tim teknisi kami dilatih untuk melakukan instalasi dengan tingkat kepresisian pabrik (OEM standard), memastikan hasil yang *clean* dan aman.
+                    </p>
+
+                    <!-- Stats Grid -->
+                    <div class="grid grid-cols-2 gap-y-10 gap-x-6 border-t border-bordercol pt-8" id="counter-wrap">
+                        <div>
+                            <h3 class="font-heading text-4xl font-black text-primary mb-1 flex items-center"><span class="counter" data-target="10">0</span>+</h3>
+                            <p class="text-[10px] text-secondary/60 font-bold uppercase tracking-widest">Years Experience</p>
+                        </div>
+                        <div>
+                            <h3 class="font-heading text-4xl font-black text-primary mb-1 flex items-center"><span class="counter" data-target="15">0</span>k+</h3>
+                            <p class="text-[10px] text-secondary/60 font-bold uppercase tracking-widest">Mods Installed</p>
+                        </div>
+                        <div>
+                            <h3 class="font-heading text-4xl font-black text-primary mb-1 flex items-center"><span class="counter" data-target="5">0</span>k+</h3>
+                            <p class="text-[10px] text-secondary/60 font-bold uppercase tracking-widest">Happy Customers</p>
+                        </div>
+                        <div>
+                            <h3 class="font-heading text-4xl font-black text-primary mb-1 flex items-center"><span class="counter" data-target="100">0</span>+</h3>
+                            <p class="text-[10px] text-secondary/60 font-bold uppercase tracking-widest">Global Brands</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Parallax Showcase Section -->
+    <section id="parallax-identity" class="relative h-[60vh] md:h-[70vh] flex items-center justify-center parallax-bg">
+        <div class="absolute inset-0 overlay-center mix-blend-multiply"></div>
+        <div class="container mx-auto px-6 relative z-10 text-center reveal">
+            <h2 class="font-heading text-4xl md:text-5xl lg:text-7xl font-black text-surface tracking-tight leading-tight uppercase">
+                Every Detail Defines <br>
+                <span class="text-accent">Your Identity.</span>
+            </h2>
+        </div>
+    </section>
+
+    <!-- Product Categories -->
+    <section class="py-24 bg-surface border-y border-bordercol">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+                <span class="text-accent font-bold text-xs mb-3 block uppercase tracking-widest">Collections</span>
+                <h2 class="font-heading text-4xl font-black text-primary mb-4 uppercase">Upgrade Categories</h2>
+                <p class="text-secondary/80 font-medium">Jelajahi berbagai kategori produk variasi untuk menyempurnakan tampilan dan performa kendaraan Anda.</p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-6 lg:gap-8">
+                <!-- Cat 1 -->
+                <a href="#products" class="category-card reveal">
+                    <img src="https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?auto=format&fit=crop&q=80&w=600" alt="Exterior">
+                    <div class="absolute inset-0 z-10 flex flex-col justify-end p-6">
+                        <h3 class="font-heading font-bold text-surface text-xl uppercase tracking-wide">Exterior Styling</h3>
+                        <p class="text-surface/80 text-xs font-semibold mt-1">Body Kit, Spoiler, Lips</p>
+                    </div>
+                </a>
+                <!-- Cat 2 -->
+                <a href="#products" class="category-card reveal delay-100">
+                    <img src="https://images.unsplash.com/photo-1553440569-bcc63803a83d?auto=format&fit=crop&q=80&w=600" alt="Lighting">
+                    <div class="absolute inset-0 z-10 flex flex-col justify-end p-6">
+                        <h3 class="font-heading font-bold text-surface text-xl uppercase tracking-wide">Lighting System</h3>
+                        <p class="text-surface/80 text-xs font-semibold mt-1">LED, Fog Lamp, Ambient</p>
+                    </div>
+                </a>
+                <!-- Cat 3 -->
+                <a href="#products" class="category-card reveal delay-200">
+                    <img src="https://images.unsplash.com/photo-1503376712341-ea1c64eb3d05?auto=format&fit=crop&q=80&w=600" alt="Interior">
+                    <div class="absolute inset-0 z-10 flex flex-col justify-end p-6">
+                        <h3 class="font-heading font-bold text-surface text-xl uppercase tracking-wide">Interior Cabin</h3>
+                        <p class="text-surface/80 text-xs font-semibold mt-1">Seat Cover, Steering, Mats</p>
+                    </div>
+                </a>
+                <!-- Cat 4 -->
+                <a href="#products" class="category-card reveal">
+                    <img src="https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?auto=format&fit=crop&q=80&w=600" alt="Performance">
+                    <div class="absolute inset-0 z-10 flex flex-col justify-end p-6">
+                        <h3 class="font-heading font-bold text-surface text-xl uppercase tracking-wide">Performance</h3>
+                        <p class="text-surface/80 text-xs font-semibold mt-1">Exhaust, Intake, Suspension</p>
+                    </div>
+                </a>
+                <!-- Cat 5 -->
+                <a href="#products" class="category-card reveal delay-100">
+                    <img src="https://images.unsplash.com/photo-1618392120023-e18e388c3fc0?auto=format&fit=crop&q=80&w=600" alt="Wheels">
+                    <div class="absolute inset-0 z-10 flex flex-col justify-end p-6">
+                        <h3 class="font-heading font-bold text-surface text-xl uppercase tracking-wide">Wheels & Tires</h3>
+                        <p class="text-surface/80 text-xs font-semibold mt-1">Alloy Wheels, Performance Tires</p>
+                    </div>
+                </a>
+                <!-- Cat 6 -->
+                <a href="#products" class="category-card reveal delay-200">
+                    <img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&q=80&w=600" alt="Audio">
+                    <div class="absolute inset-0 z-10 flex flex-col justify-end p-6">
+                        <h3 class="font-heading font-bold text-surface text-xl uppercase tracking-wide">Audio System</h3>
+                        <p class="text-surface/80 text-xs font-semibold mt-1">DSP, Subwoofer, Head Unit</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section id="products" class="py-24 bg-bgbase">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 reveal">
+                <div>
+                    <h2 class="font-heading text-3xl md:text-4xl font-black text-primary uppercase mb-2">Featured Products</h2>
+                    <p class="text-secondary/80 font-medium">Aksesoris dan part modifikasi paling dicari minggu ini.</p>
+                </div>
+                <a href="#" class="btn-outline border-primary text-primary hover:bg-primary hover:text-surface px-6 py-3 rounded font-bold text-xs uppercase tracking-wider transition-colors mt-6 md:mt-0">
+                    View All Products
+                </a>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 gap-y-10">
+                <!-- Prod 1 -->
+                <div class="product-card group reveal">
+                    <span class="badge badge-red">Best Seller</span>
+                    <div class="prod-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1600705663738-9585c5443fa4?auto=format&fit=crop&q=80&w=400" alt="Headlight">
+                        <div class="prod-actions">
+                            <button class="action-btn" title="Add to Wishlist"><i class="ph-bold ph-heart"></i></button>
+                            <button class="action-btn" title="Compare"><i class="ph-bold ph-arrows-left-right"></i></button>
+                            <button class="action-btn" title="Quick View"><i class="ph-bold ph-eye"></i></button>
+                        </div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-1">
+                        <div class="text-[10px] text-secondary/60 font-bold uppercase tracking-widest mb-1">Lighting</div>
+                        <h3 class="font-heading font-bold text-primary text-sm uppercase mb-2">LED Matrix Projector Headlight</h3>
+                        <div class="mt-auto pt-4 flex justify-between items-center">
+                            <span class="font-black text-lg text-primary">Rp 4.5M</span>
+                            <button class="text-accent hover:text-primary transition-colors"><i class="ph-bold ph-shopping-cart-simple text-xl"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Prod 2 -->
+                <div class="product-card group reveal delay-100">
+                    <span class="badge badge-dark">New Arrival</span>
+                    <div class="prod-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&q=80&w=400" alt="Exhaust">
+                        <div class="prod-actions">
+                            <button class="action-btn" title="Add to Wishlist"><i class="ph-bold ph-heart"></i></button>
+                            <button class="action-btn" title="Compare"><i class="ph-bold ph-arrows-left-right"></i></button>
+                            <button class="action-btn" title="Quick View"><i class="ph-bold ph-eye"></i></button>
+                        </div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-1">
+                        <div class="text-[10px] text-secondary/60 font-bold uppercase tracking-widest mb-1">Performance</div>
+                        <h3 class="font-heading font-bold text-primary text-sm uppercase mb-2">Titanium Racing Exhaust System</h3>
+                        <div class="mt-auto pt-4 flex justify-between items-center">
+                            <span class="font-black text-lg text-primary">Rp 12.8M</span>
+                            <button class="text-accent hover:text-primary transition-colors"><i class="ph-bold ph-shopping-cart-simple text-xl"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Prod 3 -->
+                <div class="product-card group reveal delay-200">
+                    <div class="prod-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1618392120023-e18e388c3fc0?auto=format&fit=crop&q=80&w=400" alt="Wheel">
+                        <div class="prod-actions">
+                            <button class="action-btn" title="Add to Wishlist"><i class="ph-bold ph-heart"></i></button>
+                            <button class="action-btn" title="Compare"><i class="ph-bold ph-arrows-left-right"></i></button>
+                            <button class="action-btn" title="Quick View"><i class="ph-bold ph-eye"></i></button>
+                        </div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-1">
+                        <div class="text-[10px] text-secondary/60 font-bold uppercase tracking-widest mb-1">Wheels</div>
+                        <h3 class="font-heading font-bold text-primary text-sm uppercase mb-2">Forged Monoblock Wheel 19"</h3>
+                        <div class="mt-auto pt-4 flex justify-between items-center">
+                            <span class="font-black text-lg text-primary">Rp 24.5M</span>
+                            <button class="text-accent hover:text-primary transition-colors"><i class="ph-bold ph-shopping-cart-simple text-xl"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Prod 4 -->
+                <div class="product-card group reveal delay-300">
+                    <span class="badge badge-red">Hot Item</span>
+                    <div class="prod-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?auto=format&fit=crop&q=80&w=400" alt="Head Unit">
+                        <div class="prod-actions">
+                            <button class="action-btn" title="Add to Wishlist"><i class="ph-bold ph-heart"></i></button>
+                            <button class="action-btn" title="Compare"><i class="ph-bold ph-arrows-left-right"></i></button>
+                            <button class="action-btn" title="Quick View"><i class="ph-bold ph-eye"></i></button>
+                        </div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-1">
+                        <div class="text-[10px] text-secondary/60 font-bold uppercase tracking-widest mb-1">Interior/Audio</div>
+                        <h3 class="font-heading font-bold text-primary text-sm uppercase mb-2">10" Android Head Unit + DSP</h3>
+                        <div class="mt-auto pt-4 flex justify-between items-center">
+                            <span class="font-black text-lg text-primary">Rp 6.2M</span>
+                            <button class="text-accent hover:text-primary transition-colors"><i class="ph-bold ph-shopping-cart-simple text-xl"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Prod 5 -->
+                <div class="product-card group reveal">
+                    <div class="prod-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&q=80&w=400" alt="Intake">
+                        <div class="prod-actions">
+                            <button class="action-btn" title="Add to Wishlist"><i class="ph-bold ph-heart"></i></button>
+                            <button class="action-btn" title="Compare"><i class="ph-bold ph-arrows-left-right"></i></button>
+                            <button class="action-btn" title="Quick View"><i class="ph-bold ph-eye"></i></button>
+                        </div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-1">
+                        <div class="text-[10px] text-secondary/60 font-bold uppercase tracking-widest mb-1">Performance</div>
+                        <h3 class="font-heading font-bold text-primary text-sm uppercase mb-2">Cold Air Intake System</h3>
+                        <div class="mt-auto pt-4 flex justify-between items-center">
+                            <span class="font-black text-lg text-primary">Rp 3.8M</span>
+                            <button class="text-accent hover:text-primary transition-colors"><i class="ph-bold ph-shopping-cart-simple text-xl"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Prod 6 -->
+                <div class="product-card group reveal delay-100">
+                    <span class="badge badge-dark">Premium</span>
+                    <div class="prod-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1503376712341-ea1c64eb3d05?auto=format&fit=crop&q=80&w=400" alt="Seats">
+                        <div class="prod-actions">
+                            <button class="action-btn" title="Add to Wishlist"><i class="ph-bold ph-heart"></i></button>
+                            <button class="action-btn" title="Compare"><i class="ph-bold ph-arrows-left-right"></i></button>
+                            <button class="action-btn" title="Quick View"><i class="ph-bold ph-eye"></i></button>
+                        </div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-1">
+                        <div class="text-[10px] text-secondary/60 font-bold uppercase tracking-widest mb-1">Interior</div>
+                        <h3 class="font-heading font-bold text-primary text-sm uppercase mb-2">Microfiber Premium Seat Cover</h3>
+                        <div class="mt-auto pt-4 flex justify-between items-center">
+                            <span class="font-black text-lg text-primary">Rp 5.5M</span>
+                            <button class="text-accent hover:text-primary transition-colors"><i class="ph-bold ph-shopping-cart-simple text-xl"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Prod 7 -->
+                <div class="product-card group reveal delay-200">
+                    <div class="prod-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1600705663738-9585c5443fa4?auto=format&fit=crop&q=80&w=400" alt="Dashcam"> <!-- Fallback image -->
+                        <div class="prod-actions">
+                            <button class="action-btn" title="Add to Wishlist"><i class="ph-bold ph-heart"></i></button>
+                            <button class="action-btn" title="Compare"><i class="ph-bold ph-arrows-left-right"></i></button>
+                            <button class="action-btn" title="Quick View"><i class="ph-bold ph-eye"></i></button>
+                        </div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-1">
+                        <div class="text-[10px] text-secondary/60 font-bold uppercase tracking-widest mb-1">Accessories</div>
+                        <h3 class="font-heading font-bold text-primary text-sm uppercase mb-2">Dual Channel 4K Dashcam</h3>
+                        <div class="mt-auto pt-4 flex justify-between items-center">
+                            <span class="font-black text-lg text-primary">Rp 2.1M</span>
+                            <button class="text-accent hover:text-primary transition-colors"><i class="ph-bold ph-shopping-cart-simple text-xl"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Prod 8 -->
+                <div class="product-card group reveal delay-300">
+                    <span class="badge badge-red">Best Seller</span>
+                    <div class="prod-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1553440569-bcc63803a83d?auto=format&fit=crop&q=80&w=400" alt="Ambient">
+                        <div class="prod-actions">
+                            <button class="action-btn" title="Add to Wishlist"><i class="ph-bold ph-heart"></i></button>
+                            <button class="action-btn" title="Compare"><i class="ph-bold ph-arrows-left-right"></i></button>
+                            <button class="action-btn" title="Quick View"><i class="ph-bold ph-eye"></i></button>
+                        </div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-1">
+                        <div class="text-[10px] text-secondary/60 font-bold uppercase tracking-widest mb-1">Lighting</div>
+                        <h3 class="font-heading font-bold text-primary text-sm uppercase mb-2">RGB Ambient Lighting Kit</h3>
+                        <div class="mt-auto pt-4 flex justify-between items-center">
+                            <span class="font-black text-lg text-primary">Rp 1.8M</span>
+                            <button class="text-accent hover:text-primary transition-colors"><i class="ph-bold ph-shopping-cart-simple text-xl"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Installation Services -->
+    <section id="install" class="py-24 bg-surface border-b border-bordercol">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+                <span class="text-accent font-bold text-xs mb-3 block uppercase tracking-widest">Professional Studio</span>
+                <h2 class="font-heading text-4xl font-black text-primary mb-4 uppercase">Installation Services</h2>
+                <p class="text-secondary/80 font-medium">Bukan sekadar menjual, kami memiliki workshop profesional untuk memastikan produk terpasang sempurna di kendaraan Anda.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Service 1 -->
+                <div class="install-card reveal">
+                    <i class="ph-fill ph-speaker-hifi text-4xl icon mb-4"></i>
+                    <h3 class="font-heading font-bold text-lg mb-2 uppercase">Audio & Entertainment</h3>
+                    <p class="text-sm opacity-80 font-medium">Instalasi DSP, peredam kabin, tuning frekuensi audio 3-way, dan integrasi head unit pintar.</p>
+                </div>
+                <!-- Service 2 -->
+                <div class="install-card reveal delay-100">
+                    <i class="ph-fill ph-headlights text-4xl icon mb-4"></i>
+                    <h3 class="font-heading font-bold text-lg mb-2 uppercase">Custom Lighting</h3>
+                    <p class="text-sm opacity-80 font-medium">Retrofit biled projector, custom DRL/Lazy Eyes, dan instalasi ambient light tanpa potong kabel ori.</p>
+                </div>
+                <!-- Service 3 -->
+                <div class="install-card reveal delay-200">
+                    <i class="ph-fill ph-car-profile text-4xl icon mb-4"></i>
+                    <h3 class="font-heading font-bold text-lg mb-2 uppercase">Aero & Body Kit</h3>
+                    <p class="text-sm opacity-80 font-medium">Fitting presisi, pengecatan oven, dan instalasi body kit, spoiler, karbon fiber dengan fitment sempurna.</p>
+                </div>
+                <!-- Service 4 -->
+                <div class="install-card reveal">
+                    <i class="ph-fill ph-steering-wheel text-4xl icon mb-4"></i>
+                    <h3 class="font-heading font-bold text-lg mb-2 uppercase">Interior Retrim</h3>
+                    <p class="text-sm opacity-80 font-medium">Bungkus jok paten, retrim setir, plafon, dan doortrim dengan material kulit sintetis/asli premium.</p>
+                </div>
+                <!-- Service 5 -->
+                <div class="install-card reveal delay-100">
+                    <i class="ph-fill ph-gauge text-4xl icon mb-4"></i>
+                    <h3 class="font-heading font-bold text-lg mb-2 uppercase">Performance Parts</h3>
+                    <p class="text-sm opacity-80 font-medium">Instalasi coilover, big brake kit, exhaust system, dan bolt-on parts dengan kalibrasi standar balap.</p>
+                </div>
+                <!-- Service 6 -->
+                <div class="install-card reveal delay-200">
+                    <i class="ph-fill ph-disc text-4xl icon mb-4"></i>
+                    <h3 class="font-heading font-bold text-lg mb-2 uppercase">Wheels Fitment</h3>
+                    <p class="text-sm text-opacity-80 font-medium">Konsultasi PCD/Offset, instalasi velg, balancing presisi, dan alignment kaki-kaki modifikasi.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Parallax Garage Section -->
+    <section id="parallax-garage" class="relative h-[60vh] flex items-center justify-center parallax-bg">
+        <div class="absolute inset-0 overlay-center mix-blend-multiply"></div>
+        <div class="container mx-auto px-6 relative z-10 text-center reveal">
+            <h2 class="font-heading text-4xl md:text-5xl lg:text-7xl font-black text-surface tracking-tight leading-tight uppercase">
+                Installed By Experts. <br>
+                <span class="text-accent">Built To Impress.</span>
+            </h2>
+        </div>
+    </section>
+
+    <!-- Before & After Showcase -->
+    <section class="py-24 bg-bgbase border-y border-bordercol overflow-hidden">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+                <span class="text-accent font-bold text-xs mb-3 block uppercase tracking-widest">Transformation</span>
+                <h2 class="font-heading text-4xl font-black text-primary mb-4 uppercase">See The Difference</h2>
+                <p class="text-secondary/80 font-medium">Geser slider untuk melihat bagaimana kami mentransformasi kendaraan standar menjadi luar biasa.</p>
+            </div>
+
+            <!-- Custom Before/After Slider -->
+            <div class="max-w-5xl mx-auto reveal delay-100">
+                <div class="ba-container bg-surface" id="ba-container">
+                    <!-- Image After (Background) -->
+                    <img src="https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?auto=format&fit=crop&q=80&w=1200" alt="After Mod" class="ba-image-after">
+                    
+                    <!-- Image Before (Foreground) -->
+                    <div class="ba-image-before" id="ba-before">
+                        <img src="https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?auto=format&fit=crop&q=80&w=1200" alt="Before Mod" class="grayscale">
+                    </div>
+                    
+                    <!-- Slider Handle -->
+                    <div class="ba-handle" id="ba-handle">
+                        <i class="ph-bold ph-arrows-left-right text-xl"></i>
+                    </div>
+                    
+                    <!-- Range Input Control -->
+                    <input type="range" min="0" max="100" value="50" class="ba-slider" id="ba-slider">
+
+                    <!-- Labels -->
+                    <div class="absolute bottom-6 left-6 bg-primary/80 backdrop-blur px-4 py-2 rounded text-xs font-bold uppercase tracking-widest text-surface z-40 shadow-sm pointer-events-none">Stock / Before</div>
+                    <div class="absolute bottom-6 right-6 bg-accent/90 backdrop-blur px-4 py-2 rounded text-xs font-bold uppercase tracking-widest text-surface z-40 shadow-sm pointer-events-none">Upgraded / After</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="py-24 bg-surface">
+        <div class="container mx-auto px-6 md:px-12 grid lg:grid-cols-2 gap-16 items-center">
+            <div class="reveal">
+                <span class="text-accent font-bold text-xs mb-3 block uppercase tracking-widest">Velocity Promise</span>
+                <h2 class="font-heading text-4xl font-black text-primary mb-6 uppercase">Why Upgrade With Us?</h2>
+                <p class="text-secondary/80 font-medium leading-relaxed mb-8">
+                    Modifikasi bukan sekadar memasang part baru, tetapi tentang harmoni antara estetika dan fungsi. Kami memastikan setiap modifikasi aman dan sesuai standar.
+                </p>
+                <div class="grid grid-cols-2 gap-y-8 gap-x-6">
+                    <div>
+                        <div class="flex items-center gap-3 text-primary font-bold mb-2 uppercase text-sm">
+                            <i class="ph-fill ph-check-circle text-accent text-xl"></i> Premium Brands
+                        </div>
+                        <p class="text-xs text-secondary/70 font-medium">Distributor resmi brand ternama internasional.</p>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-3 text-primary font-bold mb-2 uppercase text-sm">
+                            <i class="ph-fill ph-check-circle text-accent text-xl"></i> Pro Mechanics
+                        </div>
+                        <p class="text-xs text-secondary/70 font-medium">Pemasangan rapi oleh teknisi spesialis.</p>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-3 text-primary font-bold mb-2 uppercase text-sm">
+                            <i class="ph-fill ph-check-circle text-accent text-xl"></i> Warranty Int.
+                        </div>
+                        <p class="text-xs text-secondary/70 font-medium">Garansi produk dan garansi instalasi studio.</p>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-3 text-primary font-bold mb-2 uppercase text-sm">
+                            <i class="ph-fill ph-check-circle text-accent text-xl"></i> After Sales
+                        </div>
+                        <p class="text-xs text-secondary/70 font-medium">Dukungan teknis responsif pasca pemasangan.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-6 reveal delay-200">
+                <div class="space-y-6 mt-12">
+                    <img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&q=80&w=400" alt="Exhaust" class="w-full h-64 object-cover rounded-xl shadow-premium border border-bordercol">
+                    <img src="https://images.unsplash.com/photo-1503376712341-ea1c64eb3d05?auto=format&fit=crop&q=80&w=400" alt="Interior" class="w-full h-48 object-cover rounded-xl shadow-premium border border-bordercol">
+                </div>
+                <div class="space-y-6">
+                    <img src="https://images.unsplash.com/photo-1600705663738-9585c5443fa4?auto=format&fit=crop&q=80&w=400" alt="Lighting" class="w-full h-48 object-cover rounded-xl shadow-premium border border-bordercol">
+                    <img src="https://images.unsplash.com/photo-1618392120023-e18e388c3fc0?auto=format&fit=crop&q=80&w=400" alt="Wheels" class="w-full h-64 object-cover rounded-xl shadow-premium border border-bordercol">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Gallery (Masonry) -->
+    <section id="gallery" class="py-24 bg-primary text-surface border-t-4 border-accent">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 reveal">
+                <div>
+                    <span class="text-accent font-bold text-xs mb-3 block uppercase tracking-widest">Our Work</span>
+                    <h2 class="font-heading text-4xl font-black uppercase">Project Gallery</h2>
+                </div>
+                <a href="#" class="btn-outline border-surface/50 text-surface hover:bg-surface hover:text-primary px-6 py-3 rounded font-bold text-xs uppercase tracking-wider transition-colors mt-6 md:mt-0">
+                    Follow Instagram <i class="ph-bold ph-instagram-logo ml-1"></i>
+                </a>
+            </div>
+
+            <div class="masonry">
+                <div class="masonry-item reveal">
+                    <img src="https://images.unsplash.com/photo-1542282088-fe8426682b8f?auto=format&fit=crop&q=80&w=600" alt="Car Mod">
+                    <div class="masonry-overlay"><i class="ph-bold ph-plus text-surface text-4xl"></i></div>
+                </div>
+                <div class="masonry-item reveal delay-100">
+                    <img src="https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&q=80&w=600" alt="Bike Mod">
+                    <div class="masonry-overlay"><i class="ph-bold ph-plus text-surface text-4xl"></i></div>
+                </div>
+                <div class="masonry-item reveal delay-200">
+                    <img src="https://images.unsplash.com/photo-1600705663738-9585c5443fa4?auto=format&fit=crop&q=80&w=600" alt="Headlights">
+                    <div class="masonry-overlay"><i class="ph-bold ph-plus text-surface text-4xl"></i></div>
+                </div>
+                <div class="masonry-item reveal">
+                    <img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&q=80&w=600" alt="Audio">
+                    <div class="masonry-overlay"><i class="ph-bold ph-plus text-surface text-4xl"></i></div>
+                </div>
+                <div class="masonry-item reveal delay-100">
+                    <img src="https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?auto=format&fit=crop&q=80&w=600" alt="Interior">
+                    <div class="masonry-overlay"><i class="ph-bold ph-plus text-surface text-4xl"></i></div>
+                </div>
+                <div class="masonry-item reveal delay-200">
+                    <img src="https://images.unsplash.com/photo-1618392120023-e18e388c3fc0?auto=format&fit=crop&q=80&w=600" alt="Wheels">
+                    <div class="masonry-overlay"><i class="ph-bold ph-plus text-surface text-4xl"></i></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-24 bg-bgbase relative overflow-hidden">
+        <!-- Decor -->
+        <div class="absolute top-0 left-0 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[100px] z-0 pointer-events-none"></div>
+
+        <div class="container mx-auto px-6 md:px-12 relative z-10">
+            <div class="text-center mb-16 reveal">
+                <span class="text-accent font-bold text-xs mb-3 block uppercase tracking-widest">Testimonials</span>
+                <h2 class="font-heading text-4xl font-black text-primary uppercase">What Our Clients Say</h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Testi 1 -->
+                <div class="glass-panel p-8 rounded-xl shadow-card border-bordercol reveal bg-surface">
+                    <div class="flex text-highlight mb-4 text-sm">
+                        <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+                    </div>
+                    <p class="text-secondary/90 text-sm leading-relaxed mb-8 font-medium">"Pasang head unit dan audio 3-way di sini. Hasilnya super rapih, kabel gak berantakan sama sekali. Suaranya jernih parah. Teknisi sangat paham apa yang dikerjakan."</p>
+                    <div class="flex items-center gap-4 pt-6 border-t border-bordercol">
+                        <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Client" class="w-12 h-12 rounded-full object-cover border-2 border-bgbase shadow-sm">
+                        <div>
+                            <h4 class="font-heading font-bold text-primary text-sm uppercase">Reza Herdian</h4>
+                            <p class="text-[10px] text-accent font-bold tracking-widest uppercase mt-0.5">Honda Civic (Audio Upgrade)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testi 2 -->
+                <div class="glass-panel p-8 rounded-xl shadow-card border-bordercol reveal delay-100 bg-surface">
+                    <div class="flex text-highlight mb-4 text-sm">
+                        <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+                    </div>
+                    <p class="text-secondary/90 text-sm leading-relaxed mb-8 font-medium">"Ganti velg forged dan pasang coilover. Konsultasinya enak banget dapet fitment yang pas, gak gesrot. Pelayanan sangat premium seperti bengkel luar negeri."</p>
+                    <div class="flex items-center gap-4 pt-6 border-t border-bordercol">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Client" class="w-12 h-12 rounded-full object-cover border-2 border-bgbase shadow-sm">
+                        <div>
+                            <h4 class="font-heading font-bold text-primary text-sm uppercase">Dimas Saputra</h4>
+                            <p class="text-[10px] text-accent font-bold tracking-widest uppercase mt-0.5">BMW 3 Series (Wheels & Susp)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testi 3 -->
+                <div class="glass-panel p-8 rounded-xl shadow-card border-bordercol reveal delay-200 bg-surface">
+                    <div class="flex text-highlight mb-4 text-sm">
+                        <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star-half"></i>
+                    </div>
+                    <p class="text-secondary/90 text-sm leading-relaxed mb-8 font-medium">"Upgrade lampu projector biled. Sinarnya tebal dan cut-off nya rapih banget, gak bikin silau lawan arah. Pengerjaan sangat cepat dan dikasih garansi embun."</p>
+                    <div class="flex items-center gap-4 pt-6 border-t border-bordercol">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Client" class="w-12 h-12 rounded-full object-cover border-2 border-bgbase shadow-sm">
+                        <div>
+                            <h4 class="font-heading font-bold text-primary text-sm uppercase">Siska Amalia</h4>
+                            <p class="text-[10px] text-accent font-bold tracking-widest uppercase mt-0.5">Mitsubishi Pajero (Lighting)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Consultation / Booking Section -->
+    <section id="consultation" class="py-24 lg:py-32 relative parallax-bg overflow-hidden">
+        <div class="absolute inset-0 overlay-dark mix-blend-multiply"></div>
+        
+        <div class="container mx-auto px-6 md:px-12 relative z-10 grid lg:grid-cols-2 gap-16 items-center">
+            
+            <!-- Text CTA -->
+            <div class="reveal text-surface">
+                <span class="inline-flex items-center gap-2 px-3 py-1 rounded bg-accent/20 border border-accent/40 text-xs font-bold uppercase tracking-wider mb-6 text-white backdrop-blur-sm">
+                    <i class="ph-bold ph-wrench"></i> Expert Consultation
+                </span>
+                <h2 class="font-heading text-4xl md:text-5xl lg:text-6xl font-black mb-6 leading-tight uppercase">
+                    Let's Build Your <br><span class="text-accent">Dream Vehicle.</span>
+                </h2>
+                <p class="text-surface/80 text-lg mb-8 leading-relaxed font-medium">
+                    Konsultasikan ide modifikasi Anda dengan desainer dan teknisi kami. Dapatkan estimasi harga dan jadwal pengerjaan tanpa komitmen.
+                </p>
+                <div class="flex items-center gap-6 mt-8 border-t border-surface/20 pt-8">
+                    <div class="flex -space-x-4">
+                        <img src="https://randomuser.me/api/portraits/men/1.jpg" class="w-12 h-12 rounded-full border-2 border-primary object-cover" alt="Staff">
+                        <img src="https://randomuser.me/api/portraits/men/2.jpg" class="w-12 h-12 rounded-full border-2 border-primary object-cover" alt="Staff">
+                        <img src="https://randomuser.me/api/portraits/women/3.jpg" class="w-12 h-12 rounded-full border-2 border-primary object-cover" alt="Staff">
+                    </div>
+                    <p class="text-sm font-medium text-surface/80">Available Experts <br><span class="font-bold text-surface text-base">Ready to assist you</span></p>
+                </div>
+            </div>
+
+            <!-- Form Card -->
+            <div class="glass-dark p-8 md:p-10 rounded-2xl shadow-premium reveal delay-200 border-surface/20">
+                <h3 class="font-heading text-2xl font-black text-surface mb-8 uppercase">Request Consultation</h3>
+                <form>
+                    <div class="space-y-5">
+                        <div>
+                            <input type="text" class="form-input" placeholder="Nama Lengkap" required>
+                        </div>
+                        <div>
+                            <input type="tel" class="form-input" placeholder="Nomor WhatsApp" required>
+                        </div>
+                        <div class="grid grid-cols-2 gap-5">
+                            <div>
+                                <select class="form-input appearance-none" required>
+                                    <option value="" disabled selected>Jenis Kendaraan</option>
+                                    <option>Mobil Pribadi</option>
+                                    <option>Mobil Niaga</option>
+                                    <option>Motor Premium (>250cc)</option>
+                                    <option>Motor Standard</option>
+                                </select>
+                            </div>
+                            <div>
+                                <input type="text" class="form-input" placeholder="Merek/Tipe (Mis: HRV)" required>
+                            </div>
+                        </div>
+                        <div>
+                            <select class="form-input appearance-none" required>
+                                <option value="" disabled selected>Kategori Modifikasi Utama</option>
+                                <option>Exterior & Body Kit</option>
+                                <option>Lighting System</option>
+                                <option>Audio & Interior</option>
+                                <option>Wheels & Suspension</option>
+                                <option>Performance Upgrade</option>
+                                <option>Lainnya</option>
+                            </select>
+                        </div>
+                        <div>
+                            <textarea class="form-input resize-none" rows="3" placeholder="Ceritakan detail kebutuhan/ide modifikasi Anda..."></textarea>
+                        </div>
+                        <button type="button" class="btn-primary w-full py-4 rounded font-bold text-sm tracking-widest uppercase mt-2 shadow-lg">
+                            Request Consultation
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-24 bg-surface">
+        <div class="container mx-auto px-6 md:px-12 max-w-3xl">
+            <div class="text-center mb-16 reveal">
+                <span class="text-accent font-bold text-xs mb-3 block uppercase tracking-widest">Questions & Answers</span>
+                <h2 class="font-heading text-3xl md:text-4xl font-black text-primary mb-4 uppercase">Frequently Asked Questions</h2>
+            </div>
+
+            <div class="space-y-4">
+                <!-- FAQ 1 -->
+                <div class="faq-item border border-bordercol rounded-xl p-6 cursor-pointer bg-bgbase reveal">
+                    <div class="flex justify-between items-center">
+                        <h4 class="font-heading font-bold text-sm md:text-base text-primary">Apakah produk yang dijual dijaminkan keasliannya?</h4>
+                        <i class="ph-bold ph-caret-down text-accent faq-icon"></i>
+                    </div>
+                    <div class="faq-content">
+                        <p class="pt-4 text-sm text-secondary/80 font-medium leading-relaxed">Ya 100%. Kami adalah dealer/distributor resmi untuk brand-brand ternama internasional. Semua barang dilengkapi dengan box asli, serial number, dan kartu garansi resmi distributor.</p>
+                    </div>
+                </div>
+                <!-- FAQ 2 -->
+                <div class="faq-item border border-bordercol rounded-xl p-6 cursor-pointer bg-bgbase reveal delay-100">
+                    <div class="flex justify-between items-center">
+                        <h4 class="font-heading font-bold text-sm md:text-base text-primary">Apakah ada garansi untuk jasa pemasangannya?</h4>
+                        <i class="ph-bold ph-caret-down text-accent faq-icon"></i>
+                    </div>
+                    <div class="faq-content">
+                        <p class="pt-4 text-sm text-secondary/80 font-medium leading-relaxed">Selain garansi produk dari pabrik, kami memberikan garansi instalasi studio selama 6 bulan (terutama kelistrikan dan audio) untuk memastikan modifikasi aman dan berfungsi normal.</p>
+                    </div>
+                </div>
+                <!-- FAQ 3 -->
+                <div class="faq-item border border-bordercol rounded-xl p-6 cursor-pointer bg-bgbase reveal delay-200">
+                    <div class="flex justify-between items-center">
+                        <h4 class="font-heading font-bold text-sm md:text-base text-primary">Berapa lama rata-rata proses instalasi?</h4>
+                        <i class="ph-bold ph-caret-down text-accent faq-icon"></i>
+                    </div>
+                    <div class="faq-content">
+                        <p class="pt-4 text-sm text-secondary/80 font-medium leading-relaxed">Sangat bergantung pada jenis part. Penggantian lampu/velg biasanya memakan waktu 1-3 jam. Untuk instalasi audio full system atau custom body kit bisa memakan waktu 1-3 hari kerja.</p>
+                    </div>
+                </div>
+                <!-- FAQ 4 -->
+                <div class="faq-item border border-bordercol rounded-xl p-6 cursor-pointer bg-bgbase reveal">
+                    <div class="flex justify-between items-center">
+                        <h4 class="font-heading font-bold text-sm md:text-base text-primary">Apakah saya bisa datang langsung tanpa reservasi?</h4>
+                        <i class="ph-bold ph-caret-down text-accent faq-icon"></i>
+                    </div>
+                    <div class="faq-content">
+                        <p class="pt-4 text-sm text-secondary/80 font-medium leading-relaxed">Bisa untuk pembelian barang (take away) atau konsultasi ringan. Namun untuk instalasi, kami sangat menyarankan reservasi (*booking*) agar tidak terjadi penumpukan antrian di area workshop.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Map Section -->
+    <section id="contact" class="py-24 bg-bgbase border-t border-bordercol">
+        <div class="container mx-auto px-6 md:px-12 grid lg:grid-cols-2 gap-16 items-center">
+            
+            <!-- Contact Info -->
+            <div class="reveal">
+                <span class="text-accent font-bold text-xs mb-3 block uppercase tracking-widest">Get In Touch</span>
+                <h2 class="font-heading text-4xl font-black text-primary mb-8 uppercase">Visit Our Studio.</h2>
+
+                <div class="space-y-8">
+                    <div class="flex items-start gap-5">
+                        <div class="mt-1 w-12 h-12 rounded bg-surface border border-bordercol flex items-center justify-center text-accent shrink-0 text-2xl shadow-sm"><i class="ph-fill ph-map-pin"></i></div>
+                        <div>
+                            <h4 class="font-heading font-bold text-primary text-base mb-1 uppercase">Showroom & Workshop</h4>
+                            <p class="text-sm text-secondary/80 font-medium leading-relaxed">AutoStyle District, Block B1-B3<br>Jl. Modifikasi Raya No. 12<br>Jakarta Selatan 12190</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-5">
+                        <div class="mt-1 w-12 h-12 rounded bg-surface border border-bordercol flex items-center justify-center text-accent shrink-0 text-2xl shadow-sm"><i class="ph-fill ph-phone"></i></div>
+                        <div>
+                            <h4 class="font-heading font-bold text-primary text-base mb-1 uppercase">Call & WhatsApp</h4>
+                            <p class="text-sm text-secondary/80 font-medium">+62 21 7777 8888 (Store)<br>+62 811 0000 2222 (WhatsApp Sales)</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-5">
+                        <div class="mt-1 w-12 h-12 rounded bg-surface border border-bordercol flex items-center justify-center text-accent shrink-0 text-2xl shadow-sm"><i class="ph-fill ph-envelope-simple"></i></div>
+                        <div>
+                            <h4 class="font-heading font-bold text-primary text-base mb-1 uppercase">Email Address</h4>
+                            <p class="text-sm text-secondary/80 font-medium">sales@velocityautostyle.id</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Map Placeholder -->
+            <div class="relative rounded-2xl overflow-hidden shadow-premium h-[400px] border border-bordercol reveal delay-200">
+                <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&q=80&w=800" alt="Map Location" class="w-full h-full object-cover grayscale opacity-80 mix-blend-multiply">
+                <div class="absolute inset-0 bg-primary/30 flex flex-col items-center justify-center">
+                    <div class="w-16 h-16 bg-accent text-surface rounded-full flex items-center justify-center text-3xl mb-4 shadow-lg animate-bounce">
+                        <i class="ph-fill ph-map-pin"></i>
+                    </div>
+                    <div class="bg-surface/90 backdrop-blur px-6 py-3 rounded font-heading font-bold text-primary text-sm shadow-lg uppercase">
+                        Google Maps Integration Ready
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-primary pt-20 pb-10 text-surface/70 border-t-4 border-accent">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <!-- Brand Info -->
+                <div class="lg:col-span-1">
+                    <a href="#" class="flex items-center gap-2 mb-6 text-surface">
+                        <i class="ph-fill ph-steering-wheel text-3xl text-accent"></i>
+                        <div class="flex flex-col">
+                            <span class="font-heading font-black text-xl tracking-tight leading-none uppercase">Velocity<span class="text-accent">.</span></span>
+                        </div>
+                    </a>
+                    <p class="text-sm font-medium leading-relaxed mb-6">
+                        Upgrade Your Ride. Express Your Style. Toko variasi dan modifikasi otomotif premium yang berfokus pada kualitas dan performa nyata.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded bg-surface/10 flex items-center justify-center hover:bg-accent hover:text-surface transition-colors"><i class="ph-fill ph-instagram-logo text-xl"></i></a>
+                        <a href="#" class="w-10 h-10 rounded bg-surface/10 flex items-center justify-center hover:bg-accent hover:text-surface transition-colors"><i class="ph-fill ph-youtube-logo text-xl"></i></a>
+                        <a href="#" class="w-10 h-10 rounded bg-surface/10 flex items-center justify-center hover:bg-accent hover:text-surface transition-colors"><i class="ph-fill ph-tiktok-logo text-xl"></i></a>
+                    </div>
+                </div>
+
+                <!-- Product Categories -->
+                <div>
+                    <h4 class="font-heading font-black text-surface mb-6 uppercase tracking-wider text-sm">Categories</h4>
+                    <ul class="space-y-4 text-sm font-medium">
+                        <li><a href="#products" class="hover:text-accent transition-colors">Exterior & Body Kit</a></li>
+                        <li><a href="#products" class="hover:text-accent transition-colors">Lighting Systems</a></li>
+                        <li><a href="#products" class="hover:text-accent transition-colors">Interior Accessories</a></li>
+                        <li><a href="#products" class="hover:text-accent transition-colors">Performance Parts</a></li>
+                        <li><a href="#products" class="hover:text-accent transition-colors">Wheels & Tires</a></li>
+                    </ul>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="font-heading font-black text-surface mb-6 uppercase tracking-wider text-sm">Quick Links</h4>
+                    <ul class="space-y-4 text-sm font-medium">
+                        <li><a href="#about" class="hover:text-accent transition-colors">About Us</a></li>
+                        <li><a href="#install" class="hover:text-accent transition-colors">Installation Services</a></li>
+                        <li><a href="#gallery" class="hover:text-accent transition-colors">Project Gallery</a></li>
+                        <li><a href="#consultation" class="hover:text-accent transition-colors">Book Consultation</a></li>
+                        <li><a href="#" class="hover:text-accent transition-colors">Track Order</a></li>
+                    </ul>
+                </div>
+
+                <!-- Store Info -->
+                <div>
+                    <h4 class="font-heading font-black text-surface mb-6 uppercase tracking-wider text-sm">Store Hours</h4>
+                    <ul class="space-y-3 text-sm font-medium text-surface/60">
+                        <li class="flex justify-between border-b border-surface/20 pb-2">
+                            <span>Monday - Saturday</span>
+                            <span class="text-surface font-bold">09:00 - 19:00</span>
+                        </li>
+                        <li class="flex justify-between border-b border-surface/20 pb-2">
+                            <span>Sunday</span>
+                            <span class="text-surface font-bold">10:00 - 17:00</span>
+                        </li>
+                        <li class="flex justify-between pt-2 text-[10px] uppercase tracking-widest text-surface/40 font-bold">
+                            *Online Orders 24/7
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-surface/10 pt-8 flex flex-col md:flex-row justify-between items-center text-xs font-medium text-surface/50">
+                <p class="mb-2 md:mb-0">&copy; 2026 Velocity AutoStyle. All rights reserved.</p>
+                <div class="flex items-center gap-4">
+                    <a href="#" class="hover:text-surface transition-colors">Privacy Policy</a>
+                    <span>|</span>
+                    <a href="#" class="hover:text-surface transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Buttons -->
+    <a href="#" class="fixed bottom-24 right-6 w-12 h-12 bg-green-500 text-surface rounded-full shadow-red flex items-center justify-center transition-all duration-300 z-40 hover:bg-green-600 focus:outline-none" title="WhatsApp Chat">
+        <i class="ph-fill ph-whatsapp-logo text-2xl"></i>
+    </a>
+    
+    <button id="btt" class="fixed bottom-6 right-6 w-12 h-12 bg-accent text-surface rounded-full shadow-red flex items-center justify-center opacity-0 translate-y-10 transition-all duration-300 z-40 hover:bg-[#B91C1C] focus:outline-none" title="Back To Top">
+        <i class="ph-bold ph-caret-up text-xl"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // 1. Loader Removal
+            setTimeout(() => {
+                const loader = document.getElementById('loader');
+                loader.style.opacity = '0';
+                setTimeout(() => { loader.style.visibility = 'hidden'; }, 600);
+            }, 1000);
+
+            // 2. Sticky Navbar & Back to Top Logic
+            const navbar = document.getElementById('navbar');
+            const btt = document.getElementById('btt');
+            
+            window.addEventListener('scroll', () => {
+                // Navbar transition
+                if (window.scrollY > 50) {
+                    navbar.classList.add('nav-scrolled');
+                } else {
+                    navbar.classList.remove('nav-scrolled');
+                }
+
+                // Back to Top Button
+                if (window.scrollY > 600) {
+                    btt.classList.remove('opacity-0', 'translate-y-10');
+                    btt.classList.add('opacity-100', 'translate-y-0');
+                } else {
+                    btt.classList.add('opacity-0', 'translate-y-10');
+                    btt.classList.remove('opacity-100', 'translate-y-0');
+                }
+            });
+
+            btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+            // 3. Mobile Menu Toggle
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            const closeBtn = document.getElementById('close-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileOverlay = document.getElementById('mobile-overlay');
+            const mobileLinks = document.querySelectorAll('.mobile-link');
+
+            function openMenu() {
+                mobileMenu.classList.remove('translate-x-full');
+                mobileOverlay.classList.remove('hidden');
+                document.body.style.overflow = 'hidden'; // Prevent scroll
+            }
+
+            function closeMenu() {
+                mobileMenu.classList.add('translate-x-full');
+                mobileOverlay.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+
+            menuBtn.addEventListener('click', openMenu);
+            closeBtn.addEventListener('click', closeMenu);
+            mobileOverlay.addEventListener('click', closeMenu);
+            mobileLinks.forEach(link => link.addEventListener('click', closeMenu));
+
+            // 4. Scroll Reveal (Intersection Observer)
+            const revealElements = document.querySelectorAll('.reveal');
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        // Optional: Unobserve to animate only once
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+            
+            revealElements.forEach(el => revealObserver.observe(el));
+
+            // 5. Mouse Parallax (Hero Floating Elements)
+            const mouseParallaxElements = document.querySelectorAll('.mouse-p');
+            const heroSection = document.getElementById('hero');
+
+            if(window.innerWidth > 1024) { 
+                heroSection.addEventListener('mousemove', (e) => {
+                    const x = (window.innerWidth - e.pageX * 2) / 100;
+                    const y = (window.innerHeight - e.pageY * 2) / 100;
+
+                    mouseParallaxElements.forEach(el => {
+                        const speed = el.getAttribute('data-speed');
+                        el.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
+                    });
+                });
+                heroSection.addEventListener('mouseleave', () => {
+                    mouseParallaxElements.forEach(el => {
+                        el.style.transform = `translate(0px, 0px)`;
+                    });
+                });
+            }
+
+            // 6. Before & After Slider Logic
+            const baContainer = document.getElementById('ba-container');
+            const baBefore = document.getElementById('ba-before');
+            const baSlider = document.getElementById('ba-slider');
+            const baHandle = document.getElementById('ba-handle');
+
+            if(baContainer && baBefore && baSlider && baHandle) {
+                // Ensure image width matches container for perfect clip
+                const imgBefore = baBefore.querySelector('img');
+                const updateImgWidth = () => {
+                    imgBefore.style.width = `${baContainer.offsetWidth}px`;
+                }
+                window.addEventListener('resize', updateImgWidth);
+                updateImgWidth();
+
+                baSlider.addEventListener('input', (e) => {
+                    const value = e.target.value;
+                    baBefore.style.width = `${value}%`;
+                    baHandle.style.left = `${value}%`;
+                });
+            }
+
+            // 7. FAQ Accordion Logic
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const content = item.querySelector('.faq-content');
+                    const isActive = item.classList.contains('active');
+
+                    // Close all
+                    faqItems.forEach(otherItem => {
+                        otherItem.classList.remove('active');
+                        otherItem.querySelector('.faq-content').style.maxHeight = null;
+                        otherItem.style.borderColor = '#E5E7EB'; // reset bordercol
+                    });
+
+                    // Open current
+                    if (!isActive) {
+                        item.classList.add('active');
+                        content.style.maxHeight = content.scrollHeight + "px";
+                        item.style.borderColor = '#EF4444'; // Highlight accent border
+                    }
+                });
+            });
+
+            // 8. Counter Animation for Stats
+            const counters = document.querySelectorAll('.counter');
+            let hasAnimated = false;
+
+            const animateCounters = () => {
+                counters.forEach(counter => {
+                    const target = +counter.getAttribute('data-target');
+                    const duration = 2000; // ms
+                    const step = target / (duration / 16); // ~60fps
+                    let current = 0;
+
+                    const updateCounter = () => {
+                        current += step;
+                        if(current < target) {
+                            counter.innerText = Math.ceil(current);
+                            requestAnimationFrame(updateCounter);
+                        } else {
+                            counter.innerText = target;
+                        }
+                    };
+                    updateCounter();
+                });
+            };
+
+            // Observer for Counters
+            const counterSection = document.getElementById('counter-wrap');
+            if(counterSection) {
+                const counterObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if(entry.isIntersecting && !hasAnimated) {
+                            animateCounters();
+                            hasAnimated = true;
+                        }
+                    });
+                }, { threshold: 0.5 });
+                counterObserver.observe(counterSection);
+            }
+        });
+    </script>
+</body>
+</html>

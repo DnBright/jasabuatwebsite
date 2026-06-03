@@ -36,7 +36,7 @@ const steps = [
 <template>
     <section id="langkah" class="steps-section">
         <div class="steps-container">
-            <div class="steps-header">
+            <div class="steps-header" data-aos="fade-up">
                 <div class="badge-mini">Proses Mudah</div>
                 <h2 class="section-title">Cara Pesan Website <span>UMKM Anda</span></h2>
                 <p class="section-subtitle">
@@ -45,7 +45,7 @@ const steps = [
             </div>
 
             <div class="steps-grid">
-                <div v-for="(step, index) in steps" :key="step.number" class="step-card">
+                <div v-for="(step, index) in steps" :key="step.number" class="step-card" data-aos="fade-up" :data-aos-delay="index * 150">
                     <div class="step-number">{{ step.number }}</div>
 
                     <div class="step-icon-wrapper">
@@ -65,7 +65,7 @@ const steps = [
                 </div>
             </div>
 
-            <div class="steps-cta">
+            <div class="steps-cta" data-aos="fade-up" data-aos-offset="100">
                 <div class="cta-box glass-effect">
                     <div class="cta-visual">
                         <div class="pulse-icon">💬</div>

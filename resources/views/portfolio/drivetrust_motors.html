@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DriveTrust Motors | Find Your Next Ride With Confidence</title>
+    <meta name="description" content="Jual beli mobil dan motor bekas berkualitas. Ribuan kendaraan terverifikasi, inspeksi transparan, dan transaksi aman.">
+
+    <!-- Google Fonts: Montserrat (Heading) & Inter (Body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0F172A',
+                        secondary: '#1E293B',
+                        accent: '#DC2626',
+                        highlight: '#F97316',
+                        bgbase: '#F8FAFC',
+                        surface: '#FFFFFF',
+                        textdark: '#111827',
+                        bordercol: '#E2E8F0',
+                    },
+                    fontFamily: {
+                        heading: ['Montserrat', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'premium': '0 15px 40px -10px rgba(15, 23, 42, 0.1)',
+                        'card': '0 4px 20px -2px rgba(15, 23, 42, 0.05)',
+                        'glass': '0 8px 32px 0 rgba(15, 23, 42, 0.1)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base Styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: theme('colors.bgbase');
+            color: theme('colors.textdark');
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4, h5, h6, .font-heading {
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: -0.02em;
+        }
+
+        ::selection {
+            background-color: theme('colors.accent');
+            color: theme('colors.surface');
+        }
+
+        /* Loading Screen */
+        #loader {
+            position: fixed;
+            inset: 0;
+            background-color: theme('colors.primary');
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+        .loader-wheel {
+            font-size: 3rem;
+            color: theme('colors.accent');
+            animation: spin 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        /* Navbar & Glassmorphism */
+        .nav-glass {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid theme('colors.bordercol');
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+            transition: all 0.4s ease;
+        }
+        .nav-transparent {
+            background: transparent;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: theme('boxShadow.glass');
+        }
+
+        .glass-dark {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Parallax Backgrounds */
+        .parallax-bg {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        #hero { background-image: url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&q=80&w=2000'); }
+        #showcase-1 { background-image: url('https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&q=80&w=2000'); }
+        #showcase-2 { background-image: url('https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&q=80&w=2000'); }
+
+        .overlay-dark { background: linear-gradient(to bottom, rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.9)); }
+        .overlay-gradient { background: linear-gradient(to right, rgba(15, 23, 42, 0.9) 0%, rgba(15, 23, 42, 0.4) 100%); }
+
+        /* Scroll Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .delay-100 { transition-delay: 0.1s; }
+        .delay-200 { transition-delay: 0.2s; }
+        .delay-300 { transition-delay: 0.3s; }
+
+        /* Floating Mouse Parallax & Stats */
+        .float-anim {
+            animation: float 5s ease-in-out infinite;
+        }
+        .float-anim-delay {
+            animation: float 6s ease-in-out infinite;
+            animation-delay: 1.5s;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Vehicle Cards */
+        .vehicle-card {
+            background: theme('colors.surface');
+            border-radius: 12px;
+            border: 1px solid theme('colors.bordercol');
+            transition: all 0.4s ease;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        .vehicle-card:hover {
+            transform: translateY(-5px);
+            box-shadow: theme('boxShadow.premium');
+            border-color: theme('colors.accent');
+        }
+        .img-wrapper {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+        }
+        .img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        .vehicle-card:hover .img-wrapper img {
+            transform: scale(1.05);
+        }
+        .badge-verified {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: theme('colors.surface');
+            color: theme('colors.primary');
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            z-index: 10;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .badge-score {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(4px);
+            color: theme('colors.surface');
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 8px;
+            z-index: 10;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background-color: theme('colors.accent');
+            color: theme('colors.surface');
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #b91c1c; /* Red 700 */
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -5px rgba(220, 38, 38, 0.4);
+        }
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid theme('colors.surface');
+            color: theme('colors.surface');
+            transition: all 0.3s ease;
+        }
+        .btn-outline:hover {
+            background-color: theme('colors.surface');
+            color: theme('colors.primary');
+        }
+
+        /* Custom Forms */
+        .form-select, .form-input {
+            width: 100%;
+            background: theme('colors.bgbase');
+            border: 1px solid theme('colors.bordercol');
+            border-radius: 8px;
+            padding: 12px 16px;
+            color: theme('colors.textdark');
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        .form-select:focus, .form-input:focus {
+            outline: none;
+            border-color: theme('colors.accent');
+            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+        }
+
+        /* FAQ Accordion */
+        .faq-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .faq-icon { transition: transform 0.3s ease; }
+        .faq-item.active .faq-icon { transform: rotate(180deg); color: theme('colors.accent'); }
+    </style>
+</head>
+<body class="relative">
+
+    <!-- Loading Screen -->
+    <div id="loader">
+        <i class="ph-bold ph-steering-wheel loader-wheel mb-4"></i>
+        <div class="font-heading font-bold text-xl text-surface tracking-tight">DriveTrust<span class="text-accent">Motors</span></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full top-0 z-50 py-4 transition-all duration-300 nav-transparent text-surface">
+        <div class="container mx-auto px-6 md:px-12 flex justify-between items-center">
+            
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-2 group">
+                <i class="ph-fill ph-steering-wheel text-2xl text-accent group-hover:rotate-45 transition-transform duration-500"></i>
+                <span class="font-heading font-extrabold text-xl tracking-tight">DriveTrust<span class="text-accent">.</span></span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden lg:flex items-center gap-8 font-medium text-sm">
+                <a href="#vehicles" class="hover:text-accent transition-colors">Beli Kendaraan</a>
+                <a href="#sell" class="hover:text-accent transition-colors">Jual Kendaraan</a>
+                <a href="#how-it-works" class="hover:text-accent transition-colors">Cara Kerja</a>
+                <a href="#inspection" class="hover:text-accent transition-colors">Inspeksi</a>
+            </div>
+
+            <!-- Header Actions -->
+            <div class="hidden lg:flex items-center gap-4">
+                <a href="#" class="hover:text-accent transition-colors"><i class="ph-bold ph-heart text-xl"></i></a>
+                <div class="w-px h-6 bg-current opacity-20"></div>
+                <a href="#sell" class="btn-primary px-5 py-2.5 rounded-lg font-semibold text-sm">Masuk / Daftar</a>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button id="mobile-menu-btn" class="lg:hidden text-2xl focus:outline-none">
+                <i class="ph ph-list"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="fixed inset-y-0 right-0 w-72 bg-surface shadow-2xl transform translate-x-full transition-transform duration-300 z-50 flex flex-col text-primary">
+            <div class="p-6 border-b border-bordercol flex justify-between items-center">
+                <span class="font-heading font-extrabold text-xl">DriveTrust<span class="text-accent">.</span></span>
+                <button id="close-menu-btn" class="text-2xl text-secondary"><i class="ph ph-x"></i></button>
+            </div>
+            <div class="flex flex-col p-6 gap-6 font-medium flex-1">
+                <a href="#vehicles" class="mobile-link hover:text-accent">Beli Kendaraan</a>
+                <a href="#sell" class="mobile-link hover:text-accent">Jual Kendaraan</a>
+                <a href="#how-it-works" class="mobile-link hover:text-accent">Cara Kerja</a>
+                <a href="#inspection" class="mobile-link hover:text-accent">Standar Inspeksi</a>
+                <div class="border-t border-bordercol pt-6 mt-2">
+                    <a href="#" class="btn-primary flex justify-center py-3 rounded-lg font-semibold text-sm mb-3">Masuk / Daftar</a>
+                    <a href="#" class="flex justify-center py-3 rounded-lg font-semibold text-sm border border-bordercol text-secondary"><i class="ph-bold ph-heart mr-2 text-lg"></i> Favorit Saya</a>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-overlay" class="fixed inset-0 bg-primary/60 backdrop-blur-sm hidden z-40"></div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative min-h-screen flex items-center parallax-bg overflow-hidden pt-20">
+        <!-- Background Overlay -->
+        <div class="absolute inset-0 overlay-gradient z-0"></div>
+
+        <div class="container mx-auto px-6 md:px-12 relative z-10 grid lg:grid-cols-12 gap-8 items-center h-full">
+            
+            <!-- Text Content -->
+            <div class="lg:col-span-7 text-surface mt-10 lg:mt-0">
+                <div class="reveal">
+                    <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/20 border border-accent/50 text-xs font-semibold uppercase tracking-wider mb-6 text-white backdrop-blur-sm">
+                        <i class="ph-fill ph-check-circle"></i> Trusted Vehicle Marketplace
+                    </span>
+                </div>
+                <h1 class="font-heading text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.15] mb-6 reveal delay-100">
+                    Jual Beli Mobil & Motor Bekas <span class="text-accent">Lebih Tenang.</span>
+                </h1>
+                <p class="text-base md:text-lg text-surface/80 max-w-xl mb-10 leading-relaxed reveal delay-200">
+                    Ribuan kendaraan terverifikasi, inspeksi mekanik transparan, dan jaminan transaksi aman dalam satu platform otomotif terpercaya.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 reveal delay-300">
+                    <a href="#vehicles" class="btn-primary px-8 py-4 rounded-xl font-bold flex items-center justify-center gap-2 text-sm md:text-base">
+                        <i class="ph-bold ph-magnifying-glass"></i> Cari Kendaraan
+                    </a>
+                    <a href="#sell" class="btn-outline px-8 py-4 rounded-xl font-bold flex items-center justify-center gap-2 text-sm md:text-base backdrop-blur-sm">
+                        <i class="ph-bold ph-currency-circle-dollar"></i> Jual Kendaraan
+                    </a>
+                </div>
+            </div>
+
+            <!-- Floating Decorative Cards (Mouse Parallax) -->
+            <div class="hidden lg:block lg:col-span-5 relative h-full w-full" id="hero-parallax">
+                <!-- Card 1 -->
+                <div class="absolute top-1/4 right-0 glass-dark p-4 rounded-2xl border border-surface/20 shadow-2xl flex items-center gap-4 float-anim mouse-p w-64" data-speed="1.5">
+                    <div class="w-12 h-12 bg-green-500/20 text-green-400 rounded-full flex items-center justify-center text-2xl shrink-0">
+                        <i class="ph-fill ph-shield-check"></i>
+                    </div>
+                    <div class="text-surface">
+                        <p class="font-heading font-bold text-sm">Lulus Inspeksi</p>
+                        <p class="text-xs text-surface/60">150+ Titik Pengecekan</p>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="absolute bottom-1/3 right-20 glass-dark p-4 rounded-2xl border border-surface/20 shadow-2xl flex items-center gap-4 float-anim-delay mouse-p w-64 z-10" data-speed="-1">
+                    <div class="w-12 h-12 bg-accent/20 text-accent rounded-full flex items-center justify-center text-2xl shrink-0">
+                        <i class="ph-fill ph-certificate"></i>
+                    </div>
+                    <div class="text-surface">
+                        <p class="font-heading font-bold text-sm">Garansi 1 Tahun</p>
+                        <p class="text-xs text-surface/60">Mesin & Transmisi</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Advanced Search Box (Absolute positioned at bottom) -->
+        <div class="absolute bottom-0 left-0 w-full transform translate-y-1/2 z-20 hidden md:block px-6">
+            <div class="container mx-auto max-w-5xl">
+                <div class="glass-panel rounded-2xl p-6 shadow-premium reveal delay-300">
+                    <form class="flex flex-wrap lg:flex-nowrap gap-4 items-end">
+                        <div class="w-full sm:w-1/3 lg:w-1/5">
+                            <label class="block text-xs font-semibold text-secondary mb-1">Jenis</label>
+                            <select class="form-select border-none bg-surface">
+                                <option>Semua Jenis</option>
+                                <option>Mobil Bekas</option>
+                                <option>Motor Bekas</option>
+                            </select>
+                        </div>
+                        <div class="w-full sm:w-1/3 lg:w-1/5">
+                            <label class="block text-xs font-semibold text-secondary mb-1">Merek</label>
+                            <select class="form-select border-none bg-surface">
+                                <option>Semua Merek</option>
+                                <option>Toyota</option>
+                                <option>Honda</option>
+                                <option>Mitsubishi</option>
+                                <option>Yamaha</option>
+                            </select>
+                        </div>
+                        <div class="w-full sm:w-1/3 lg:w-1/5">
+                            <label class="block text-xs font-semibold text-secondary mb-1">Harga Maks</label>
+                            <select class="form-select border-none bg-surface">
+                                <option>Pilih Harga</option>
+                                <option>< Rp 100 Juta</option>
+                                <option>< Rp 250 Juta</option>
+                                <option>< Rp 500 Juta</option>
+                            </select>
+                        </div>
+                        <div class="w-full sm:w-1/3 lg:w-1/5">
+                            <label class="block text-xs font-semibold text-secondary mb-1">Lokasi</label>
+                            <select class="form-select border-none bg-surface">
+                                <option>Semua Lokasi</option>
+                                <option>Jakarta</option>
+                                <option>Surabaya</option>
+                                <option>Bandung</option>
+                            </select>
+                        </div>
+                        <div class="w-full sm:w-1/3 lg:w-1/5">
+                            <button type="button" class="btn-primary w-full h-[46px] rounded-lg font-bold flex items-center justify-center gap-2">
+                                <i class="ph-bold ph-magnifying-glass"></i> Cari
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Spacer for Mobile Search since absolute overlap isn't used on mobile -->
+    <div class="md:hidden bg-bgbase pt-10"></div>
+    <div class="hidden md:block bg-bgbase pt-24"></div> <!-- Spacer for Desktop overlap -->
+
+    <!-- Trust Indicators -->
+    <section class="py-12 bg-bgbase">
+        <div class="container mx-auto px-6 md:px-12 border-b border-bordercol pb-16">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center reveal">
+                <div>
+                    <h3 class="font-heading text-3xl md:text-4xl font-extrabold text-primary mb-1">15k+</h3>
+                    <p class="text-xs text-secondary/70 font-semibold uppercase tracking-wide">Vehicles Sold</p>
+                </div>
+                <div>
+                    <h3 class="font-heading text-3xl md:text-4xl font-extrabold text-primary mb-1">98%</h3>
+                    <p class="text-xs text-secondary/70 font-semibold uppercase tracking-wide">Satisfaction</p>
+                </div>
+                <div>
+                    <h3 class="font-heading text-3xl md:text-4xl font-extrabold text-primary mb-1">500+</h3>
+                    <p class="text-xs text-secondary/70 font-semibold uppercase tracking-wide">Verified Dealers</p>
+                </div>
+                <div>
+                    <h3 class="font-heading text-3xl md:text-4xl font-extrabold text-primary mb-1">150+</h3>
+                    <p class="text-xs text-secondary/70 font-semibold uppercase tracking-wide">Inspection Points</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Vehicles -->
+    <section id="vehicles" class="py-16 lg:py-24 bg-bgbase">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12 reveal">
+                <div>
+                    <span class="text-accent font-semibold text-sm mb-2 block uppercase tracking-wider">Showcase</span>
+                    <h2 class="font-heading text-3xl md:text-4xl font-bold text-primary">Rekomendasi Kendaraan</h2>
+                </div>
+                <!-- Visual Tabs -->
+                <div class="flex bg-surface p-1 rounded-lg border border-bordercol mt-6 md:mt-0 shadow-sm">
+                    <button class="px-6 py-2 bg-primary text-surface rounded font-semibold text-sm transition-colors">Semua</button>
+                    <button class="px-6 py-2 text-secondary hover:text-primary font-semibold text-sm transition-colors">Mobil</button>
+                    <button class="px-6 py-2 text-secondary hover:text-primary font-semibold text-sm transition-colors">Motor</button>
+                </div>
+            </div>
+
+            <!-- Vehicles Grid -->
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <!-- Car 1: Fortuner -->
+                <div class="vehicle-card group reveal">
+                    <div class="img-wrapper bg-gray-100">
+                        <div class="badge-verified"><i class="ph-fill ph-check-circle text-green-500"></i> Verified</div>
+                        <div class="badge-score"><i class="ph-fill ph-star text-highlight mr-1"></i> 9.8</div>
+                        <!-- Placeholder using Unsplash car -->
+                        <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&q=80&w=600" alt="Toyota Fortuner">
+                        <button class="absolute top-3 right-3 w-8 h-8 bg-surface rounded-full flex items-center justify-center text-secondary hover:text-accent shadow-md z-10 transition-colors"><i class="ph-bold ph-heart"></i></button>
+                    </div>
+                    <div class="p-5 flex flex-col flex-1">
+                        <h3 class="font-heading font-bold text-primary text-lg leading-tight mb-1">Toyota Fortuner 2.4 VRZ</h3>
+                        <p class="text-xs text-secondary/60 mb-4">SUV • Hitam Metalik</p>
+                        
+                        <div class="grid grid-cols-2 gap-2 text-xs font-medium text-secondary bg-bgbase p-3 rounded-lg mb-4">
+                            <div class="flex items-center gap-1.5"><i class="ph ph-calendar-blank text-accent"></i> 2021</div>
+                            <div class="flex items-center gap-1.5"><i class="ph ph-gauge text-accent"></i> 34,500 km</div>
+                            <div class="flex items-center gap-1.5"><i class="ph ph-gas-pump text-accent"></i> Diesel</div>
+                            <div class="flex items-center gap-1.5"><i class="ph ph-arrows-out-line-vertical text-accent"></i> Automatic</div>
+                        </div>
+
+                        <div class="mt-auto">
+                            <div class="font-heading font-extrabold text-xl text-primary mb-1">Rp 485.000.000</div>
+                            <div class="flex justify-between items-center mt-3 pt-3 border-t border-bordercol">
+                                <span class="text-xs font-semibold text-secondary flex items-center gap-1 bg-green-50 text-green-600 px-2 py-1 rounded"><i class="ph-fill ph-bank"></i> Cicilan Mulai 9Jt/bln</span>
+                                <button class="text-primary hover:text-accent" title="Bandingkan"><i class="ph-bold ph-scales text-lg"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Car 2: HR-V -->
+                <div class="vehicle-card group reveal delay-100">
+                    <div class="img-wrapper bg-gray-100">
+                        <div class="badge-verified"><i class="ph-fill ph-check-circle text-green-500"></i> Verified</div>
+                        <div class="badge-score"><i class="ph-fill ph-star text-highlight mr-1"></i> 9.5</div>
+                        <img src="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&q=80&w=600" alt="Honda HR-V">
+                        <button class="absolute top-3 right-3 w-8 h-8 bg-surface rounded-full flex items-center justify-center text-secondary hover:text-accent shadow-md z-10 transition-colors"><i class="ph-bold ph-heart"></i></button>
+                    </div>
+                    <div class="p-5 flex flex-col flex-1">
+                        <h3 class="font-heading font-bold text-primary text-lg leading-tight mb-1">Honda HR-V 1.5 SE</h3>
+                        <p class="text-xs text-secondary/60 mb-4">Crossover • Putih Mutiara</p>
+                        
+                        <div class="grid grid-cols-2 gap-2 text-xs font-medium text-secondary bg-bgbase p-3 rounded-lg mb-4">
+                            <div class="flex items-center gap-1.5"><i class="ph ph-calendar-blank text-accent"></i> 2022</div>
+                            <div class="flex items-center gap-1.5"><i class="ph ph-gauge text-accent"></i> 18,200 km</div>
+                            <div class="flex items-center gap-1.5"><i class="ph ph-gas-pump text-accent"></i> Bensin</div>
+                            <div class="flex items-center gap-1.5"><i class="ph ph-arrows-out-line-vertical text-accent"></i> CVT</div>
+                        </div>
+
+                        <div class="mt-auto">
+                            <div class="font-heading font-extrabold text-xl text-primary mb-1">Rp 340.000.000</div>
+                            <div class="flex justify-between items-center mt-3 pt-3 border-t border-bordercol">
+                                <span class="text-xs font-semibold text-secondary flex items-center gap-1 bg-green-50 text-green-600 px-2 py-1 rounded"><i class="ph-fill ph-bank"></i> Cicilan Mulai 6Jt/bln</span>
+                                <button class="text-primary hover:text-accent"><i class="ph-bold ph-scales text-lg"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Motorcycle 1: Ninja -->
+                <div class="vehicle-card group reveal delay-200">
+                    <div class="img-wrapper bg-gray-100">
+                        <div class="absolute top-12 left-12 bg-highlight text-white text-[10px] font-bold px-2 py-1 rounded uppercase z-10 shadow-md">Dealer Verified</div>
+                        <div class="badge-score"><i class="ph-fill ph-star text-highlight mr-1"></i> 9.2</div>
+                        <img src="https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&q=80&w=600" alt="Kawasaki Ninja">
+                        <button class="absolute top-3 right-3 w-8 h-8 bg-surface rounded-full flex items-center justify-center text-secondary hover:text-accent shadow-md z-10 transition-colors"><i class="ph-bold ph-heart"></i></button>
+                    </div>
+                    <div class="p-5 flex flex-col flex-1">
+                        <h3 class="font-heading font-bold text-primary text-lg leading-tight mb-1">Kawasaki Ninja 250 FI</h3>
+                        <p class="text-xs text-secondary/60 mb-4">Sport • Hijau Hitam</p>
+                        
+                        <div class="grid grid-cols-2 gap-2 text-xs font-medium text-secondary bg-bgbase p-3 rounded-lg mb-4">
+                            <div class="flex items-center gap-1.5"><i class="ph ph-calendar-blank text-accent"></i> 2020</div>
+                            <div class="flex items-center gap-1.5"><i class="ph ph-gauge text-accent"></i> 12,000 km</div>
+                            <div class="flex items-center gap-1.5"><i class="ph ph-engine text-accent"></i> 250 cc</div>
+                            <div class="flex items-center gap-1.5"><i class="ph ph-arrows-out-line-vertical text-accent"></i> Manual</div>
+                        </div>
+
+                        <div class="mt-auto">
+                            <div class="font-heading font-extrabold text-xl text-primary mb-1">Rp 52.000.000</div>
+                            <div class="flex justify-between items-center mt-3 pt-3 border-t border-bordercol">
+                                <span class="text-xs font-semibold text-secondary flex items-center gap-1 bg-gray-100 px-2 py-1 rounded"><i class="ph-fill ph-money"></i> Cash Only</span>
+                                <button class="text-primary hover:text-accent"><i class="ph-bold ph-scales text-lg"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Car 3: Pajero -->
+                <div class="vehicle-card group reveal delay-300">
+                    <div class="img-wrapper bg-gray-100">
+                        <div class="badge-verified"><i class="ph-fill ph-check-circle text-green-500"></i> Verified</div>
+                        <div class="badge-score"><i class="ph-fill ph-star text-highlight mr-1"></i> 9.7</div>
+                        <img src="https://images.unsplash.com/photo-1503376712341-ea1c64eb3d05?auto=format&fit=crop&q=80&w=600" alt="Mitsubishi Pajero Sport">
+                        <button class="absolute top-3 right-3 w-8 h-8 bg-surface rounded-full flex items-center justify-center text-secondary hover:text-accent shadow-md z-10 transition-colors"><i class="ph-bold ph-heart"></i></button>
+                    </div>
+                    <div class="p-5 flex flex-col flex-1">
+                        <h3 class="font-heading font-bold text-primary text-lg leading-tight mb-1">Mitsubishi Pajero Dakar</h3>
+                        <p class="text-xs text-secondary/60 mb-4">SUV • Abu Metalik</p>
+                        
+                        <div class="grid grid-cols-2 gap-2 text-xs font-medium text-secondary bg-bgbase p-3 rounded-lg mb-4">
+                            <div class="flex items-center gap-1.5"><i class="ph ph-calendar-blank text-accent"></i> 2019</div>
+                            <div class="flex items-center gap-1.5"><i class="ph ph-gauge text-accent"></i> 45,100 km</div>
+                            <div class="flex items-center gap-1.5"><i class="ph ph-gas-pump text-accent"></i> Diesel</div>
+                            <div class="flex items-center gap-1.5"><i class="ph ph-arrows-out-line-vertical text-accent"></i> Automatic</div>
+                        </div>
+
+                        <div class="mt-auto">
+                            <div class="font-heading font-extrabold text-xl text-primary mb-1">Rp 435.000.000</div>
+                            <div class="flex justify-between items-center mt-3 pt-3 border-t border-bordercol">
+                                <span class="text-xs font-semibold text-secondary flex items-center gap-1 bg-green-50 text-green-600 px-2 py-1 rounded"><i class="ph-fill ph-bank"></i> Cicilan Mulai 8Jt/bln</span>
+                                <button class="text-primary hover:text-accent"><i class="ph-bold ph-scales text-lg"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Car 4: Avanza -->
+                <div class="vehicle-card group reveal">
+                    <div class="img-wrapper bg-gray-100">
+                        <div class="badge-verified"><i class="ph-fill ph-check-circle text-green-500"></i> Verified</div>
+                        <div class="badge-score"><i class="ph-fill ph-star text-highlight mr-1"></i> 9.0</div>
+                        <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&q=80&w=600" alt="Toyota Avanza">
+                        <button class="absolute top-3 right-3 w-8 h-8 bg-surface rounded-full flex items-center justify-center text-secondary hover:text-accent shadow-md z-10 transition-colors"><i class="ph-bold ph-heart"></i></button>
+                    </div>
+                    <div class="p-5 flex flex-col flex-1">
+                        <h3 class="font-heading font-bold text-primary text-lg leading-tight mb-1">Toyota Avanza 1.5 G</h3>
+                        <p class="text-xs text-secondary/60 mb-4">MPV • Silver</p>
+                        
+                        <div class="grid grid-cols-2 gap-2 text-xs font-medium text-secondary bg-bgbase p-3 rounded-lg mb-4">
+                            <div class="flex items-center gap-1.5"><i class="ph ph-calendar-blank text-accent"></i> 2023</div>
+                            <div class="flex items-center gap-1.5"><i class="ph ph-gauge text-accent"></i> 8,500 km</div>
+                            <div class="flex items-center gap-1.5"><i class="ph ph-gas-pump text-accent"></i> Bensin</div>
+                            <div class="flex items-center gap-1.5"><i class="ph ph-arrows-out-line-vertical text-accent"></i> Manual</div>
+                        </div>
+
+                        <div class="mt-auto">
+                            <div class="font-heading font-extrabold text-xl text-primary mb-1">Rp 215.000.000</div>
+                            <div class="flex justify-between items-center mt-3 pt-3 border-t border-bordercol">
+                                <span class="text-xs font-semibold text-secondary flex items-center gap-1 bg-green-50 text-green-600 px-2 py-1 rounded"><i class="ph-fill ph-bank"></i> Cicilan Mulai 4Jt/bln</span>
+                                <button class="text-primary hover:text-accent"><i class="ph-bold ph-scales text-lg"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Motorcycle 2: NMAX -->
+                <div class="vehicle-card group reveal delay-100">
+                    <div class="img-wrapper bg-gray-100">
+                        <div class="absolute top-12 left-12 bg-highlight text-white text-[10px] font-bold px-2 py-1 rounded uppercase z-10 shadow-md">Dealer Verified</div>
+                        <div class="badge-score"><i class="ph-fill ph-star text-highlight mr-1"></i> 9.4</div>
+                        <img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&q=80&w=600" alt="Yamaha NMAX">
+                        <button class="absolute top-3 right-3 w-8 h-8 bg-surface rounded-full flex items-center justify-center text-secondary hover:text-accent shadow-md z-10 transition-colors"><i class="ph-bold ph-heart"></i></button>
+                    </div>
+                    <div class="p-5 flex flex-col flex-1">
+                        <h3 class="font-heading font-bold text-primary text-lg leading-tight mb-1">Yamaha NMAX 155 ABS</h3>
+                        <p class="text-xs text-secondary/60 mb-4">Scooter • Matte Black</p>
+                        
+                        <div class="grid grid-cols-2 gap-2 text-xs font-medium text-secondary bg-bgbase p-3 rounded-lg mb-4">
+                            <div class="flex items-center gap-1.5"><i class="ph ph-calendar-blank text-accent"></i> 2021</div>
+                            <div class="flex items-center gap-1.5"><i class="ph ph-gauge text-accent"></i> 15,200 km</div>
+                            <div class="flex items-center gap-1.5"><i class="ph ph-engine text-accent"></i> 155 cc</div>
+                            <div class="flex items-center gap-1.5"><i class="ph ph-arrows-out-line-vertical text-accent"></i> CVT</div>
+                        </div>
+
+                        <div class="mt-auto">
+                            <div class="font-heading font-extrabold text-xl text-primary mb-1">Rp 27.500.000</div>
+                            <div class="flex justify-between items-center mt-3 pt-3 border-t border-bordercol">
+                                <span class="text-xs font-semibold text-secondary flex items-center gap-1 bg-gray-100 px-2 py-1 rounded"><i class="ph-fill ph-money"></i> Cash Only</span>
+                                <button class="text-primary hover:text-accent"><i class="ph-bold ph-scales text-lg"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Motorcycle 3: PCX -->
+                <div class="vehicle-card group reveal delay-200">
+                    <div class="img-wrapper bg-gray-100">
+                        <div class="absolute top-12 left-12 bg-highlight text-white text-[10px] font-bold px-2 py-1 rounded uppercase z-10 shadow-md">Dealer Verified</div>
+                        <div class="badge-score"><i class="ph-fill ph-star text-highlight mr-1"></i> 9.6</div>
+                        <img src="https://images.unsplash.com/photo-1449426468159-d96dbf08f19f?auto=format&fit=crop&q=80&w=600" alt="Honda PCX">
+                        <button class="absolute top-3 right-3 w-8 h-8 bg-surface rounded-full flex items-center justify-center text-secondary hover:text-accent shadow-md z-10 transition-colors"><i class="ph-bold ph-heart"></i></button>
+                    </div>
+                    <div class="p-5 flex flex-col flex-1">
+                        <h3 class="font-heading font-bold text-primary text-lg leading-tight mb-1">Honda PCX 160 CBS</h3>
+                        <p class="text-xs text-secondary/60 mb-4">Scooter • Matte Red</p>
+                        
+                        <div class="grid grid-cols-2 gap-2 text-xs font-medium text-secondary bg-bgbase p-3 rounded-lg mb-4">
+                            <div class="flex items-center gap-1.5"><i class="ph ph-calendar-blank text-accent"></i> 2022</div>
+                            <div class="flex items-center gap-1.5"><i class="ph ph-gauge text-accent"></i> 9,800 km</div>
+                            <div class="flex items-center gap-1.5"><i class="ph ph-engine text-accent"></i> 160 cc</div>
+                            <div class="flex items-center gap-1.5"><i class="ph ph-arrows-out-line-vertical text-accent"></i> CVT</div>
+                        </div>
+
+                        <div class="mt-auto">
+                            <div class="font-heading font-extrabold text-xl text-primary mb-1">Rp 29.800.000</div>
+                            <div class="flex justify-between items-center mt-3 pt-3 border-t border-bordercol">
+                                <span class="text-xs font-semibold text-secondary flex items-center gap-1 bg-gray-100 px-2 py-1 rounded"><i class="ph-fill ph-money"></i> Cash Only</span>
+                                <button class="text-primary hover:text-accent"><i class="ph-bold ph-scales text-lg"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Motorcycle 4: CBR -->
+                <div class="vehicle-card group reveal delay-300">
+                    <div class="img-wrapper bg-gray-100">
+                        <div class="badge-verified"><i class="ph-fill ph-check-circle text-green-500"></i> Verified</div>
+                        <div class="badge-score"><i class="ph-fill ph-star text-highlight mr-1"></i> 9.3</div>
+                        <img src="https://images.unsplash.com/photo-1558981806-ec527fa842a9?auto=format&fit=crop&q=80&w=600" alt="Honda CBR">
+                        <button class="absolute top-3 right-3 w-8 h-8 bg-surface rounded-full flex items-center justify-center text-secondary hover:text-accent shadow-md z-10 transition-colors"><i class="ph-bold ph-heart"></i></button>
+                    </div>
+                    <div class="p-5 flex flex-col flex-1">
+                        <h3 class="font-heading font-bold text-primary text-lg leading-tight mb-1">Honda CBR150R ABS</h3>
+                        <p class="text-xs text-secondary/60 mb-4">Sport • Racing Red</p>
+                        
+                        <div class="grid grid-cols-2 gap-2 text-xs font-medium text-secondary bg-bgbase p-3 rounded-lg mb-4">
+                            <div class="flex items-center gap-1.5"><i class="ph ph-calendar-blank text-accent"></i> 2021</div>
+                            <div class="flex items-center gap-1.5"><i class="ph ph-gauge text-accent"></i> 14,300 km</div>
+                            <div class="flex items-center gap-1.5"><i class="ph ph-engine text-accent"></i> 150 cc</div>
+                            <div class="flex items-center gap-1.5"><i class="ph ph-arrows-out-line-vertical text-accent"></i> Manual</div>
+                        </div>
+
+                        <div class="mt-auto">
+                            <div class="font-heading font-extrabold text-xl text-primary mb-1">Rp 32.500.000</div>
+                            <div class="flex justify-between items-center mt-3 pt-3 border-t border-bordercol">
+                                <span class="text-xs font-semibold text-secondary flex items-center gap-1 bg-green-50 text-green-600 px-2 py-1 rounded"><i class="ph-fill ph-bank"></i> Cicilan Tersedia</span>
+                                <button class="text-primary hover:text-accent"><i class="ph-bold ph-scales text-lg"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="text-center mt-12 reveal">
+                <button class="btn-outline border-secondary text-secondary px-8 py-3 rounded-xl hover:bg-secondary hover:text-surface font-semibold text-sm">Lihat Semua Kendaraan</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Parallax Showcase Section -->
+    <section id="showcase-1" class="relative h-[60vh] md:h-[70vh] flex items-center justify-center parallax-bg">
+        <div class="absolute inset-0 overlay-dark mix-blend-multiply"></div>
+        <div class="container mx-auto px-6 relative z-10 text-center reveal">
+            <h2 class="font-heading text-4xl md:text-5xl lg:text-7xl font-bold text-surface tracking-tight leading-tight max-w-4xl mx-auto">
+                Every Vehicle Has A Story. <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-highlight">Start Yours Today.</span>
+            </h2>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="py-24 bg-surface">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="text-center mb-16 reveal">
+                <span class="text-accent font-semibold text-sm mb-2 block uppercase tracking-wider">Keunggulan Kami</span>
+                <h2 class="font-heading text-3xl md:text-4xl font-bold text-primary mb-4">Mengapa Memilih DriveTrust?</h2>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-y-12 gap-x-8 text-center">
+                <div class="reveal">
+                    <div class="w-16 h-16 bg-red-50 text-accent rounded-2xl flex items-center justify-center text-3xl mx-auto mb-5">
+                        <i class="ph-fill ph-check-square-offset"></i>
+                    </div>
+                    <h4 class="font-heading font-bold text-primary text-lg mb-2">Verified Inspection</h4>
+                    <p class="text-sm text-secondary/70 leading-relaxed max-w-xs mx-auto">Setiap kendaraan melewati 150+ titik inspeksi mekanik ketat oleh ahli bersertifikat.</p>
+                </div>
+                <div class="reveal delay-100">
+                    <div class="w-16 h-16 bg-red-50 text-accent rounded-2xl flex items-center justify-center text-3xl mx-auto mb-5">
+                        <i class="ph-fill ph-receipt"></i>
+                    </div>
+                    <h4 class="font-heading font-bold text-primary text-lg mb-2">Transparent Pricing</h4>
+                    <p class="text-sm text-secondary/70 leading-relaxed max-w-xs mx-auto">Harga pasti tanpa biaya tersembunyi. Apa yang Anda lihat adalah yang Anda bayar.</p>
+                </div>
+                <div class="reveal delay-200">
+                    <div class="w-16 h-16 bg-red-50 text-accent rounded-2xl flex items-center justify-center text-3xl mx-auto mb-5">
+                        <i class="ph-fill ph-lock-key"></i>
+                    </div>
+                    <h4 class="font-heading font-bold text-primary text-lg mb-2">Secure Transactions</h4>
+                    <p class="text-sm text-secondary/70 leading-relaxed max-w-xs mx-auto">Pembayaran dilindungi dengan sistem escrow terenkripsi hingga serah terima selesai.</p>
+                </div>
+                <div class="reveal">
+                    <div class="w-16 h-16 bg-red-50 text-accent rounded-2xl flex items-center justify-center text-3xl mx-auto mb-5">
+                        <i class="ph-fill ph-car-profile"></i>
+                    </div>
+                    <h4 class="font-heading font-bold text-primary text-lg mb-2">Wide Selection</h4>
+                    <p class="text-sm text-secondary/70 leading-relaxed max-w-xs mx-auto">Akses ke ribuan pilihan mobil dan motor berkualitas dari seluruh Indonesia.</p>
+                </div>
+                <div class="reveal delay-100">
+                    <div class="w-16 h-16 bg-red-50 text-accent rounded-2xl flex items-center justify-center text-3xl mx-auto mb-5">
+                        <i class="ph-fill ph-hand-coins"></i>
+                    </div>
+                    <h4 class="font-heading font-bold text-primary text-lg mb-2">Financing Assistance</h4>
+                    <p class="text-sm text-secondary/70 leading-relaxed max-w-xs mx-auto">Opsi kredit mudah dengan berbagai mitra multifinance terpercaya dan bunga kompetitif.</p>
+                </div>
+                <div class="reveal delay-200">
+                    <div class="w-16 h-16 bg-red-50 text-accent rounded-2xl flex items-center justify-center text-3xl mx-auto mb-5">
+                        <i class="ph-fill ph-storefront"></i>
+                    </div>
+                    <h4 class="font-heading font-bold text-primary text-lg mb-2">Trusted Network</h4>
+                    <p class="text-sm text-secondary/70 leading-relaxed max-w-xs mx-auto">Bermitra dengan 500+ dealer resmi dan tersertifikasi di seluruh penjuru negeri.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Inspection Standard Section -->
+    <section id="inspection" class="py-24 bg-primary text-surface relative overflow-hidden">
+        <!-- Abstract Decoration -->
+        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-accent/10 rounded-full blur-[100px]"></div>
+        
+        <div class="container mx-auto px-6 md:px-12 relative z-10 grid lg:grid-cols-2 gap-16 items-center">
+            <div class="reveal">
+                <span class="text-accent font-semibold text-sm mb-2 block uppercase tracking-wider">Quality Assurance</span>
+                <h2 class="font-heading text-3xl md:text-5xl font-bold mb-6">Standar Inspeksi 150+ Titik</h2>
+                <p class="text-surface/70 mb-8 leading-relaxed">
+                    Kami tidak berkompromi soal kualitas. Laporan inspeksi digital kami menjabarkan kondisi setiap kendaraan secara transparan agar Anda dapat membeli dengan percaya diri tanpa kejutan setelah pembelian.
+                </p>
+
+                <!-- Checklist Grid -->
+                <div class="grid grid-cols-2 gap-6">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-accent/20 text-accent flex items-center justify-center"><i class="ph-bold ph-engine"></i></div>
+                        <span class="font-semibold text-sm">Kondisi Mesin</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-accent/20 text-accent flex items-center justify-center"><i class="ph-bold ph-car"></i></div>
+                        <span class="font-semibold text-sm">Eksterior & Body</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-accent/20 text-accent flex items-center justify-center"><i class="ph-bold ph-armchair"></i></div>
+                        <span class="font-semibold text-sm">Interior & Kabin</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-accent/20 text-accent flex items-center justify-center"><i class="ph-bold ph-vinyl-record"></i></div>
+                        <span class="font-semibold text-sm">Suspensi & Rem</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-accent/20 text-accent flex items-center justify-center"><i class="ph-bold ph-lightning"></i></div>
+                        <span class="font-semibold text-sm">Sistem Kelistrikan</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-accent/20 text-accent flex items-center justify-center"><i class="ph-bold ph-file-text"></i></div>
+                        <span class="font-semibold text-sm">Keabsahan Dokumen</span>
+                    </div>
+                </div>
+                
+                <div class="mt-10">
+                    <a href="#" class="text-accent hover:text-surface font-semibold flex items-center gap-2 transition-colors">
+                        Lihat Contoh Laporan Inspeksi <i class="ph-bold ph-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Image/Illustration -->
+            <div class="relative reveal delay-200">
+                <div class="aspect-square md:aspect-[4/3] rounded-2xl overflow-hidden border border-surface/10 shadow-2xl relative">
+                    <img src="https://images.unsplash.com/photo-1486495330419-74e2d42d31da?auto=format&fit=crop&q=80&w=800" alt="Mechanic inspecting engine" class="w-full h-full object-cover">
+                    <!-- Scanning UI Overlay -->
+                    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-accent/20 to-transparent animate-[scan_3s_ease-in-out_infinite] border-b-2 border-accent"></div>
+                    <style>@keyframes scan { 0% { transform: translateY(-100%); } 100% { transform: translateY(100%); } }</style>
+                </div>
+                
+                <!-- Floating Info -->
+                <div class="absolute -bottom-6 -left-6 bg-surface text-primary p-5 rounded-xl shadow-xl flex items-center gap-4 float-anim">
+                    <div class="text-green-500 text-3xl"><i class="ph-fill ph-check-circle"></i></div>
+                    <div>
+                        <div class="font-heading font-bold text-lg leading-none">Bebas Tabrak</div>
+                        <div class="text-xs text-secondary/60 mt-1">Sertifikasi Grade A</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Parallax Experience -->
+    <section id="showcase-2" class="relative h-[60vh] flex items-center justify-center parallax-bg">
+        <div class="absolute inset-0 bg-primary/60 backdrop-blur-[2px]"></div>
+        <div class="container mx-auto px-6 relative z-10 text-center reveal">
+            <h2 class="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-surface tracking-tight leading-tight">
+                Inspected. Verified. <span class="text-accent">Ready To Drive.</span>
+            </h2>
+        </div>
+    </section>
+
+    <!-- How It Works (Timeline) -->
+    <section id="how-it-works" class="py-24 bg-surface">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="text-center mb-16 reveal">
+                <span class="text-accent font-semibold text-sm mb-2 block uppercase tracking-wider">Proses Mudah</span>
+                <h2 class="font-heading text-3xl md:text-4xl font-bold text-primary">Cara Beli Kendaraan</h2>
+            </div>
+
+            <div class="grid md:grid-cols-4 gap-8 relative">
+                <!-- Connecting Line Desktop -->
+                <div class="hidden md:block absolute top-10 left-10 right-10 h-0.5 bg-bordercol -z-10"></div>
+                
+                <!-- Step 1 -->
+                <div class="text-center reveal relative bg-surface">
+                    <div class="w-20 h-20 mx-auto bg-primary text-surface rounded-full flex items-center justify-center text-3xl font-heading font-bold mb-6 shadow-lg border-4 border-surface">
+                        1
+                    </div>
+                    <h4 class="font-heading font-bold text-primary text-lg mb-2">Search Vehicle</h4>
+                    <p class="text-sm text-secondary/70 px-4">Pilih dari ribuan kendaraan terverifikasi yang sesuai dengan budget & gaya Anda.</p>
+                </div>
+                <!-- Step 2 -->
+                <div class="text-center reveal delay-100 relative bg-surface">
+                    <div class="w-20 h-20 mx-auto bg-primary text-surface rounded-full flex items-center justify-center text-3xl font-heading font-bold mb-6 shadow-lg border-4 border-surface">
+                        2
+                    </div>
+                    <h4 class="font-heading font-bold text-primary text-lg mb-2">Schedule View</h4>
+                    <p class="text-sm text-secondary/70 px-4">Jadwalkan test drive atau lihat langsung laporan inspeksi digital lengkap.</p>
+                </div>
+                <!-- Step 3 -->
+                <div class="text-center reveal delay-200 relative bg-surface">
+                    <div class="w-20 h-20 mx-auto bg-primary text-surface rounded-full flex items-center justify-center text-3xl font-heading font-bold mb-6 shadow-lg border-4 border-surface">
+                        3
+                    </div>
+                    <h4 class="font-heading font-bold text-primary text-lg mb-2">Secure Payment</h4>
+                    <p class="text-sm text-secondary/70 px-4">Bayar tunai atau pilih opsi kredit dengan persetujuan cepat. Dana aman di Escrow.</p>
+                </div>
+                <!-- Step 4 -->
+                <div class="text-center reveal delay-300 relative bg-surface">
+                    <div class="w-20 h-20 mx-auto bg-accent text-surface rounded-full flex items-center justify-center text-3xl font-heading font-bold mb-6 shadow-lg border-4 border-surface shadow-accent/40">
+                        4
+                    </div>
+                    <h4 class="font-heading font-bold text-primary text-lg mb-2">Drive Home</h4>
+                    <p class="text-sm text-secondary/70 px-4">Serah terima kendaraan dengan dokumen lengkap. Kendaraan siap mengaspal.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sell Your Vehicle Section (CTA Form) -->
+    <section id="sell" class="py-24 bg-bgbase border-y border-bordercol relative overflow-hidden">
+        <div class="absolute -right-40 -top-40 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[100px] z-0"></div>
+        <div class="container mx-auto px-6 md:px-12 relative z-10 grid lg:grid-cols-2 gap-16 items-center">
+            
+            <!-- CTA Text -->
+            <div class="reveal">
+                <h2 class="font-heading text-4xl md:text-5xl font-bold text-primary mb-6 leading-tight">
+                    Get The Best Value For <span class="text-accent">Your Vehicle</span>
+                </h2>
+                <p class="text-secondary/80 text-lg mb-8 leading-relaxed">
+                    Jual mobil atau motor Anda dengan cepat, aman, dan dapatkan penawaran harga terbaik. Kami urus inspeksi dan dokumen, Anda cukup terima pembayaran.
+                </p>
+                <ul class="space-y-4 mb-10">
+                    <li class="flex items-center gap-3 text-secondary font-medium"><i class="ph-fill ph-check-circle text-green-500 text-xl"></i> Inspeksi gratis di rumah Anda</li>
+                    <li class="flex items-center gap-3 text-secondary font-medium"><i class="ph-fill ph-check-circle text-green-500 text-xl"></i> Penawaran harga transparan dalam 1 jam</li>
+                    <li class="flex items-center gap-3 text-secondary font-medium"><i class="ph-fill ph-check-circle text-green-500 text-xl"></i> Pembayaran instan di hari yang sama</li>
+                </ul>
+            </div>
+
+            <!-- Form Card -->
+            <div class="glass-panel p-8 md:p-10 rounded-2xl shadow-premium reveal delay-200">
+                <h3 class="font-heading text-2xl font-bold text-primary mb-6">Mulai Jual Kendaraan</h3>
+                <form>
+                    <div class="space-y-5">
+                        <div>
+                            <label class="block text-xs font-semibold text-secondary mb-1">Nama Lengkap</label>
+                            <input type="text" class="form-input" placeholder="Masukkan nama" required>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-secondary mb-1">Nomor WhatsApp</label>
+                            <input type="tel" class="form-input" placeholder="0812..." required>
+                        </div>
+                        <div class="grid grid-cols-2 gap-5">
+                            <div>
+                                <label class="block text-xs font-semibold text-secondary mb-1">Tipe Kendaraan</label>
+                                <select class="form-select" required>
+                                    <option value="" disabled selected>Pilih Tipe</option>
+                                    <option>Mobil</option>
+                                    <option>Motor</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-secondary mb-1">Tahun Pembuatan</label>
+                                <input type="number" class="form-input" placeholder="2020" min="2000" max="2026" required>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-secondary mb-1">Harga yang Diinginkan (Rp)</label>
+                            <input type="text" class="form-input" placeholder="Misal: 150000000">
+                        </div>
+                        <button type="button" class="btn-primary w-full py-4 rounded-xl font-bold text-lg mt-2 shadow-lg">
+                            Sell My Vehicle
+                        </button>
+                        <p class="text-xs text-center text-secondary/60 mt-3">*Tim kami akan menghubungi Anda untuk menjadwalkan inspeksi.</p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-24 bg-surface">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="text-center mb-16 reveal">
+                <h2 class="font-heading text-3xl md:text-4xl font-bold text-primary mb-4">Pengalaman Mereka</h2>
+                <p class="text-secondary">Apa kata pelanggan yang telah bertransaksi di DriveTrust.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Testi 1 -->
+                <div class="glass-panel p-8 rounded-2xl reveal border border-bordercol shadow-card">
+                    <div class="flex items-center gap-4 mb-6 pb-6 border-b border-bordercol">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" class="w-14 h-14 rounded-full object-cover">
+                        <div>
+                            <h4 class="font-heading font-bold text-primary text-sm">Andi Setiawan</h4>
+                            <p class="text-xs text-accent font-semibold">Beli: Toyota Fortuner</p>
+                        </div>
+                    </div>
+                    <div class="flex text-highlight mb-4 text-sm">
+                        <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+                    </div>
+                    <p class="text-secondary/80 text-sm leading-relaxed font-medium italic">"Sangat transparan! Laporan inspeksinya luar biasa detail. Saya dari luar kota berani transfer DP karena percaya dengan hasil pengecekannya. Mobil sampai sesuai ekspektasi."</p>
+                </div>
+
+                <!-- Testi 2 -->
+                <div class="glass-panel p-8 rounded-2xl reveal delay-100 border border-bordercol shadow-card">
+                    <div class="flex items-center gap-4 mb-6 pb-6 border-b border-bordercol">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User" class="w-14 h-14 rounded-full object-cover">
+                        <div>
+                            <h4 class="font-heading font-bold text-primary text-sm">Maya Sari</h4>
+                            <p class="text-xs text-accent font-semibold">Beli: Honda HR-V</p>
+                        </div>
+                    </div>
+                    <div class="flex text-highlight mb-4 text-sm">
+                        <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+                    </div>
+                    <p class="text-secondary/80 text-sm leading-relaxed font-medium italic">"Proses kreditnya sangat dibantu. Sales-nya jujur soal kondisi minus kecil di bemper yang sudah dicantumkan di laporan. Gak ada yang ditutup-tutupi."</p>
+                </div>
+
+                <!-- Testi 3 -->
+                <div class="glass-panel p-8 rounded-2xl reveal delay-200 border border-bordercol shadow-card">
+                    <div class="flex items-center gap-4 mb-6 pb-6 border-b border-bordercol">
+                        <img src="https://randomuser.me/api/portraits/men/68.jpg" alt="User" class="w-14 h-14 rounded-full object-cover">
+                        <div>
+                            <h4 class="font-heading font-bold text-primary text-sm">Rizky Ramadhan</h4>
+                            <p class="text-xs text-accent font-semibold">Jual: Yamaha NMAX</p>
+                        </div>
+                    </div>
+                    <div class="flex text-highlight mb-4 text-sm">
+                        <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star-half"></i>
+                    </div>
+                    <p class="text-secondary/80 text-sm leading-relaxed font-medium italic">"Jual motor cepat banget. Pagi diinspeksi ke rumah, siang harga deal, sore uang langsung cair. Valuasi harganya juga masuk akal dibanding jual ke dealer pinggir jalan."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-24 bg-primary text-surface">
+        <div class="container mx-auto px-6 md:px-12 max-w-3xl">
+            <div class="text-center mb-16 reveal">
+                <h2 class="font-heading text-3xl md:text-4xl font-bold mb-4">Pertanyaan Umum</h2>
+                <p class="text-surface/70">Yang sering ditanyakan pelanggan kepada kami.</p>
+            </div>
+
+            <div class="space-y-4">
+                <!-- FAQ 1 -->
+                <div class="faq-item bg-surface/5 border border-surface/10 rounded-2xl p-6 cursor-pointer reveal">
+                    <div class="flex justify-between items-center">
+                        <h4 class="font-heading font-semibold text-sm md:text-base">Apakah kendaraan sudah diperiksa sebelum dijual?</h4>
+                        <i class="ph-bold ph-caret-down text-accent faq-icon"></i>
+                    </div>
+                    <div class="faq-content">
+                        <p class="pt-4 text-sm text-surface/70 leading-relaxed">Pasti. Semua kendaraan dengan badge "Verified" di platform kami telah melewati 150 titik inspeksi ketat oleh mekanik independen tersertifikasi, memastikan bebas tabrakan besar dan banjir.</p>
+                    </div>
+                </div>
+                <!-- FAQ 2 -->
+                <div class="faq-item bg-surface/5 border border-surface/10 rounded-2xl p-6 cursor-pointer reveal delay-100">
+                    <div class="flex justify-between items-center">
+                        <h4 class="font-heading font-semibold text-sm md:text-base">Apakah bisa melakukan pembayaran kredit?</h4>
+                        <i class="ph-bold ph-caret-down text-accent faq-icon"></i>
+                    </div>
+                    <div class="faq-content">
+                        <p class="pt-4 text-sm text-surface/70 leading-relaxed">Bisa. Kami bekerjasama dengan berbagai perusahaan pembiayaan (leasing) terkemuka dengan bunga kompetitif dan proses approval yang dibantu penuh oleh tim kami.</p>
+                    </div>
+                </div>
+                <!-- FAQ 3 -->
+                <div class="faq-item bg-surface/5 border border-surface/10 rounded-2xl p-6 cursor-pointer reveal delay-200">
+                    <div class="flex justify-between items-center">
+                        <h4 class="font-heading font-semibold text-sm md:text-base">Bagaimana proses pembayaran jika beli tunai (Cash)?</h4>
+                        <i class="ph-bold ph-caret-down text-accent faq-icon"></i>
+                    </div>
+                    <div class="faq-content">
+                        <p class="pt-4 text-sm text-surface/70 leading-relaxed">Untuk pembelian tunai, pembayaran dilakukan ke rekening Escrow (rekening bersama) DriveTrust. Dana baru akan diteruskan ke penjual setelah unit dan dokumen sah diserahterimakan kepada Anda.</p>
+                    </div>
+                </div>
+                <!-- FAQ 4 -->
+                <div class="faq-item bg-surface/5 border border-surface/10 rounded-2xl p-6 cursor-pointer reveal">
+                    <div class="flex justify-between items-center">
+                        <h4 class="font-heading font-semibold text-sm md:text-base">Apakah DriveTrust menerima Tukar Tambah (Trade-in)?</h4>
+                        <i class="ph-bold ph-caret-down text-accent faq-icon"></i>
+                    </div>
+                    <div class="faq-content">
+                        <p class="pt-4 text-sm text-surface/70 leading-relaxed">Sangat bisa! Prosesnya mudah: kami inspeksi mobil/motor lama Anda, kami beri valuasi, lalu nilai tersebut digunakan sebagai potongan (DP/cash) untuk kendaraan baru yang Anda pilih.</p>
+                    </div>
+                </div>
+                <!-- FAQ 5 -->
+                <div class="faq-item bg-surface/5 border border-surface/10 rounded-2xl p-6 cursor-pointer reveal delay-100">
+                    <div class="flex justify-between items-center">
+                        <h4 class="font-heading font-semibold text-sm md:text-base">Apakah tersedia garansi mesin?</h4>
+                        <i class="ph-bold ph-caret-down text-accent faq-icon"></i>
+                    </div>
+                    <div class="faq-content">
+                        <p class="pt-4 text-sm text-surface/70 leading-relaxed">Ya, setiap kendaraan yang lolos inspeksi kami mendapatkan garansi dasar 1 tahun (12 bulan) untuk komponen mesin dan transmisi utama tanpa biaya tambahan.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-primary pt-16 pb-8 border-t border-surface/20 text-surface/80">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <!-- Brand Info -->
+                <div class="lg:col-span-1">
+                    <a href="#" class="flex items-center gap-2 mb-6 text-surface">
+                        <i class="ph-fill ph-steering-wheel text-2xl text-accent"></i>
+                        <span class="font-heading font-extrabold text-xl tracking-tight">DriveTrust<span class="text-accent">.</span></span>
+                    </a>
+                    <p class="text-sm leading-relaxed mb-6 font-medium">
+                        Platform marketplace otomotif modern untuk pengalaman jual beli kendaraan yang jujur, aman, dan tanpa hambatan.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-surface/10 flex items-center justify-center hover:bg-accent hover:text-surface transition-colors"><i class="ph-fill ph-facebook-logo text-xl"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-surface/10 flex items-center justify-center hover:bg-accent hover:text-surface transition-colors"><i class="ph-fill ph-instagram-logo text-xl"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-surface/10 flex items-center justify-center hover:bg-accent hover:text-surface transition-colors"><i class="ph-fill ph-youtube-logo text-xl"></i></a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="font-heading font-bold text-surface mb-6 uppercase tracking-wider text-sm">Perusahaan</h4>
+                    <ul class="space-y-4 text-sm font-medium">
+                        <li><a href="#" class="hover:text-accent transition-colors">Tentang Kami</a></li>
+                        <li><a href="#" class="hover:text-accent transition-colors">Standar Inspeksi</a></li>
+                        <li><a href="#" class="hover:text-accent transition-colors">Karir</a></li>
+                        <li><a href="#" class="hover:text-accent transition-colors">Syarat & Ketentuan</a></li>
+                        <li><a href="#" class="hover:text-accent transition-colors">Kebijakan Privasi</a></li>
+                    </ul>
+                </div>
+
+                <!-- Categories -->
+                <div>
+                    <h4 class="font-heading font-bold text-surface mb-6 uppercase tracking-wider text-sm">Kendaraan</h4>
+                    <ul class="space-y-4 text-sm font-medium">
+                        <li><a href="#" class="hover:text-accent transition-colors">Mobil SUV Bekas</a></li>
+                        <li><a href="#" class="hover:text-accent transition-colors">Mobil MPV Keluarga</a></li>
+                        <li><a href="#" class="hover:text-accent transition-colors">Mobil City Car & Sedan</a></li>
+                        <li><a href="#" class="hover:text-accent transition-colors">Motor Matic Premium</a></li>
+                        <li><a href="#" class="hover:text-accent transition-colors">Motor Sport Bekas</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div>
+                    <h4 class="font-heading font-bold text-surface mb-6 uppercase tracking-wider text-sm">Hubungi Kami</h4>
+                    <ul class="space-y-4 text-sm font-medium">
+                        <li class="flex items-start gap-3">
+                            <i class="ph-fill ph-map-pin text-xl text-accent shrink-0"></i>
+                            <span>DriveTrust Auto Plaza,<br>Jl. Otomotif Raya No. 88, Jakarta 12340</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="ph-fill ph-phone text-xl text-accent shrink-0"></i>
+                            <span>+62 800 1234 5678 (Toll Free)</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="ph-fill ph-envelope-simple text-xl text-accent shrink-0"></i>
+                            <span>support@drivetrust.id</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-surface/20 pt-8 flex flex-col md:flex-row justify-between items-center text-xs font-semibold">
+                <p class="mb-2 md:mb-0">&copy; 2026 DriveTrust Motors. All rights reserved.</p>
+                <div class="flex items-center gap-4 text-2xl text-surface/50">
+                    <i class="ph-fill ph-shield-check" title="Secure Platform"></i>
+                    <i class="ph-fill ph-credit-card" title="Verified Payments"></i>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="btt" class="fixed bottom-6 right-6 w-12 h-12 bg-accent text-surface rounded-full shadow-lg flex items-center justify-center opacity-0 translate-y-10 transition-all duration-300 z-40 hover:bg-highlight focus:outline-none border-2 border-surface/20">
+        <i class="ph-bold ph-arrow-up text-xl"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // 1. Loader Removal
+            setTimeout(() => {
+                const loader = document.getElementById('loader');
+                loader.style.opacity = '0';
+                setTimeout(() => { loader.style.visibility = 'hidden'; }, 600);
+            }, 800);
+
+            // 2. Sticky Navbar & Back to Top Logic
+            const navbar = document.getElementById('navbar');
+            const btt = document.getElementById('btt');
+            
+            window.addEventListener('scroll', () => {
+                // Navbar Glassmorphism vs Transparent
+                if (window.scrollY > 50) {
+                    navbar.classList.add('nav-glass', 'text-primary');
+                    navbar.classList.remove('nav-transparent', 'text-surface');
+                    
+                    // Update icon color to match dark text
+                    navbar.querySelectorAll('.ph-heart, .ph-list').forEach(icon => {
+                        icon.classList.remove('text-surface');
+                    });
+                } else {
+                    navbar.classList.remove('nav-glass', 'text-primary');
+                    navbar.classList.add('nav-transparent', 'text-surface');
+                    
+                    // Revert icon color
+                    navbar.querySelectorAll('.ph-heart, .ph-list').forEach(icon => {
+                        icon.classList.add('text-surface');
+                    });
+                }
+
+                // Back to Top Button
+                if (window.scrollY > 500) {
+                    btt.classList.remove('opacity-0', 'translate-y-10');
+                    btt.classList.add('opacity-100', 'translate-y-0');
+                } else {
+                    btt.classList.add('opacity-0', 'translate-y-10');
+                    btt.classList.remove('opacity-100', 'translate-y-0');
+                }
+            });
+
+            btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+            // 3. Mobile Menu Toggle
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            const closeBtn = document.getElementById('close-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileOverlay = document.getElementById('mobile-overlay');
+            const mobileLinks = document.querySelectorAll('.mobile-link');
+
+            function openMenu() {
+                mobileMenu.classList.remove('translate-x-full');
+                mobileOverlay.classList.remove('hidden');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling
+            }
+
+            function closeMenu() {
+                mobileMenu.classList.add('translate-x-full');
+                mobileOverlay.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+
+            menuBtn.addEventListener('click', openMenu);
+            closeBtn.addEventListener('click', closeMenu);
+            mobileOverlay.addEventListener('click', closeMenu);
+            mobileLinks.forEach(link => link.addEventListener('click', closeMenu));
+
+            // 4. Scroll Reveal (Intersection Observer)
+            const revealElements = document.querySelectorAll('.reveal');
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+            
+            revealElements.forEach(el => revealObserver.observe(el));
+
+            // 5. Hero Mouse Parallax Effect (Floating Elements)
+            const mouseParallaxElements = document.querySelectorAll('.mouse-p');
+            const heroSection = document.getElementById('hero');
+
+            if(window.innerWidth > 1024) { 
+                heroSection.addEventListener('mousemove', (e) => {
+                    const x = (window.innerWidth - e.pageX * 2) / 100;
+                    const y = (window.innerHeight - e.pageY * 2) / 100;
+
+                    mouseParallaxElements.forEach(el => {
+                        const speed = el.getAttribute('data-speed');
+                        el.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
+                    });
+                });
+                heroSection.addEventListener('mouseleave', () => {
+                    mouseParallaxElements.forEach(el => {
+                        el.style.transform = `translate(0px, 0px)`;
+                    });
+                });
+            }
+
+            // 6. FAQ Accordion Logic
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const content = item.querySelector('.faq-content');
+                    const isActive = item.classList.contains('active');
+
+                    // Close all
+                    faqItems.forEach(otherItem => {
+                        otherItem.classList.remove('active');
+                        otherItem.querySelector('.faq-content').style.maxHeight = null;
+                        otherItem.style.borderColor = ''; // reset border
+                    });
+
+                    // Open current
+                    if (!isActive) {
+                        item.classList.add('active');
+                        content.style.maxHeight = content.scrollHeight + "px";
+                        item.style.borderColor = '#DC2626'; // Highlight border red
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

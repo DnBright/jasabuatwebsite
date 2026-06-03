@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grand Aruna Residence | Luxury Real Estate</title>
+    <meta name="description" content="Where Modern Living Meets Timeless Comfort. Experience modern living in a thoughtfully designed residential community.">
+
+    <!-- Fonts: Playfair Display (Heading) & Inter (Body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0F172A',   /* Slate 900 */
+                        secondary: '#1E293B', /* Slate 800 */
+                        accent: '#C8A96B',    /* Premium Gold */
+                        highlight: '#E5C890', /* Light Gold */
+                        bgbase: '#F8FAFC',    /* Slate 50 */
+                        surface: '#FFFFFF',
+                        textdark: '#1F2937',  /* Gray 800 */
+                        bordercol: '#E2E8F0', /* Slate 200 */
+                    },
+                    fontFamily: {
+                        heading: ['"Playfair Display"', 'serif'],
+                        body: ['Inter', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'luxury': '0 20px 40px -10px rgba(15, 23, 42, 0.1)',
+                        'card': '0 4px 20px -2px rgba(15, 23, 42, 0.05)',
+                        'glass': '0 8px 32px 0 rgba(15, 23, 42, 0.1)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base & Resets */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: theme('colors.bgbase');
+            color: theme('colors.textdark');
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4, h5, h6, .font-heading {
+            font-family: 'Playfair Display', serif;
+        }
+
+        ::selection {
+            background-color: theme('colors.accent');
+            color: theme('colors.surface');
+        }
+
+        /* Loading Screen */
+        #loader {
+            position: fixed;
+            inset: 0;
+            background-color: theme('colors.primary');
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+        .loader-line {
+            width: 2px;
+            height: 40px;
+            background-color: theme('colors.accent');
+            animation: pulse-height 1s ease-in-out infinite alternate;
+        }
+        @keyframes pulse-height {
+            0% { height: 10px; opacity: 0.5; }
+            100% { height: 50px; opacity: 1; }
+        }
+
+        /* Navbar & Glassmorphism */
+        .nav-glass {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid theme('colors.bordercol');
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.5s ease;
+        }
+        .nav-transparent {
+            background: transparent;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: theme('boxShadow.glass');
+        }
+
+        /* Parallax Backgrounds */
+        .parallax-bg {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        #hero { background-image: url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=2000'); }
+        #parallax-lifestyle { background-image: url('https://images.unsplash.com/photo-1576675784201-0e142b423952?auto=format&fit=crop&q=80&w=2000'); }
+        #parallax-investment { background-image: url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=2000'); }
+        #parallax-cta { background-image: url('https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=2000'); }
+
+        .overlay-dark { background: linear-gradient(to bottom, rgba(15, 23, 42, 0.4), rgba(15, 23, 42, 0.85)); }
+        .overlay-warm { background: linear-gradient(to right, rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.4)); }
+
+        /* Scroll Reveal Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .delay-100 { transition-delay: 0.1s; }
+        .delay-200 { transition-delay: 0.2s; }
+        .delay-300 { transition-delay: 0.3s; }
+
+        /* Floating Info Cards (Hero) */
+        .float-anim {
+            animation: float 8s ease-in-out infinite;
+        }
+        .float-anim-delay-1 {
+            animation: float 9s ease-in-out infinite;
+            animation-delay: -2s;
+        }
+        .float-anim-delay-2 {
+            animation: float 7s ease-in-out infinite;
+            animation-delay: -4s;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Buttons */
+        .btn-gold {
+            background-color: theme('colors.accent');
+            color: theme('colors.surface');
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid theme('colors.accent');
+        }
+        .btn-gold:hover {
+            background-color: transparent;
+            color: theme('colors.accent');
+        }
+        .btn-outline-white {
+            background-color: transparent;
+            border: 1px solid theme('colors.surface');
+            color: theme('colors.surface');
+            transition: all 0.4s ease;
+        }
+        .btn-outline-white:hover {
+            background-color: theme('colors.surface');
+            color: theme('colors.primary');
+        }
+
+        /* Cards */
+        .luxury-card {
+            background: theme('colors.surface');
+            border: 1px solid theme('colors.bordercol');
+            transition: all 0.5s ease;
+        }
+        .luxury-card:hover {
+            transform: translateY(-8px);
+            box-shadow: theme('boxShadow.luxury');
+            border-color: theme('colors.accent');
+        }
+        
+        .img-wrapper { overflow: hidden; }
+        .img-wrapper img { transition: transform 0.8s ease; }
+        .luxury-card:hover .img-wrapper img { transform: scale(1.05); }
+
+        /* Masterplan UI Concept */
+        .mp-pulse {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: theme('colors.accent');
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 0 0 rgba(200, 169, 107, 0.7);
+            animation: pulse-ring 2s infinite;
+        }
+        @keyframes pulse-ring {
+            0% { box-shadow: 0 0 0 0 rgba(200, 169, 107, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(200, 169, 107, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(200, 169, 107, 0); }
+        }
+        .mp-tooltip {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background: theme('colors.primary');
+            color: theme('colors.surface');
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+        .mp-pulse:hover .mp-tooltip {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Custom Forms */
+        .form-input {
+            width: 100%;
+            background: theme('colors.bgbase');
+            border: 1px solid theme('colors.bordercol');
+            border-radius: 4px;
+            padding: 14px 16px;
+            color: theme('colors.textdark');
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: theme('colors.accent');
+            box-shadow: 0 0 0 1px theme('colors.accent');
+        }
+
+        /* FAQ Accordion */
+        .faq-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+        }
+        .faq-icon { transition: transform 0.4s ease; }
+        .faq-item.active .faq-icon { transform: rotate(180deg); color: theme('colors.accent'); }
+    </style>
+</head>
+<body class="relative">
+
+    <!-- Loading Screen -->
+    <div id="loader">
+        <div class="loader-line mb-6"></div>
+        <div class="font-heading font-medium text-2xl text-surface tracking-wider uppercase">Grand Aruna</div>
+        <div class="text-accent text-[10px] mt-2 tracking-[0.3em] uppercase font-medium">Residence</div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full top-0 z-50 py-5 transition-all duration-500 nav-transparent text-surface">
+        <div class="container mx-auto px-6 md:px-12 flex justify-between items-center">
+            
+            <!-- Logo -->
+            <a href="#" class="flex flex-col group">
+                <span class="font-heading font-semibold text-xl md:text-2xl tracking-wide uppercase leading-none">Grand Aruna</span>
+                <span class="text-[9px] text-accent tracking-[0.25em] uppercase font-medium mt-1 transition-colors">Residence</span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden lg:flex items-center gap-8 font-medium text-sm tracking-wide">
+                <a href="#about" class="hover:text-accent transition-colors">The Story</a>
+                <a href="#facilities" class="hover:text-accent transition-colors">Lifestyle</a>
+                <a href="#houses" class="hover:text-accent transition-colors">Residences</a>
+                <a href="#location" class="hover:text-accent transition-colors">Location</a>
+                <a href="#contact" class="hover:text-accent transition-colors">Contact</a>
+            </div>
+
+            <!-- Header Actions -->
+            <div class="hidden lg:flex items-center gap-4">
+                <a href="#contact" class="btn-gold px-6 py-2.5 rounded-sm font-semibold text-xs tracking-widest uppercase">Schedule Visit</a>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button id="mobile-menu-btn" class="lg:hidden text-2xl focus:outline-none">
+                <i class="ph ph-list"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="fixed inset-y-0 right-0 w-80 bg-surface shadow-2xl transform translate-x-full transition-transform duration-500 z-50 flex flex-col text-primary">
+            <div class="p-6 border-b border-bordercol flex justify-between items-center">
+                <div class="flex flex-col">
+                    <span class="font-heading font-semibold text-xl tracking-wide uppercase leading-none">Grand Aruna</span>
+                </div>
+                <button id="close-menu-btn" class="text-2xl text-secondary"><i class="ph ph-x"></i></button>
+            </div>
+            <div class="flex flex-col p-8 gap-8 font-heading text-lg flex-1">
+                <a href="#about" class="mobile-link hover:text-accent transition-colors">The Story</a>
+                <a href="#facilities" class="mobile-link hover:text-accent transition-colors">Lifestyle & Facilities</a>
+                <a href="#houses" class="mobile-link hover:text-accent transition-colors">Residences</a>
+                <a href="#location" class="mobile-link hover:text-accent transition-colors">Location & Access</a>
+                <a href="#faq" class="mobile-link hover:text-accent transition-colors">FAQ</a>
+                <div class="border-t border-bordercol pt-8 mt-4">
+                    <a href="#contact" class="btn-gold flex justify-center py-4 rounded-sm font-semibold text-xs tracking-widest uppercase">Schedule Visit</a>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-overlay" class="fixed inset-0 bg-primary/80 backdrop-blur-sm hidden z-40"></div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative min-h-screen flex items-center parallax-bg overflow-hidden pt-20">
+        <!-- Background Overlay -->
+        <div class="absolute inset-0 overlay-warm z-0"></div>
+
+        <div class="container mx-auto px-6 md:px-12 relative z-10 grid lg:grid-cols-12 gap-8 items-center h-full">
+            
+            <!-- Text Content -->
+            <div class="lg:col-span-8 text-surface mt-10 lg:mt-0">
+                <div class="reveal">
+                    <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-sm bg-accent/20 border border-accent/40 text-[10px] font-semibold uppercase tracking-widest mb-8 text-accent backdrop-blur-sm">
+                        <i class="ph-fill ph-star"></i> Limited Units Available
+                    </span>
+                </div>
+                <h1 class="font-heading text-5xl md:text-6xl lg:text-[5.5rem] font-medium leading-[1.1] mb-6 reveal delay-100">
+                    Discover A Better <br><span class="italic font-light text-highlight">Way To Live.</span>
+                </h1>
+                <p class="text-base md:text-lg text-surface/80 max-w-xl mb-10 leading-relaxed reveal delay-200 font-light">
+                    Experience modern living in a thoughtfully designed residential community built for comfort, security, and exceptional long-term value.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 reveal delay-300">
+                    <a href="#houses" class="btn-gold px-8 py-4 rounded-sm font-semibold text-xs tracking-widest uppercase flex items-center justify-center gap-2">
+                        View House Types
+                    </a>
+                    <a href="#contact" class="btn-outline-white px-8 py-4 rounded-sm font-semibold text-xs tracking-widest uppercase flex items-center justify-center gap-2 backdrop-blur-sm">
+                        Schedule Site Visit
+                    </a>
+                </div>
+            </div>
+
+            <!-- Floating Info Cards (Parallax & Anim) -->
+            <div class="hidden lg:block lg:col-span-4 relative h-full w-full" id="hero-parallax">
+                <!-- Card 1 -->
+                <div class="absolute top-1/4 right-0 glass-panel p-5 rounded-lg shadow-luxury flex items-center gap-4 float-anim mouse-p w-64 border-accent/20" data-speed="1.2">
+                    <div class="w-10 h-10 bg-accent text-primary rounded-full flex items-center justify-center text-xl shrink-0">
+                        <i class="ph-fill ph-map-pin"></i>
+                    </div>
+                    <div class="text-primary">
+                        <p class="font-heading font-bold text-sm">Strategic Location</p>
+                        <p class="text-[10px] text-secondary/70 uppercase tracking-wide">5 Min to Toll Road</p>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="absolute bottom-1/3 -left-10 glass-panel p-5 rounded-lg shadow-luxury flex items-center gap-4 float-anim-delay-1 mouse-p w-64 border-accent/20 z-10" data-speed="-0.8">
+                    <div class="w-10 h-10 bg-accent text-primary rounded-full flex items-center justify-center text-xl shrink-0">
+                        <i class="ph-fill ph-shield-check"></i>
+                    </div>
+                    <div class="text-primary">
+                        <p class="font-heading font-bold text-sm">24-Hour Security</p>
+                        <p class="text-[10px] text-secondary/70 uppercase tracking-wide">One Gate System</p>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="absolute bottom-20 right-10 glass-panel p-5 rounded-lg shadow-luxury flex items-center gap-4 float-anim-delay-2 mouse-p w-64 border-accent/20" data-speed="1.5">
+                    <div class="w-10 h-10 bg-accent text-primary rounded-full flex items-center justify-center text-xl shrink-0">
+                        <i class="ph-fill ph-swimming-pool"></i>
+                    </div>
+                    <div class="text-primary">
+                        <p class="font-heading font-bold text-sm">Premium Facilities</p>
+                        <p class="text-[10px] text-secondary/70 uppercase tracking-wide">Exclusive Club House</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Residence -->
+    <section id="about" class="py-24 lg:py-32 bg-surface relative">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+                <!-- Left: Image -->
+                <div class="relative reveal">
+                    <div class="relative rounded-t-full overflow-hidden shadow-luxury aspect-[3/4] border border-bordercol p-2">
+                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=1000" alt="Premium Estate" class="w-full h-full object-cover rounded-t-full">
+                    </div>
+                    <!-- Decorative element -->
+                    <div class="absolute -bottom-6 -right-6 w-48 h-48 bg-bgbase rounded-full -z-10 border border-accent/20"></div>
+                </div>
+
+                <!-- Right: Content -->
+                <div class="reveal delay-100">
+                    <span class="text-accent font-semibold text-[10px] mb-4 block uppercase tracking-[0.2em]">The Vision</span>
+                    <h2 class="font-heading text-4xl md:text-5xl font-bold text-primary mb-6 leading-tight">
+                        A Sanctuary Designed <br><span class="italic font-light">For Your Family.</span>
+                    </h2>
+                    <div class="w-12 h-[2px] bg-accent mb-8"></div>
+                    
+                    <p class="text-secondary/80 leading-relaxed mb-6 font-light text-sm md:text-base">
+                        Grand Aruna Residence adalah mahakarya properti yang memadukan arsitektur kontemporer dengan lanskap alam yang asri. Dirancang khusus bagi Anda yang menghargai privasi, kenyamanan, dan kualitas hidup yang tak tertandingi.
+                    </p>
+                    <p class="text-secondary/80 leading-relaxed mb-12 font-light text-sm md:text-base">
+                        Lebih dari sekadar tempat tinggal, kawasan ini adalah investasi masa depan yang menjanjikan, berada di jantung kawasan berkembang dengan infrastruktur yang matang.
+                    </p>
+
+                    <!-- Stats Grid -->
+                    <div class="grid grid-cols-2 gap-y-10 gap-x-6 border-t border-bordercol pt-10">
+                        <div>
+                            <h3 class="font-heading text-4xl font-medium text-primary mb-1 counter" data-target="15">0</h3>
+                            <p class="text-[10px] text-secondary/60 font-semibold uppercase tracking-widest">Hectares Development</p>
+                        </div>
+                        <div>
+                            <h3 class="font-heading text-4xl font-medium text-primary mb-1"><span class="counter" data-target="500">0</span>+</h3>
+                            <p class="text-[10px] text-secondary/60 font-semibold uppercase tracking-widest">Exclusive Units</p>
+                        </div>
+                        <div>
+                            <h3 class="font-heading text-4xl font-medium text-primary mb-1"><span class="counter" data-target="80">0</span>%</h3>
+                            <p class="text-[10px] text-secondary/60 font-semibold uppercase tracking-widest">Successfully Sold</p>
+                        </div>
+                        <div>
+                            <h3 class="font-heading text-4xl font-medium text-primary mb-1">24/7</h3>
+                            <p class="text-[10px] text-secondary/60 font-semibold uppercase tracking-widest">Premium Security</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Parallax Lifestyle Section -->
+    <section id="parallax-lifestyle" class="relative h-[80vh] flex items-center justify-center parallax-bg">
+        <div class="absolute inset-0 bg-primary/40"></div>
+        <div class="container mx-auto px-6 relative z-10 text-center reveal">
+            <h2 class="font-heading text-4xl md:text-6xl lg:text-7xl font-bold text-surface tracking-wide leading-tight drop-shadow-lg">
+                More Than A Home. <br>
+                <span class="italic font-light text-highlight">A Lifestyle.</span>
+            </h2>
+        </div>
+    </section>
+
+    <!-- Facilities Section -->
+    <section id="facilities" class="py-24 lg:py-32 bg-bgbase">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="text-center max-w-2xl mx-auto mb-20 reveal">
+                <span class="text-accent font-semibold text-[10px] mb-4 block uppercase tracking-[0.2em]">Amenities</span>
+                <h2 class="font-heading text-3xl md:text-5xl font-bold text-primary mb-4">Five-Star Facilities</h2>
+                <p class="text-secondary/70 font-light">Nikmati beragam fasilitas eksklusif yang dirancang untuk mendukung gaya hidup sehat, aktif, dan harmonis bagi seluruh keluarga.</p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+                <!-- Facility 1 -->
+                <div class="luxury-card p-6 md:p-8 rounded-lg text-center reveal">
+                    <div class="w-12 h-12 mx-auto bg-accent/10 text-accent rounded-full flex items-center justify-center text-2xl mb-4">
+                        <i class="ph-light ph-buildings"></i>
+                    </div>
+                    <h3 class="font-heading font-semibold text-primary text-sm md:text-base">Exclusive<br>Club House</h3>
+                </div>
+                <!-- Facility 2 -->
+                <div class="luxury-card p-6 md:p-8 rounded-lg text-center reveal delay-100">
+                    <div class="w-12 h-12 mx-auto bg-accent/10 text-accent rounded-full flex items-center justify-center text-2xl mb-4">
+                        <i class="ph-light ph-swimming-pool"></i>
+                    </div>
+                    <h3 class="font-heading font-semibold text-primary text-sm md:text-base">Olympic<br>Swimming Pool</h3>
+                </div>
+                <!-- Facility 3 -->
+                <div class="luxury-card p-6 md:p-8 rounded-lg text-center reveal delay-200">
+                    <div class="w-12 h-12 mx-auto bg-accent/10 text-accent rounded-full flex items-center justify-center text-2xl mb-4">
+                        <i class="ph-light ph-barbell"></i>
+                    </div>
+                    <h3 class="font-heading font-semibold text-primary text-sm md:text-base">Modern<br>Fitness Center</h3>
+                </div>
+                <!-- Facility 4 -->
+                <div class="luxury-card p-6 md:p-8 rounded-lg text-center reveal delay-300">
+                    <div class="w-12 h-12 mx-auto bg-accent/10 text-accent rounded-full flex items-center justify-center text-2xl mb-4">
+                        <i class="ph-light ph-baseball"></i>
+                    </div>
+                    <h3 class="font-heading font-semibold text-primary text-sm md:text-base">Children's<br>Playground</h3>
+                </div>
+                <!-- Facility 5 -->
+                <div class="luxury-card p-6 md:p-8 rounded-lg text-center reveal">
+                    <div class="w-12 h-12 mx-auto bg-accent/10 text-accent rounded-full flex items-center justify-center text-2xl mb-4">
+                        <i class="ph-light ph-sneaker"></i>
+                    </div>
+                    <h3 class="font-heading font-semibold text-primary text-sm md:text-base">Dedicated<br>Jogging Track</h3>
+                </div>
+                <!-- Facility 6 -->
+                <div class="luxury-card p-6 md:p-8 rounded-lg text-center reveal delay-100">
+                    <div class="w-12 h-12 mx-auto bg-accent/10 text-accent rounded-full flex items-center justify-center text-2xl mb-4">
+                        <i class="ph-light ph-tree"></i>
+                    </div>
+                    <h3 class="font-heading font-semibold text-primary text-sm md:text-base">Lush<br>Green Park</h3>
+                </div>
+                <!-- Facility 7 -->
+                <div class="luxury-card p-6 md:p-8 rounded-lg text-center reveal delay-200">
+                    <div class="w-12 h-12 mx-auto bg-accent/10 text-accent rounded-full flex items-center justify-center text-2xl mb-4">
+                        <i class="ph-light ph-video-camera"></i>
+                    </div>
+                    <h3 class="font-heading font-semibold text-primary text-sm md:text-base">24/7 CCTV<br>Surveillance</h3>
+                </div>
+                <!-- Facility 8 -->
+                <div class="luxury-card p-6 md:p-8 rounded-lg text-center reveal delay-300">
+                    <div class="w-12 h-12 mx-auto bg-accent/10 text-accent rounded-full flex items-center justify-center text-2xl mb-4">
+                        <i class="ph-light ph-boombox"></i> <!-- Gate/Barrier approximation -->
+                    </div>
+                    <h3 class="font-heading font-semibold text-primary text-sm md:text-base">One Gate<br>System</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- House Types -->
+    <section id="houses" class="py-24 lg:py-32 bg-surface border-t border-bordercol">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 reveal">
+                <div>
+                    <span class="text-accent font-semibold text-[10px] mb-4 block uppercase tracking-[0.2em]">The Collections</span>
+                    <h2 class="font-heading text-3xl md:text-5xl font-bold text-primary">Masterpiece Residences</h2>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                
+                <!-- Type 45 -->
+                <div class="luxury-card rounded-lg overflow-hidden flex flex-col group reveal">
+                    <div class="img-wrapper aspect-[4/3] relative">
+                        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=800" alt="Type 45" class="w-full h-full object-cover">
+                        <div class="absolute top-4 left-4 bg-primary/80 backdrop-blur text-surface text-[10px] font-semibold px-3 py-1.5 uppercase tracking-widest rounded-sm">Type 45 / 72</div>
+                    </div>
+                    <div class="p-8 flex flex-col flex-1">
+                        <h3 class="font-heading text-2xl font-bold text-primary mb-2">The Amethyst</h3>
+                        <p class="text-secondary/70 text-sm font-light mb-6">Desain compact modern yang sempurna untuk keluarga muda dinamis.</p>
+                        
+                        <div class="grid grid-cols-2 gap-y-4 gap-x-2 text-xs font-medium text-secondary mb-8">
+                            <div class="flex items-center gap-2"><i class="ph-light ph-bed text-accent text-lg"></i> 2 Bedrooms</div>
+                            <div class="flex items-center gap-2"><i class="ph-light ph-shower text-accent text-lg"></i> 1 Bathroom</div>
+                            <div class="flex items-center gap-2"><i class="ph-light ph-car text-accent text-lg"></i> 1 Carport</div>
+                            <div class="flex items-center gap-2"><i class="ph-light ph-house-line text-accent text-lg"></i> LB: 45m² / LT: 72m²</div>
+                        </div>
+                        
+                        <div class="mt-auto border-t border-bordercol pt-6 flex justify-between items-center">
+                            <div>
+                                <div class="text-[10px] text-secondary/50 uppercase tracking-widest">Mulai Dari</div>
+                                <div class="font-heading text-xl font-bold text-primary">Rp 850 Jt</div>
+                            </div>
+                            <a href="#contact" class="w-10 h-10 rounded-full border border-accent text-accent flex items-center justify-center hover:bg-accent hover:text-surface transition-colors">
+                                <i class="ph-bold ph-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Type 70 -->
+                <div class="luxury-card rounded-lg overflow-hidden flex flex-col group reveal delay-100 relative">
+                    <div class="absolute top-0 right-0 w-16 h-16 overflow-hidden z-10">
+                        <div class="absolute bg-accent text-surface text-[8px] font-bold uppercase tracking-widest text-center py-1 w-24 transform rotate-45 top-3 -right-6 shadow-sm">Best Seller</div>
+                    </div>
+                    <div class="img-wrapper aspect-[4/3] relative">
+                        <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=800" alt="Type 70" class="w-full h-full object-cover">
+                        <div class="absolute top-4 left-4 bg-primary/80 backdrop-blur text-surface text-[10px] font-semibold px-3 py-1.5 uppercase tracking-widest rounded-sm">Type 70 / 105</div>
+                    </div>
+                    <div class="p-8 flex flex-col flex-1">
+                        <h3 class="font-heading text-2xl font-bold text-primary mb-2">The Sapphire</h3>
+                        <p class="text-secondary/70 text-sm font-light mb-6">Ruang ekstra dengan pencahayaan alami maksimal dan taman belakang luas.</p>
+                        
+                        <div class="grid grid-cols-2 gap-y-4 gap-x-2 text-xs font-medium text-secondary mb-8">
+                            <div class="flex items-center gap-2"><i class="ph-light ph-bed text-accent text-lg"></i> 3 Bedrooms</div>
+                            <div class="flex items-center gap-2"><i class="ph-light ph-shower text-accent text-lg"></i> 2 Bathrooms</div>
+                            <div class="flex items-center gap-2"><i class="ph-light ph-car text-accent text-lg"></i> 2 Carports</div>
+                            <div class="flex items-center gap-2"><i class="ph-light ph-tree text-accent text-lg"></i> Private Garden</div>
+                        </div>
+                        
+                        <div class="mt-auto border-t border-bordercol pt-6 flex justify-between items-center">
+                            <div>
+                                <div class="text-[10px] text-secondary/50 uppercase tracking-widest">Mulai Dari</div>
+                                <div class="font-heading text-xl font-bold text-primary">Rp 1.5 Milyar</div>
+                            </div>
+                            <a href="#contact" class="w-10 h-10 rounded-full border border-accent text-accent flex items-center justify-center hover:bg-accent hover:text-surface transition-colors">
+                                <i class="ph-bold ph-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Type 120 -->
+                <div class="luxury-card rounded-lg overflow-hidden flex flex-col group reveal delay-200">
+                    <div class="img-wrapper aspect-[4/3] relative">
+                        <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=800" alt="Type 120" class="w-full h-full object-cover">
+                        <div class="absolute top-4 left-4 bg-primary/80 backdrop-blur text-surface text-[10px] font-semibold px-3 py-1.5 uppercase tracking-widest rounded-sm">Type 120 / 150</div>
+                    </div>
+                    <div class="p-8 flex flex-col flex-1">
+                        <h3 class="font-heading text-2xl font-bold text-primary mb-2">The Emerald</h3>
+                        <p class="text-secondary/70 text-sm font-light mb-6">Kemewahan hunian 2 lantai premium untuk gaya hidup keluarga mapan.</p>
+                        
+                        <div class="grid grid-cols-2 gap-y-4 gap-x-2 text-xs font-medium text-secondary mb-8">
+                            <div class="flex items-center gap-2"><i class="ph-light ph-bed text-accent text-lg"></i> 4 Bedrooms</div>
+                            <div class="flex items-center gap-2"><i class="ph-light ph-shower text-accent text-lg"></i> 3 Bathrooms</div>
+                            <div class="flex items-center gap-2"><i class="ph-light ph-stairs text-accent text-lg"></i> 2 Storey</div>
+                            <div class="flex items-center gap-2"><i class="ph-light ph-armchair text-accent text-lg"></i> Premium Space</div>
+                        </div>
+                        
+                        <div class="mt-auto border-t border-bordercol pt-6 flex justify-between items-center">
+                            <div>
+                                <div class="text-[10px] text-secondary/50 uppercase tracking-widest">Mulai Dari</div>
+                                <div class="font-heading text-xl font-bold text-primary">Rp 2.8 Milyar</div>
+                            </div>
+                            <a href="#contact" class="w-10 h-10 rounded-full border border-accent text-accent flex items-center justify-center hover:bg-accent hover:text-surface transition-colors">
+                                <i class="ph-bold ph-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Masterplan UI -->
+    <section id="masterplan" class="py-24 bg-bgbase">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+                <span class="text-accent font-semibold text-[10px] mb-4 block uppercase tracking-[0.2em]">The Layout</span>
+                <h2 class="font-heading text-3xl md:text-5xl font-bold text-primary">Interactive Masterplan</h2>
+            </div>
+
+            <!-- Conceptual Visual Block -->
+            <div class="relative w-full max-w-5xl mx-auto aspect-[16/9] md:aspect-[21/9] bg-surface border border-bordercol rounded-xl shadow-luxury overflow-hidden reveal delay-100">
+                <!-- Map Background Approximation -->
+                <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/connected.png')]"></div>
+                <div class="absolute inset-0 bg-gradient-to-tr from-bgbase to-surface mix-blend-multiply"></div>
+                
+                <!-- SVG Path approximation of roads -->
+                <svg class="absolute inset-0 w-full h-full text-bordercol opacity-50" preserveAspectRatio="none" viewBox="0 0 100 100">
+                    <path d="M 0 50 Q 25 20, 50 50 T 100 50 M 30 0 L 30 100 M 70 0 L 70 100" stroke="currentColor" stroke-width="2" fill="none" />
+                </svg>
+
+                <!-- Interactive Points -->
+                <div class="mp-pulse" style="top: 30%; left: 25%;">
+                    <div class="mp-tooltip shadow-glass">Main Gate & Security</div>
+                </div>
+                <div class="mp-pulse" style="top: 50%; left: 50%;">
+                    <div class="mp-tooltip shadow-glass">Club House & Pool</div>
+                </div>
+                <div class="mp-pulse" style="top: 70%; left: 75%;">
+                    <div class="mp-tooltip shadow-glass">Green Open Space</div>
+                </div>
+                <div class="mp-pulse" style="top: 20%; left: 80%;">
+                    <div class="mp-tooltip shadow-glass">Cluster Emerald (Tahap 1)</div>
+                </div>
+
+                <div class="absolute bottom-6 left-6 text-xs text-secondary/60 bg-surface/80 px-3 py-1 rounded backdrop-blur border border-bordercol">
+                    *Hover titik lokasi untuk detail kawasan
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Parallax Investment Section -->
+    <section id="parallax-investment" class="relative h-[70vh] flex items-center justify-center parallax-bg">
+        <div class="absolute inset-0 bg-primary/70 mix-blend-multiply"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-primary/90 to-transparent"></div>
+        <div class="container mx-auto px-6 relative z-10 text-center reveal">
+            <span class="text-highlight font-semibold text-[10px] mb-4 block uppercase tracking-[0.2em] drop-shadow">Value That Grows</span>
+            <h2 class="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-surface tracking-tight leading-tight mb-6">
+                A Smart Investment <br><span class="font-light italic text-accent">For Your Future.</span>
+            </h2>
+            <p class="text-surface/80 max-w-2xl mx-auto font-light leading-relaxed">
+                Nilai properti di kawasan strategis terus mengalami kenaikan. Grand Aruna Residence menawarkan keseimbangan sempurna antara tempat tinggal yang nyaman dan instrumen investasi yang sangat menguntungkan (Capital Gain & Yield).
+            </p>
+        </div>
+    </section>
+
+    <!-- Advantages & Location -->
+    <section id="advantages" class="py-24 lg:py-32 bg-surface">
+        <div class="container mx-auto px-6 md:px-12 grid lg:grid-cols-2 gap-16 items-center">
+            
+            <!-- Why Choose Us -->
+            <div class="reveal">
+                <span class="text-accent font-semibold text-[10px] mb-4 block uppercase tracking-[0.2em]">The Advantages</span>
+                <h2 class="font-heading text-3xl md:text-4xl font-bold text-primary mb-10">Why Choose Grand Aruna?</h2>
+                
+                <div class="space-y-6">
+                    <div class="flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-full bg-bgbase border border-bordercol flex items-center justify-center text-accent shrink-0 text-xl"><i class="ph-light ph-map-pin"></i></div>
+                        <div>
+                            <h4 class="font-heading font-bold text-primary text-base mb-1">Strategic Location</h4>
+                            <p class="text-sm text-secondary/70 font-light">Akses langsung ke jalan tol utama dan dikelilingi infrastruktur kota yang lengkap.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-full bg-bgbase border border-bordercol flex items-center justify-center text-accent shrink-0 text-xl"><i class="ph-light ph-trend-up"></i></div>
+                        <div>
+                            <h4 class="font-heading font-bold text-primary text-base mb-1">High Investment Potential</h4>
+                            <p class="text-sm text-secondary/70 font-light">Diproyeksikan mengalami kenaikan nilai investasi (Capital Gain) hingga 15% per tahun.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-full bg-bgbase border border-bordercol flex items-center justify-center text-accent shrink-0 text-xl"><i class="ph-light ph-users-three"></i></div>
+                        <div>
+                            <h4 class="font-heading font-bold text-primary text-base mb-1">Family Friendly Environment</h4>
+                            <p class="text-sm text-secondary/70 font-light">Lingkungan asri dengan ruang terbuka hijau dan area bermain anak yang aman.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-full bg-bgbase border border-bordercol flex items-center justify-center text-accent shrink-0 text-xl"><i class="ph-light ph-shield-check"></i></div>
+                        <div>
+                            <h4 class="font-heading font-bold text-primary text-base mb-1">Secure Community</h4>
+                            <p class="text-sm text-secondary/70 font-light">One gate system, penjagaan 24 jam, dan pengawasan CCTV di setiap sudut kawasan.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-full bg-bgbase border border-bordercol flex items-center justify-center text-accent shrink-0 text-xl"><i class="ph-light ph-medal"></i></div>
+                        <div>
+                            <h4 class="font-heading font-bold text-primary text-base mb-1">Trusted Developer</h4>
+                            <p class="text-sm text-secondary/70 font-light">Dikembangkan oleh developer bereputasi nasional dengan rekam jejak pengiriman proyek tepat waktu.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Location Distance Timeline -->
+            <div class="bg-primary p-10 md:p-12 rounded-lg shadow-luxury reveal delay-200 relative overflow-hidden">
+                <div class="absolute -top-24 -right-24 w-64 h-64 border border-accent/20 rounded-full z-0"></div>
+                <div class="relative z-10">
+                    <h3 class="font-heading text-2xl font-bold text-surface mb-8">Excellent Connectivity</h3>
+                    
+                    <div class="relative border-l border-surface/20 pl-6 space-y-8">
+                        <!-- Loc 1 -->
+                        <div class="relative">
+                            <div class="absolute -left-[31px] top-1 w-3 h-3 bg-accent rounded-full ring-4 ring-primary"></div>
+                            <div class="text-accent font-bold text-lg leading-none mb-1">5 Min</div>
+                            <div class="text-surface font-medium text-sm">Gerbang Tol Utama</div>
+                        </div>
+                        <!-- Loc 2 -->
+                        <div class="relative">
+                            <div class="absolute -left-[31px] top-1 w-3 h-3 bg-surface/50 rounded-full ring-4 ring-primary"></div>
+                            <div class="text-accent font-bold text-lg leading-none mb-1">10 Min</div>
+                            <div class="text-surface font-medium text-sm">Rumah Sakit Internasional</div>
+                        </div>
+                        <!-- Loc 3 -->
+                        <div class="relative">
+                            <div class="absolute -left-[31px] top-1 w-3 h-3 bg-surface/50 rounded-full ring-4 ring-primary"></div>
+                            <div class="text-accent font-bold text-lg leading-none mb-1">15 Min</div>
+                            <div class="text-surface font-medium text-sm">Pusat Perbelanjaan & Mall</div>
+                        </div>
+                        <!-- Loc 4 -->
+                        <div class="relative">
+                            <div class="absolute -left-[31px] top-1 w-3 h-3 bg-surface/50 rounded-full ring-4 ring-primary"></div>
+                            <div class="text-accent font-bold text-lg leading-none mb-1">15 Min</div>
+                            <div class="text-surface font-medium text-sm">Sekolah & Universitas Elite</div>
+                        </div>
+                        <!-- Loc 5 -->
+                        <div class="relative">
+                            <div class="absolute -left-[31px] top-1 w-3 h-3 bg-surface/50 rounded-full ring-4 ring-primary"></div>
+                            <div class="text-accent font-bold text-lg leading-none mb-1">20 Min</div>
+                            <div class="text-surface font-medium text-sm">Pusat Kawasan Bisnis (CBD)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials" class="py-24 bg-bgbase border-y border-bordercol relative overflow-hidden">
+        <!-- Decor -->
+        <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-accent/5 rounded-full blur-[100px] z-0 pointer-events-none"></div>
+
+        <div class="container mx-auto px-6 md:px-12 relative z-10">
+            <div class="text-center mb-16 reveal">
+                <span class="text-accent font-semibold text-[10px] mb-4 block uppercase tracking-[0.2em]">Resident Stories</span>
+                <h2 class="font-heading text-3xl md:text-4xl font-bold text-primary">Hear From Our Families</h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Testi 1 -->
+                <div class="glass-panel p-8 rounded-lg shadow-card border-bordercol reveal">
+                    <div class="text-accent mb-6"><i class="ph-fill ph-quotes text-4xl opacity-40"></i></div>
+                    <p class="text-secondary/80 text-sm font-light leading-relaxed mb-8 italic">"Lingkungan yang sangat tenang dan nyaman untuk membesarkan anak. Fasilitas clubhouse-nya premium dan sistem keamanannya benar-benar membuat kami merasa aman meninggalkan rumah."</p>
+                    <div class="flex items-center gap-4 pt-6 border-t border-bordercol">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Resident" class="w-12 h-12 rounded-full object-cover">
+                        <div>
+                            <h4 class="font-heading font-bold text-primary text-sm">Keluarga Aditama</h4>
+                            <p class="text-xs text-accent">Pemilik Type 120 (The Emerald)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testi 2 -->
+                <div class="glass-panel p-8 rounded-lg shadow-card border-bordercol reveal delay-100">
+                    <div class="text-accent mb-6"><i class="ph-fill ph-quotes text-4xl opacity-40"></i></div>
+                    <p class="text-secondary/80 text-sm font-light leading-relaxed mb-8 italic">"Lokasinya strategis banget! Akses ke tol dan tempat kerja sangat mudah. Desain rumahnya juga elegan dengan pencahayaan alami yang sangat baik. Sangat puas berinvestasi di sini."</p>
+                    <div class="flex items-center gap-4 pt-6 border-t border-bordercol">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Resident" class="w-12 h-12 rounded-full object-cover">
+                        <div>
+                            <h4 class="font-heading font-bold text-primary text-sm">Bpk & Ibu Santoso</h4>
+                            <p class="text-xs text-accent">Pemilik Type 70 (The Sapphire)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testi 3 -->
+                <div class="glass-panel p-8 rounded-lg shadow-card border-bordercol reveal delay-200">
+                    <div class="text-accent mb-6"><i class="ph-fill ph-quotes text-4xl opacity-40"></i></div>
+                    <p class="text-secondary/80 text-sm font-light leading-relaxed mb-8 italic">"Developer sangat profesional. Proses serah terima tepat waktu dan kualitas bangunan sangat solid. Tetangganya ramah-ramah. Pilihan terbaik untuk rumah pertama kami."</p>
+                    <div class="flex items-center gap-4 pt-6 border-t border-bordercol">
+                        <img src="https://randomuser.me/api/portraits/men/68.jpg" alt="Resident" class="w-12 h-12 rounded-full object-cover">
+                        <div>
+                            <h4 class="font-heading font-bold text-primary text-sm">Keluarga Pratama</h4>
+                            <p class="text-xs text-accent">Pemilik Type 45 (The Amethyst)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Limited Offer Banner -->
+    <section id="promo" class="py-16 bg-surface">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="bg-primary rounded-xl overflow-hidden shadow-luxury relative reveal flex flex-col md:flex-row">
+                <!-- Decor -->
+                <div class="absolute -right-20 -top-20 w-64 h-64 bg-accent/20 rounded-full blur-[50px] z-0 pointer-events-none"></div>
+                
+                <div class="p-10 md:p-14 md:w-2/3 relative z-10">
+                    <span class="inline-block px-3 py-1 bg-accent text-primary text-[10px] font-bold uppercase tracking-widest rounded-sm mb-4">Limited Time Offer</span>
+                    <h2 class="font-heading text-3xl md:text-4xl font-bold text-surface mb-6">Special Pre-Launch Deals</h2>
+                    
+                    <div class="grid grid-cols-2 gap-4 mb-8">
+                        <div class="flex items-center gap-2 text-surface/90 text-sm font-light">
+                            <i class="ph-fill ph-check-circle text-accent text-lg"></i> Free BPHTB & AJB
+                        </div>
+                        <div class="flex items-center gap-2 text-surface/90 text-sm font-light">
+                            <i class="ph-fill ph-check-circle text-accent text-lg"></i> Free Smart Home System
+                        </div>
+                        <div class="flex items-center gap-2 text-surface/90 text-sm font-light">
+                            <i class="ph-fill ph-check-circle text-accent text-lg"></i> Free Canopy
+                        </div>
+                        <div class="flex items-center gap-2 text-surface/90 text-sm font-light">
+                            <i class="ph-fill ph-check-circle text-accent text-lg"></i> DP Mulai 0%*
+                        </div>
+                    </div>
+                    
+                    <a href="#contact" class="btn-gold px-8 py-4 rounded-sm font-semibold text-xs tracking-widest uppercase inline-block">
+                        Claim Your Unit Today
+                    </a>
+                </div>
+                <div class="md:w-1/3 bg-[url('https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&q=80&w=600')] bg-cover bg-center min-h-[250px] relative z-10 border-l-4 border-accent"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Parallax CTA -->
+    <section id="parallax-cta" class="relative py-32 flex items-center justify-center parallax-bg">
+        <div class="absolute inset-0 bg-primary/70 backdrop-blur-[1px]"></div>
+        <div class="container mx-auto px-6 relative z-10 text-center reveal">
+            <h2 class="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-surface tracking-tight leading-tight mb-8">
+                Your Dream Home <br><span class="italic font-light text-accent">Is Waiting.</span>
+            </h2>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#contact" class="btn-gold px-8 py-4 rounded-sm font-semibold text-xs tracking-widest uppercase">
+                    Schedule Visit
+                </a>
+                <a href="#contact" class="btn-outline-white px-8 py-4 rounded-sm font-semibold text-xs tracking-widest uppercase">
+                    Download E-Brochure
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-24 bg-bgbase">
+        <div class="container mx-auto px-6 md:px-12 max-w-3xl">
+            <div class="text-center mb-16 reveal">
+                <h2 class="font-heading text-3xl md:text-4xl font-bold text-primary mb-4">Frequently Asked Questions</h2>
+                <p class="text-secondary/70 font-light">Informasi penting yang perlu Anda ketahui.</p>
+            </div>
+
+            <div class="space-y-4">
+                <!-- FAQ 1 -->
+                <div class="faq-item border border-bordercol rounded bg-surface p-6 cursor-pointer reveal">
+                    <div class="flex justify-between items-center">
+                        <h4 class="font-heading font-semibold text-sm md:text-base text-primary">Apakah pembelian bisa melalui KPR?</h4>
+                        <i class="ph-bold ph-caret-down text-accent faq-icon"></i>
+                    </div>
+                    <div class="faq-content">
+                        <p class="pt-4 text-sm text-secondary/70 font-light leading-relaxed">Tentu bisa. Hampir 80% dari klien kami menggunakan fasilitas KPR. Tim sales in-house kami akan membantu proses pengajuan KPR Anda hingga disetujui tanpa biaya tambahan.</p>
+                    </div>
+                </div>
+                <!-- FAQ 2 -->
+                <div class="faq-item border border-bordercol rounded bg-surface p-6 cursor-pointer reveal delay-100">
+                    <div class="flex justify-between items-center">
+                        <h4 class="font-heading font-semibold text-sm md:text-base text-primary">Bank apa saja yang bekerja sama dengan Grand Aruna?</h4>
+                        <i class="ph-bold ph-caret-down text-accent faq-icon"></i>
+                    </div>
+                    <div class="faq-content">
+                        <p class="pt-4 text-sm text-secondary/70 font-light leading-relaxed">Kami bekerja sama dengan bank-bank besar nasional seperti BCA, Mandiri, BNI, BTN, CIMB Niaga, serta beberapa bank syariah terkemuka dengan suku bunga promosi khusus developer.</p>
+                    </div>
+                </div>
+                <!-- FAQ 3 -->
+                <div class="faq-item border border-bordercol rounded bg-surface p-6 cursor-pointer reveal delay-200">
+                    <div class="flex justify-between items-center">
+                        <h4 class="font-heading font-semibold text-sm md:text-base text-primary">Berapa DP (Down Payment) minimum yang dibutuhkan?</h4>
+                        <i class="ph-bold ph-caret-down text-accent faq-icon"></i>
+                    </div>
+                    <div class="faq-content">
+                        <p class="pt-4 text-sm text-secondary/70 font-light leading-relaxed">Untuk promo bulan ini, kami menawarkan program DP mulai dari 0% hingga 10% tergantung pada persetujuan bank dan profil finansial pembeli. Booking fee (UTJ) cukup Rp 10 Juta dan bersifat refundable*.</p>
+                    </div>
+                </div>
+                <!-- FAQ 4 -->
+                <div class="faq-item border border-bordercol rounded bg-surface p-6 cursor-pointer reveal">
+                    <div class="flex justify-between items-center">
+                        <h4 class="font-heading font-semibold text-sm md:text-base text-primary">Kapan serah terima kunci (Handover) dilakukan?</h4>
+                        <i class="ph-bold ph-caret-down text-accent faq-icon"></i>
+                    </div>
+                    <div class="faq-content">
+                        <p class="pt-4 text-sm text-secondary/70 font-light leading-relaxed">Untuk unit ready stock, serah terima dapat dilakukan 1 bulan setelah akad kredit. Untuk unit indent, estimasi pembangunan adalah 8-12 bulan tergantung luasan tipe rumah dengan garansi keterlambatan.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-surface border-t border-bordercol">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="grid lg:grid-cols-2 gap-16">
+                
+                <!-- Contact Info -->
+                <div class="reveal">
+                    <span class="text-accent font-semibold text-[10px] mb-4 block uppercase tracking-[0.2em]">Contact Us</span>
+                    <h2 class="font-heading text-3xl md:text-4xl font-bold text-primary mb-6">Start Your Journey Home</h2>
+                    <p class="text-secondary/70 font-light mb-10 leading-relaxed text-sm md:text-base">
+                        Kunjungi Marketing Gallery kami atau jadwalkan pertemuan dengan Property Consultant kami untuk informasi lebih detail mengenai harga, ketersediaan unit, dan perhitungan KPR.
+                    </p>
+
+                    <div class="space-y-8 mb-10">
+                        <div class="flex items-start gap-5">
+                            <div class="w-10 h-10 rounded border border-bordercol flex items-center justify-center text-accent shrink-0 text-xl"><i class="ph-light ph-map-pin"></i></div>
+                            <div>
+                                <h4 class="font-heading font-bold text-primary text-sm mb-1">Marketing Gallery</h4>
+                                <p class="text-sm text-secondary/70 font-light leading-relaxed">Grand Aruna Boulevard No. 1<br>Jakarta Selatan 12340, Indonesia<br>Buka Setiap Hari: 09.00 - 18.00 WIB</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-5">
+                            <div class="w-10 h-10 rounded border border-bordercol flex items-center justify-center text-accent shrink-0 text-xl"><i class="ph-light ph-phone"></i></div>
+                            <div>
+                                <h4 class="font-heading font-bold text-primary text-sm mb-1">Direct Contact</h4>
+                                <p class="text-sm text-secondary/70 font-light">+62 21 8888 9999 (Office)<br>+62 811 0000 1111 (WhatsApp)</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-5">
+                            <div class="w-10 h-10 rounded border border-bordercol flex items-center justify-center text-accent shrink-0 text-xl"><i class="ph-light ph-envelope-simple"></i></div>
+                            <div>
+                                <h4 class="font-heading font-bold text-primary text-sm mb-1">Email Connect</h4>
+                                <p class="text-sm text-secondary/70 font-light">sales@grandaruna.com</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Map Placeholder -->
+                    <div class="w-full h-48 bg-bgbase rounded-lg border border-bordercol flex items-center justify-center text-secondary/50 font-medium">
+                        <i class="ph-fill ph-map-trifold mr-2 text-xl"></i> Google Maps Integration Ready
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="bg-primary p-8 md:p-12 rounded-xl shadow-luxury reveal delay-200">
+                    <h3 class="font-heading text-2xl font-bold text-surface mb-2">Request Information</h3>
+                    <p class="text-surface/60 font-light text-sm mb-8">Isi form berikut untuk mendapatkan E-Brosur dan Pricelist terbaru.</p>
+                    <form>
+                        <div class="space-y-6">
+                            <div>
+                                <label class="block text-xs font-semibold text-surface/80 mb-2 uppercase tracking-wide">Nama Lengkap</label>
+                                <input type="text" class="form-input bg-surface/10 border-surface/20 text-surface focus:border-accent focus:box-shadow-none" placeholder="Masukkan nama" required>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-surface/80 mb-2 uppercase tracking-wide">Nomor WhatsApp</label>
+                                <input type="tel" class="form-input bg-surface/10 border-surface/20 text-surface focus:border-accent focus:box-shadow-none" placeholder="0812..." required>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-surface/80 mb-2 uppercase tracking-wide">Tipe Rumah Diminati</label>
+                                <select class="form-input bg-surface/10 border-surface/20 text-surface/80 focus:border-accent focus:box-shadow-none appearance-none" required>
+                                    <option value="" disabled selected class="text-primary">Pilih Tipe</option>
+                                    <option class="text-primary">Type 45 (The Amethyst)</option>
+                                    <option class="text-primary">Type 70 (The Sapphire)</option>
+                                    <option class="text-primary">Type 120 (The Emerald)</option>
+                                    <option class="text-primary">Belum Menentukan</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-surface/80 mb-2 uppercase tracking-wide">Pesan (Opsional)</label>
+                                <textarea class="form-input bg-surface/10 border-surface/20 text-surface focus:border-accent focus:box-shadow-none resize-none" rows="3" placeholder="Jadwal visit / info promo..."></textarea>
+                            </div>
+                            <button type="button" class="btn-gold w-full py-4 rounded-sm font-semibold text-xs tracking-widest uppercase mt-4">
+                                Kirim Permintaan
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-primary pt-20 pb-10 text-surface/70 border-t border-surface/10">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <!-- Brand Info -->
+                <div class="lg:col-span-1">
+                    <a href="#" class="flex flex-col mb-6">
+                        <span class="font-heading font-semibold text-2xl tracking-wide uppercase leading-none text-surface">Grand Aruna</span>
+                        <span class="text-[9px] text-accent tracking-[0.25em] uppercase font-medium mt-1">Residence</span>
+                    </a>
+                    <p class="text-sm font-light leading-relaxed mb-6">
+                        Where Modern Living Meets Timeless Comfort. Mahakarya hunian eksklusif dengan nilai investasi menjanjikan untuk keluarga modern.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="text-surface/50 hover:text-accent transition-colors"><i class="ph-fill ph-facebook-logo text-xl"></i></a>
+                        <a href="#" class="text-surface/50 hover:text-accent transition-colors"><i class="ph-fill ph-instagram-logo text-xl"></i></a>
+                        <a href="#" class="text-surface/50 hover:text-accent transition-colors"><i class="ph-fill ph-youtube-logo text-xl"></i></a>
+                    </div>
+                </div>
+
+                <!-- Navigation -->
+                <div>
+                    <h4 class="font-heading font-semibold text-surface mb-6 uppercase tracking-wider text-sm">Navigation</h4>
+                    <ul class="space-y-4 text-sm font-light">
+                        <li><a href="#about" class="hover:text-highlight transition-colors">The Story</a></li>
+                        <li><a href="#facilities" class="hover:text-highlight transition-colors">Facilities</a></li>
+                        <li><a href="#houses" class="hover:text-highlight transition-colors">House Types</a></li>
+                        <li><a href="#masterplan" class="hover:text-highlight transition-colors">Masterplan</a></li>
+                        <li><a href="#faq" class="hover:text-highlight transition-colors">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <!-- Sales Info -->
+                <div>
+                    <h4 class="font-heading font-semibold text-surface mb-6 uppercase tracking-wider text-sm">Sales Info</h4>
+                    <ul class="space-y-4 text-sm font-light">
+                        <li><a href="#promo" class="hover:text-highlight transition-colors">Current Promo</a></li>
+                        <li><a href="#" class="hover:text-highlight transition-colors">Pricelist Request</a></li>
+                        <li><a href="#" class="hover:text-highlight transition-colors">KPR Simulation</a></li>
+                        <li><a href="#" class="hover:text-highlight transition-colors">Virtual Tour</a></li>
+                        <li><a href="#" class="hover:text-highlight transition-colors">Agent Partnership</a></li>
+                    </ul>
+                </div>
+
+                <!-- Legal / Discalimer -->
+                <div>
+                    <h4 class="font-heading font-semibold text-surface mb-6 uppercase tracking-wider text-sm">Disclaimer</h4>
+                    <p class="text-xs font-light leading-relaxed mb-4 text-surface/50">
+                        Seluruh gambar, spesifikasi, dan detail yang tercantum dalam website ini adalah indikasi ilustrasi artistik semata. Developer berhak merubah sewaktu-waktu sesuai dengan arahan arsitek atau instansi terkait.
+                    </p>
+                    <ul class="space-y-2 text-xs text-surface/50">
+                        <li><a href="#" class="hover:text-surface transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-surface transition-colors">Terms of Conditions</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-surface/10 pt-8 flex flex-col md:flex-row justify-between items-center text-[10px] uppercase tracking-widest text-surface/40">
+                <p class="mb-2 md:mb-0">&copy; 2026 Grand Aruna Residence. All rights reserved.</p>
+                <p>Designed for Luxury Living.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="btt" class="fixed bottom-8 right-8 w-12 h-12 bg-primary text-accent border border-accent/30 rounded-full shadow-luxury flex items-center justify-center opacity-0 translate-y-10 transition-all duration-500 z-40 hover:bg-accent hover:text-primary focus:outline-none">
+        <i class="ph-light ph-arrow-up text-xl"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // 1. Loader Removal
+            setTimeout(() => {
+                const loader = document.getElementById('loader');
+                loader.style.opacity = '0';
+                setTimeout(() => { loader.style.visibility = 'hidden'; }, 800);
+            }, 1200);
+
+            // 2. Sticky Navbar & Back to Top Logic
+            const navbar = document.getElementById('navbar');
+            const btt = document.getElementById('btt');
+            
+            window.addEventListener('scroll', () => {
+                // Navbar Glassmorphism vs Transparent
+                if (window.scrollY > 50) {
+                    navbar.classList.add('nav-glass');
+                    navbar.classList.remove('nav-transparent', 'text-surface');
+                    navbar.classList.add('text-primary');
+                    
+                    // Update Mobile icon color
+                    navbar.querySelector('.ph-list').classList.remove('text-surface');
+                } else {
+                    navbar.classList.remove('nav-glass', 'text-primary');
+                    navbar.classList.add('nav-transparent', 'text-surface');
+                    
+                    // Revert Mobile icon color
+                    navbar.querySelector('.ph-list').classList.add('text-surface');
+                }
+
+                // Back to Top Button
+                if (window.scrollY > 600) {
+                    btt.classList.remove('opacity-0', 'translate-y-10');
+                    btt.classList.add('opacity-100', 'translate-y-0');
+                } else {
+                    btt.classList.add('opacity-0', 'translate-y-10');
+                    btt.classList.remove('opacity-100', 'translate-y-0');
+                }
+            });
+
+            btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+            // 3. Mobile Menu Toggle
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            const closeBtn = document.getElementById('close-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileOverlay = document.getElementById('mobile-overlay');
+            const mobileLinks = document.querySelectorAll('.mobile-link');
+
+            function openMenu() {
+                mobileMenu.classList.remove('translate-x-full');
+                mobileOverlay.classList.remove('hidden');
+                document.body.style.overflow = 'hidden'; // Prevent scroll
+            }
+
+            function closeMenu() {
+                mobileMenu.classList.add('translate-x-full');
+                mobileOverlay.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+
+            menuBtn.addEventListener('click', openMenu);
+            closeBtn.addEventListener('click', closeMenu);
+            mobileOverlay.addEventListener('click', closeMenu);
+            mobileLinks.forEach(link => link.addEventListener('click', closeMenu));
+
+            // 4. Scroll Reveal (Intersection Observer)
+            const revealElements = document.querySelectorAll('.reveal');
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        // Unobserve if we only want it to animate once
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+            
+            revealElements.forEach(el => revealObserver.observe(el));
+
+            // 5. Mouse Parallax (Hero Floating Elements)
+            const mouseParallaxElements = document.querySelectorAll('.mouse-p');
+            const heroSection = document.getElementById('hero');
+
+            if(window.innerWidth > 1024) { 
+                heroSection.addEventListener('mousemove', (e) => {
+                    const x = (window.innerWidth - e.pageX * 2) / 100;
+                    const y = (window.innerHeight - e.pageY * 2) / 100;
+
+                    mouseParallaxElements.forEach(el => {
+                        const speed = el.getAttribute('data-speed');
+                        // Add translate over the current transform to keep float animation working
+                        el.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
+                    });
+                });
+                heroSection.addEventListener('mouseleave', () => {
+                    mouseParallaxElements.forEach(el => {
+                        el.style.transform = `translate(0px, 0px)`;
+                    });
+                });
+            }
+
+            // 6. FAQ Accordion Logic
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const content = item.querySelector('.faq-content');
+                    const isActive = item.classList.contains('active');
+
+                    // Close all
+                    faqItems.forEach(otherItem => {
+                        otherItem.classList.remove('active');
+                        otherItem.querySelector('.faq-content').style.maxHeight = null;
+                        otherItem.style.borderColor = '#E2E8F0'; // reset border to default bordercol
+                    });
+
+                    // Open current
+                    if (!isActive) {
+                        item.classList.add('active');
+                        content.style.maxHeight = content.scrollHeight + "px";
+                        item.style.borderColor = '#C8A96B'; // Highlight accent border
+                    }
+                });
+            });
+
+            // 7. Counter Animation for Stats
+            const counters = document.querySelectorAll('.counter');
+            let hasAnimated = false;
+
+            const animateCounters = () => {
+                counters.forEach(counter => {
+                    const target = +counter.getAttribute('data-target');
+                    const duration = 2000; // ms
+                    const step = target / (duration / 16); // 60fps
+                    let current = 0;
+
+                    const updateCounter = () => {
+                        current += step;
+                        if(current < target) {
+                            counter.innerText = Math.ceil(current);
+                            requestAnimationFrame(updateCounter);
+                        } else {
+                            counter.innerText = target;
+                        }
+                    };
+                    updateCounter();
+                });
+            };
+
+            // Observer for Counters
+            const aboutSection = document.getElementById('about');
+            if(aboutSection) {
+                const counterObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if(entry.isIntersecting && !hasAnimated) {
+                            animateCounters();
+                            hasAnimated = true;
+                        }
+                    });
+                }, { threshold: 0.5 });
+                counterObserver.observe(aboutSection);
+            }
+        });
+    </script>
+</body>
+</html>

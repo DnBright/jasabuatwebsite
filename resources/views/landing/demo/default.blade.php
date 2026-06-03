@@ -198,7 +198,7 @@
             box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
         }
         
-        @@media (max-width: 768px) {
+        @media (max-width: 768px) {
             .hero-section h1 { font-size: 2.5rem; }
             .hero-cta { flex-direction: column; }
             .demo-banner { flex-wrap: wrap; gap: 10px; }
