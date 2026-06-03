@@ -67,7 +67,7 @@
 
     .section-title {
         font-size: 3rem;
-        color: #0f172a;
+        color: var(--color-primary);
         margin-bottom: 1.5rem;
         font-weight: 800;
         letter-spacing: -2px;
@@ -75,13 +75,13 @@
     }
 
     .section-title span {
-        background: linear-gradient(90deg, #002147, #3b82f6);
+        background: linear-gradient(90deg, var(--color-primary), #3b82f6);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }
 
     .section-subtitle {
-        color: #64748b;
+        color: var(--color-text-muted);
         font-size: 1.2rem;
         margin-bottom: 5rem;
         max-width: 700px;
@@ -123,7 +123,7 @@
 
     .card-template:hover {
         transform: translateY(-15px);
-        box-shadow: 0 40px 80px -20px rgba(0, 33, 71, 0.15);
+        box-shadow: 0 40px 80px -20px rgba(20, 18, 19, 0.15);
         border-color: #3b82f6;
     }
 
@@ -151,7 +151,7 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: rgba(0, 33, 71, 0.4);
+        background: rgba(20, 18, 19, 0.4);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -166,7 +166,7 @@
 
     .btn-preview {
         background: white;
-        color: #002147;
+        color: var(--color-primary);
         padding: 0.75rem 1.5rem;
         border-radius: 50px;
         text-decoration: none;
@@ -219,7 +219,7 @@
     }
 
     .template-info h3 {
-        color: #0f172a;
+        color: var(--color-primary);
         font-size: 1.5rem;
         margin: 0.5rem 0 1.5rem 0;
         font-weight: 800;
@@ -231,14 +231,14 @@
 
     .price-label {
         font-size: 0.85rem;
-        color: #64748b;
+        color: var(--color-text-muted);
         font-weight: 600;
         display: block;
         margin-bottom: 0.25rem;
     }
 
     .template-price {
-        color: #002147;
+        color: var(--color-primary);
         font-size: 2rem;
         font-weight: 800;
         margin-bottom: 0;
@@ -248,7 +248,7 @@
     .btn-template-primary {
         display: block;
         width: 100%;
-        background: linear-gradient(135deg, #002147 0%, #0c3461 100%);
+        background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
         color: #fff;
         text-decoration: none;
         padding: 1.1rem;
@@ -256,12 +256,12 @@
         font-weight: 700;
         text-align: center;
         transition: all 0.3s ease;
-        box-shadow: 0 10px 20px -5px rgba(0, 33, 71, 0.3);
+        box-shadow: 0 10px 20px -5px rgba(20, 18, 19, 0.3);
     }
 
     .btn-template-primary:hover {
         transform: translateY(-3px);
-        box-shadow: 0 20px 35px -10px rgba(0, 33, 71, 0.4);
+        box-shadow: 0 20px 35px -10px rgba(20, 18, 19, 0.4);
     }
 
     @media (max-width: 768px) {

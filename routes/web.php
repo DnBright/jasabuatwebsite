@@ -121,6 +121,18 @@ Route::get('/', function () {
     return view('landing.index', compact('hero', 'templatesDB', 'packages', 'setting'));
 })->name('home');
 
+Route::get('/portfolio/{slug}', function ($slug) {
+    // Only allow alphanumeric, underscore, hyphen to prevent directory traversal
+    if (!preg_match('/^[a-zA-Z0-9_\-]+$/', $slug)) {
+        abort(404);
+    }
+    $viewName = 'portfolio.' . $slug;
+    if (!view()->exists($viewName)) {
+        abort(404);
+    }
+    return view($viewName);
+})->name('portfolio.show');
+
 Route::get('/template/{id}', function ($id) {
     $template = Template::with('templateReviews')->findOrFail($id);
 

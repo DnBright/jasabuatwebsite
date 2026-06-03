@@ -169,4 +169,36 @@
     body {
         @apply bg-background text-foreground;
     }
+    /* Unset vertical-align on block media elements to fix css(propertyIgnoredDueToDisplay) */
+    img,
+    svg,
+    video,
+    canvas,
+    audio,
+    iframe,
+    embed,
+    object {
+        vertical-align: unset;
+    }
 }
+
+/* Add standard line-clamp property to silence css(vendorPrefix) warnings */
+@utility line-clamp-1 {
+    line-clamp: 1;
+}
+@utility line-clamp-2 {
+    line-clamp: 2;
+}
+@utility line-clamp-3 {
+    line-clamp: 3;
+}
+@utility line-clamp-4 {
+    line-clamp: 4;
+}
+@utility line-clamp-5 {
+    line-clamp: 5;
+}
+@utility line-clamp-6 {
+    line-clamp: 6;
+}
+

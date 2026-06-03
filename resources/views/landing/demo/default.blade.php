@@ -6,6 +6,13 @@
     <title>Demo {{ $template['name'] }} - DarkandBright</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --color-primary: #141213;      /* Dark Slate Charcoal */
+            --color-primary-light: #1c283e;/* Deep Slate Blue */
+            --color-accent: #3b82f6;       /* Blue Accent */
+            --color-text: #1c283e;        /* Text color */
+            --color-text-muted: #5e6b7e;   /* Muted text */
+        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Outfit', sans-serif; }
         
@@ -14,7 +21,7 @@
             top: 0;
             left: 0;
             right: 0;
-            background: #002147;
+            background: var(--color-primary);
             color: white;
             padding: 12px 20px;
             display: flex;
@@ -46,7 +53,7 @@
         
         /* Template Default Style */
         .hero-section {
-            background: linear-gradient(135deg, #002147 0%, #0c3461 100%);
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
             color: white;
             padding: 100px 5%;
             text-align: center;
@@ -101,7 +108,7 @@
         .features-section h2 {
             text-align: center;
             font-size: 2.5rem;
-            color: #002147;
+            color: var(--color-primary);
             margin-bottom: 50px;
         }
         
@@ -122,13 +129,13 @@
         }
         
         .feature-card h3 {
-            color: #002147;
+            color: var(--color-primary);
             font-size: 1.3rem;
             margin-bottom: 10px;
         }
         
         .feature-card p {
-            color: #64748b;
+            color: var(--color-text-muted);
             line-height: 1.6;
         }
         
@@ -139,7 +146,7 @@
         .gallery-section h2 {
             text-align: center;
             font-size: 2.5rem;
-            color: #002147;
+            color: var(--color-primary);
             margin-bottom: 50px;
         }
         
@@ -164,7 +171,7 @@
         }
         
         .cta-section {
-            background: #002147;
+            background: var(--color-primary);
             color: white;
             padding: 80px 5%;
             text-align: center;

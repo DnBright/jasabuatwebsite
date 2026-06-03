@@ -8,10 +8,16 @@
     <link href="https://fonts.bunny.net/css?family=outfit:400,600,700,800" rel="stylesheet" />
     <style>
         :root {
-            --primary: #002147;
-            --accent: #3b82f6;
-            --text-main: #0f172a;
-            --text-light: #64748b;
+            --color-primary: #141213;      /* Dark Slate Charcoal */
+            --color-primary-light: #1c283e;/* Deep Slate Blue */
+            --color-accent: #3b82f6;       /* Blue Accent */
+            --color-text: #1c283e;        /* Text color */
+            --color-text-muted: #5e6b7e;   /* Muted text */
+            
+            --primary: var(--color-primary);
+            --accent: var(--color-accent);
+            --text-main: var(--color-text);
+            --text-light: var(--color-text-muted);
             --bg-body: #ffffff;
             --bg-alt: #f8fafc;
             --border: #e2e8f0;

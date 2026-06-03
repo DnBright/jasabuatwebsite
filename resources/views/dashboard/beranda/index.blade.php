@@ -16,7 +16,7 @@
         <h2 class="text-lg font-bold text-slate-700">Konten Hero Section</h2>
     </div>
 
-    <form action="{{ route('dashboard.beranda.update') }}" method="POST" class="p-8">
+    <form action="{{ route('dashboard.beranda.update') }}" method="POST" enctype="multipart/form-data" class="p-8">
         @csrf
         
         <div class="space-y-8">
@@ -69,16 +69,24 @@
             </div>
 
             <div>
-                <label class="block text-sm font-bold text-slate-700 mb-2">URL Gambar Hero</label>
+                <label class="block text-sm font-bold text-slate-700 mb-2">Upload Gambar Latar Belakang (Hero/Beranda)</label>
+                <input type="file" name="image" accept="image/*" class="w-full rounded-xl border border-slate-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition-colors file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 @error('image') border-red-500 @enderror">
+                <p class="text-xs text-slate-500 mt-2">Pilih file gambar baru jika ingin mengganti latar belakang secara langsung.</p>
+                @error('image') <p class="text-red-500 text-xs font-medium mt-1">{{ $message }}</p> @enderror
+            </div>
+
+            <div>
+                <label class="block text-sm font-bold text-slate-700 mb-2">Atau Gunakan URL Gambar</label>
                 <div class="flex">
                     <span class="inline-flex items-center px-4 rounded-l-xl border border-r-0 border-slate-200 bg-slate-50 text-slate-500 font-medium">URL</span>
-                    <input type="text" name="image" value="{{ old('image', $hero->image ?? '') }}" class="flex-1 w-full rounded-none rounded-r-xl border-slate-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition-colors @error('image') border-red-500 @enderror" placeholder="https://...">
+                    <input type="text" name="image_url" value="{{ old('image_url', $hero->image ?? '') }}" class="flex-1 w-full rounded-none rounded-r-xl border-slate-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition-colors @error('image_url') border-red-500 @enderror" placeholder="https://...">
                 </div>
-                @error('image') <p class="text-red-500 text-xs font-medium mt-1">{{ $message }}</p> @enderror
+                <p class="text-xs text-slate-500 mt-2">Gunakan URL jika gambar di-host di server eksternal (diabaikan jika Anda mengunggah file di atas).</p>
+                @error('image_url') <p class="text-red-500 text-xs font-medium mt-1">{{ $message }}</p> @enderror
                 
                 @if(isset($hero) && $hero->image)
                     <div class="mt-4 bg-slate-50 p-4 rounded-xl border border-slate-200 inline-block">
-                        <p class="text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider">Preview Gambar Saat Ini:</p>
+                        <p class="text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider">Preview Gambar Latar Saat Ini:</p>
                         <img src="{{ Str::startsWith($hero->image, 'http') ? $hero->image : asset($hero->image) }}" class="h-40 rounded-lg object-cover shadow-sm" alt="Preview Hero">
                     </div>
                 @endif

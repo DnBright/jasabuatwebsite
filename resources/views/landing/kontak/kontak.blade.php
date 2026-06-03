@@ -1,5 +1,8 @@
 <!-- CALL TO ACTION & SOCIAL MEDIA (KONTAK) -->
 <section id="kontak" class="cta-section">
+    <div class="parallax-wrapper">
+        <img src="{{ asset('images/hero/entrepreneur.webp') }}" class="parallax-bg" style="opacity: 0.05;" alt="Background entrepreneur">
+    </div>
     <div class="cta-container">
         <div class="cta-box glass-premium">
             <div class="cta-content">
@@ -80,14 +83,14 @@
     }
 
     .glass-premium {
-        background: linear-gradient(135deg, #002147 0%, #0c3461 100%);
+        background: linear-gradient(135deg, var(--color-primary-light) 0%, var(--color-primary) 100%);
         color: #ffffff;
         padding: 6rem 4rem;
         border-radius: 48px;
         text-align: center;
         position: relative;
         overflow: hidden;
-        box-shadow: 0 40px 80px -20px rgba(0, 33, 71, 0.4);
+        box-shadow: 0 40px 80px -20px rgba(20, 18, 19, 0.4);
         margin-bottom: 6rem;
     }
 
@@ -135,7 +138,7 @@
         display: inline-block;
         text-decoration: none;
         background: white;
-        color: #002147;
+        color: var(--color-primary);
         padding: 1.25rem 3rem;
         border-radius: 20px;
         font-weight: 800;
@@ -170,7 +173,7 @@
         display: inline-block;
         padding: 0.5rem 1.25rem;
         background: #f1f5f9;
-        color: #002147;
+        color: var(--color-primary);
         border-radius: 50px;
         font-size: 0.8rem;
         font-weight: 800;
@@ -183,7 +186,7 @@
     .social-title {
         font-size: 2rem;
         font-weight: 800;
-        color: #0f172a;
+        color: var(--color-primary);
         margin-bottom: 4rem;
         letter-spacing: -1px;
     }
@@ -200,7 +203,7 @@
         align-items: center;
         gap: 1.25rem;
         text-decoration: none;
-        color: #64748b;
+        color: var(--color-text-muted);
         font-weight: 800;
         transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         padding: 2.5rem 1.5rem;
@@ -218,7 +221,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        color: #002147;
+        color: var(--color-primary);
         transition: all 0.4s ease;
         border: 1px solid #f1f5f9;
     }
@@ -231,12 +234,12 @@
     .social-card:hover {
         transform: translateY(-15px);
         border-color: #3b82f6;
-        color: #002147;
+        color: var(--color-primary);
         box-shadow: 0 30px 60px -15px rgba(59, 130, 246, 0.15);
     }
 
     .social-card:hover .social-icon {
-        background: #002147;
+        background: var(--color-primary);
         color: white;
         transform: rotate(10deg);
     }
