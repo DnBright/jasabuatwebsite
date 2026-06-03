@@ -378,7 +378,7 @@
         background: #3b82f6 !important;
     }
 
-    @media (max-width: 768px) {
+    @@media (max-width: 768px) {
         .categories-section { padding: 4rem 0; }
         .section-container { padding: 0 5%; }
         .badge-mini { margin-bottom: 1rem; font-size: 0.7rem; padding: 0.4rem 1rem; }
