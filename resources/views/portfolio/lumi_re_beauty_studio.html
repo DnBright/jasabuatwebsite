@@ -1,1108 +1,2044 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lumière Beauty Studio | Premium Aesthetic & Salon</title>
-    <meta name="description" content="Reveal Your Natural Elegance. Professional beauty treatments, premium skincare, and luxury salon experiences.">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Lumière Beauty Studio | Premium Aesthetic & Salon</title>
+        <meta
+            name="description"
+            content="Reveal Your Natural Elegance. Professional beauty treatments, premium skincare, and luxury salon experiences."
+        />
 
-    <!-- Google Fonts: Playfair Display (Heading) & Poppins (Body) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+        <!-- Google Fonts: Playfair Display (Heading) & Poppins (Body) -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Poppins:wght@300;400;500;600&display=swap"
+            rel="stylesheet"
+        />
 
-    <!-- Phosphor Icons -->
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+        <!-- Phosphor Icons -->
+        <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#1F1A17',    /* Dark rich brown/black */
-                        secondary: '#4A3F35',  /* Warm brown */
-                        accent: '#D4B996',     /* Champagne Gold */
-                        bgbase: '#FAF7F2',     /* Warm off-white */
-                        surface: '#FFFFFF',    /* White */
-                        textdark: '#2B2B2B',   /* Dark gray */
+        <!-- Tailwind CSS -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script>
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        colors: {
+                            primary: '#1F1A17' /* Dark rich brown/black */,
+                            secondary: '#4A3F35' /* Warm brown */,
+                            accent: '#D4B996' /* Champagne Gold */,
+                            bgbase: '#FAF7F2' /* Warm off-white */,
+                            surface: '#FFFFFF' /* White */,
+                            textdark: '#2B2B2B' /* Dark gray */,
+                        },
+                        fontFamily: {
+                            playfair: ['"Playfair Display"', 'serif'],
+                            poppins: ['Poppins', 'sans-serif'],
+                        },
+                        boxShadow: {
+                            luxury: '0 15px 40px -10px rgba(74, 63, 53, 0.08)',
+                            glass: '0 8px 32px 0 rgba(31, 26, 23, 0.05)',
+                        },
                     },
-                    fontFamily: {
-                        playfair: ['"Playfair Display"', 'serif'],
-                        poppins: ['Poppins', 'sans-serif'],
-                    },
-                    boxShadow: {
-                        'luxury': '0 15px 40px -10px rgba(74, 63, 53, 0.08)',
-                        'glass': '0 8px 32px 0 rgba(31, 26, 23, 0.05)',
-                    }
+                },
+            };
+        </script>
+
+        <style>
+            /* Base & Resets */
+            body {
+                font-family: 'Poppins', sans-serif;
+                background-color: theme('colors.bgbase');
+                color: theme('colors.textdark');
+                overflow-x: hidden;
+                -webkit-font-smoothing: antialiased;
+            }
+
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6,
+            .font-playfair {
+                font-family: 'Playfair Display', serif;
+            }
+
+            ::selection {
+                background-color: theme('colors.accent');
+                color: theme('colors.primary');
+            }
+
+            /* Loading Screen */
+            #loader {
+                position: fixed;
+                inset: 0;
+                background-color: theme('colors.bgbase');
+                z-index: 9999;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition:
+                    opacity 0.8s ease,
+                    visibility 0.8s ease;
+            }
+            .loader-logo {
+                font-family: 'Playfair Display', serif;
+                font-size: 2rem;
+                color: theme('colors.primary');
+                letter-spacing: 0.1em;
+                animation: pulse-slow 2s infinite ease-in-out;
+            }
+            @keyframes pulse-slow {
+                0%,
+                100% {
+                    opacity: 0.5;
+                }
+                50% {
+                    opacity: 1;
                 }
             }
-        }
-    </script>
 
-    <style>
-        /* Base & Resets */
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: theme('colors.bgbase');
-            color: theme('colors.textdark');
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-        }
+            /* Navbar Glassmorphism */
+            .nav-glass {
+                background: rgba(250, 247, 242, 0.9);
+                backdrop-filter: blur(16px);
+                -webkit-backdrop-filter: blur(16px);
+                border-bottom: 1px solid rgba(212, 185, 150, 0.2);
+                transition: all 0.5s ease;
+            }
 
-        h1, h2, h3, h4, h5, h6, .font-playfair {
-            font-family: 'Playfair Display', serif;
-        }
+            /* CSS Parallax Backgrounds */
+            .parallax-bg {
+                background-attachment: fixed;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;
+            }
+            #hero {
+                background-image: url('https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&q=80&w=2000');
+            }
+            #experience-quote {
+                background-image: url('https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?auto=format&fit=crop&q=80&w=2000');
+            }
+            #cinematic-showcase {
+                background-image: url('https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&q=80&w=2000');
+            }
+            #booking {
+                background-image: url('https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&q=80&w=2000');
+            }
 
-        ::selection {
-            background-color: theme('colors.accent');
-            color: theme('colors.primary');
-        }
+            .overlay-dark {
+                background: linear-gradient(
+                    to bottom,
+                    rgba(31, 26, 23, 0.4),
+                    rgba(31, 26, 23, 0.8)
+                );
+            }
+            .overlay-light {
+                background: rgba(250, 247, 242, 0.85);
+            }
 
-        /* Loading Screen */
-        #loader {
-            position: fixed;
-            inset: 0;
-            background-color: theme('colors.bgbase');
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            transition: opacity 0.8s ease, visibility 0.8s ease;
-        }
-        .loader-logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            color: theme('colors.primary');
-            letter-spacing: 0.1em;
-            animation: pulse-slow 2s infinite ease-in-out;
-        }
-        @keyframes pulse-slow {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 1; }
-        }
+            /* Scroll Reveal Animations */
+            .reveal {
+                opacity: 0;
+                transform: translateY(40px);
+                transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            }
+            .reveal.active {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            .delay-100 {
+                transition-delay: 0.1s;
+            }
+            .delay-200 {
+                transition-delay: 0.2s;
+            }
+            .delay-300 {
+                transition-delay: 0.3s;
+            }
 
-        /* Navbar Glassmorphism */
-        .nav-glass {
-            background: rgba(250, 247, 242, 0.9);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(212, 185, 150, 0.2);
-            transition: all 0.5s ease;
-        }
+            /* Floating Decor Elements */
+            .float-anim {
+                animation: float 8s ease-in-out infinite;
+            }
+            .float-anim.delay-1 {
+                animation-delay: -2s;
+            }
+            .float-anim.delay-2 {
+                animation-delay: -4s;
+            }
+            @keyframes float {
+                0% {
+                    transform: translateY(0) rotate(0deg);
+                }
+                50% {
+                    transform: translateY(-20px) rotate(3deg);
+                }
+                100% {
+                    transform: translateY(0) rotate(0deg);
+                }
+            }
 
-        /* CSS Parallax Backgrounds */
-        .parallax-bg {
-            background-attachment: fixed;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
-        #hero { background-image: url('https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&q=80&w=2000'); }
-        #experience-quote { background-image: url('https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?auto=format&fit=crop&q=80&w=2000'); }
-        #cinematic-showcase { background-image: url('https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&q=80&w=2000'); }
-        #booking { background-image: url('https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&q=80&w=2000'); }
+            /* Buttons & Forms */
+            .btn-solid {
+                background-color: theme('colors.primary');
+                color: theme('colors.surface');
+                transition: all 0.4s ease;
+                position: relative;
+                overflow: hidden;
+                border: 1px solid theme('colors.primary');
+            }
+            .btn-solid:hover {
+                background-color: transparent;
+                color: theme('colors.primary');
+            }
+            .btn-outline {
+                background-color: transparent;
+                color: theme('colors.surface');
+                border: 1px solid theme('colors.surface');
+                transition: all 0.4s ease;
+            }
+            .btn-outline:hover {
+                background-color: theme('colors.surface');
+                color: theme('colors.primary');
+            }
 
-        .overlay-dark { background: linear-gradient(to bottom, rgba(31, 26, 23, 0.4), rgba(31, 26, 23, 0.8)); }
-        .overlay-light { background: rgba(250, 247, 242, 0.85); }
+            .input-luxury {
+                width: 100%;
+                background: transparent;
+                border: none;
+                border-bottom: 1px solid rgba(43, 43, 43, 0.3);
+                padding: 12px 0;
+                color: theme('colors.textdark');
+                transition: all 0.3s ease;
+            }
+            .input-luxury:focus {
+                outline: none;
+                border-bottom-color: theme('colors.accent');
+            }
+            .input-luxury::placeholder {
+                color: rgba(43, 43, 43, 0.5);
+                font-weight: 300;
+            }
 
-        /* Scroll Reveal Animations */
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .delay-100 { transition-delay: 0.1s; }
-        .delay-200 { transition-delay: 0.2s; }
-        .delay-300 { transition-delay: 0.3s; }
+            /* Premium Cards */
+            .luxury-card {
+                background: theme('colors.surface');
+                border: 1px solid rgba(212, 185, 150, 0.2);
+                transition: all 0.5s ease;
+            }
+            .luxury-card:hover {
+                transform: translateY(-8px);
+                box-shadow: theme('boxShadow.luxury');
+                border-color: rgba(212, 185, 150, 0.6);
+            }
 
-        /* Floating Decor Elements */
-        .float-anim { animation: float 8s ease-in-out infinite; }
-        .float-anim.delay-1 { animation-delay: -2s; }
-        .float-anim.delay-2 { animation-delay: -4s; }
-        @keyframes float {
-            0% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(3deg); }
-            100% { transform: translateY(0) rotate(0deg); }
-        }
+            /* Glassmorphism Panels */
+            .glass-panel {
+                background: rgba(255, 255, 255, 0.7);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                border: 1px solid rgba(255, 255, 255, 0.6);
+                box-shadow: theme('boxShadow.glass');
+            }
 
-        /* Buttons & Forms */
-        .btn-solid {
-            background-color: theme('colors.primary');
-            color: theme('colors.surface');
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid theme('colors.primary');
-        }
-        .btn-solid:hover {
-            background-color: transparent;
-            color: theme('colors.primary');
-        }
-        .btn-outline {
-            background-color: transparent;
-            color: theme('colors.surface');
-            border: 1px solid theme('colors.surface');
-            transition: all 0.4s ease;
-        }
-        .btn-outline:hover {
-            background-color: theme('colors.surface');
-            color: theme('colors.primary');
-        }
+            /* Masonry Gallery */
+            .masonry {
+                column-count: 1;
+                column-gap: 1.5rem;
+            }
+            @media (min-width: 640px) {
+                .masonry {
+                    column-count: 2;
+                }
+            }
+            @media (min-width: 1024px) {
+                .masonry {
+                    column-count: 3;
+                }
+            }
+            .masonry-item {
+                break-inside: avoid;
+                margin-bottom: 1.5rem;
+                position: relative;
+                overflow: hidden;
+                cursor: pointer;
+            }
+            .masonry-item img {
+                width: 100%;
+                display: block;
+                transition: transform 0.8s ease;
+            }
+            .masonry-item:hover img {
+                transform: scale(1.05);
+            }
+            .masonry-overlay {
+                position: absolute;
+                inset: 0;
+                background: rgba(31, 26, 23, 0.3);
+                opacity: 0;
+                transition: opacity 0.5s ease;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .masonry-item:hover .masonry-overlay {
+                opacity: 1;
+            }
 
-        .input-luxury {
-            width: 100%;
-            background: transparent;
-            border: none;
-            border-bottom: 1px solid rgba(43, 43, 43, 0.3);
-            padding: 12px 0;
-            color: theme('colors.textdark');
-            transition: all 0.3s ease;
-        }
-        .input-luxury:focus {
-            outline: none;
-            border-bottom-color: theme('colors.accent');
-        }
-        .input-luxury::placeholder { color: rgba(43, 43, 43, 0.5); font-weight: 300; }
+            /* Before & After Slider */
+            .ba-slider-container {
+                position: relative;
+                overflow: hidden;
+                user-select: none;
+            }
+            .ba-image-before {
+                position: absolute;
+                inset: 0;
+                width: 50%; /* Initial width */
+                overflow: hidden;
+                border-right: 2px solid theme('colors.surface');
+                z-index: 10;
+            }
+            .ba-slider-handle {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 40px;
+                height: 40px;
+                background-color: theme('colors.surface');
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+                z-index: 20;
+                pointer-events: none;
+            }
 
-        /* Premium Cards */
-        .luxury-card {
-            background: theme('colors.surface');
-            border: 1px solid rgba(212, 185, 150, 0.2);
-            transition: all 0.5s ease;
-        }
-        .luxury-card:hover {
-            transform: translateY(-8px);
-            box-shadow: theme('boxShadow.luxury');
-            border-color: rgba(212, 185, 150, 0.6);
-        }
-
-        /* Glassmorphism Panels */
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            box-shadow: theme('boxShadow.glass');
-        }
-
-        /* Masonry Gallery */
-        .masonry {
-            column-count: 1;
-            column-gap: 1.5rem;
-        }
-        @media (min-width: 640px) { .masonry { column-count: 2; } }
-        @media (min-width: 1024px) { .masonry { column-count: 3; } }
-        .masonry-item {
-            break-inside: avoid;
-            margin-bottom: 1.5rem;
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-        }
-        .masonry-item img {
-            width: 100%;
-            display: block;
-            transition: transform 0.8s ease;
-        }
-        .masonry-item:hover img { transform: scale(1.05); }
-        .masonry-overlay {
-            position: absolute;
-            inset: 0;
-            background: rgba(31, 26, 23, 0.3);
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .masonry-item:hover .masonry-overlay { opacity: 1; }
-
-        /* Before & After Slider */
-        .ba-slider-container {
-            position: relative;
-            overflow: hidden;
-            user-select: none;
-        }
-        .ba-image-before {
-            position: absolute;
-            inset: 0;
-            width: 50%; /* Initial width */
-            overflow: hidden;
-            border-right: 2px solid theme('colors.surface');
-            z-index: 10;
-        }
-        .ba-slider-handle {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 40px;
-            height: 40px;
-            background-color: theme('colors.surface');
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            z-index: 20;
-            pointer-events: none;
-        }
-
-        /* FAQ Accordion */
-        .faq-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease-out, padding 0.4s ease;
-        }
-        .faq-icon { transition: transform 0.4s ease; }
-        .faq-item.active .faq-icon { transform: rotate(180deg); color: theme('colors.accent'); }
-    </style>
-</head>
-<body class="relative text-textdark">
-
-    <!-- Loading Animation -->
-    <div id="loader">
-        <div class="loader-logo mb-4">Lumière</div>
-        <div class="w-24 h-[1px] bg-accent/30 relative overflow-hidden">
-            <div class="absolute top-0 left-0 h-full bg-accent w-1/3 animate-[slide_1.5s_infinite_ease-in-out]"></div>
-        </div>
-        <style>@keyframes slide { 0% { left: -30%; } 100% { left: 100%; } }</style>
-    </div>
-
-    <!-- Navigation -->
-    <nav id="navbar" class="fixed w-full top-0 z-50 py-5 transition-all duration-500">
-        <div class="container mx-auto px-6 md:px-12 flex justify-between items-center">
-            <!-- Logo -->
-            <a href="#" class="font-playfair font-semibold text-2xl tracking-wider text-surface nav-text transition-colors">
-                Lumière<span class="text-accent">.</span>
-            </a>
-
-            <!-- Desktop Menu -->
-            <div class="hidden lg:flex items-center gap-10 font-poppins text-sm uppercase tracking-widest text-surface nav-text transition-colors">
-                <a href="#about" class="hover:text-accent transition-colors">About</a>
-                <a href="#services" class="hover:text-accent transition-colors">Treatments</a>
-                <a href="#gallery" class="hover:text-accent transition-colors">Gallery</a>
-                <a href="#testimonials" class="hover:text-accent transition-colors">Reviews</a>
+            /* FAQ Accordion */
+            .faq-content {
+                max-height: 0;
+                overflow: hidden;
+                transition:
+                    max-height 0.4s ease-out,
+                    padding 0.4s ease;
+            }
+            .faq-icon {
+                transition: transform 0.4s ease;
+            }
+            .faq-item.active .faq-icon {
+                transform: rotate(180deg);
+                color: theme('colors.accent');
+            }
+        </style>
+    </head>
+    <body class="text-textdark relative">
+        <!-- Loading Animation -->
+        <div id="loader">
+            <div class="loader-logo mb-4">Lumière</div>
+            <div class="relative h-[1px] w-24 overflow-hidden bg-accent/30">
+                <div
+                    class="absolute top-0 left-0 h-full w-1/3 animate-[slide_1.5s_infinite_ease-in-out] bg-accent"
+                ></div>
             </div>
+            <style>
+                @keyframes slide {
+                    0% {
+                        left: -30%;
+                    }
+                    100% {
+                        left: 100%;
+                    }
+                }
+            </style>
+        </div>
 
-            <!-- CTA Desktop -->
-            <div class="hidden lg:block">
-                <a href="#booking" class="px-6 py-2.5 border border-accent text-accent hover:bg-accent hover:text-primary transition-all duration-300 font-poppins text-sm uppercase tracking-widest nav-btn">
-                    Book Now
+        <!-- Navigation -->
+        <nav
+            id="navbar"
+            class="fixed top-0 z-50 w-full py-5 transition-all duration-500"
+        >
+            <div
+                class="container mx-auto flex items-center justify-between px-6 md:px-12"
+            >
+                <!-- Logo -->
+                <a
+                    href="#"
+                    class="font-playfair text-surface nav-text text-2xl font-semibold tracking-wider transition-colors"
+                >
+                    Lumière<span class="text-accent">.</span>
                 </a>
-            </div>
 
-            <!-- Mobile Menu Toggle -->
-            <button id="mobile-menu-btn" class="lg:hidden text-surface text-3xl focus:outline-none nav-text transition-colors">
-                <i class="ph ph-list"></i>
-            </button>
-        </div>
-
-        <!-- Mobile Menu Overlay -->
-        <div id="mobile-menu" class="fixed inset-0 bg-primary z-40 transform translate-x-full transition-transform duration-500 flex flex-col justify-center items-center gap-8 shadow-2xl">
-            <a href="#about" class="mobile-link font-playfair text-3xl text-surface hover:text-accent italic transition-colors">About Studio</a>
-            <a href="#services" class="mobile-link font-playfair text-3xl text-surface hover:text-accent italic transition-colors">Our Treatments</a>
-            <a href="#gallery" class="mobile-link font-playfair text-3xl text-surface hover:text-accent italic transition-colors">Visual Gallery</a>
-            <a href="#testimonials" class="mobile-link font-playfair text-3xl text-surface hover:text-accent italic transition-colors">Client Reviews</a>
-            <a href="#booking" class="mobile-link mt-6 px-10 py-3 bg-accent text-primary font-poppins text-sm uppercase tracking-widest">Reserve Session</a>
-        </div>
-    </nav>
-
-    <!-- Hero Section (Parallax & Mouse Elements) -->
-    <section id="hero" class="relative h-screen flex items-center justify-center parallax-bg overflow-hidden">
-        <div class="absolute inset-0 overlay-dark"></div>
-        
-        <!-- Floating Abstract Decorative Elements (JS Mouse Parallax applied here) -->
-        <div class="absolute inset-0 z-10 pointer-events-none" id="mouse-parallax">
-            <div class="absolute top-1/4 left-1/4 w-64 h-64 border border-accent/20 rounded-full float-anim mouse-el" data-speed="1.5"></div>
-            <div class="absolute bottom-1/4 right-1/4 w-96 h-96 border border-white/10 rounded-full float-anim delay-1 mouse-el" data-speed="-2"></div>
-        </div>
-
-        <div class="container mx-auto px-6 relative z-20 text-center text-surface mt-16">
-            <div class="reveal">
-                <span class="inline-block py-1.5 px-6 border border-accent/40 bg-primary/30 backdrop-blur-sm text-xs font-poppins uppercase tracking-[0.2em] mb-6 text-accent">
-                    Luxury Beauty Experience
-                </span>
-            </div>
-            
-            <h1 class="font-playfair text-5xl md:text-7xl lg:text-[5.5rem] font-medium mb-6 leading-tight max-w-5xl mx-auto reveal delay-100">
-                Enhance Your Beauty <br>
-                <span class="italic font-light text-accent">With Confidence</span>
-            </h1>
-            
-            <p class="font-poppins text-sm md:text-base font-light text-surface/80 mb-10 max-w-2xl mx-auto leading-relaxed reveal delay-200">
-                Professional beauty treatments, premium skincare, and luxury salon experiences tailored just for you. Reveal your natural elegance with Lumière.
-            </p>
-            
-            <div class="flex flex-col sm:flex-row justify-center items-center gap-5 reveal delay-300">
-                <a href="#booking" class="btn-solid px-8 py-3.5 font-poppins text-sm uppercase tracking-widest w-full sm:w-auto text-center">
-                    Book Appointment
-                </a>
-                <a href="#services" class="btn-outline px-8 py-3.5 font-poppins text-sm uppercase tracking-widest w-full sm:w-auto text-center">
-                    Explore Services
-                </a>
-            </div>
-        </div>
-
-        <!-- Scroll Down Indicator -->
-        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-20 flex flex-col items-center reveal delay-300">
-            <span class="font-poppins text-xs uppercase tracking-widest text-surface/60 mb-2">Scroll</span>
-            <div class="w-[1px] h-12 bg-surface/30 relative overflow-hidden">
-                <div class="absolute top-0 w-full h-1/2 bg-accent animate-[slideDown_2s_infinite]"></div>
-            </div>
-            <style>@keyframes slideDown { 0% { top: -50%; } 100% { top: 100%; } }</style>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="py-24 lg:py-32 relative">
-        <div class="container mx-auto px-6 md:px-12">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                
-                <!-- Left: Aesthetic Image -->
-                <div class="relative reveal">
-                    <div class="rounded-t-full overflow-hidden border border-accent/20 p-2">
-                        <img src="https://images.unsplash.com/photo-1600928107541-118151ed5964?auto=format&fit=crop&q=80&w=800" alt="Premium Salon Interior" class="w-full h-auto rounded-t-full object-cover aspect-[3/4]">
-                    </div>
-                    <!-- Decorative Badge -->
-                    <div class="absolute -bottom-6 -right-6 md:-right-10 bg-surface p-6 shadow-luxury border border-accent/10 flex items-center gap-4 reveal delay-200">
-                        <div class="w-12 h-12 flex items-center justify-center border border-accent rounded-full text-accent">
-                            <i class="ph ph-flower-lotus text-2xl"></i>
-                        </div>
-                        <div>
-                            <p class="font-playfair font-bold text-xl text-primary">Award Winning</p>
-                            <p class="font-poppins text-xs tracking-wider uppercase text-secondary">Aesthetic Studio</p>
-                        </div>
-                    </div>
+                <!-- Desktop Menu -->
+                <div
+                    class="font-poppins text-surface nav-text hidden items-center gap-10 text-sm tracking-widest uppercase transition-colors lg:flex"
+                >
+                    <a href="#about" class="transition-colors hover:text-accent"
+                        >About</a
+                    >
+                    <a
+                        href="#services"
+                        class="transition-colors hover:text-accent"
+                        >Treatments</a
+                    >
+                    <a
+                        href="#gallery"
+                        class="transition-colors hover:text-accent"
+                        >Gallery</a
+                    >
+                    <a
+                        href="#testimonials"
+                        class="transition-colors hover:text-accent"
+                        >Reviews</a
+                    >
                 </div>
 
-                <!-- Right: Content -->
-                <div class="reveal delay-100 lg:pl-10">
-                    <span class="font-poppins text-xs uppercase tracking-[0.2em] text-accent mb-4 block">The Story of Lumière</span>
-                    <h2 class="font-playfair text-4xl md:text-5xl text-primary mb-6 leading-tight">
-                        Where Science Meets <br><i class="text-secondary font-light">Natural Elegance.</i>
-                    </h2>
-                    <div class="w-16 h-[1px] bg-accent mb-8"></div>
-                    
-                    <p class="font-poppins text-secondary/80 font-light leading-relaxed mb-6">
-                        Berdiri sejak 2016, Lumière Beauty Studio didedikasikan untuk wanita modern yang mengutamakan kualitas, eksklusivitas, dan hasil yang natural. Kami percaya bahwa setiap wanita memiliki kecantikan unik yang hanya perlu disempurnakan, bukan diubah.
-                    </p>
-                    <p class="font-poppins text-secondary/80 font-light leading-relaxed mb-12">
-                        Didukung oleh tenaga ahli bersertifikat internasional dan teknologi estetika terkini, kami memastikan setiap sesi perawatan menjadi pengalaman relaksasi kelas atas.
-                    </p>
-
-                    <!-- Stats Grid -->
-                    <div class="grid grid-cols-2 gap-y-10 gap-x-6">
-                        <div>
-                            <h3 class="font-playfair text-4xl text-primary mb-2">10+</h3>
-                            <p class="font-poppins text-xs uppercase tracking-widest text-secondary/70">Years Experience</p>
-                        </div>
-                        <div>
-                            <h3 class="font-playfair text-4xl text-primary mb-2">15k+</h3>
-                            <p class="font-poppins text-xs uppercase tracking-widest text-secondary/70">Happy Clients</p>
-                        </div>
-                        <div>
-                            <h3 class="font-playfair text-4xl text-primary mb-2">25+</h3>
-                            <p class="font-poppins text-xs uppercase tracking-widest text-secondary/70">Beauty Experts</p>
-                        </div>
-                        <div>
-                            <h3 class="font-playfair text-4xl text-primary mb-2">4.9<span class="text-accent text-2xl">★</span></h3>
-                            <p class="font-poppins text-xs uppercase tracking-widest text-secondary/70">Client Rating</p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- Parallax Experience Quote -->
-    <section id="experience-quote" class="relative h-[70vh] flex items-center justify-center overflow-hidden parallax-bg">
-        <div class="absolute inset-0 overlay-dark"></div>
-        <div class="container mx-auto px-6 relative z-10 text-center reveal">
-            <i class="ph-fill ph-quotes text-accent text-4xl mb-6 opacity-80"></i>
-            <h2 class="font-playfair text-4xl md:text-5xl lg:text-6xl text-surface font-light leading-snug max-w-4xl mx-auto tracking-wide">
-                "Beauty Begins The Moment You Decide To <span class="italic text-accent font-medium">Be Yourself.</span>"
-            </h2>
-        </div>
-    </section>
-
-    <!-- Services Section -->
-    <section id="services" class="py-24 lg:py-32">
-        <div class="container mx-auto px-6 md:px-12">
-            <div class="text-center max-w-2xl mx-auto mb-20 reveal">
-                <span class="font-poppins text-xs uppercase tracking-[0.2em] text-accent mb-4 block">Our Expertise</span>
-                <h2 class="font-playfair text-4xl md:text-5xl text-primary">Luxury Services</h2>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Service 1 -->
-                <div class="luxury-card p-10 group reveal">
-                    <div class="w-14 h-14 rounded-full bg-bgbase flex items-center justify-center text-accent mb-6 group-hover:bg-accent group-hover:text-surface transition-colors duration-500">
-                        <i class="ph ph-scissors text-2xl"></i>
-                    </div>
-                    <h3 class="font-playfair text-2xl text-primary mb-3">Hair Styling</h3>
-                    <p class="font-poppins text-sm text-secondary/80 leading-relaxed font-light mb-6">Potongan presisi, penataan elegan, dan perawatan rambut eksklusif untuk menyempurnakan mahkota Anda.</p>
-                    <a href="#booking" class="font-poppins text-xs uppercase tracking-widest text-primary border-b border-primary pb-1 group-hover:border-accent group-hover:text-accent transition-colors">Discover</a>
-                </div>
-
-                <!-- Service 2 -->
-                <div class="luxury-card p-10 group reveal delay-100">
-                    <div class="w-14 h-14 rounded-full bg-bgbase flex items-center justify-center text-accent mb-6 group-hover:bg-accent group-hover:text-surface transition-colors duration-500">
-                        <i class="ph ph-drop text-2xl"></i>
-                    </div>
-                    <h3 class="font-playfair text-2xl text-primary mb-3">Hair Coloring</h3>
-                    <p class="font-poppins text-sm text-secondary/80 leading-relaxed font-light mb-6">Teknik pewarnaan premium dari balayage hingga warna fashion dengan produk pelindung struktur rambut.</p>
-                    <a href="#booking" class="font-poppins text-xs uppercase tracking-widest text-primary border-b border-primary pb-1 group-hover:border-accent group-hover:text-accent transition-colors">Discover</a>
-                </div>
-
-                <!-- Service 3 -->
-                <div class="luxury-card p-10 group reveal delay-200">
-                    <div class="w-14 h-14 rounded-full bg-bgbase flex items-center justify-center text-accent mb-6 group-hover:bg-accent group-hover:text-surface transition-colors duration-500">
-                        <i class="ph ph-sparkle text-2xl"></i>
-                    </div>
-                    <h3 class="font-playfair text-2xl text-primary mb-3">Facial Treatment</h3>
-                    <p class="font-poppins text-sm text-secondary/80 leading-relaxed font-light mb-6">Revitalisasi mendalam untuk mencerahkan, mengencangkan, dan meremajakan kulit dengan teknologi medis terkini.</p>
-                    <a href="#booking" class="font-poppins text-xs uppercase tracking-widest text-primary border-b border-primary pb-1 group-hover:border-accent group-hover:text-accent transition-colors">Discover</a>
-                </div>
-
-                <!-- Service 4 -->
-                <div class="luxury-card p-10 group reveal">
-                    <div class="w-14 h-14 rounded-full bg-bgbase flex items-center justify-center text-accent mb-6 group-hover:bg-accent group-hover:text-surface transition-colors duration-500">
-                        <i class="ph ph-hand-pointing text-2xl"></i>
-                    </div>
-                    <h3 class="font-playfair text-2xl text-primary mb-3">Nail Art & Spa</h3>
-                    <p class="font-poppins text-sm text-secondary/80 leading-relaxed font-light mb-6">Manicure dan pedicure spa relaksasi dengan desain nail art elegan dan material gel berkualitas tinggi.</p>
-                    <a href="#booking" class="font-poppins text-xs uppercase tracking-widest text-primary border-b border-primary pb-1 group-hover:border-accent group-hover:text-accent transition-colors">Discover</a>
-                </div>
-
-                <!-- Service 5 -->
-                <div class="luxury-card p-10 group reveal delay-100">
-                    <div class="w-14 h-14 rounded-full bg-bgbase flex items-center justify-center text-accent mb-6 group-hover:bg-accent group-hover:text-surface transition-colors duration-500">
-                        <i class="ph ph-eye text-2xl"></i>
-                    </div>
-                    <h3 class="font-playfair text-2xl text-primary mb-3">Eyelash Extension</h3>
-                    <p class="font-poppins text-sm text-secondary/80 leading-relaxed font-light mb-6">Bulu mata lentik natural atau dramatis dengan teknik pemasangan higienis yang tidak merusak bulu mata asli.</p>
-                    <a href="#booking" class="font-poppins text-xs uppercase tracking-widest text-primary border-b border-primary pb-1 group-hover:border-accent group-hover:text-accent transition-colors">Discover</a>
-                </div>
-
-                <!-- Service 6 -->
-                <div class="luxury-card p-10 group reveal delay-200">
-                    <div class="w-14 h-14 rounded-full bg-bgbase flex items-center justify-center text-accent mb-6 group-hover:bg-accent group-hover:text-surface transition-colors duration-500">
-                        <i class="ph ph-crown text-2xl"></i>
-                    </div>
-                    <h3 class="font-playfair text-2xl text-primary mb-3">Bridal Makeup</h3>
-                    <p class="font-poppins text-sm text-secondary/80 leading-relaxed font-light mb-6">Riasan sempurna dan flawless untuk hari istimewa Anda, menonjolkan aura anggun dan kecantikan sejati.</p>
-                    <a href="#booking" class="font-poppins text-xs uppercase tracking-widest text-primary border-b border-primary pb-1 group-hover:border-accent group-hover:text-accent transition-colors">Discover</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Featured Treatments -->
-    <section class="py-24 bg-surface border-y border-accent/10">
-        <div class="container mx-auto px-6 md:px-12">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-16 reveal">
-                <div>
-                    <span class="font-poppins text-xs uppercase tracking-[0.2em] text-accent mb-4 block">Signature</span>
-                    <h2 class="font-playfair text-4xl md:text-5xl text-primary">Featured Treatments</h2>
-                </div>
-                <a href="#services" class="font-poppins text-xs uppercase tracking-widest text-primary border-b border-primary pb-1 hover:text-accent hover:border-accent transition-all mt-4 md:mt-0">View All Menu</a>
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-10">
-                <!-- Treatment 1 -->
-                <div class="group cursor-pointer reveal">
-                    <div class="overflow-hidden aspect-[4/3] mb-6 relative">
-                        <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&q=80&w=800" alt="Luxury Facial" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
-                        <div class="absolute inset-0 bg-primary/0 group-hover:bg-primary/20 transition-colors duration-500"></div>
-                    </div>
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <h3 class="font-playfair text-2xl text-primary mb-2 group-hover:text-accent transition-colors">Lumière Luxury Facial</h3>
-                            <p class="font-poppins text-sm text-secondary/70 font-light max-w-sm">Perawatan facial lengkap dengan ekstraksi komedo, pijat wajah relaksasi, dan masker emas 24k.</p>
-                        </div>
-                        <div class="font-poppins text-primary font-medium">Rp 850k</div>
-                    </div>
-                </div>
-
-                <!-- Treatment 2 -->
-                <div class="group cursor-pointer reveal delay-100">
-                    <div class="overflow-hidden aspect-[4/3] mb-6 relative">
-                        <img src="https://images.unsplash.com/photo-1512496015851-a1c84b162638?auto=format&fit=crop&q=80&w=800" alt="Bridal" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
-                        <div class="absolute inset-0 bg-primary/0 group-hover:bg-primary/20 transition-colors duration-500"></div>
-                    </div>
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <h3 class="font-playfair text-2xl text-primary mb-2 group-hover:text-accent transition-colors">Elegance Bridal Package</h3>
-                            <p class="font-poppins text-sm text-secondary/70 font-light max-w-sm">Full makeup trial & wedding day, hair styling, dan persiapan kulit pranikah.</p>
-                        </div>
-                        <div class="font-poppins text-primary font-medium">Rp 4.5M</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Before & After Section -->
-    <section class="py-24 lg:py-32">
-        <div class="container mx-auto px-6 md:px-12">
-            <div class="text-center max-w-2xl mx-auto mb-16 reveal">
-                <span class="font-poppins text-xs uppercase tracking-[0.2em] text-accent mb-4 block">Real Results</span>
-                <h2 class="font-playfair text-4xl md:text-5xl text-primary mb-6">Transformation Showcase</h2>
-                <p class="font-poppins text-secondary/80 font-light text-sm">Geser slider untuk melihat hasil nyata dari treatment Korean Glow andalan kami.</p>
-            </div>
-
-            <!-- Custom Interactive Slider -->
-            <div class="max-w-4xl mx-auto reveal delay-100 relative">
-                <div class="ba-slider-container w-full h-[350px] md:h-[500px] rounded-sm shadow-luxury" id="ba-container">
-                    <!-- Image After -->
-                    <img src="https://images.unsplash.com/photo-1580870058866-2313d3393910?auto=format&fit=crop&q=80&w=1000" alt="After Treatment" class="absolute inset-0 w-full h-full object-cover">
-                    <!-- Image Before (Overlaid) -->
-                    <div class="ba-image-before" id="ba-before">
-                        <img src="https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?auto=format&fit=crop&q=80&w=1000" alt="Before Treatment" class="absolute inset-0 w-full h-[350px] md:h-[500px] object-cover" style="max-width: none; width: 100vw; /* Reset width so image doesnt squash */">
-                    </div>
-                    <!-- Handle -->
-                    <div class="ba-slider-handle" id="ba-handle">
-                        <i class="ph ph-arrows-left-right text-primary text-xl"></i>
-                    </div>
-                    <!-- Range Input -->
-                    <input type="range" min="0" max="100" value="50" class="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize z-30" id="ba-slider">
-                    
-                    <!-- Labels -->
-                    <div class="absolute bottom-4 left-4 z-20 bg-surface/80 backdrop-blur px-3 py-1 font-poppins text-xs uppercase tracking-widest text-primary">Before</div>
-                    <div class="absolute bottom-4 right-4 z-10 bg-surface/80 backdrop-blur px-3 py-1 font-poppins text-xs uppercase tracking-widest text-primary">After</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Parallax Cinematic Showcase -->
-    <section id="cinematic-showcase" class="relative h-[80vh] flex items-center justify-center parallax-bg">
-        <div class="absolute inset-0 overlay-dark"></div>
-        <div class="relative z-10 text-center px-6 reveal">
-            <span class="inline-block px-4 py-1 border border-accent/30 text-accent text-xs font-poppins uppercase tracking-[0.2em] mb-6 backdrop-blur-sm">Lumière Experience</span>
-            <h2 class="font-playfair text-4xl md:text-6xl lg:text-7xl font-bold text-surface tracking-wide max-w-4xl mx-auto leading-tight">
-                Every Detail Designed <br> To Make You <i class="text-accent font-light">Shine.</i>
-            </h2>
-        </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="py-24 lg:py-32 relative overflow-hidden">
-        <!-- Decoration background -->
-        <div class="absolute top-0 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl"></div>
-        <div class="absolute bottom-0 left-0 w-96 h-96 bg-secondary/5 rounded-full blur-3xl"></div>
-
-        <div class="container mx-auto px-6 md:px-12 relative z-10">
-            <div class="text-center max-w-2xl mx-auto mb-20 reveal">
-                <span class="font-poppins text-xs uppercase tracking-[0.2em] text-accent mb-4 block">Client Love</span>
-                <h2 class="font-playfair text-4xl md:text-5xl text-primary">Words From Our Clients</h2>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Testi 1 -->
-                <div class="glass-panel p-10 reveal">
-                    <div class="flex gap-1 text-accent mb-6 text-sm">
-                        <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
-                    </div>
-                    <p class="font-playfair italic text-lg text-secondary/90 leading-relaxed mb-8">"Pelayanannya sangat eksklusif. Saya mencoba paket Bridal dan hasilnya sangat flawless, tahan seharian. Timnya ramah dan sangat profesional."</p>
-                    <div class="flex items-center gap-4">
-                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Client" class="w-12 h-12 rounded-full object-cover grayscale opacity-80">
-                        <div>
-                            <h4 class="font-poppins font-medium text-primary text-sm">Sarah Wijaya</h4>
-                            <p class="font-poppins text-xs text-secondary/60">Bridal Package</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Testi 2 -->
-                <div class="glass-panel p-10 reveal delay-100">
-                    <div class="flex gap-1 text-accent mb-6 text-sm">
-                        <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
-                    </div>
-                    <p class="font-playfair italic text-lg text-secondary/90 leading-relaxed mb-8">"Facial treatment terbaik yang pernah saya coba. Tempatnya sangat aesthetic, bersih, dan harum. Kulit saya langsung terasa kenyal dan glowing."</p>
-                    <div class="flex items-center gap-4">
-                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Client" class="w-12 h-12 rounded-full object-cover grayscale opacity-80">
-                        <div>
-                            <h4 class="font-poppins font-medium text-primary text-sm">Amanda Pranata</h4>
-                            <p class="font-poppins text-xs text-secondary/60">Luxury Facial</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Testi 3 -->
-                <div class="glass-panel p-10 reveal delay-200">
-                    <div class="flex gap-1 text-accent mb-6 text-sm">
-                        <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
-                    </div>
-                    <p class="font-playfair italic text-lg text-secondary/90 leading-relaxed mb-8">"Sangat suka dengan hasil Balayage hair coloring-nya. Tidak merusak rambut sama sekali, warnanya masuk banget dengan skin tone saya."</p>
-                    <div class="flex items-center gap-4">
-                        <img src="https://randomuser.me/api/portraits/women/24.jpg" alt="Client" class="w-12 h-12 rounded-full object-cover grayscale opacity-80">
-                        <div>
-                            <h4 class="font-poppins font-medium text-primary text-sm">Jessica Salim</h4>
-                            <p class="font-poppins text-xs text-secondary/60">Hair Coloring</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Gallery Section (Masonry) -->
-    <section id="gallery" class="py-24 bg-surface border-y border-accent/10">
-        <div class="container mx-auto px-6 md:px-12">
-            <div class="text-center max-w-2xl mx-auto mb-16 reveal">
-                <span class="font-poppins text-xs uppercase tracking-[0.2em] text-accent mb-4 block">Aesthetic Visuals</span>
-                <h2 class="font-playfair text-4xl md:text-5xl text-primary">Gallery & Atmosphere</h2>
-            </div>
-
-            <div class="masonry">
-                <div class="masonry-item reveal">
-                    <img src="https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?auto=format&fit=crop&q=80&w=600" alt="Salon interior">
-                    <div class="masonry-overlay"><i class="ph ph-magnifying-glass-plus text-surface text-3xl"></i></div>
-                </div>
-                <div class="masonry-item reveal delay-100">
-                    <img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?auto=format&fit=crop&q=80&w=600" alt="Makeup">
-                    <div class="masonry-overlay"><i class="ph ph-magnifying-glass-plus text-surface text-3xl"></i></div>
-                </div>
-                <div class="masonry-item reveal delay-200">
-                    <img src="https://images.unsplash.com/photo-1519014816548-bf5fe459e366?auto=format&fit=crop&q=80&w=600" alt="Hair styling">
-                    <div class="masonry-overlay"><i class="ph ph-magnifying-glass-plus text-surface text-3xl"></i></div>
-                </div>
-                <div class="masonry-item reveal">
-                    <img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&q=80&w=600" alt="Spa relax">
-                    <div class="masonry-overlay"><i class="ph ph-magnifying-glass-plus text-surface text-3xl"></i></div>
-                </div>
-                <div class="masonry-item reveal delay-100">
-                    <img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&q=80&w=600" alt="Nails">
-                    <div class="masonry-overlay"><i class="ph ph-magnifying-glass-plus text-surface text-3xl"></i></div>
-                </div>
-            </div>
-            
-            <div class="text-center mt-12 reveal">
-                <a href="#" class="font-poppins text-xs uppercase tracking-widest text-primary border-b border-primary pb-1 hover:text-accent hover:border-accent transition-all">Follow Our Instagram</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Booking Section -->
-    <section id="booking" class="py-24 lg:py-32 relative parallax-bg">
-        <div class="absolute inset-0 bg-primary/70 backdrop-blur-[2px]"></div>
-        
-        <div class="container mx-auto px-6 relative z-10 flex justify-center">
-            <div class="glass-panel p-8 md:p-14 w-full max-w-2xl reveal border-white/20">
-                <div class="text-center mb-10">
-                    <span class="font-poppins text-xs uppercase tracking-[0.2em] text-accent mb-4 block">Reservation</span>
-                    <h2 class="font-playfair text-3xl md:text-4xl text-primary mb-3">Reserve Your Session</h2>
-                    <p class="font-poppins text-sm text-secondary/80 font-light">Amankan jadwal Anda untuk pengalaman treatment yang eksklusif.</p>
-                </div>
-
-                <form>
-                    <div class="grid md:grid-cols-2 gap-8 mb-8">
-                        <div>
-                            <input type="text" class="input-luxury" placeholder="Full Name" required>
-                        </div>
-                        <div>
-                            <input type="tel" class="input-luxury" placeholder="WhatsApp Number" required>
-                        </div>
-                        <div>
-                            <select class="input-luxury text-secondary/80 bg-transparent appearance-none" required>
-                                <option value="" disabled selected>Select Treatment</option>
-                                <option>Hair Styling & Color</option>
-                                <option>Facial & Skincare</option>
-                                <option>Nail Art & Spa</option>
-                                <option>Bridal Package</option>
-                                <option>Other Consultation</option>
-                            </select>
-                        </div>
-                        <div>
-                            <input type="date" class="input-luxury text-secondary/80" required>
-                        </div>
-                        <div class="md:col-span-2">
-                            <textarea class="input-luxury resize-none" rows="2" placeholder="Special Request / Notes"></textarea>
-                        </div>
-                    </div>
-                    
-                    <button type="button" class="btn-solid w-full py-4 font-poppins text-sm uppercase tracking-widest mt-4">
-                        Confirm Reservation
-                    </button>
-                    <p class="text-center text-xs font-poppins text-secondary/60 mt-6">*Tim konsultan kami akan menghubungi Anda untuk konfirmasi jam.</p>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- Why Choose Us -->
-    <section class="py-24 bg-surface">
-        <div class="container mx-auto px-6 md:px-12">
-            <div class="text-center max-w-2xl mx-auto mb-20 reveal">
-                <h2 class="font-playfair text-3xl md:text-4xl text-primary">Why Lumière?</h2>
-            </div>
-
-            <div class="grid grid-cols-2 md:grid-cols-3 gap-10 lg:gap-16 text-center">
-                <div class="reveal">
-                    <i class="ph-light ph-certificate text-4xl text-accent mb-4"></i>
-                    <h4 class="font-playfair text-lg text-primary mb-2">Certified Experts</h4>
-                    <p class="font-poppins text-xs text-secondary/70 font-light leading-relaxed">Terapis dan stylist dengan sertifikasi keahlian internasional.</p>
-                </div>
-                <div class="reveal delay-100">
-                    <i class="ph-light ph-drop text-4xl text-accent mb-4"></i>
-                    <h4 class="font-playfair text-lg text-primary mb-2">Premium Products</h4>
-                    <p class="font-poppins text-xs text-secondary/70 font-light leading-relaxed">Hanya menggunakan brand high-end yang aman dan teruji klinis.</p>
-                </div>
-                <div class="reveal delay-200">
-                    <i class="ph-light ph-shield-check text-4xl text-accent mb-4"></i>
-                    <h4 class="font-playfair text-lg text-primary mb-2">Hygienic Environment</h4>
-                    <p class="font-poppins text-xs text-secondary/70 font-light leading-relaxed">Standar sterilisasi alat medis untuk kenyamanan dan keamanan.</p>
-                </div>
-                <div class="reveal">
-                    <i class="ph-light ph-users-three text-4xl text-accent mb-4"></i>
-                    <h4 class="font-playfair text-lg text-primary mb-2">Personalized Consult</h4>
-                    <p class="font-poppins text-xs text-secondary/70 font-light leading-relaxed">Perawatan yang disesuaikan spesifik dengan kondisi kulit/rambut Anda.</p>
-                </div>
-                <div class="reveal delay-100">
-                    <i class="ph-light ph-desktop-tower text-4xl text-accent mb-4"></i>
-                    <h4 class="font-playfair text-lg text-primary mb-2">Modern Equipment</h4>
-                    <p class="font-poppins text-xs text-secondary/70 font-light leading-relaxed">Teknologi laser dan alat estetika generasi terbaru.</p>
-                </div>
-                <div class="reveal delay-200">
-                    <i class="ph-light ph-diamond text-4xl text-accent mb-4"></i>
-                    <h4 class="font-playfair text-lg text-primary mb-2">Luxury Experience</h4>
-                    <p class="font-poppins text-xs text-secondary/70 font-light leading-relaxed">Minuman selamat datang, musik relaksasi, dan privasi penuh.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FAQ Section -->
-    <section class="py-24 bg-bgbase border-t border-accent/10">
-        <div class="container mx-auto px-6 md:px-12 max-w-3xl">
-            <div class="text-center mb-16 reveal">
-                <span class="font-poppins text-xs uppercase tracking-[0.2em] text-accent mb-4 block">Information</span>
-                <h2 class="font-playfair text-3xl md:text-4xl text-primary">Frequently Asked Questions</h2>
-            </div>
-
-            <div class="space-y-4">
-                <!-- FAQ Item 1 -->
-                <div class="faq-item border-b border-accent/20 cursor-pointer reveal">
-                    <div class="flex justify-between items-center py-6">
-                        <h4 class="font-poppins text-sm font-medium text-primary">Apakah harus reservasi terlebih dahulu?</h4>
-                        <i class="ph ph-plus text-xl text-secondary faq-icon"></i>
-                    </div>
-                    <div class="faq-content text-sm font-poppins font-light text-secondary/80 leading-relaxed">
-                        <p class="pb-6">Ya, untuk menjaga kualitas pelayanan dan memastikan Anda tidak perlu menunggu, kami sangat menyarankan untuk melakukan reservasi minimal H-1 sebelum kedatangan.</p>
-                    </div>
-                </div>
-                <!-- FAQ Item 2 -->
-                <div class="faq-item border-b border-accent/20 cursor-pointer reveal delay-100">
-                    <div class="flex justify-between items-center py-6">
-                        <h4 class="font-poppins text-sm font-medium text-primary">Brand produk apa yang digunakan di salon ini?</h4>
-                        <i class="ph ph-plus text-xl text-secondary faq-icon"></i>
-                    </div>
-                    <div class="faq-content text-sm font-poppins font-light text-secondary/80 leading-relaxed">
-                        <p class="pb-6">Kami hanya menggunakan produk premium bersertifikat seperti Kérastase, L'Oréal Professionnel, Charlotte Tilbury, dan lini skincare medis khusus yang aman untuk kulit sensitif.</p>
-                    </div>
-                </div>
-                <!-- FAQ Item 3 -->
-                <div class="faq-item border-b border-accent/20 cursor-pointer reveal delay-200">
-                    <div class="flex justify-between items-center py-6">
-                        <h4 class="font-poppins text-sm font-medium text-primary">Berapa lama rata-rata treatment berlangsung?</h4>
-                        <i class="ph ph-plus text-xl text-secondary faq-icon"></i>
-                    </div>
-                    <div class="faq-content text-sm font-poppins font-light text-secondary/80 leading-relaxed">
-                        <p class="pb-6">Durasi bervariasi. Facial treatment umumnya 60-90 menit, hair coloring bisa memakan waktu 2-4 jam, sedangkan sesi nail art standar sekitar 60 menit.</p>
-                    </div>
-                </div>
-                <!-- FAQ Item 4 -->
-                <div class="faq-item border-b border-accent/20 cursor-pointer reveal">
-                    <div class="flex justify-between items-center py-6">
-                        <h4 class="font-poppins text-sm font-medium text-primary">Apakah tersedia paket bridal untuk luar kota?</h4>
-                        <i class="ph ph-plus text-xl text-secondary faq-icon"></i>
-                    </div>
-                    <div class="faq-content text-sm font-poppins font-light text-secondary/80 leading-relaxed">
-                        <p class="pb-6">Tentu, tim MUA dan hair stylist kami bersedia melakukan perjalanan luar kota. Akan ada tambahan biaya transportasi dan akomodasi sesuai lokasi acara.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Instagram Feed Showcase -->
-    <section class="flex flex-wrap md:flex-nowrap w-full overflow-hidden">
-        <a href="#" class="w-1/2 md:w-1/5 relative group block h-64 md:h-80">
-            <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&q=80&w=400" class="w-full h-full object-cover" alt="IG 1">
-            <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                <i class="ph-fill ph-instagram-logo text-3xl text-surface"></i>
-            </div>
-        </a>
-        <a href="#" class="w-1/2 md:w-1/5 relative group block h-64 md:h-80">
-            <img src="https://images.unsplash.com/photo-1512496015851-a1c84b162638?auto=format&fit=crop&q=80&w=400" class="w-full h-full object-cover" alt="IG 2">
-            <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                <i class="ph-fill ph-instagram-logo text-3xl text-surface"></i>
-            </div>
-        </a>
-        <a href="#" class="w-1/2 md:w-1/5 relative group block h-64 md:h-80">
-            <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&q=80&w=400" class="w-full h-full object-cover" alt="IG 3">
-            <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                <i class="ph-fill ph-instagram-logo text-3xl text-surface"></i>
-            </div>
-        </a>
-        <a href="#" class="w-1/2 md:w-1/5 relative group block h-64 md:h-80">
-            <img src="https://images.unsplash.com/photo-1562322140-8baeececf3ce?auto=format&fit=crop&q=80&w=400" class="w-full h-full object-cover" alt="IG 4">
-            <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                <i class="ph-fill ph-instagram-logo text-3xl text-surface"></i>
-            </div>
-        </a>
-        <a href="#" class="w-1/2 md:w-1/5 relative group block h-64 md:h-80 hidden md:block">
-            <img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?auto=format&fit=crop&q=80&w=400" class="w-full h-full object-cover" alt="IG 5">
-            <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                <i class="ph-fill ph-instagram-logo text-3xl text-surface"></i>
-            </div>
-        </a>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-primary text-surface pt-20 pb-10">
-        <div class="container mx-auto px-6 md:px-12">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-                <!-- Brand -->
-                <div class="lg:col-span-1">
-                    <a href="#" class="font-playfair font-semibold text-3xl tracking-wider text-surface mb-6 block">
-                        Lumière<span class="text-accent">.</span>
+                <!-- CTA Desktop -->
+                <div class="hidden lg:block">
+                    <a
+                        href="#booking"
+                        class="font-poppins nav-btn border border-accent px-6 py-2.5 text-sm tracking-widest text-accent uppercase transition-all duration-300 hover:bg-accent hover:text-primary"
+                    >
+                        Book Now
                     </a>
-                    <p class="font-poppins text-xs font-light text-surface/60 leading-relaxed mb-6">
-                        Reveal Your Natural Elegance. Studio kecantikan eksklusif yang memadukan seni estetika dan teknologi modern untuk hasil paripurna.
+                </div>
+
+                <!-- Mobile Menu Toggle -->
+                <button
+                    id="mobile-menu-btn"
+                    class="text-surface nav-text text-3xl transition-colors focus:outline-none lg:hidden"
+                >
+                    <i class="ph ph-list"></i>
+                </button>
+            </div>
+
+            <!-- Mobile Menu Overlay -->
+            <div
+                id="mobile-menu"
+                class="fixed inset-0 z-40 flex translate-x-full transform flex-col items-center justify-center gap-8 bg-primary shadow-2xl transition-transform duration-500"
+            >
+                <a
+                    href="#about"
+                    class="mobile-link font-playfair text-surface text-3xl italic transition-colors hover:text-accent"
+                    >About Studio</a
+                >
+                <a
+                    href="#services"
+                    class="mobile-link font-playfair text-surface text-3xl italic transition-colors hover:text-accent"
+                    >Our Treatments</a
+                >
+                <a
+                    href="#gallery"
+                    class="mobile-link font-playfair text-surface text-3xl italic transition-colors hover:text-accent"
+                    >Visual Gallery</a
+                >
+                <a
+                    href="#testimonials"
+                    class="mobile-link font-playfair text-surface text-3xl italic transition-colors hover:text-accent"
+                    >Client Reviews</a
+                >
+                <a
+                    href="#booking"
+                    class="mobile-link font-poppins mt-6 bg-accent px-10 py-3 text-sm tracking-widest text-primary uppercase"
+                    >Reserve Session</a
+                >
+            </div>
+        </nav>
+
+        <!-- Hero Section (Parallax & Mouse Elements) -->
+        <section
+            id="hero"
+            class="parallax-bg relative flex h-screen items-center justify-center overflow-hidden"
+        >
+            <div class="overlay-dark absolute inset-0"></div>
+
+            <!-- Floating Abstract Decorative Elements (JS Mouse Parallax applied here) -->
+            <div
+                class="pointer-events-none absolute inset-0 z-10"
+                id="mouse-parallax"
+            >
+                <div
+                    class="float-anim mouse-el absolute top-1/4 left-1/4 h-64 w-64 rounded-full border border-accent/20"
+                    data-speed="1.5"
+                ></div>
+                <div
+                    class="float-anim mouse-el absolute right-1/4 bottom-1/4 h-96 w-96 rounded-full border border-white/10 delay-1"
+                    data-speed="-2"
+                ></div>
+            </div>
+
+            <div
+                class="text-surface relative z-20 container mx-auto mt-16 px-6 text-center"
+            >
+                <div class="reveal">
+                    <span
+                        class="font-poppins mb-6 inline-block border border-accent/40 bg-primary/30 px-6 py-1.5 text-xs tracking-[0.2em] text-accent uppercase backdrop-blur-sm"
+                    >
+                        Luxury Beauty Experience
+                    </span>
+                </div>
+
+                <h1
+                    class="font-playfair reveal mx-auto mb-6 max-w-5xl text-5xl leading-tight font-medium delay-100 md:text-7xl lg:text-[5.5rem]"
+                >
+                    Enhance Your Beauty <br />
+                    <span class="font-light text-accent italic"
+                        >With Confidence</span
+                    >
+                </h1>
+
+                <p
+                    class="font-poppins text-surface/80 reveal mx-auto mb-10 max-w-2xl text-sm leading-relaxed font-light delay-200 md:text-base"
+                >
+                    Professional beauty treatments, premium skincare, and luxury
+                    salon experiences tailored just for you. Reveal your natural
+                    elegance with Lumière.
+                </p>
+
+                <div
+                    class="reveal flex flex-col items-center justify-center gap-5 delay-300 sm:flex-row"
+                >
+                    <a
+                        href="#booking"
+                        class="btn-solid font-poppins w-full px-8 py-3.5 text-center text-sm tracking-widest uppercase sm:w-auto"
+                    >
+                        Book Appointment
+                    </a>
+                    <a
+                        href="#services"
+                        class="btn-outline font-poppins w-full px-8 py-3.5 text-center text-sm tracking-widest uppercase sm:w-auto"
+                    >
+                        Explore Services
+                    </a>
+                </div>
+            </div>
+
+            <!-- Scroll Down Indicator -->
+            <div
+                class="reveal absolute bottom-10 left-1/2 z-20 flex -translate-x-1/2 transform flex-col items-center delay-300"
+            >
+                <span
+                    class="font-poppins text-surface/60 mb-2 text-xs tracking-widest uppercase"
+                    >Scroll</span
+                >
+                <div
+                    class="bg-surface/30 relative h-12 w-[1px] overflow-hidden"
+                >
+                    <div
+                        class="absolute top-0 h-1/2 w-full animate-[slideDown_2s_infinite] bg-accent"
+                    ></div>
+                </div>
+                <style>
+                    @keyframes slideDown {
+                        0% {
+                            top: -50%;
+                        }
+                        100% {
+                            top: 100%;
+                        }
+                    }
+                </style>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="relative py-24 lg:py-32">
+            <div class="container mx-auto px-6 md:px-12">
+                <div
+                    class="grid grid-cols-1 items-center gap-16 lg:grid-cols-2"
+                >
+                    <!-- Left: Aesthetic Image -->
+                    <div class="reveal relative">
+                        <div
+                            class="overflow-hidden rounded-t-full border border-accent/20 p-2"
+                        >
+                            <img
+                                src="https://images.unsplash.com/photo-1600928107541-118151ed5964?auto=format&fit=crop&q=80&w=800"
+                                alt="Premium Salon Interior"
+                                class="aspect-[3/4] h-auto w-full rounded-t-full object-cover"
+                            />
+                        </div>
+                        <!-- Decorative Badge -->
+                        <div
+                            class="bg-surface shadow-luxury reveal absolute -right-6 -bottom-6 flex items-center gap-4 border border-accent/10 p-6 delay-200 md:-right-10"
+                        >
+                            <div
+                                class="flex h-12 w-12 items-center justify-center rounded-full border border-accent text-accent"
+                            >
+                                <i class="ph ph-flower-lotus text-2xl"></i>
+                            </div>
+                            <div>
+                                <p
+                                    class="font-playfair text-xl font-bold text-primary"
+                                >
+                                    Award Winning
+                                </p>
+                                <p
+                                    class="font-poppins text-xs tracking-wider text-secondary uppercase"
+                                >
+                                    Aesthetic Studio
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Content -->
+                    <div class="reveal delay-100 lg:pl-10">
+                        <span
+                            class="font-poppins mb-4 block text-xs tracking-[0.2em] text-accent uppercase"
+                            >The Story of Lumière</span
+                        >
+                        <h2
+                            class="font-playfair mb-6 text-4xl leading-tight text-primary md:text-5xl"
+                        >
+                            Where Science Meets <br /><i
+                                class="font-light text-secondary"
+                                >Natural Elegance.</i
+                            >
+                        </h2>
+                        <div class="mb-8 h-[1px] w-16 bg-accent"></div>
+
+                        <p
+                            class="font-poppins mb-6 leading-relaxed font-light text-secondary/80"
+                        >
+                            Berdiri sejak 2016, Lumière Beauty Studio
+                            didedikasikan untuk wanita modern yang mengutamakan
+                            kualitas, eksklusivitas, dan hasil yang natural.
+                            Kami percaya bahwa setiap wanita memiliki kecantikan
+                            unik yang hanya perlu disempurnakan, bukan diubah.
+                        </p>
+                        <p
+                            class="font-poppins mb-12 leading-relaxed font-light text-secondary/80"
+                        >
+                            Didukung oleh tenaga ahli bersertifikat
+                            internasional dan teknologi estetika terkini, kami
+                            memastikan setiap sesi perawatan menjadi pengalaman
+                            relaksasi kelas atas.
+                        </p>
+
+                        <!-- Stats Grid -->
+                        <div class="grid grid-cols-2 gap-x-6 gap-y-10">
+                            <div>
+                                <h3
+                                    class="font-playfair mb-2 text-4xl text-primary"
+                                >
+                                    10+
+                                </h3>
+                                <p
+                                    class="font-poppins text-xs tracking-widest text-secondary/70 uppercase"
+                                >
+                                    Years Experience
+                                </p>
+                            </div>
+                            <div>
+                                <h3
+                                    class="font-playfair mb-2 text-4xl text-primary"
+                                >
+                                    15k+
+                                </h3>
+                                <p
+                                    class="font-poppins text-xs tracking-widest text-secondary/70 uppercase"
+                                >
+                                    Happy Clients
+                                </p>
+                            </div>
+                            <div>
+                                <h3
+                                    class="font-playfair mb-2 text-4xl text-primary"
+                                >
+                                    25+
+                                </h3>
+                                <p
+                                    class="font-poppins text-xs tracking-widest text-secondary/70 uppercase"
+                                >
+                                    Beauty Experts
+                                </p>
+                            </div>
+                            <div>
+                                <h3
+                                    class="font-playfair mb-2 text-4xl text-primary"
+                                >
+                                    4.9<span class="text-2xl text-accent"
+                                        >★</span
+                                    >
+                                </h3>
+                                <p
+                                    class="font-poppins text-xs tracking-widest text-secondary/70 uppercase"
+                                >
+                                    Client Rating
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Parallax Experience Quote -->
+        <section
+            id="experience-quote"
+            class="parallax-bg relative flex h-[70vh] items-center justify-center overflow-hidden"
+        >
+            <div class="overlay-dark absolute inset-0"></div>
+            <div
+                class="reveal relative z-10 container mx-auto px-6 text-center"
+            >
+                <i
+                    class="ph-fill ph-quotes mb-6 text-4xl text-accent opacity-80"
+                ></i>
+                <h2
+                    class="font-playfair text-surface mx-auto max-w-4xl text-4xl leading-snug font-light tracking-wide md:text-5xl lg:text-6xl"
+                >
+                    "Beauty Begins The Moment You Decide To
+                    <span class="font-medium text-accent italic"
+                        >Be Yourself.</span
+                    >"
+                </h2>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="py-24 lg:py-32">
+            <div class="container mx-auto px-6 md:px-12">
+                <div class="reveal mx-auto mb-20 max-w-2xl text-center">
+                    <span
+                        class="font-poppins mb-4 block text-xs tracking-[0.2em] text-accent uppercase"
+                        >Our Expertise</span
+                    >
+                    <h2 class="font-playfair text-4xl text-primary md:text-5xl">
+                        Luxury Services
+                    </h2>
+                </div>
+
+                <div
+                    class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3"
+                >
+                    <!-- Service 1 -->
+                    <div class="luxury-card group reveal p-10">
+                        <div
+                            class="bg-bgbase group-hover:text-surface mb-6 flex h-14 w-14 items-center justify-center rounded-full text-accent transition-colors duration-500 group-hover:bg-accent"
+                        >
+                            <i class="ph ph-scissors text-2xl"></i>
+                        </div>
+                        <h3 class="font-playfair mb-3 text-2xl text-primary">
+                            Hair Styling
+                        </h3>
+                        <p
+                            class="font-poppins mb-6 text-sm leading-relaxed font-light text-secondary/80"
+                        >
+                            Potongan presisi, penataan elegan, dan perawatan
+                            rambut eksklusif untuk menyempurnakan mahkota Anda.
+                        </p>
+                        <a
+                            href="#booking"
+                            class="font-poppins border-b border-primary pb-1 text-xs tracking-widest text-primary uppercase transition-colors group-hover:border-accent group-hover:text-accent"
+                            >Discover</a
+                        >
+                    </div>
+
+                    <!-- Service 2 -->
+                    <div class="luxury-card group reveal p-10 delay-100">
+                        <div
+                            class="bg-bgbase group-hover:text-surface mb-6 flex h-14 w-14 items-center justify-center rounded-full text-accent transition-colors duration-500 group-hover:bg-accent"
+                        >
+                            <i class="ph ph-drop text-2xl"></i>
+                        </div>
+                        <h3 class="font-playfair mb-3 text-2xl text-primary">
+                            Hair Coloring
+                        </h3>
+                        <p
+                            class="font-poppins mb-6 text-sm leading-relaxed font-light text-secondary/80"
+                        >
+                            Teknik pewarnaan premium dari balayage hingga warna
+                            fashion dengan produk pelindung struktur rambut.
+                        </p>
+                        <a
+                            href="#booking"
+                            class="font-poppins border-b border-primary pb-1 text-xs tracking-widest text-primary uppercase transition-colors group-hover:border-accent group-hover:text-accent"
+                            >Discover</a
+                        >
+                    </div>
+
+                    <!-- Service 3 -->
+                    <div class="luxury-card group reveal p-10 delay-200">
+                        <div
+                            class="bg-bgbase group-hover:text-surface mb-6 flex h-14 w-14 items-center justify-center rounded-full text-accent transition-colors duration-500 group-hover:bg-accent"
+                        >
+                            <i class="ph ph-sparkle text-2xl"></i>
+                        </div>
+                        <h3 class="font-playfair mb-3 text-2xl text-primary">
+                            Facial Treatment
+                        </h3>
+                        <p
+                            class="font-poppins mb-6 text-sm leading-relaxed font-light text-secondary/80"
+                        >
+                            Revitalisasi mendalam untuk mencerahkan,
+                            mengencangkan, dan meremajakan kulit dengan
+                            teknologi medis terkini.
+                        </p>
+                        <a
+                            href="#booking"
+                            class="font-poppins border-b border-primary pb-1 text-xs tracking-widest text-primary uppercase transition-colors group-hover:border-accent group-hover:text-accent"
+                            >Discover</a
+                        >
+                    </div>
+
+                    <!-- Service 4 -->
+                    <div class="luxury-card group reveal p-10">
+                        <div
+                            class="bg-bgbase group-hover:text-surface mb-6 flex h-14 w-14 items-center justify-center rounded-full text-accent transition-colors duration-500 group-hover:bg-accent"
+                        >
+                            <i class="ph ph-hand-pointing text-2xl"></i>
+                        </div>
+                        <h3 class="font-playfair mb-3 text-2xl text-primary">
+                            Nail Art & Spa
+                        </h3>
+                        <p
+                            class="font-poppins mb-6 text-sm leading-relaxed font-light text-secondary/80"
+                        >
+                            Manicure dan pedicure spa relaksasi dengan desain
+                            nail art elegan dan material gel berkualitas tinggi.
+                        </p>
+                        <a
+                            href="#booking"
+                            class="font-poppins border-b border-primary pb-1 text-xs tracking-widest text-primary uppercase transition-colors group-hover:border-accent group-hover:text-accent"
+                            >Discover</a
+                        >
+                    </div>
+
+                    <!-- Service 5 -->
+                    <div class="luxury-card group reveal p-10 delay-100">
+                        <div
+                            class="bg-bgbase group-hover:text-surface mb-6 flex h-14 w-14 items-center justify-center rounded-full text-accent transition-colors duration-500 group-hover:bg-accent"
+                        >
+                            <i class="ph ph-eye text-2xl"></i>
+                        </div>
+                        <h3 class="font-playfair mb-3 text-2xl text-primary">
+                            Eyelash Extension
+                        </h3>
+                        <p
+                            class="font-poppins mb-6 text-sm leading-relaxed font-light text-secondary/80"
+                        >
+                            Bulu mata lentik natural atau dramatis dengan teknik
+                            pemasangan higienis yang tidak merusak bulu mata
+                            asli.
+                        </p>
+                        <a
+                            href="#booking"
+                            class="font-poppins border-b border-primary pb-1 text-xs tracking-widest text-primary uppercase transition-colors group-hover:border-accent group-hover:text-accent"
+                            >Discover</a
+                        >
+                    </div>
+
+                    <!-- Service 6 -->
+                    <div class="luxury-card group reveal p-10 delay-200">
+                        <div
+                            class="bg-bgbase group-hover:text-surface mb-6 flex h-14 w-14 items-center justify-center rounded-full text-accent transition-colors duration-500 group-hover:bg-accent"
+                        >
+                            <i class="ph ph-crown text-2xl"></i>
+                        </div>
+                        <h3 class="font-playfair mb-3 text-2xl text-primary">
+                            Bridal Makeup
+                        </h3>
+                        <p
+                            class="font-poppins mb-6 text-sm leading-relaxed font-light text-secondary/80"
+                        >
+                            Riasan sempurna dan flawless untuk hari istimewa
+                            Anda, menonjolkan aura anggun dan kecantikan sejati.
+                        </p>
+                        <a
+                            href="#booking"
+                            class="font-poppins border-b border-primary pb-1 text-xs tracking-widest text-primary uppercase transition-colors group-hover:border-accent group-hover:text-accent"
+                            >Discover</a
+                        >
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Treatments -->
+        <section class="bg-surface border-y border-accent/10 py-24">
+            <div class="container mx-auto px-6 md:px-12">
+                <div
+                    class="reveal mb-16 flex flex-col items-end justify-between md:flex-row"
+                >
+                    <div>
+                        <span
+                            class="font-poppins mb-4 block text-xs tracking-[0.2em] text-accent uppercase"
+                            >Signature</span
+                        >
+                        <h2
+                            class="font-playfair text-4xl text-primary md:text-5xl"
+                        >
+                            Featured Treatments
+                        </h2>
+                    </div>
+                    <a
+                        href="#services"
+                        class="font-poppins mt-4 border-b border-primary pb-1 text-xs tracking-widest text-primary uppercase transition-all hover:border-accent hover:text-accent md:mt-0"
+                        >View All Menu</a
+                    >
+                </div>
+
+                <div class="grid gap-10 md:grid-cols-2">
+                    <!-- Treatment 1 -->
+                    <div class="group reveal cursor-pointer">
+                        <div class="relative mb-6 aspect-[4/3] overflow-hidden">
+                            <img
+                                src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&q=80&w=800"
+                                alt="Luxury Facial"
+                                class="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                            />
+                            <div
+                                class="absolute inset-0 bg-primary/0 transition-colors duration-500 group-hover:bg-primary/20"
+                            ></div>
+                        </div>
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <h3
+                                    class="font-playfair mb-2 text-2xl text-primary transition-colors group-hover:text-accent"
+                                >
+                                    Lumière Luxury Facial
+                                </h3>
+                                <p
+                                    class="font-poppins max-w-sm text-sm font-light text-secondary/70"
+                                >
+                                    Perawatan facial lengkap dengan ekstraksi
+                                    komedo, pijat wajah relaksasi, dan masker
+                                    emas 24k.
+                                </p>
+                            </div>
+                            <div class="font-poppins font-medium text-primary">
+                                Rp 850k
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Treatment 2 -->
+                    <div class="group reveal cursor-pointer delay-100">
+                        <div class="relative mb-6 aspect-[4/3] overflow-hidden">
+                            <img
+                                src="https://images.unsplash.com/photo-1512496015851-a1c84b162638?auto=format&fit=crop&q=80&w=800"
+                                alt="Bridal"
+                                class="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                            />
+                            <div
+                                class="absolute inset-0 bg-primary/0 transition-colors duration-500 group-hover:bg-primary/20"
+                            ></div>
+                        </div>
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <h3
+                                    class="font-playfair mb-2 text-2xl text-primary transition-colors group-hover:text-accent"
+                                >
+                                    Elegance Bridal Package
+                                </h3>
+                                <p
+                                    class="font-poppins max-w-sm text-sm font-light text-secondary/70"
+                                >
+                                    Full makeup trial & wedding day, hair
+                                    styling, dan persiapan kulit pranikah.
+                                </p>
+                            </div>
+                            <div class="font-poppins font-medium text-primary">
+                                Rp 4.5M
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Before & After Section -->
+        <section class="py-24 lg:py-32">
+            <div class="container mx-auto px-6 md:px-12">
+                <div class="reveal mx-auto mb-16 max-w-2xl text-center">
+                    <span
+                        class="font-poppins mb-4 block text-xs tracking-[0.2em] text-accent uppercase"
+                        >Real Results</span
+                    >
+                    <h2
+                        class="font-playfair mb-6 text-4xl text-primary md:text-5xl"
+                    >
+                        Transformation Showcase
+                    </h2>
+                    <p
+                        class="font-poppins text-sm font-light text-secondary/80"
+                    >
+                        Geser slider untuk melihat hasil nyata dari treatment
+                        Korean Glow andalan kami.
                     </p>
-                    <div class="flex gap-4">
-                        <a href="#" class="text-surface/60 hover:text-accent transition-colors"><i class="ph-fill ph-instagram-logo text-xl"></i></a>
-                        <a href="#" class="text-surface/60 hover:text-accent transition-colors"><i class="ph-fill ph-tiktok-logo text-xl"></i></a>
-                        <a href="#" class="text-surface/60 hover:text-accent transition-colors"><i class="ph-fill ph-youtube-logo text-xl"></i></a>
+                </div>
+
+                <!-- Custom Interactive Slider -->
+                <div class="reveal relative mx-auto max-w-4xl delay-100">
+                    <div
+                        class="ba-slider-container shadow-luxury h-[350px] w-full rounded-sm md:h-[500px]"
+                        id="ba-container"
+                    >
+                        <!-- Image After -->
+                        <img
+                            src="https://images.unsplash.com/photo-1580870058866-2313d3393910?auto=format&fit=crop&q=80&w=1000"
+                            alt="After Treatment"
+                            class="absolute inset-0 h-full w-full object-cover"
+                        />
+                        <!-- Image Before (Overlaid) -->
+                        <div class="ba-image-before" id="ba-before">
+                            <img
+                                src="https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?auto=format&fit=crop&q=80&w=1000"
+                                alt="Before Treatment"
+                                class="absolute inset-0 h-[350px] w-full object-cover md:h-[500px]"
+                                style="
+                                    max-width: none;
+                                    width: 100vw; /* Reset width so image doesnt squash */
+                                "
+                            />
+                        </div>
+                        <!-- Handle -->
+                        <div class="ba-slider-handle" id="ba-handle">
+                            <i
+                                class="ph ph-arrows-left-right text-xl text-primary"
+                            ></i>
+                        </div>
+                        <!-- Range Input -->
+                        <input
+                            type="range"
+                            min="0"
+                            max="100"
+                            value="50"
+                            class="absolute inset-0 z-30 h-full w-full cursor-ew-resize opacity-0"
+                            id="ba-slider"
+                        />
+
+                        <!-- Labels -->
+                        <div
+                            class="bg-surface/80 font-poppins absolute bottom-4 left-4 z-20 px-3 py-1 text-xs tracking-widest text-primary uppercase backdrop-blur"
+                        >
+                            Before
+                        </div>
+                        <div
+                            class="bg-surface/80 font-poppins absolute right-4 bottom-4 z-10 px-3 py-1 text-xs tracking-widest text-primary uppercase backdrop-blur"
+                        >
+                            After
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Parallax Cinematic Showcase -->
+        <section
+            id="cinematic-showcase"
+            class="parallax-bg relative flex h-[80vh] items-center justify-center"
+        >
+            <div class="overlay-dark absolute inset-0"></div>
+            <div class="reveal relative z-10 px-6 text-center">
+                <span
+                    class="font-poppins mb-6 inline-block border border-accent/30 px-4 py-1 text-xs tracking-[0.2em] text-accent uppercase backdrop-blur-sm"
+                    >Lumière Experience</span
+                >
+                <h2
+                    class="font-playfair text-surface mx-auto max-w-4xl text-4xl leading-tight font-bold tracking-wide md:text-6xl lg:text-7xl"
+                >
+                    Every Detail Designed <br />
+                    To Make You <i class="font-light text-accent">Shine.</i>
+                </h2>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section
+            id="testimonials"
+            class="relative overflow-hidden py-24 lg:py-32"
+        >
+            <!-- Decoration background -->
+            <div
+                class="absolute top-0 right-0 h-96 w-96 rounded-full bg-accent/5 blur-3xl"
+            ></div>
+            <div
+                class="absolute bottom-0 left-0 h-96 w-96 rounded-full bg-secondary/5 blur-3xl"
+            ></div>
+
+            <div class="relative z-10 container mx-auto px-6 md:px-12">
+                <div class="reveal mx-auto mb-20 max-w-2xl text-center">
+                    <span
+                        class="font-poppins mb-4 block text-xs tracking-[0.2em] text-accent uppercase"
+                        >Client Love</span
+                    >
+                    <h2 class="font-playfair text-4xl text-primary md:text-5xl">
+                        Words From Our Clients
+                    </h2>
+                </div>
+
+                <div class="grid gap-8 md:grid-cols-3">
+                    <!-- Testi 1 -->
+                    <div class="glass-panel reveal p-10">
+                        <div class="mb-6 flex gap-1 text-sm text-accent">
+                            <i class="ph-fill ph-star"></i
+                            ><i class="ph-fill ph-star"></i
+                            ><i class="ph-fill ph-star"></i
+                            ><i class="ph-fill ph-star"></i
+                            ><i class="ph-fill ph-star"></i>
+                        </div>
+                        <p
+                            class="font-playfair mb-8 text-lg leading-relaxed text-secondary/90 italic"
+                        >
+                            "Pelayanannya sangat eksklusif. Saya mencoba paket
+                            Bridal dan hasilnya sangat flawless, tahan seharian.
+                            Timnya ramah dan sangat profesional."
+                        </p>
+                        <div class="flex items-center gap-4">
+                            <img
+                                src="https://randomuser.me/api/portraits/women/44.jpg"
+                                alt="Client"
+                                class="h-12 w-12 rounded-full object-cover opacity-80 grayscale"
+                            />
+                            <div>
+                                <h4
+                                    class="font-poppins text-sm font-medium text-primary"
+                                >
+                                    Sarah Wijaya
+                                </h4>
+                                <p
+                                    class="font-poppins text-xs text-secondary/60"
+                                >
+                                    Bridal Package
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testi 2 -->
+                    <div class="glass-panel reveal p-10 delay-100">
+                        <div class="mb-6 flex gap-1 text-sm text-accent">
+                            <i class="ph-fill ph-star"></i
+                            ><i class="ph-fill ph-star"></i
+                            ><i class="ph-fill ph-star"></i
+                            ><i class="ph-fill ph-star"></i
+                            ><i class="ph-fill ph-star"></i>
+                        </div>
+                        <p
+                            class="font-playfair mb-8 text-lg leading-relaxed text-secondary/90 italic"
+                        >
+                            "Facial treatment terbaik yang pernah saya coba.
+                            Tempatnya sangat aesthetic, bersih, dan harum. Kulit
+                            saya langsung terasa kenyal dan glowing."
+                        </p>
+                        <div class="flex items-center gap-4">
+                            <img
+                                src="https://randomuser.me/api/portraits/women/68.jpg"
+                                alt="Client"
+                                class="h-12 w-12 rounded-full object-cover opacity-80 grayscale"
+                            />
+                            <div>
+                                <h4
+                                    class="font-poppins text-sm font-medium text-primary"
+                                >
+                                    Amanda Pranata
+                                </h4>
+                                <p
+                                    class="font-poppins text-xs text-secondary/60"
+                                >
+                                    Luxury Facial
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testi 3 -->
+                    <div class="glass-panel reveal p-10 delay-200">
+                        <div class="mb-6 flex gap-1 text-sm text-accent">
+                            <i class="ph-fill ph-star"></i
+                            ><i class="ph-fill ph-star"></i
+                            ><i class="ph-fill ph-star"></i
+                            ><i class="ph-fill ph-star"></i
+                            ><i class="ph-fill ph-star"></i>
+                        </div>
+                        <p
+                            class="font-playfair mb-8 text-lg leading-relaxed text-secondary/90 italic"
+                        >
+                            "Sangat suka dengan hasil Balayage hair
+                            coloring-nya. Tidak merusak rambut sama sekali,
+                            warnanya masuk banget dengan skin tone saya."
+                        </p>
+                        <div class="flex items-center gap-4">
+                            <img
+                                src="https://randomuser.me/api/portraits/women/24.jpg"
+                                alt="Client"
+                                class="h-12 w-12 rounded-full object-cover opacity-80 grayscale"
+                            />
+                            <div>
+                                <h4
+                                    class="font-poppins text-sm font-medium text-primary"
+                                >
+                                    Jessica Salim
+                                </h4>
+                                <p
+                                    class="font-poppins text-xs text-secondary/60"
+                                >
+                                    Hair Coloring
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section (Masonry) -->
+        <section
+            id="gallery"
+            class="bg-surface border-y border-accent/10 py-24"
+        >
+            <div class="container mx-auto px-6 md:px-12">
+                <div class="reveal mx-auto mb-16 max-w-2xl text-center">
+                    <span
+                        class="font-poppins mb-4 block text-xs tracking-[0.2em] text-accent uppercase"
+                        >Aesthetic Visuals</span
+                    >
+                    <h2 class="font-playfair text-4xl text-primary md:text-5xl">
+                        Gallery & Atmosphere
+                    </h2>
+                </div>
+
+                <div class="masonry">
+                    <div class="masonry-item reveal">
+                        <img
+                            src="https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?auto=format&fit=crop&q=80&w=600"
+                            alt="Salon interior"
+                        />
+                        <div class="masonry-overlay">
+                            <i
+                                class="ph ph-magnifying-glass-plus text-surface text-3xl"
+                            ></i>
+                        </div>
+                    </div>
+                    <div class="masonry-item reveal delay-100">
+                        <img
+                            src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?auto=format&fit=crop&q=80&w=600"
+                            alt="Makeup"
+                        />
+                        <div class="masonry-overlay">
+                            <i
+                                class="ph ph-magnifying-glass-plus text-surface text-3xl"
+                            ></i>
+                        </div>
+                    </div>
+                    <div class="masonry-item reveal delay-200">
+                        <img
+                            src="https://images.unsplash.com/photo-1519014816548-bf5fe459e366?auto=format&fit=crop&q=80&w=600"
+                            alt="Hair styling"
+                        />
+                        <div class="masonry-overlay">
+                            <i
+                                class="ph ph-magnifying-glass-plus text-surface text-3xl"
+                            ></i>
+                        </div>
+                    </div>
+                    <div class="masonry-item reveal">
+                        <img
+                            src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&q=80&w=600"
+                            alt="Spa relax"
+                        />
+                        <div class="masonry-overlay">
+                            <i
+                                class="ph ph-magnifying-glass-plus text-surface text-3xl"
+                            ></i>
+                        </div>
+                    </div>
+                    <div class="masonry-item reveal delay-100">
+                        <img
+                            src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&q=80&w=600"
+                            alt="Nails"
+                        />
+                        <div class="masonry-overlay">
+                            <i
+                                class="ph ph-magnifying-glass-plus text-surface text-3xl"
+                            ></i>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Links -->
-                <div>
-                    <h4 class="font-poppins text-sm uppercase tracking-widest text-accent mb-6">Explore</h4>
-                    <ul class="space-y-4 font-poppins text-xs font-light text-surface/70">
-                        <li><a href="#about" class="hover:text-accent transition-colors">Our Story</a></li>
-                        <li><a href="#services" class="hover:text-accent transition-colors">Treatments</a></li>
-                        <li><a href="#gallery" class="hover:text-accent transition-colors">Gallery</a></li>
-                        <li><a href="#testimonials" class="hover:text-accent transition-colors">Reviews</a></li>
-                        <li><a href="#" class="hover:text-accent transition-colors">Gift Cards</a></li>
-                    </ul>
-                </div>
-
-                <!-- Location -->
-                <div>
-                    <h4 class="font-poppins text-sm uppercase tracking-widest text-accent mb-6">Visit Us</h4>
-                    <ul class="space-y-4 font-poppins text-xs font-light text-surface/70">
-                        <li class="leading-relaxed">
-                            <strong>Pacific Place Mall, Level 3</strong><br>
-                            SCBD, Jl. Jend. Sudirman kav 52-53,<br>
-                            Jakarta Selatan 12190
-                        </li>
-                        <li>
-                            <span class="block text-accent mb-1">Hours</span>
-                            Mon - Sun: 10:00 AM - 09:00 PM
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Contact -->
-                <div>
-                    <h4 class="font-poppins text-sm uppercase tracking-widest text-accent mb-6">Contact</h4>
-                    <ul class="space-y-4 font-poppins text-xs font-light text-surface/70">
-                        <li>
-                            <a href="#" class="flex items-center gap-2 hover:text-accent transition-colors">
-                                <i class="ph ph-whatsapp-logo text-lg"></i> +62 811 8888 9999
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="flex items-center gap-2 hover:text-accent transition-colors">
-                                <i class="ph ph-phone text-lg"></i> (021) 555-0198
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="flex items-center gap-2 hover:text-accent transition-colors">
-                                <i class="ph ph-envelope-simple text-lg"></i> hello@lumierebeauty.com
-                            </a>
-                        </li>
-                    </ul>
+                <div class="reveal mt-12 text-center">
+                    <a
+                        href="#"
+                        class="font-poppins border-b border-primary pb-1 text-xs tracking-widest text-primary uppercase transition-all hover:border-accent hover:text-accent"
+                        >Follow Our Instagram</a
+                    >
                 </div>
             </div>
+        </section>
 
-            <div class="border-t border-surface/10 pt-8 flex flex-col md:flex-row justify-between items-center font-poppins text-[10px] uppercase tracking-widest text-surface/40">
-                <p class="mb-2 md:mb-0">&copy; 2026 Lumière Beauty Studio. All rights reserved.</p>
-                <p>Designed for Elegance.</p>
+        <!-- Booking Section -->
+        <section id="booking" class="parallax-bg relative py-24 lg:py-32">
+            <div
+                class="absolute inset-0 bg-primary/70 backdrop-blur-[2px]"
+            ></div>
+
+            <div
+                class="relative z-10 container mx-auto flex justify-center px-6"
+            >
+                <div
+                    class="glass-panel reveal w-full max-w-2xl border-white/20 p-8 md:p-14"
+                >
+                    <div class="mb-10 text-center">
+                        <span
+                            class="font-poppins mb-4 block text-xs tracking-[0.2em] text-accent uppercase"
+                            >Reservation</span
+                        >
+                        <h2
+                            class="font-playfair mb-3 text-3xl text-primary md:text-4xl"
+                        >
+                            Reserve Your Session
+                        </h2>
+                        <p
+                            class="font-poppins text-sm font-light text-secondary/80"
+                        >
+                            Amankan jadwal Anda untuk pengalaman treatment yang
+                            eksklusif.
+                        </p>
+                    </div>
+
+                    <form>
+                        <div class="mb-8 grid gap-8 md:grid-cols-2">
+                            <div>
+                                <input
+                                    type="text"
+                                    class="input-luxury"
+                                    placeholder="Full Name"
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <input
+                                    type="tel"
+                                    class="input-luxury"
+                                    placeholder="WhatsApp Number"
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <select
+                                    class="input-luxury appearance-none bg-transparent text-secondary/80"
+                                    required
+                                >
+                                    <option value="" disabled selected>
+                                        Select Treatment
+                                    </option>
+                                    <option>Hair Styling & Color</option>
+                                    <option>Facial & Skincare</option>
+                                    <option>Nail Art & Spa</option>
+                                    <option>Bridal Package</option>
+                                    <option>Other Consultation</option>
+                                </select>
+                            </div>
+                            <div>
+                                <input
+                                    type="date"
+                                    class="input-luxury text-secondary/80"
+                                    required
+                                />
+                            </div>
+                            <div class="md:col-span-2">
+                                <textarea
+                                    class="input-luxury resize-none"
+                                    rows="2"
+                                    placeholder="Special Request / Notes"
+                                ></textarea>
+                            </div>
+                        </div>
+
+                        <button
+                            type="button"
+                            class="btn-solid font-poppins mt-4 w-full py-4 text-sm tracking-widest uppercase"
+                        >
+                            Confirm Reservation
+                        </button>
+                        <p
+                            class="font-poppins mt-6 text-center text-xs text-secondary/60"
+                        >
+                            *Tim konsultan kami akan menghubungi Anda untuk
+                            konfirmasi jam.
+                        </p>
+                    </form>
+                </div>
             </div>
-        </div>
-    </footer>
+        </section>
 
-    <!-- Back to Top -->
-    <button id="btt" class="fixed bottom-8 right-8 w-12 h-12 bg-primary border border-accent/30 text-accent flex items-center justify-center opacity-0 translate-y-10 transition-all duration-500 z-40 hover:bg-accent hover:text-primary">
-        <i class="ph-light ph-arrow-up text-xl"></i>
-    </button>
+        <!-- Why Choose Us -->
+        <section class="bg-surface py-24">
+            <div class="container mx-auto px-6 md:px-12">
+                <div class="reveal mx-auto mb-20 max-w-2xl text-center">
+                    <h2 class="font-playfair text-3xl text-primary md:text-4xl">
+                        Why Lumière?
+                    </h2>
+                </div>
 
-    <!-- Scripts -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            
-            // 1. Loader Removal
-            setTimeout(() => {
-                const loader = document.getElementById('loader');
-                loader.style.opacity = '0';
-                setTimeout(() => { loader.style.visibility = 'hidden'; }, 800);
-            }, 1000);
+                <div
+                    class="grid grid-cols-2 gap-10 text-center md:grid-cols-3 lg:gap-16"
+                >
+                    <div class="reveal">
+                        <i
+                            class="ph-light ph-certificate mb-4 text-4xl text-accent"
+                        ></i>
+                        <h4 class="font-playfair mb-2 text-lg text-primary">
+                            Certified Experts
+                        </h4>
+                        <p
+                            class="font-poppins text-xs leading-relaxed font-light text-secondary/70"
+                        >
+                            Terapis dan stylist dengan sertifikasi keahlian
+                            internasional.
+                        </p>
+                    </div>
+                    <div class="reveal delay-100">
+                        <i
+                            class="ph-light ph-drop mb-4 text-4xl text-accent"
+                        ></i>
+                        <h4 class="font-playfair mb-2 text-lg text-primary">
+                            Premium Products
+                        </h4>
+                        <p
+                            class="font-poppins text-xs leading-relaxed font-light text-secondary/70"
+                        >
+                            Hanya menggunakan brand high-end yang aman dan
+                            teruji klinis.
+                        </p>
+                    </div>
+                    <div class="reveal delay-200">
+                        <i
+                            class="ph-light ph-shield-check mb-4 text-4xl text-accent"
+                        ></i>
+                        <h4 class="font-playfair mb-2 text-lg text-primary">
+                            Hygienic Environment
+                        </h4>
+                        <p
+                            class="font-poppins text-xs leading-relaxed font-light text-secondary/70"
+                        >
+                            Standar sterilisasi alat medis untuk kenyamanan dan
+                            keamanan.
+                        </p>
+                    </div>
+                    <div class="reveal">
+                        <i
+                            class="ph-light ph-users-three mb-4 text-4xl text-accent"
+                        ></i>
+                        <h4 class="font-playfair mb-2 text-lg text-primary">
+                            Personalized Consult
+                        </h4>
+                        <p
+                            class="font-poppins text-xs leading-relaxed font-light text-secondary/70"
+                        >
+                            Perawatan yang disesuaikan spesifik dengan kondisi
+                            kulit/rambut Anda.
+                        </p>
+                    </div>
+                    <div class="reveal delay-100">
+                        <i
+                            class="ph-light ph-desktop-tower mb-4 text-4xl text-accent"
+                        ></i>
+                        <h4 class="font-playfair mb-2 text-lg text-primary">
+                            Modern Equipment
+                        </h4>
+                        <p
+                            class="font-poppins text-xs leading-relaxed font-light text-secondary/70"
+                        >
+                            Teknologi laser dan alat estetika generasi terbaru.
+                        </p>
+                    </div>
+                    <div class="reveal delay-200">
+                        <i
+                            class="ph-light ph-diamond mb-4 text-4xl text-accent"
+                        ></i>
+                        <h4 class="font-playfair mb-2 text-lg text-primary">
+                            Luxury Experience
+                        </h4>
+                        <p
+                            class="font-poppins text-xs leading-relaxed font-light text-secondary/70"
+                        >
+                            Minuman selamat datang, musik relaksasi, dan privasi
+                            penuh.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-            // 2. Sticky Navbar & Back to Top Logic
-            const navbar = document.getElementById('navbar');
-            const navTexts = document.querySelectorAll('.nav-text');
-            const navBtn = document.querySelector('.nav-btn');
-            const btt = document.getElementById('btt');
-            
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    navbar.classList.add('nav-glass', 'py-4');
-                    navbar.classList.remove('py-5');
-                    // Change text to dark when glass is active
-                    navTexts.forEach(el => {
-                        el.classList.remove('text-surface');
-                        el.classList.add('text-primary');
+        <!-- FAQ Section -->
+        <section class="bg-bgbase border-t border-accent/10 py-24">
+            <div class="container mx-auto max-w-3xl px-6 md:px-12">
+                <div class="reveal mb-16 text-center">
+                    <span
+                        class="font-poppins mb-4 block text-xs tracking-[0.2em] text-accent uppercase"
+                        >Information</span
+                    >
+                    <h2 class="font-playfair text-3xl text-primary md:text-4xl">
+                        Frequently Asked Questions
+                    </h2>
+                </div>
+
+                <div class="space-y-4">
+                    <!-- FAQ Item 1 -->
+                    <div
+                        class="faq-item reveal cursor-pointer border-b border-accent/20"
+                    >
+                        <div class="flex items-center justify-between py-6">
+                            <h4
+                                class="font-poppins text-sm font-medium text-primary"
+                            >
+                                Apakah harus reservasi terlebih dahulu?
+                            </h4>
+                            <i
+                                class="ph ph-plus faq-icon text-xl text-secondary"
+                            ></i>
+                        </div>
+                        <div
+                            class="faq-content font-poppins text-sm leading-relaxed font-light text-secondary/80"
+                        >
+                            <p class="pb-6">
+                                Ya, untuk menjaga kualitas pelayanan dan
+                                memastikan Anda tidak perlu menunggu, kami
+                                sangat menyarankan untuk melakukan reservasi
+                                minimal H-1 sebelum kedatangan.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- FAQ Item 2 -->
+                    <div
+                        class="faq-item reveal cursor-pointer border-b border-accent/20 delay-100"
+                    >
+                        <div class="flex items-center justify-between py-6">
+                            <h4
+                                class="font-poppins text-sm font-medium text-primary"
+                            >
+                                Brand produk apa yang digunakan di salon ini?
+                            </h4>
+                            <i
+                                class="ph ph-plus faq-icon text-xl text-secondary"
+                            ></i>
+                        </div>
+                        <div
+                            class="faq-content font-poppins text-sm leading-relaxed font-light text-secondary/80"
+                        >
+                            <p class="pb-6">
+                                Kami hanya menggunakan produk premium
+                                bersertifikat seperti Kérastase, L'Oréal
+                                Professionnel, Charlotte Tilbury, dan lini
+                                skincare medis khusus yang aman untuk kulit
+                                sensitif.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- FAQ Item 3 -->
+                    <div
+                        class="faq-item reveal cursor-pointer border-b border-accent/20 delay-200"
+                    >
+                        <div class="flex items-center justify-between py-6">
+                            <h4
+                                class="font-poppins text-sm font-medium text-primary"
+                            >
+                                Berapa lama rata-rata treatment berlangsung?
+                            </h4>
+                            <i
+                                class="ph ph-plus faq-icon text-xl text-secondary"
+                            ></i>
+                        </div>
+                        <div
+                            class="faq-content font-poppins text-sm leading-relaxed font-light text-secondary/80"
+                        >
+                            <p class="pb-6">
+                                Durasi bervariasi. Facial treatment umumnya
+                                60-90 menit, hair coloring bisa memakan waktu
+                                2-4 jam, sedangkan sesi nail art standar sekitar
+                                60 menit.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- FAQ Item 4 -->
+                    <div
+                        class="faq-item reveal cursor-pointer border-b border-accent/20"
+                    >
+                        <div class="flex items-center justify-between py-6">
+                            <h4
+                                class="font-poppins text-sm font-medium text-primary"
+                            >
+                                Apakah tersedia paket bridal untuk luar kota?
+                            </h4>
+                            <i
+                                class="ph ph-plus faq-icon text-xl text-secondary"
+                            ></i>
+                        </div>
+                        <div
+                            class="faq-content font-poppins text-sm leading-relaxed font-light text-secondary/80"
+                        >
+                            <p class="pb-6">
+                                Tentu, tim MUA dan hair stylist kami bersedia
+                                melakukan perjalanan luar kota. Akan ada
+                                tambahan biaya transportasi dan akomodasi sesuai
+                                lokasi acara.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Instagram Feed Showcase -->
+        <section class="flex w-full flex-wrap overflow-hidden md:flex-nowrap">
+            <a
+                href="#"
+                class="group relative block h-64 w-1/2 md:h-80 md:w-1/5"
+            >
+                <img
+                    src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&q=80&w=400"
+                    class="h-full w-full object-cover"
+                    alt="IG 1"
+                />
+                <div
+                    class="absolute inset-0 flex items-center justify-center bg-primary/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                >
+                    <i
+                        class="ph-fill ph-instagram-logo text-surface text-3xl"
+                    ></i>
+                </div>
+            </a>
+            <a
+                href="#"
+                class="group relative block h-64 w-1/2 md:h-80 md:w-1/5"
+            >
+                <img
+                    src="https://images.unsplash.com/photo-1512496015851-a1c84b162638?auto=format&fit=crop&q=80&w=400"
+                    class="h-full w-full object-cover"
+                    alt="IG 2"
+                />
+                <div
+                    class="absolute inset-0 flex items-center justify-center bg-primary/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                >
+                    <i
+                        class="ph-fill ph-instagram-logo text-surface text-3xl"
+                    ></i>
+                </div>
+            </a>
+            <a
+                href="#"
+                class="group relative block h-64 w-1/2 md:h-80 md:w-1/5"
+            >
+                <img
+                    src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&q=80&w=400"
+                    class="h-full w-full object-cover"
+                    alt="IG 3"
+                />
+                <div
+                    class="absolute inset-0 flex items-center justify-center bg-primary/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                >
+                    <i
+                        class="ph-fill ph-instagram-logo text-surface text-3xl"
+                    ></i>
+                </div>
+            </a>
+            <a
+                href="#"
+                class="group relative block h-64 w-1/2 md:h-80 md:w-1/5"
+            >
+                <img
+                    src="https://images.unsplash.com/photo-1562322140-8baeececf3ce?auto=format&fit=crop&q=80&w=400"
+                    class="h-full w-full object-cover"
+                    alt="IG 4"
+                />
+                <div
+                    class="absolute inset-0 flex items-center justify-center bg-primary/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                >
+                    <i
+                        class="ph-fill ph-instagram-logo text-surface text-3xl"
+                    ></i>
+                </div>
+            </a>
+            <a
+                href="#"
+                class="group relative block hidden h-64 w-1/2 md:block md:h-80 md:w-1/5"
+            >
+                <img
+                    src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?auto=format&fit=crop&q=80&w=400"
+                    class="h-full w-full object-cover"
+                    alt="IG 5"
+                />
+                <div
+                    class="absolute inset-0 flex items-center justify-center bg-primary/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                >
+                    <i
+                        class="ph-fill ph-instagram-logo text-surface text-3xl"
+                    ></i>
+                </div>
+            </a>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-surface bg-primary pt-20 pb-10">
+            <div class="container mx-auto px-6 md:px-12">
+                <div
+                    class="mb-16 grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4"
+                >
+                    <!-- Brand -->
+                    <div class="lg:col-span-1">
+                        <a
+                            href="#"
+                            class="font-playfair text-surface mb-6 block text-3xl font-semibold tracking-wider"
+                        >
+                            Lumière<span class="text-accent">.</span>
+                        </a>
+                        <p
+                            class="font-poppins text-surface/60 mb-6 text-xs leading-relaxed font-light"
+                        >
+                            Reveal Your Natural Elegance. Studio kecantikan
+                            eksklusif yang memadukan seni estetika dan teknologi
+                            modern untuk hasil paripurna.
+                        </p>
+                        <div class="flex gap-4">
+                            <a
+                                href="#"
+                                class="text-surface/60 transition-colors hover:text-accent"
+                                ><i
+                                    class="ph-fill ph-instagram-logo text-xl"
+                                ></i
+                            ></a>
+                            <a
+                                href="#"
+                                class="text-surface/60 transition-colors hover:text-accent"
+                                ><i class="ph-fill ph-tiktok-logo text-xl"></i
+                            ></a>
+                            <a
+                                href="#"
+                                class="text-surface/60 transition-colors hover:text-accent"
+                                ><i class="ph-fill ph-youtube-logo text-xl"></i
+                            ></a>
+                        </div>
+                    </div>
+
+                    <!-- Links -->
+                    <div>
+                        <h4
+                            class="font-poppins mb-6 text-sm tracking-widest text-accent uppercase"
+                        >
+                            Explore
+                        </h4>
+                        <ul
+                            class="font-poppins text-surface/70 space-y-4 text-xs font-light"
+                        >
+                            <li>
+                                <a
+                                    href="#about"
+                                    class="transition-colors hover:text-accent"
+                                    >Our Story</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#services"
+                                    class="transition-colors hover:text-accent"
+                                    >Treatments</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#gallery"
+                                    class="transition-colors hover:text-accent"
+                                    >Gallery</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#testimonials"
+                                    class="transition-colors hover:text-accent"
+                                    >Reviews</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#"
+                                    class="transition-colors hover:text-accent"
+                                    >Gift Cards</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Location -->
+                    <div>
+                        <h4
+                            class="font-poppins mb-6 text-sm tracking-widest text-accent uppercase"
+                        >
+                            Visit Us
+                        </h4>
+                        <ul
+                            class="font-poppins text-surface/70 space-y-4 text-xs font-light"
+                        >
+                            <li class="leading-relaxed">
+                                <strong>Pacific Place Mall, Level 3</strong
+                                ><br />
+                                SCBD, Jl. Jend. Sudirman kav 52-53,<br />
+                                Jakarta Selatan 12190
+                            </li>
+                            <li>
+                                <span class="mb-1 block text-accent"
+                                    >Hours</span
+                                >
+                                Mon - Sun: 10:00 AM - 09:00 PM
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Contact -->
+                    <div>
+                        <h4
+                            class="font-poppins mb-6 text-sm tracking-widest text-accent uppercase"
+                        >
+                            Contact
+                        </h4>
+                        <ul
+                            class="font-poppins text-surface/70 space-y-4 text-xs font-light"
+                        >
+                            <li>
+                                <a
+                                    href="#"
+                                    class="flex items-center gap-2 transition-colors hover:text-accent"
+                                >
+                                    <i class="ph ph-whatsapp-logo text-lg"></i>
+                                    +62 811 8888 9999
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    href="#"
+                                    class="flex items-center gap-2 transition-colors hover:text-accent"
+                                >
+                                    <i class="ph ph-phone text-lg"></i> (021)
+                                    555-0198
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    href="#"
+                                    class="flex items-center gap-2 transition-colors hover:text-accent"
+                                >
+                                    <i
+                                        class="ph ph-envelope-simple text-lg"
+                                    ></i>
+                                    hello@lumierebeauty.com
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div
+                    class="border-surface/10 font-poppins text-surface/40 flex flex-col items-center justify-between border-t pt-8 text-[10px] tracking-widest uppercase md:flex-row"
+                >
+                    <p class="mb-2 md:mb-0">
+                        &copy; 2026 Lumière Beauty Studio. All rights reserved.
+                    </p>
+                    <p>Designed for Elegance.</p>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Back to Top -->
+        <button
+            id="btt"
+            class="fixed right-8 bottom-8 z-40 flex h-12 w-12 translate-y-10 items-center justify-center border border-accent/30 bg-primary text-accent opacity-0 transition-all duration-500 hover:bg-accent hover:text-primary"
+        >
+            <i class="ph-light ph-arrow-up text-xl"></i>
+        </button>
+
+        <!-- Scripts -->
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                // 1. Loader Removal
+                setTimeout(() => {
+                    const loader = document.getElementById('loader');
+                    loader.style.opacity = '0';
+                    setTimeout(() => {
+                        loader.style.visibility = 'hidden';
+                    }, 800);
+                }, 1000);
+
+                // 2. Sticky Navbar & Back to Top Logic
+                const navbar = document.getElementById('navbar');
+                const navTexts = document.querySelectorAll('.nav-text');
+                const navBtn = document.querySelector('.nav-btn');
+                const btt = document.getElementById('btt');
+
+                window.addEventListener('scroll', () => {
+                    if (window.scrollY > 50) {
+                        navbar.classList.add('nav-glass', 'py-4');
+                        navbar.classList.remove('py-5');
+                        // Change text to dark when glass is active
+                        navTexts.forEach((el) => {
+                            el.classList.remove('text-surface');
+                            el.classList.add('text-primary');
+                        });
+                        if (navBtn) {
+                            navBtn.classList.remove(
+                                'text-accent',
+                                'border-accent',
+                            );
+                            navBtn.classList.add(
+                                'text-primary',
+                                'border-primary',
+                                'hover:bg-primary',
+                                'hover:text-surface',
+                            );
+                        }
+                    } else {
+                        navbar.classList.remove('nav-glass', 'py-4');
+                        navbar.classList.add('py-5');
+                        // Revert text color
+                        navTexts.forEach((el) => {
+                            el.classList.add('text-surface');
+                            el.classList.remove('text-primary');
+                        });
+                        if (navBtn) {
+                            navBtn.classList.add(
+                                'text-accent',
+                                'border-accent',
+                            );
+                            navBtn.classList.remove(
+                                'text-primary',
+                                'border-primary',
+                                'hover:bg-primary',
+                                'hover:text-surface',
+                            );
+                        }
+                    }
+
+                    // Show/Hide BTT
+                    if (window.scrollY > 500) {
+                        btt.classList.remove('opacity-0', 'translate-y-10');
+                        btt.classList.add('opacity-100', 'translate-y-0');
+                    } else {
+                        btt.classList.add('opacity-0', 'translate-y-10');
+                        btt.classList.remove('opacity-100', 'translate-y-0');
+                    }
+                });
+
+                btt.addEventListener('click', () =>
+                    window.scrollTo({ top: 0, behavior: 'smooth' }),
+                );
+
+                // 3. Mobile Menu Toggle
+                const menuBtn = document.getElementById('mobile-menu-btn');
+                const mobileMenu = document.getElementById('mobile-menu');
+                const mobileLinks = document.querySelectorAll('.mobile-link');
+                let isMenuOpen = false;
+
+                function toggleMenu() {
+                    isMenuOpen = !isMenuOpen;
+                    if (isMenuOpen) {
+                        mobileMenu.classList.remove('translate-x-full');
+                        menuBtn.innerHTML =
+                            '<i class="ph ph-x text-surface"></i>'; // Force white cross on dark menu
+                    } else {
+                        mobileMenu.classList.add('translate-x-full');
+                        menuBtn.innerHTML = '<i class="ph ph-list"></i>';
+                    }
+                }
+
+                menuBtn.addEventListener('click', toggleMenu);
+                mobileLinks.forEach((link) =>
+                    link.addEventListener('click', () => {
+                        if (isMenuOpen) toggleMenu();
+                    }),
+                );
+
+                // 4. Scroll Reveal (Intersection Observer)
+                const revealElements = document.querySelectorAll('.reveal');
+                const revealObserver = new IntersectionObserver(
+                    (entries, observer) => {
+                        entries.forEach((entry) => {
+                            if (entry.isIntersecting) {
+                                entry.target.classList.add('active');
+                                observer.unobserve(entry.target);
+                            }
+                        });
+                    },
+                    { threshold: 0.1, rootMargin: '0px 0px -50px 0px' },
+                );
+
+                revealElements.forEach((el) => revealObserver.observe(el));
+
+                // 5. Mouse Parallax (Hero Elements)
+                const mouseElements = document.querySelectorAll('.mouse-el');
+                const heroSection = document.getElementById('hero');
+
+                heroSection.addEventListener('mousemove', (e) => {
+                    const x = (window.innerWidth - e.pageX * 2) / 100;
+                    const y = (window.innerHeight - e.pageY * 2) / 100;
+
+                    mouseElements.forEach((el) => {
+                        const speed = el.getAttribute('data-speed');
+                        // Add translate over the current transform to keep the CSS animation float working
+                        el.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
                     });
-                    if(navBtn) {
-                        navBtn.classList.remove('text-accent', 'border-accent');
-                        navBtn.classList.add('text-primary', 'border-primary', 'hover:bg-primary', 'hover:text-surface');
-                    }
-                } else {
-                    navbar.classList.remove('nav-glass', 'py-4');
-                    navbar.classList.add('py-5');
-                    // Revert text color
-                    navTexts.forEach(el => {
-                        el.classList.add('text-surface');
-                        el.classList.remove('text-primary');
+                });
+                heroSection.addEventListener('mouseleave', () => {
+                    mouseElements.forEach((el) => {
+                        el.style.transform = `translate(0px, 0px)`;
                     });
-                    if(navBtn) {
-                        navBtn.classList.add('text-accent', 'border-accent');
-                        navBtn.classList.remove('text-primary', 'border-primary', 'hover:bg-primary', 'hover:text-surface');
-                    }
-                }
-
-                // Show/Hide BTT
-                if (window.scrollY > 500) {
-                    btt.classList.remove('opacity-0', 'translate-y-10');
-                    btt.classList.add('opacity-100', 'translate-y-0');
-                } else {
-                    btt.classList.add('opacity-0', 'translate-y-10');
-                    btt.classList.remove('opacity-100', 'translate-y-0');
-                }
-            });
-
-            btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-
-            // 3. Mobile Menu Toggle
-            const menuBtn = document.getElementById('mobile-menu-btn');
-            const mobileMenu = document.getElementById('mobile-menu');
-            const mobileLinks = document.querySelectorAll('.mobile-link');
-            let isMenuOpen = false;
-
-            function toggleMenu() {
-                isMenuOpen = !isMenuOpen;
-                if (isMenuOpen) {
-                    mobileMenu.classList.remove('translate-x-full');
-                    menuBtn.innerHTML = '<i class="ph ph-x text-surface"></i>'; // Force white cross on dark menu
-                } else {
-                    mobileMenu.classList.add('translate-x-full');
-                    menuBtn.innerHTML = '<i class="ph ph-list"></i>';
-                }
-            }
-
-            menuBtn.addEventListener('click', toggleMenu);
-            mobileLinks.forEach(link => link.addEventListener('click', () => { if(isMenuOpen) toggleMenu(); }));
-
-            // 4. Scroll Reveal (Intersection Observer)
-            const revealElements = document.querySelectorAll('.reveal');
-            const revealObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
-                        observer.unobserve(entry.target);
-                    }
                 });
-            }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
-            
-            revealElements.forEach(el => revealObserver.observe(el));
 
-            // 5. Mouse Parallax (Hero Elements)
-            const mouseElements = document.querySelectorAll('.mouse-el');
-            const heroSection = document.getElementById('hero');
+                // 6. Before & After Slider Logic
+                const baContainer = document.getElementById('ba-container');
+                const baBefore = document.getElementById('ba-before');
+                const baSlider = document.getElementById('ba-slider');
+                const baHandle = document.getElementById('ba-handle');
 
-            heroSection.addEventListener('mousemove', (e) => {
-                const x = (window.innerWidth - e.pageX * 2) / 100;
-                const y = (window.innerHeight - e.pageY * 2) / 100;
+                if (baSlider && baBefore && baHandle) {
+                    // Ensure image width matches container for perfect clip
+                    const imgBefore = baBefore.querySelector('img');
+                    const updateImgWidth = () => {
+                        imgBefore.style.width = `${baContainer.offsetWidth}px`;
+                    };
+                    window.addEventListener('resize', updateImgWidth);
+                    updateImgWidth();
 
-                mouseElements.forEach(el => {
-                    const speed = el.getAttribute('data-speed');
-                    // Add translate over the current transform to keep the CSS animation float working
-                    el.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
-                });
-            });
-            heroSection.addEventListener('mouseleave', () => {
-                mouseElements.forEach(el => {
-                    el.style.transform = `translate(0px, 0px)`;
-                });
-            });
-
-            // 6. Before & After Slider Logic
-            const baContainer = document.getElementById('ba-container');
-            const baBefore = document.getElementById('ba-before');
-            const baSlider = document.getElementById('ba-slider');
-            const baHandle = document.getElementById('ba-handle');
-
-            if(baSlider && baBefore && baHandle) {
-                // Ensure image width matches container for perfect clip
-                const imgBefore = baBefore.querySelector('img');
-                const updateImgWidth = () => {
-                    imgBefore.style.width = `${baContainer.offsetWidth}px`;
-                }
-                window.addEventListener('resize', updateImgWidth);
-                updateImgWidth();
-
-                baSlider.addEventListener('input', (e) => {
-                    const value = e.target.value;
-                    baBefore.style.width = `${value}%`;
-                    baHandle.style.left = `${value}%`;
-                });
-            }
-
-            // 7. FAQ Accordion Logic
-            const faqItems = document.querySelectorAll('.faq-item');
-            faqItems.forEach(item => {
-                item.addEventListener('click', () => {
-                    const content = item.querySelector('.faq-content');
-                    const isActive = item.classList.contains('active');
-
-                    // Close all
-                    faqItems.forEach(otherItem => {
-                        otherItem.classList.remove('active');
-                        otherItem.querySelector('.faq-content').style.maxHeight = null;
+                    baSlider.addEventListener('input', (e) => {
+                        const value = e.target.value;
+                        baBefore.style.width = `${value}%`;
+                        baHandle.style.left = `${value}%`;
                     });
+                }
 
-                    // Open current if it wasn't active
-                    if (!isActive) {
-                        item.classList.add('active');
-                        content.style.maxHeight = content.scrollHeight + "px";
-                    }
+                // 7. FAQ Accordion Logic
+                const faqItems = document.querySelectorAll('.faq-item');
+                faqItems.forEach((item) => {
+                    item.addEventListener('click', () => {
+                        const content = item.querySelector('.faq-content');
+                        const isActive = item.classList.contains('active');
+
+                        // Close all
+                        faqItems.forEach((otherItem) => {
+                            otherItem.classList.remove('active');
+                            otherItem.querySelector(
+                                '.faq-content',
+                            ).style.maxHeight = null;
+                        });
+
+                        // Open current if it wasn't active
+                        if (!isActive) {
+                            item.classList.add('active');
+                            content.style.maxHeight =
+                                content.scrollHeight + 'px';
+                        }
+                    });
                 });
             });
-        });
-    </script>
-</body>
+        </script>
+    </body>
 </html>

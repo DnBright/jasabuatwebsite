@@ -1,612 +1,878 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aurelia | Premium Fine Dining</title>
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    
-    <!-- Tailwind CSS for layout utility -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Aurelia | Premium Fine Dining</title>
 
-    <style>
-        /* CSS Variables */
-        :root {
-            --color-black: #0F0F0F;
-            --color-white: #FFFFFF;
-            --color-gold: #D4AF37;
-            --font-heading: 'Playfair Display', serif;
-            --font-body: 'Poppins', sans-serif;
-        }
+        <!-- Google Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap"
+            rel="stylesheet"
+        />
 
-        /* Global Styles */
-        html {
-            scroll-behavior: smooth;
-            background-color: var(--color-black);
-            color: var(--color-white);
-        }
+        <!-- Tailwind CSS for layout utility -->
+        <script src="https://cdn.tailwindcss.com"></script>
 
-        body {
-            font-family: var(--font-body);
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-        }
+        <style>
+            /* CSS Variables */
+            :root {
+                --color-black: #0f0f0f;
+                --color-white: #ffffff;
+                --color-gold: #d4af37;
+                --font-heading: 'Playfair Display', serif;
+                --font-body: 'Poppins', sans-serif;
+            }
 
-        ::selection {
-            background-color: var(--color-gold);
-            color: var(--color-black);
-        }
+            /* Global Styles */
+            html {
+                scroll-behavior: smooth;
+                background-color: var(--color-black);
+                color: var(--color-white);
+            }
 
-        h1, h2, h3, h4, h5, h6, .heading-font {
-            font-family: var(--font-heading);
-        }
+            body {
+                font-family: var(--font-body);
+                overflow-x: hidden;
+                -webkit-font-smoothing: antialiased;
+            }
 
-        /* Typography */
-        .text-gold { color: var(--color-gold); }
-        .bg-gold { background-color: var(--color-gold); }
-        
-        .section-padding { padding: 120px 0; }
-        @media (max-width: 768px) {
-            .section-padding { padding: 80px 0; }
-        }
+            ::selection {
+                background-color: var(--color-gold);
+                color: var(--color-black);
+            }
 
-        /* Navigation */
-        #navbar {
-            transition: background-color 0.4s ease, padding 0.4s ease;
-        }
-        #navbar.scrolled {
-            background-color: rgba(15, 15, 15, 0.95);
-            backdrop-filter: blur(10px);
-            padding-top: 1rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6,
+            .heading-font {
+                font-family: var(--font-heading);
+            }
 
-        /* Parallax Backgrounds */
-        .parallax-bg {
-            background-attachment: fixed;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
+            /* Typography */
+            .text-gold {
+                color: var(--color-gold);
+            }
+            .bg-gold {
+                background-color: var(--color-gold);
+            }
 
-        #hero {
-            background-image: url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&q=80&w=2000');
-        }
-
-        #experience {
-            background-image: url('https://images.unsplash.com/photo-1414235077428-338988a2e8c0?auto=format&fit=crop&q=80&w=2000');
-        }
-
-        #reservation {
-            background-image: url('https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&q=80&w=2000');
-        }
-
-        .overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to bottom, rgba(15, 15, 15, 0.4), rgba(15, 15, 15, 0.9));
-        }
-
-        /* Reveal Animations (Intersection Observer) */
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-        
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .delay-100 { transition-delay: 0.1s; }
-        .delay-200 { transition-delay: 0.2s; }
-        .delay-300 { transition-delay: 0.3s; }
-
-        /* Custom Parallax Image for About Section */
-        .img-parallax-container {
-            overflow: hidden;
-            position: relative;
-            height: 100%;
-            min-height: 500px;
-        }
-        
-        .img-parallax {
-            width: 100%;
-            height: 130%; /* Larger than container for scroll room */
-            object-fit: cover;
-            position: absolute;
-            top: -15%;
-            will-change: transform;
-        }
-
-        /* Signature Menu Cards */
-        .menu-card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.5s ease;
-            overflow: hidden;
-        }
-
-        .menu-card:hover {
-            border-color: rgba(212, 175, 55, 0.4);
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-        }
-
-        .menu-img-wrap {
-            overflow: hidden;
-        }
-
-        .menu-card img {
-            transition: transform 0.8s ease;
-        }
-
-        .menu-card:hover img {
-            transform: scale(1.05);
-        }
-
-        /* Gallery 3D Depth Effect */
-        .gallery-item {
-            overflow: hidden;
-            position: relative;
-            cursor: pointer;
-            perspective: 1000px;
-        }
-
-        .gallery-item-inner {
-            width: 100%;
-            height: 100%;
-            transition: transform 0.1s ease-out; /* Fast response for mousemove */
-            transform-style: preserve-3d;
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-        
-        .gallery-item:hover img {
-            transform: scale(1.08);
-        }
-
-        .gallery-overlay {
-            position: absolute;
-            inset: 0;
-            background: rgba(15, 15, 15, 0.5);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .gallery-item:hover .gallery-overlay {
-            opacity: 1;
-        }
-
-        /* Glassmorphism Form */
-        .glass-panel {
-            background: rgba(15, 15, 15, 0.5);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(212, 175, 55, 0.15);
-        }
-
-        .form-input {
-            width: 100%;
-            background: transparent;
-            border: none;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-            color: var(--color-white);
-            padding: 12px 0;
-            font-family: var(--font-body);
-            transition: border-color 0.3s ease;
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-bottom-color: var(--color-gold);
-        }
-        
-        .form-input::placeholder {
-            color: rgba(255, 255, 255, 0.4);
-        }
-
-        /* Buttons */
-        .btn-gold {
-            background-color: transparent;
-            color: var(--color-white);
-            border: 1px solid var(--color-gold);
-            padding: 14px 32px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.85rem;
-            transition: all 0.4s ease;
-            display: inline-block;
-            cursor: pointer;
-        }
-
-        .btn-gold:hover {
-            background-color: var(--color-gold);
-            color: var(--color-black);
-        }
-
-        .btn-solid {
-            background-color: var(--color-gold);
-            color: var(--color-black);
-            border: 1px solid var(--color-gold);
-            padding: 14px 32px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.85rem;
-            transition: all 0.4s ease;
-            display: inline-block;
-            cursor: pointer;
-            font-weight: 500;
-        }
-
-        .btn-solid:hover {
-            background-color: transparent;
-            color: var(--color-gold);
-        }
-
-        /* Hero Text Zoom Animation */
-        @keyframes subtleZoom {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.05); }
-        }
-        .hero-zoom {
-            animation: subtleZoom 20s infinite alternate linear;
-        }
-    </style>
-</head>
-<body>
-
-    <!-- Navigation -->
-    <nav id="navbar" class="fixed w-full top-0 z-50 py-6 px-6 md:px-16 flex justify-between items-center">
-        <div class="text-2xl heading-font font-bold tracking-wider text-white">AURELIA<span class="text-gold">.</span></div>
-        
-        <!-- Desktop Menu -->
-        <div class="hidden md:flex space-x-8 text-sm uppercase tracking-widest text-gray-300">
-            <a href="#about" class="hover:text-gold transition-colors duration-300">Cerita Kami</a>
-            <a href="#menu" class="hover:text-gold transition-colors duration-300">Menu</a>
-            <a href="#gallery" class="hover:text-gold transition-colors duration-300">Galeri</a>
-        </div>
-        
-        <div class="hidden md:block">
-            <a href="#reservation" class="btn-gold">Reservasi</a>
-        </div>
-
-        <!-- Mobile Menu Icon (Visual Only for this demo) -->
-        <div class="md:hidden text-white text-2xl cursor-pointer">
-            &#9776;
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <header id="hero" class="relative h-screen flex items-center justify-center text-center parallax-bg overflow-hidden">
-        <div class="overlay z-10"></div>
-        <div class="z-20 px-4 reveal active">
-            <p class="text-gold uppercase tracking-[0.3em] text-sm md:text-base mb-6">Sebuah Simfoni Rasa</p>
-            <h1 class="heading-font text-5xl md:text-7xl lg:text-8xl font-medium mb-6 leading-tight">
-                Seni <br/><i class="text-gray-300 font-light">Fine Dining</i>
-            </h1>
-            <p class="max-w-xl mx-auto text-gray-400 font-light text-lg mb-10">
-                Pengalaman kuliner eksklusif di mana setiap bahan dipilih dengan sempurna untuk menciptakan mahakarya di setiap hidangan.
-            </p>
-            <a href="#about" class="text-white opacity-70 hover:opacity-100 hover:text-gold transition-all duration-300">
-                <span class="block text-xs uppercase tracking-widest mb-2">Jelajahi</span>
-                <span class="text-2xl font-light">↓</span>
-            </a>
-        </div>
-    </header>
-
-    <!-- About Section (Story) -->
-    <section id="about" class="section-padding bg-[#0F0F0F]">
-        <div class="max-w-7xl mx-auto px-6 md:px-16 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-            <div class="order-2 md:order-1 reveal">
-                <div class="flex items-center mb-6">
-                    <div class="w-12 h-[1px] bg-gold mr-4"></div>
-                    <span class="text-gold uppercase tracking-widest text-sm">Bab I: Permulaan</span>
-                </div>
-                <h2 class="heading-font text-4xl md:text-5xl mb-8 leading-tight">Tradisi bertemu <br/><i class="text-gold">Inovasi Modern</i></h2>
-                <p class="text-gray-400 font-light leading-relaxed mb-6">
-                    Aurelia lahir dari sebuah dedikasi mendalam terhadap seni memasak. Kami percaya bahwa makanan mewah bukan hanya sekadar rasa, melainkan pengalaman yang merangkul seluruh panca indera.
-                </p>
-                <p class="text-gray-400 font-light leading-relaxed mb-10">
-                    Dipimpin oleh Chef Eksekutif yang memiliki bintang Michelin, dapur kami menyatukan teknik klasik Prancis dengan bahan-bahan lokal terbaik Nusantara.
-                </p>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Signature_of_Gordon_Ramsay.svg/1200px-Signature_of_Gordon_Ramsay.svg.png" alt="Signature" class="h-12 opacity-50 invert" style="filter: brightness(0) invert(1) opacity(0.5);">
-            </div>
-            
-            <div class="order-1 md:order-2 img-parallax-container h-[400px] md:h-[600px] reveal delay-100">
-                <!-- Using an actual image and moving it with JS to create smooth internal parallax -->
-                <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&q=80&w=1000" alt="Chef plating" class="img-parallax" data-speed="0.15">
-            </div>
-        </div>
-    </section>
-
-    <!-- Signature Menu Section -->
-    <section id="menu" class="section-padding bg-[#151515]">
-        <div class="max-w-7xl mx-auto px-6 md:px-16">
-            <div class="text-center mb-16 reveal">
-                <span class="text-gold uppercase tracking-widest text-sm block mb-4">Koleksi Terpilih</span>
-                <h2 class="heading-font text-4xl md:text-5xl">Menu Signature</h2>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Card 1 -->
-                <div class="menu-card reveal delay-100 p-6">
-                    <div class="menu-img-wrap h-64 mb-6">
-                        <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=800" alt="Scallop" class="w-full h-full object-cover">
-                    </div>
-                    <h3 class="heading-font text-2xl mb-2">Hokkaido Scallop</h3>
-                    <p class="text-gray-400 font-light text-sm mb-4 leading-relaxed">Kerang Hokkaido panggang, purée kembang kol, kaviar Ossetra, dan busa lemon beurre blanc.</p>
-                    <div class="text-gold heading-font text-xl">IDR 450K</div>
-                </div>
-
-                <!-- Card 2 -->
-                <div class="menu-card reveal delay-200 p-6">
-                    <div class="menu-img-wrap h-64 mb-6">
-                        <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&q=80&w=800" alt="Wagyu" class="w-full h-full object-cover">
-                    </div>
-                    <h3 class="heading-font text-2xl mb-2">A5 Kagoshima Wagyu</h3>
-                    <p class="text-gray-400 font-light text-sm mb-4 leading-relaxed">Tenderloin Wagyu A5 grade tertinggi, truffle hitam musiman, pomme purée, dan red wine jus.</p>
-                    <div class="text-gold heading-font text-xl">IDR 1.250K</div>
-                </div>
-
-                <!-- Card 3 -->
-                <div class="menu-card reveal delay-300 p-6">
-                    <div class="menu-img-wrap h-64 mb-6">
-                        <img src="https://images.unsplash.com/photo-1600891964092-4316c288032e?auto=format&fit=crop&q=80&w=800" alt="Dessert" class="w-full h-full object-cover">
-                    </div>
-                    <h3 class="heading-font text-2xl mb-2">Valrhona Symphonie</h3>
-                    <p class="text-gray-400 font-light text-sm mb-4 leading-relaxed">Cokelat Valrhona Grand Cru 70%, praline hazelnut, emas yang dapat dimakan, dan es krim vanilla Madagaskar.</p>
-                    <div class="text-gold heading-font text-xl">IDR 280K</div>
-                </div>
-            </div>
-            
-            <div class="text-center mt-12 reveal delay-100">
-                <a href="#" class="btn-gold">Lihat Menu Lengkap</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Experience Parallax Section -->
-    <section id="experience" class="relative h-[80vh] flex items-center justify-center text-center parallax-bg">
-        <div class="overlay"></div>
-        <div class="z-20 px-4 reveal">
-            <h2 class="heading-font italic text-5xl md:text-7xl text-white font-light tracking-wide">
-                "Every Dish <br/> Tells a Story"
-            </h2>
-        </div>
-    </section>
-
-    <!-- Gallery Section -->
-    <section id="gallery" class="section-padding bg-[#0F0F0F]">
-        <div class="max-w-7xl mx-auto px-6 md:px-16">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-12 reveal">
-                <div>
-                    <span class="text-gold uppercase tracking-widest text-sm block mb-4">Atmosfer</span>
-                    <h2 class="heading-font text-4xl md:text-5xl">Visual Estetika</h2>
-                </div>
-                <p class="text-gray-400 font-light max-w-sm mt-4 md:mt-0">
-                    Desain interior yang intim dan pencahayaan dramatis menciptakan panggung sempurna untuk malam yang tak terlupakan.
-                </p>
-            </div>
-
-            <!-- Asymmetrical Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6">
-                
-                <!-- Item 1 (Wide) -->
-                <div class="gallery-item md:col-span-8 h-80 md:h-[400px] reveal delay-100">
-                    <div class="gallery-item-inner">
-                        <img src="https://images.unsplash.com/photo-1549488344-c17058a36283?auto=format&fit=crop&q=80&w=1000" alt="Interior">
-                        <div class="gallery-overlay">
-                            <span class="heading-font text-xl text-white tracking-widest">Main Dining</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Item 2 (Tall) -->
-                <div class="gallery-item md:col-span-4 h-80 md:h-[400px] reveal delay-200">
-                    <div class="gallery-item-inner">
-                        <img src="https://images.unsplash.com/photo-1560624052-449f5ddf0c31?auto=format&fit=crop&q=80&w=800" alt="Wine">
-                        <div class="gallery-overlay">
-                            <span class="heading-font text-xl text-white tracking-widest">Wine Cellar</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Item 3 (Square) -->
-                <div class="gallery-item md:col-span-4 h-80 md:h-[400px] reveal delay-100">
-                    <div class="gallery-item-inner">
-                        <img src="https://images.unsplash.com/photo-1572715376701-98568319fd0b?auto=format&fit=crop&q=80&w=800" alt="Detail">
-                        <div class="gallery-overlay">
-                            <span class="heading-font text-xl text-white tracking-widest">Table Setting</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Item 4 (Wide) -->
-                <div class="gallery-item md:col-span-8 h-80 md:h-[400px] reveal delay-200">
-                    <div class="gallery-item-inner">
-                        <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&q=80&w=1000" alt="Bar">
-                        <div class="gallery-overlay">
-                            <span class="heading-font text-xl text-white tracking-widest">Lounge & Bar</span>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- Reservation Section -->
-    <section id="reservation" class="relative section-padding parallax-bg">
-        <div class="absolute inset-0 bg-[#0F0F0F] bg-opacity-80"></div>
-        <div class="max-w-4xl mx-auto px-6 relative z-10">
-            <div class="glass-panel p-8 md:p-16 reveal">
-                <div class="text-center mb-10">
-                    <h2 class="heading-font text-4xl md:text-5xl mb-4">Pesan Meja Anda</h2>
-                    <p class="text-gray-400 font-light">Amankan tempat Anda untuk pengalaman kuliner yang eksklusif.</p>
-                </div>
-
-                <form>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-                        <div>
-                            <input type="text" placeholder="Nama Lengkap" class="form-input" required>
-                        </div>
-                        <div>
-                            <input type="tel" placeholder="Nomor Telepon" class="form-input" required>
-                        </div>
-                        <div>
-                            <input type="date" class="form-input" required style="color: rgba(255,255,255,0.4);" onfocus="this.style.color='#fff'">
-                        </div>
-                        <div>
-                            <select class="form-input" required style="color: rgba(255,255,255,0.4);" onchange="this.style.color='#fff'">
-                                <option value="" disabled selected>Jumlah Tamu</option>
-                                <option value="1">1 Orang</option>
-                                <option value="2">2 Orang</option>
-                                <option value="3">3 Orang</option>
-                                <option value="4">4 Orang</option>
-                                <option value="5+">5+ Orang (Private Dining)</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="text-center mt-10">
-                        <button type="button" class="btn-solid w-full md:w-auto">Konfirmasi Reservasi</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-[#0A0A0A] pt-20 pb-10 border-t border-gray-900">
-        <div class="max-w-7xl mx-auto px-6 md:px-16 grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
-            <div>
-                <div class="text-2xl heading-font font-bold tracking-wider text-white mb-6">AURELIA<span class="text-gold">.</span></div>
-                <p class="text-gray-500 font-light text-sm max-w-xs leading-relaxed">
-                    Eksklusivitas dan kemewahan kuliner di jantung kota. Pengalaman gastronomi yang dirancang khusus untuk Anda.
-                </p>
-            </div>
-            
-            <div>
-                <h4 class="text-white uppercase tracking-widest text-sm mb-6">Hubungi Kami</h4>
-                <p class="text-gray-500 font-light text-sm mb-2">Jl. Sudirman No. 88, Jakarta Selatan</p>
-                <p class="text-gray-500 font-light text-sm mb-2">contact@aureliadining.com</p>
-                <p class="text-gray-500 font-light text-sm">+62 811 2345 6789</p>
-            </div>
-
-            <div>
-                <h4 class="text-white uppercase tracking-widest text-sm mb-6">Jam Operasional</h4>
-                <p class="text-gray-500 font-light text-sm mb-2"><span class="text-gray-300">Makan Malam:</span> 18:00 - 23:00</p>
-                <p class="text-gray-500 font-light text-sm mb-2"><span class="text-gray-300">Bar & Lounge:</span> 17:00 - 01:00</p>
-                <p class="text-gold text-xs uppercase tracking-wider mt-4">Senin Tutup</p>
-            </div>
-        </div>
-        
-        <div class="max-w-7xl mx-auto px-6 md:px-16 text-center border-t border-gray-900 pt-8">
-            <p class="text-gray-600 text-xs tracking-widest uppercase">&copy; 2026 Aurelia Fine Dining. All Rights Reserved.</p>
-        </div>
-    </footer>
-
-    <!-- JavaScript Interactions -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            
-            // 1. Navbar Scroll Effect
-            const navbar = document.getElementById('navbar');
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    navbar.classList.add('scrolled');
-                } else {
-                    navbar.classList.remove('scrolled');
+            .section-padding {
+                padding: 120px 0;
+            }
+            @media (max-width: 768px) {
+                .section-padding {
+                    padding: 80px 0;
                 }
-            });
+            }
 
-            // 2. Intersection Observer for Reveal Animations
-            const revealElements = document.querySelectorAll('.reveal');
-            const revealOptions = {
-                threshold: 0.15,
-                rootMargin: "0px 0px -50px 0px"
-            };
+            /* Navigation */
+            #navbar {
+                transition:
+                    background-color 0.4s ease,
+                    padding 0.4s ease;
+            }
+            #navbar.scrolled {
+                background-color: rgba(15, 15, 15, 0.95);
+                backdrop-filter: blur(10px);
+                padding-top: 1rem;
+                padding-bottom: 1rem;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            }
 
-            const revealOnScroll = new IntersectionObserver(function(entries, observer) {
-                entries.forEach(entry => {
-                    if (!entry.isIntersecting) {
-                        return;
+            /* Parallax Backgrounds */
+            .parallax-bg {
+                background-attachment: fixed;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;
+            }
+
+            #hero {
+                background-image: url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&q=80&w=2000');
+            }
+
+            #experience {
+                background-image: url('https://images.unsplash.com/photo-1414235077428-338988a2e8c0?auto=format&fit=crop&q=80&w=2000');
+            }
+
+            #reservation {
+                background-image: url('https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&q=80&w=2000');
+            }
+
+            .overlay {
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(
+                    to bottom,
+                    rgba(15, 15, 15, 0.4),
+                    rgba(15, 15, 15, 0.9)
+                );
+            }
+
+            /* Reveal Animations (Intersection Observer) */
+            .reveal {
+                opacity: 0;
+                transform: translateY(40px);
+                transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            }
+
+            .reveal.active {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            .delay-100 {
+                transition-delay: 0.1s;
+            }
+            .delay-200 {
+                transition-delay: 0.2s;
+            }
+            .delay-300 {
+                transition-delay: 0.3s;
+            }
+
+            /* Custom Parallax Image for About Section */
+            .img-parallax-container {
+                overflow: hidden;
+                position: relative;
+                height: 100%;
+                min-height: 500px;
+            }
+
+            .img-parallax {
+                width: 100%;
+                height: 130%; /* Larger than container for scroll room */
+                object-fit: cover;
+                position: absolute;
+                top: -15%;
+                will-change: transform;
+            }
+
+            /* Signature Menu Cards */
+            .menu-card {
+                background: rgba(255, 255, 255, 0.02);
+                border: 1px solid rgba(255, 255, 255, 0.05);
+                transition: all 0.5s ease;
+                overflow: hidden;
+            }
+
+            .menu-card:hover {
+                border-color: rgba(212, 175, 55, 0.4);
+                transform: translateY(-10px);
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            }
+
+            .menu-img-wrap {
+                overflow: hidden;
+            }
+
+            .menu-card img {
+                transition: transform 0.8s ease;
+            }
+
+            .menu-card:hover img {
+                transform: scale(1.05);
+            }
+
+            /* Gallery 3D Depth Effect */
+            .gallery-item {
+                overflow: hidden;
+                position: relative;
+                cursor: pointer;
+                perspective: 1000px;
+            }
+
+            .gallery-item-inner {
+                width: 100%;
+                height: 100%;
+                transition: transform 0.1s ease-out; /* Fast response for mousemove */
+                transform-style: preserve-3d;
+            }
+
+            .gallery-item img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 0.5s ease;
+            }
+
+            .gallery-item:hover img {
+                transform: scale(1.08);
+            }
+
+            .gallery-overlay {
+                position: absolute;
+                inset: 0;
+                background: rgba(15, 15, 15, 0.5);
+                opacity: 0;
+                transition: opacity 0.4s ease;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .gallery-item:hover .gallery-overlay {
+                opacity: 1;
+            }
+
+            /* Glassmorphism Form */
+            .glass-panel {
+                background: rgba(15, 15, 15, 0.5);
+                backdrop-filter: blur(16px);
+                -webkit-backdrop-filter: blur(16px);
+                border: 1px solid rgba(212, 175, 55, 0.15);
+            }
+
+            .form-input {
+                width: 100%;
+                background: transparent;
+                border: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+                color: var(--color-white);
+                padding: 12px 0;
+                font-family: var(--font-body);
+                transition: border-color 0.3s ease;
+            }
+
+            .form-input:focus {
+                outline: none;
+                border-bottom-color: var(--color-gold);
+            }
+
+            .form-input::placeholder {
+                color: rgba(255, 255, 255, 0.4);
+            }
+
+            /* Buttons */
+            .btn-gold {
+                background-color: transparent;
+                color: var(--color-white);
+                border: 1px solid var(--color-gold);
+                padding: 14px 32px;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                font-size: 0.85rem;
+                transition: all 0.4s ease;
+                display: inline-block;
+                cursor: pointer;
+            }
+
+            .btn-gold:hover {
+                background-color: var(--color-gold);
+                color: var(--color-black);
+            }
+
+            .btn-solid {
+                background-color: var(--color-gold);
+                color: var(--color-black);
+                border: 1px solid var(--color-gold);
+                padding: 14px 32px;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                font-size: 0.85rem;
+                transition: all 0.4s ease;
+                display: inline-block;
+                cursor: pointer;
+                font-weight: 500;
+            }
+
+            .btn-solid:hover {
+                background-color: transparent;
+                color: var(--color-gold);
+            }
+
+            /* Hero Text Zoom Animation */
+            @keyframes subtleZoom {
+                0% {
+                    transform: scale(1);
+                }
+                100% {
+                    transform: scale(1.05);
+                }
+            }
+            .hero-zoom {
+                animation: subtleZoom 20s infinite alternate linear;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Navigation -->
+        <nav
+            id="navbar"
+            class="fixed top-0 z-50 flex w-full items-center justify-between px-6 py-6 md:px-16"
+        >
+            <div
+                class="heading-font text-2xl font-bold tracking-wider text-white"
+            >
+                AURELIA<span class="text-gold">.</span>
+            </div>
+
+            <!-- Desktop Menu -->
+            <div
+                class="hidden space-x-8 text-sm tracking-widest text-gray-300 uppercase md:flex"
+            >
+                <a
+                    href="#about"
+                    class="hover:text-gold transition-colors duration-300"
+                    >Cerita Kami</a
+                >
+                <a
+                    href="#menu"
+                    class="hover:text-gold transition-colors duration-300"
+                    >Menu</a
+                >
+                <a
+                    href="#gallery"
+                    class="hover:text-gold transition-colors duration-300"
+                    >Galeri</a
+                >
+            </div>
+
+            <div class="hidden md:block">
+                <a href="#reservation" class="btn-gold">Reservasi</a>
+            </div>
+
+            <!-- Mobile Menu Icon (Visual Only for this demo) -->
+            <div class="cursor-pointer text-2xl text-white md:hidden">
+                &#9776;
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <header
+            id="hero"
+            class="parallax-bg relative flex h-screen items-center justify-center overflow-hidden text-center"
+        >
+            <div class="overlay z-10"></div>
+            <div class="reveal active z-20 px-4">
+                <p
+                    class="text-gold mb-6 text-sm tracking-[0.3em] uppercase md:text-base"
+                >
+                    Sebuah Simfoni Rasa
+                </p>
+                <h1
+                    class="heading-font mb-6 text-5xl leading-tight font-medium md:text-7xl lg:text-8xl"
+                >
+                    Seni <br /><i class="font-light text-gray-300"
+                        >Fine Dining</i
+                    >
+                </h1>
+                <p
+                    class="mx-auto mb-10 max-w-xl text-lg font-light text-gray-400"
+                >
+                    Pengalaman kuliner eksklusif di mana setiap bahan dipilih
+                    dengan sempurna untuk menciptakan mahakarya di setiap
+                    hidangan.
+                </p>
+                <a
+                    href="#about"
+                    class="hover:text-gold text-white opacity-70 transition-all duration-300 hover:opacity-100"
+                >
+                    <span class="mb-2 block text-xs tracking-widest uppercase"
+                        >Jelajahi</span
+                    >
+                    <span class="text-2xl font-light">↓</span>
+                </a>
+            </div>
+        </header>
+
+        <!-- About Section (Story) -->
+        <section id="about" class="section-padding bg-[#0F0F0F]">
+            <div
+                class="mx-auto grid max-w-7xl grid-cols-1 items-center gap-16 px-6 md:grid-cols-2 md:px-16"
+            >
+                <div class="reveal order-2 md:order-1">
+                    <div class="mb-6 flex items-center">
+                        <div class="bg-gold mr-4 h-[1px] w-12"></div>
+                        <span
+                            class="text-gold text-sm tracking-widest uppercase"
+                            >Bab I: Permulaan</span
+                        >
+                    </div>
+                    <h2
+                        class="heading-font mb-8 text-4xl leading-tight md:text-5xl"
+                    >
+                        Tradisi bertemu <br /><i class="text-gold"
+                            >Inovasi Modern</i
+                        >
+                    </h2>
+                    <p class="mb-6 leading-relaxed font-light text-gray-400">
+                        Aurelia lahir dari sebuah dedikasi mendalam terhadap
+                        seni memasak. Kami percaya bahwa makanan mewah bukan
+                        hanya sekadar rasa, melainkan pengalaman yang merangkul
+                        seluruh panca indera.
+                    </p>
+                    <p class="mb-10 leading-relaxed font-light text-gray-400">
+                        Dipimpin oleh Chef Eksekutif yang memiliki bintang
+                        Michelin, dapur kami menyatukan teknik klasik Prancis
+                        dengan bahan-bahan lokal terbaik Nusantara.
+                    </p>
+                    <img
+                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Signature_of_Gordon_Ramsay.svg/1200px-Signature_of_Gordon_Ramsay.svg.png"
+                        alt="Signature"
+                        class="h-12 opacity-50 invert"
+                        style="filter: brightness(0) invert(1) opacity(0.5)"
+                    />
+                </div>
+
+                <div
+                    class="img-parallax-container reveal order-1 h-[400px] delay-100 md:order-2 md:h-[600px]"
+                >
+                    <!-- Using an actual image and moving it with JS to create smooth internal parallax -->
+                    <img
+                        src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&q=80&w=1000"
+                        alt="Chef plating"
+                        class="img-parallax"
+                        data-speed="0.15"
+                    />
+                </div>
+            </div>
+        </section>
+
+        <!-- Signature Menu Section -->
+        <section id="menu" class="section-padding bg-[#151515]">
+            <div class="mx-auto max-w-7xl px-6 md:px-16">
+                <div class="reveal mb-16 text-center">
+                    <span
+                        class="text-gold mb-4 block text-sm tracking-widest uppercase"
+                        >Koleksi Terpilih</span
+                    >
+                    <h2 class="heading-font text-4xl md:text-5xl">
+                        Menu Signature
+                    </h2>
+                </div>
+
+                <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
+                    <!-- Card 1 -->
+                    <div class="menu-card reveal p-6 delay-100">
+                        <div class="menu-img-wrap mb-6 h-64">
+                            <img
+                                src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=800"
+                                alt="Scallop"
+                                class="h-full w-full object-cover"
+                            />
+                        </div>
+                        <h3 class="heading-font mb-2 text-2xl">
+                            Hokkaido Scallop
+                        </h3>
+                        <p
+                            class="mb-4 text-sm leading-relaxed font-light text-gray-400"
+                        >
+                            Kerang Hokkaido panggang, purée kembang kol, kaviar
+                            Ossetra, dan busa lemon beurre blanc.
+                        </p>
+                        <div class="text-gold heading-font text-xl">
+                            IDR 450K
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="menu-card reveal p-6 delay-200">
+                        <div class="menu-img-wrap mb-6 h-64">
+                            <img
+                                src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&q=80&w=800"
+                                alt="Wagyu"
+                                class="h-full w-full object-cover"
+                            />
+                        </div>
+                        <h3 class="heading-font mb-2 text-2xl">
+                            A5 Kagoshima Wagyu
+                        </h3>
+                        <p
+                            class="mb-4 text-sm leading-relaxed font-light text-gray-400"
+                        >
+                            Tenderloin Wagyu A5 grade tertinggi, truffle hitam
+                            musiman, pomme purée, dan red wine jus.
+                        </p>
+                        <div class="text-gold heading-font text-xl">
+                            IDR 1.250K
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="menu-card reveal p-6 delay-300">
+                        <div class="menu-img-wrap mb-6 h-64">
+                            <img
+                                src="https://images.unsplash.com/photo-1600891964092-4316c288032e?auto=format&fit=crop&q=80&w=800"
+                                alt="Dessert"
+                                class="h-full w-full object-cover"
+                            />
+                        </div>
+                        <h3 class="heading-font mb-2 text-2xl">
+                            Valrhona Symphonie
+                        </h3>
+                        <p
+                            class="mb-4 text-sm leading-relaxed font-light text-gray-400"
+                        >
+                            Cokelat Valrhona Grand Cru 70%, praline hazelnut,
+                            emas yang dapat dimakan, dan es krim vanilla
+                            Madagaskar.
+                        </p>
+                        <div class="text-gold heading-font text-xl">
+                            IDR 280K
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reveal mt-12 text-center delay-100">
+                    <a href="#" class="btn-gold">Lihat Menu Lengkap</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Parallax Section -->
+        <section
+            id="experience"
+            class="parallax-bg relative flex h-[80vh] items-center justify-center text-center"
+        >
+            <div class="overlay"></div>
+            <div class="reveal z-20 px-4">
+                <h2
+                    class="heading-font text-5xl font-light tracking-wide text-white italic md:text-7xl"
+                >
+                    "Every Dish <br />
+                    Tells a Story"
+                </h2>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section id="gallery" class="section-padding bg-[#0F0F0F]">
+            <div class="mx-auto max-w-7xl px-6 md:px-16">
+                <div
+                    class="reveal mb-12 flex flex-col items-end justify-between md:flex-row"
+                >
+                    <div>
+                        <span
+                            class="text-gold mb-4 block text-sm tracking-widest uppercase"
+                            >Atmosfer</span
+                        >
+                        <h2 class="heading-font text-4xl md:text-5xl">
+                            Visual Estetika
+                        </h2>
+                    </div>
+                    <p class="mt-4 max-w-sm font-light text-gray-400 md:mt-0">
+                        Desain interior yang intim dan pencahayaan dramatis
+                        menciptakan panggung sempurna untuk malam yang tak
+                        terlupakan.
+                    </p>
+                </div>
+
+                <!-- Asymmetrical Grid -->
+                <div class="grid grid-cols-1 gap-4 md:grid-cols-12 md:gap-6">
+                    <!-- Item 1 (Wide) -->
+                    <div
+                        class="gallery-item reveal h-80 delay-100 md:col-span-8 md:h-[400px]"
+                    >
+                        <div class="gallery-item-inner">
+                            <img
+                                src="https://images.unsplash.com/photo-1549488344-c17058a36283?auto=format&fit=crop&q=80&w=1000"
+                                alt="Interior"
+                            />
+                            <div class="gallery-overlay">
+                                <span
+                                    class="heading-font text-xl tracking-widest text-white"
+                                    >Main Dining</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 2 (Tall) -->
+                    <div
+                        class="gallery-item reveal h-80 delay-200 md:col-span-4 md:h-[400px]"
+                    >
+                        <div class="gallery-item-inner">
+                            <img
+                                src="https://images.unsplash.com/photo-1560624052-449f5ddf0c31?auto=format&fit=crop&q=80&w=800"
+                                alt="Wine"
+                            />
+                            <div class="gallery-overlay">
+                                <span
+                                    class="heading-font text-xl tracking-widest text-white"
+                                    >Wine Cellar</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 3 (Square) -->
+                    <div
+                        class="gallery-item reveal h-80 delay-100 md:col-span-4 md:h-[400px]"
+                    >
+                        <div class="gallery-item-inner">
+                            <img
+                                src="https://images.unsplash.com/photo-1572715376701-98568319fd0b?auto=format&fit=crop&q=80&w=800"
+                                alt="Detail"
+                            />
+                            <div class="gallery-overlay">
+                                <span
+                                    class="heading-font text-xl tracking-widest text-white"
+                                    >Table Setting</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 4 (Wide) -->
+                    <div
+                        class="gallery-item reveal h-80 delay-200 md:col-span-8 md:h-[400px]"
+                    >
+                        <div class="gallery-item-inner">
+                            <img
+                                src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&q=80&w=1000"
+                                alt="Bar"
+                            />
+                            <div class="gallery-overlay">
+                                <span
+                                    class="heading-font text-xl tracking-widest text-white"
+                                    >Lounge & Bar</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Reservation Section -->
+        <section id="reservation" class="section-padding parallax-bg relative">
+            <div class="bg-opacity-80 absolute inset-0 bg-[#0F0F0F]"></div>
+            <div class="relative z-10 mx-auto max-w-4xl px-6">
+                <div class="glass-panel reveal p-8 md:p-16">
+                    <div class="mb-10 text-center">
+                        <h2 class="heading-font mb-4 text-4xl md:text-5xl">
+                            Pesan Meja Anda
+                        </h2>
+                        <p class="font-light text-gray-400">
+                            Amankan tempat Anda untuk pengalaman kuliner yang
+                            eksklusif.
+                        </p>
+                    </div>
+
+                    <form>
+                        <div class="mb-8 grid grid-cols-1 gap-8 md:grid-cols-2">
+                            <div>
+                                <input
+                                    type="text"
+                                    placeholder="Nama Lengkap"
+                                    class="form-input"
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <input
+                                    type="tel"
+                                    placeholder="Nomor Telepon"
+                                    class="form-input"
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <input
+                                    type="date"
+                                    class="form-input"
+                                    required
+                                    style="color: rgba(255, 255, 255, 0.4)"
+                                    onfocus="this.style.color = '#fff'"
+                                />
+                            </div>
+                            <div>
+                                <select
+                                    class="form-input"
+                                    required
+                                    style="color: rgba(255, 255, 255, 0.4)"
+                                    onchange="this.style.color = '#fff'"
+                                >
+                                    <option value="" disabled selected>
+                                        Jumlah Tamu
+                                    </option>
+                                    <option value="1">1 Orang</option>
+                                    <option value="2">2 Orang</option>
+                                    <option value="3">3 Orang</option>
+                                    <option value="4">4 Orang</option>
+                                    <option value="5+">
+                                        5+ Orang (Private Dining)
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mt-10 text-center">
+                            <button
+                                type="button"
+                                class="btn-solid w-full md:w-auto"
+                            >
+                                Konfirmasi Reservasi
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="border-t border-gray-900 bg-[#0A0A0A] pt-20 pb-10">
+            <div
+                class="mx-auto mb-16 grid max-w-7xl grid-cols-1 gap-12 px-6 md:grid-cols-3 md:px-16"
+            >
+                <div>
+                    <div
+                        class="heading-font mb-6 text-2xl font-bold tracking-wider text-white"
+                    >
+                        AURELIA<span class="text-gold">.</span>
+                    </div>
+                    <p
+                        class="max-w-xs text-sm leading-relaxed font-light text-gray-500"
+                    >
+                        Eksklusivitas dan kemewahan kuliner di jantung kota.
+                        Pengalaman gastronomi yang dirancang khusus untuk Anda.
+                    </p>
+                </div>
+
+                <div>
+                    <h4
+                        class="mb-6 text-sm tracking-widest text-white uppercase"
+                    >
+                        Hubungi Kami
+                    </h4>
+                    <p class="mb-2 text-sm font-light text-gray-500">
+                        Jl. Sudirman No. 88, Jakarta Selatan
+                    </p>
+                    <p class="mb-2 text-sm font-light text-gray-500">
+                        contact@aureliadining.com
+                    </p>
+                    <p class="text-sm font-light text-gray-500">
+                        +62 811 2345 6789
+                    </p>
+                </div>
+
+                <div>
+                    <h4
+                        class="mb-6 text-sm tracking-widest text-white uppercase"
+                    >
+                        Jam Operasional
+                    </h4>
+                    <p class="mb-2 text-sm font-light text-gray-500">
+                        <span class="text-gray-300">Makan Malam:</span> 18:00 -
+                        23:00
+                    </p>
+                    <p class="mb-2 text-sm font-light text-gray-500">
+                        <span class="text-gray-300">Bar & Lounge:</span> 17:00 -
+                        01:00
+                    </p>
+                    <p class="text-gold mt-4 text-xs tracking-wider uppercase">
+                        Senin Tutup
+                    </p>
+                </div>
+            </div>
+
+            <div
+                class="mx-auto max-w-7xl border-t border-gray-900 px-6 pt-8 text-center md:px-16"
+            >
+                <p class="text-xs tracking-widest text-gray-600 uppercase">
+                    &copy; 2026 Aurelia Fine Dining. All Rights Reserved.
+                </p>
+            </div>
+        </footer>
+
+        <!-- JavaScript Interactions -->
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                // 1. Navbar Scroll Effect
+                const navbar = document.getElementById('navbar');
+                window.addEventListener('scroll', () => {
+                    if (window.scrollY > 50) {
+                        navbar.classList.add('scrolled');
                     } else {
-                        entry.target.classList.add('active');
-                        // Optional: Stop observing once revealed
-                        // observer.unobserve(entry.target); 
+                        navbar.classList.remove('scrolled');
                     }
                 });
-            }, revealOptions);
 
-            revealElements.forEach(el => {
-                revealOnScroll.observe(el);
-            });
+                // 2. Intersection Observer for Reveal Animations
+                const revealElements = document.querySelectorAll('.reveal');
+                const revealOptions = {
+                    threshold: 0.15,
+                    rootMargin: '0px 0px -50px 0px',
+                };
 
-            // 3. Custom Parallax for Elements (The image in About section)
-            const parallaxImages = document.querySelectorAll('.img-parallax');
-            window.addEventListener('scroll', () => {
-                let scrollY = window.scrollY;
-                parallaxImages.forEach(img => {
-                    // Check if element is in viewport to save performance
-                    const rect = img.parentElement.getBoundingClientRect();
-                    if(rect.top < window.innerHeight && rect.bottom > 0) {
-                        let speed = parseFloat(img.getAttribute('data-speed'));
-                        // Calculate offset relative to viewport
-                        let yPos = (rect.top - window.innerHeight/2) * speed;
-                        img.style.transform = `translateY(${yPos}px)`;
-                    }
-                });
-            });
+                const revealOnScroll = new IntersectionObserver(function (
+                    entries,
+                    observer,
+                ) {
+                    entries.forEach((entry) => {
+                        if (!entry.isIntersecting) {
+                            return;
+                        } else {
+                            entry.target.classList.add('active');
+                            // Optional: Stop observing once revealed
+                            // observer.unobserve(entry.target);
+                        }
+                    });
+                }, revealOptions);
 
-            // 4. 3D Depth Effect for Gallery Items
-            const galleryItems = document.querySelectorAll('.gallery-item');
-            
-            galleryItems.forEach(item => {
-                const inner = item.querySelector('.gallery-item-inner');
-                
-                item.addEventListener('mousemove', (e) => {
-                    const rect = item.getBoundingClientRect();
-                    const x = e.clientX - rect.left; // x position within the element
-                    const y = e.clientY - rect.top;  // y position within the element
-                    
-                    const centerX = rect.width / 2;
-                    const centerY = rect.height / 2;
-                    
-                    // Calculate rotation (max 8 degrees for subtlety)
-                    const rotateX = ((y - centerY) / centerY) * -8;
-                    const rotateY = ((x - centerX) / centerX) * 8;
-
-                    inner.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                revealElements.forEach((el) => {
+                    revealOnScroll.observe(el);
                 });
 
-                item.addEventListener('mouseleave', () => {
-                    // Reset position smoothly
-                    inner.style.transition = 'transform 0.5s ease';
-                    inner.style.transform = `rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
-                    
-                    // Remove transition after it's done to restore fast response on hover
-                    setTimeout(() => {
-                        inner.style.transition = 'transform 0.1s ease-out';
-                    }, 500);
+                // 3. Custom Parallax for Elements (The image in About section)
+                const parallaxImages =
+                    document.querySelectorAll('.img-parallax');
+                window.addEventListener('scroll', () => {
+                    let scrollY = window.scrollY;
+                    parallaxImages.forEach((img) => {
+                        // Check if element is in viewport to save performance
+                        const rect = img.parentElement.getBoundingClientRect();
+                        if (rect.top < window.innerHeight && rect.bottom > 0) {
+                            let speed = parseFloat(
+                                img.getAttribute('data-speed'),
+                            );
+                            // Calculate offset relative to viewport
+                            let yPos =
+                                (rect.top - window.innerHeight / 2) * speed;
+                            img.style.transform = `translateY(${yPos}px)`;
+                        }
+                    });
+                });
+
+                // 4. 3D Depth Effect for Gallery Items
+                const galleryItems = document.querySelectorAll('.gallery-item');
+
+                galleryItems.forEach((item) => {
+                    const inner = item.querySelector('.gallery-item-inner');
+
+                    item.addEventListener('mousemove', (e) => {
+                        const rect = item.getBoundingClientRect();
+                        const x = e.clientX - rect.left; // x position within the element
+                        const y = e.clientY - rect.top; // y position within the element
+
+                        const centerX = rect.width / 2;
+                        const centerY = rect.height / 2;
+
+                        // Calculate rotation (max 8 degrees for subtlety)
+                        const rotateX = ((y - centerY) / centerY) * -8;
+                        const rotateY = ((x - centerX) / centerX) * 8;
+
+                        inner.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                    });
+
+                    item.addEventListener('mouseleave', () => {
+                        // Reset position smoothly
+                        inner.style.transition = 'transform 0.5s ease';
+                        inner.style.transform = `rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+
+                        // Remove transition after it's done to restore fast response on hover
+                        setTimeout(() => {
+                            inner.style.transition = 'transform 0.1s ease-out';
+                        }, 500);
+                    });
                 });
             });
-
-        });
-    </script>
-</body>
+        </script>
+    </body>
 </html>

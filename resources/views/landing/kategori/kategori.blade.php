@@ -1,7 +1,7 @@
 <!-- PORTFOLIO / KATEGORI SECTION -->
 <section id="kategori" class="categories-section">
     <div class="parallax-wrapper">
-        <img src="{{ asset('images/hero/collaboration.webp') }}" class="parallax-bg" style="opacity: 0.05;" alt="Background collaboration">
+        <img src="{{ asset('images/hero/collaboration.webp') }}" class="parallax-bg" style="opacity: 0.05;" alt="Background collaboration" width="1024" height="1024" loading="lazy">
     </div>
     <div class="section-container">
         <div class="section-heading">

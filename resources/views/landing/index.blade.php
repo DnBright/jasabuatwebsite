@@ -107,32 +107,39 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdn.jsdelivr.net">
-    <link rel="preconnect" href="https://wa.me">
     <link rel="dns-prefetch" href="https://fonts.googleapis.com">
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
-    <link rel="dns-prefetch" href="https://wa.me">
-    <link rel="dns-prefetch" href="https://maps.app.goo.gl">
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@300;400;600;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@300;400;600;800&display=swap"></noscript>
 
     {{-- AOS CSS --}}
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     {{-- ===== PRELOAD CRITICAL IMAGES ===== --}}
     @php
-        $heroImage = !empty($hero->image) ? (str_starts_with($hero->image, 'http') ? $hero->image : asset($hero->image)) : asset('images/hero/showcase_asia.webp');
+        $heroImage = !empty($hero->image) ? $hero->image : '';
+        $isDefaultHero = empty($heroImage) || str_contains($heroImage, 'section1') || str_contains($heroImage, 'bg_landscape') || str_contains($heroImage, 'bg_portrait');
     @endphp
-    <link rel="preload" as="image" href="{{ $heroImage }}" type="image/webp" fetchpriority="high">
+    @if($isDefaultHero)
+        <link rel="preload" href="{{ asset('images/hero/bg_portrait.webp') }}" as="image" type="image/webp" media="(max-aspect-ratio: 13/10)" fetchpriority="high">
+        <link rel="preload" href="{{ asset('images/hero/bg_landscape.webp') }}" as="image" type="image/webp" media="(min-aspect-ratio: 13/10)" fetchpriority="high">
+    @else
+        @php
+            $imgUrl = Str::startsWith($heroImage, 'http') ? $heroImage : asset($heroImage);
+            $mimeType = str_ends_with(strtolower($heroImage), '.webp') ? 'image/webp' : (str_ends_with(strtolower($heroImage), '.png') ? 'image/png' : 'image/jpeg');
+        @endphp
+        <link rel="preload" href="{{ $imgUrl }}" as="image" type="{{ $mimeType }}" fetchpriority="high">
+    @endif
 
     {{-- Swiper CSS --}}
     <link rel="preload" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"></noscript>
 
     <!-- AOS JS -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.js" defer></script>
     <!-- simpleParallax JS -->
-    <script src="https://cdn.jsdelivr.net/npm/simple-parallax-js@5.5.1/dist/simpleParallax.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-parallax-js@5.5.1/dist/simpleParallax.min.js" defer></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {

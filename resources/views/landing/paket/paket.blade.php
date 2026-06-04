@@ -1,7 +1,7 @@
 <!-- PAKET HARGA SECTION -->
 <section id="paket" class="pricing-section">
     <div class="parallax-wrapper">
-        <img src="{{ asset('images/hero/showcase.webp') }}" class="parallax-bg" style="opacity: 0.05;" alt="Background showcase">
+        <img src="{{ asset('images/hero/showcase.webp') }}" class="parallax-bg" style="opacity: 0.05;" alt="Background showcase" width="1024" height="1024" loading="lazy">
     </div>
     <div class="pricing-container">
         <div class="pricing-header">
@@ -316,11 +316,15 @@
     }
 
     .features-list li.disabled {
-        color: #94a3b8;
+        color: #5f758a;
+        text-decoration: line-through;
+        opacity: 0.8;
     }
 
     .pricing-card.popular .features-list li.disabled {
-        color: #475569;
+        color: #94a3b8;
+        text-decoration: line-through;
+        opacity: 0.8;
     }
 
     .pricing-card-footer {

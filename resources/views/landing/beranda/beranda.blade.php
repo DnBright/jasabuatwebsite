@@ -5,15 +5,15 @@
             @php
                 $imgUrl = Str::startsWith($hero->image, 'http') ? $hero->image : asset($hero->image);
             @endphp
-            <img src="{{ $imgUrl }}" alt="Website Premium UMKM" class="hero-img-parallax">
+            <img src="{{ $imgUrl }}" alt="Website Premium UMKM" class="hero-img-parallax" fetchpriority="high" width="2612" height="1632">
         @else
             <picture>
                 <!-- Portrait (Mobile) -->
                 <source media="(max-aspect-ratio: 13/10)" srcset="{{ asset('images/hero/bg_portrait.webp') }}" type="image/webp">
-                <source media="(max-aspect-ratio: 13/10)" srcset="{{ asset('images/hero/BG Potrait .png') }}" type="image/png">
                 <!-- Landscape (Desktop) -->
                 <source srcset="{{ asset('images/hero/bg_landscape.webp') }}" type="image/webp">
-                <img src="{{ asset('images/hero/BG Landscape.png') }}" alt="Website Premium UMKM" class="hero-img-parallax">
+                <!-- Optimized fallback to WebP (105 KB) instead of 5 MB PNG to ensure high performance -->
+                <img src="{{ asset('images/hero/bg_landscape.webp') }}" alt="Website Premium UMKM" class="hero-img-parallax" fetchpriority="high" width="2612" height="1632">
             </picture>
         @endif
         <div class="hero-overlay"></div>

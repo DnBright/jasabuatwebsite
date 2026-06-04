@@ -1,7 +1,7 @@
 <!-- CALL TO ACTION & SOCIAL MEDIA (KONTAK) -->
 <section id="kontak" class="cta-section">
     <div class="parallax-wrapper">
-        <img src="{{ asset('images/hero/entrepreneur.webp') }}" class="parallax-bg" style="opacity: 0.05;" alt="Background entrepreneur">
+        <img src="{{ asset('images/hero/entrepreneur.webp') }}" class="parallax-bg" style="opacity: 0.05;" alt="Background entrepreneur" width="1024" height="1024" loading="lazy">
     </div>
     <div class="cta-container">
         <div class="cta-box glass-premium">

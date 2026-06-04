@@ -1,1058 +1,1950 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Dark & Bright | Premium Web Developer Agency</title>
-    <meta name="description" content="Building Websites That Grow Businesses. Professional website solutions for modern businesses.">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>The Dark & Bright | Premium Web Developer Agency</title>
+        <meta
+            name="description"
+            content="Building Websites That Grow Businesses. Professional website solutions for modern businesses."
+        />
 
-    <!-- Fonts: Plus Jakarta Sans (Headings) & Inter (Body) for SaaS Aesthetic -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+        <!-- Fonts: Plus Jakarta Sans (Headings) & Inter (Body) for SaaS Aesthetic -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+            rel="stylesheet"
+        />
 
-    <!-- Phosphor Icons -->
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+        <!-- Phosphor Icons -->
+        <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#0F172A',   /* Slate 900 */
-                        secondary: '#1E293B', /* Slate 800 */
-                        accent: '#3B82F6',    /* Blue 500 */
-                        highlight: '#60A5FA', /* Blue 400 */
-                        bglight: '#FFFFFF',
-                        textdark: '#0F172A',
-                        bordercolor: '#E2E8F0', /* Slate 200 */
+        <!-- Tailwind CSS -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script>
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        colors: {
+                            primary: '#0F172A' /* Slate 900 */,
+                            secondary: '#1E293B' /* Slate 800 */,
+                            accent: '#3B82F6' /* Blue 500 */,
+                            highlight: '#60A5FA' /* Blue 400 */,
+                            bglight: '#FFFFFF',
+                            textdark: '#0F172A',
+                            bordercolor: '#E2E8F0' /* Slate 200 */,
+                        },
+                        fontFamily: {
+                            heading: ['"Plus Jakarta Sans"', 'sans-serif'],
+                            body: ['Inter', 'sans-serif'],
+                        },
+                        boxShadow: {
+                            soft: '0 4px 20px -2px rgba(15, 23, 42, 0.05)',
+                            glow: '0 0 30px -5px rgba(59, 130, 246, 0.2)',
+                        },
                     },
-                    fontFamily: {
-                        heading: ['"Plus Jakarta Sans"', 'sans-serif'],
-                        body: ['Inter', 'sans-serif'],
-                    },
-                    boxShadow: {
-                        'soft': '0 4px 20px -2px rgba(15, 23, 42, 0.05)',
-                        'glow': '0 0 30px -5px rgba(59, 130, 246, 0.2)',
-                    }
+                },
+            };
+        </script>
+
+        <style>
+            /* Base & Resets */
+            body {
+                font-family: 'Inter', sans-serif;
+                background-color: theme('colors.bglight');
+                color: theme('colors.textdark');
+                overflow-x: hidden;
+                -webkit-font-smoothing: antialiased;
+            }
+
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6,
+            .font-heading {
+                font-family: 'Plus Jakarta Sans', sans-serif;
+                letter-spacing: -0.02em;
+            }
+
+            /* Loading Screen */
+            #loader {
+                position: fixed;
+                inset: 0;
+                background-color: theme('colors.bglight');
+                z-index: 9999;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                transition:
+                    opacity 0.5s ease,
+                    visibility 0.5s ease;
+            }
+            .spinner {
+                width: 40px;
+                height: 40px;
+                border: 3px solid theme('colors.bordercolor');
+                border-top-color: theme('colors.accent');
+                border-radius: 50%;
+                animation: spin 1s linear infinite;
+            }
+            @keyframes spin {
+                100% {
+                    transform: rotate(360deg);
                 }
             }
-        }
-    </script>
 
-    <style>
-        /* Base & Resets */
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: theme('colors.bglight');
-            color: theme('colors.textdark');
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-        }
+            /* Modern Grid Pattern Background */
+            .bg-grid {
+                background-size: 50px 50px;
+                background-image:
+                    linear-gradient(
+                        to right,
+                        rgba(15, 23, 42, 0.03) 1px,
+                        transparent 1px
+                    ),
+                    linear-gradient(
+                        to bottom,
+                        rgba(15, 23, 42, 0.03) 1px,
+                        transparent 1px
+                    );
+                mask-image: linear-gradient(
+                    to bottom,
+                    black 40%,
+                    transparent 100%
+                );
+                -webkit-mask-image: linear-gradient(
+                    to bottom,
+                    black 40%,
+                    transparent 100%
+                );
+            }
 
-        h1, h2, h3, h4, h5, h6, .font-heading {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            letter-spacing: -0.02em;
-        }
+            /* Glassmorphism */
+            .glass {
+                background: rgba(255, 255, 255, 0.7);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                border: 1px solid rgba(255, 255, 255, 0.5);
+            }
+            .glass-dark {
+                background: rgba(15, 23, 42, 0.7);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+            }
 
-        /* Loading Screen */
-        #loader {
-            position: fixed;
-            inset: 0;
-            background-color: theme('colors.bglight');
-            z-index: 9999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
-        }
-        .spinner {
-            width: 40px;
-            height: 40px;
-            border: 3px solid theme('colors.bordercolor');
-            border-top-color: theme('colors.accent');
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
+            /* Parallax Backgrounds */
+            .parallax-bg {
+                background-attachment: fixed;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;
+            }
+            #mission {
+                background-image: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=2000');
+            }
+            #showcase {
+                background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=2000');
+            }
 
-        /* Modern Grid Pattern Background */
-        .bg-grid {
-            background-size: 50px 50px;
-            background-image: 
-                linear-gradient(to right, rgba(15, 23, 42, 0.03) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(15, 23, 42, 0.03) 1px, transparent 1px);
-            mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
-            -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
-        }
+            /* Scroll Reveal Animation */
+            .reveal {
+                opacity: 0;
+                transform: translateY(30px);
+                transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            }
+            .reveal.active {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            .delay-100 {
+                transition-delay: 0.1s;
+            }
+            .delay-200 {
+                transition-delay: 0.2s;
+            }
+            .delay-300 {
+                transition-delay: 0.3s;
+            }
 
-        /* Glassmorphism */
-        .glass {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-        }
-        .glass-dark {
-            background: rgba(15, 23, 42, 0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
+            /* Premium Cards */
+            .saas-card {
+                background: white;
+                border: 1px solid theme('colors.bordercolor');
+                border-radius: 20px;
+                transition: all 0.4s ease;
+            }
+            .saas-card:hover {
+                transform: translateY(-5px);
+                box-shadow: theme('boxShadow.soft');
+                border-color: theme('colors.highlight');
+            }
 
-        /* Parallax Backgrounds */
-        .parallax-bg {
-            background-attachment: fixed;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
-        #mission { background-image: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=2000'); }
-        #showcase { background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=2000'); }
+            /* Portfolio Filters */
+            .filter-btn.active {
+                background-color: theme('colors.primary');
+                color: white;
+            }
+            .portfolio-item {
+                transition: all 0.4s ease;
+            }
+            .portfolio-item.hide {
+                display: none;
+                opacity: 0;
+                transform: scale(0.9);
+            }
 
-        /* Scroll Reveal Animation */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .delay-100 { transition-delay: 0.1s; }
-        .delay-200 { transition-delay: 0.2s; }
-        .delay-300 { transition-delay: 0.3s; }
+            /* FAQ Accordion */
+            .faq-content {
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.4s ease-out;
+            }
+            .faq-icon {
+                transition: transform 0.3s ease;
+            }
+            .faq-item.active .faq-icon {
+                transform: rotate(180deg);
+            }
 
-        /* Premium Cards */
-        .saas-card {
-            background: white;
-            border: 1px solid theme('colors.bordercolor');
-            border-radius: 20px;
-            transition: all 0.4s ease;
-        }
-        .saas-card:hover {
-            transform: translateY(-5px);
-            box-shadow: theme('boxShadow.soft');
-            border-color: theme('colors.highlight');
-        }
+            /* Floating Elements (Hero) */
+            .shape-float {
+                animation: float 6s ease-in-out infinite;
+            }
+            @keyframes float {
+                0% {
+                    transform: translateY(0px);
+                }
+                50% {
+                    transform: translateY(-20px);
+                }
+                100% {
+                    transform: translateY(0px);
+                }
+            }
 
-        /* Portfolio Filters */
-        .filter-btn.active {
-            background-color: theme('colors.primary');
-            color: white;
-        }
-        .portfolio-item { transition: all 0.4s ease; }
-        .portfolio-item.hide {
-            display: none;
-            opacity: 0;
-            transform: scale(0.9);
-        }
+            /* Buttons */
+            .btn-primary {
+                background-color: theme('colors.primary');
+                color: white;
+                transition: all 0.3s ease;
+                box-shadow: 0 4px 14px 0 rgba(15, 23, 42, 0.39);
+            }
+            .btn-primary:hover {
+                background-color: theme('colors.accent');
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(59, 130, 246, 0.23);
+            }
 
-        /* FAQ Accordion */
-        .faq-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease-out;
-        }
-        .faq-icon { transition: transform 0.3s ease; }
-        .faq-item.active .faq-icon { transform: rotate(180deg); }
-
-        /* Floating Elements (Hero) */
-        .shape-float { animation: float 6s ease-in-out infinite; }
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-            100% { transform: translateY(0px); }
-        }
-
-        /* Buttons */
-        .btn-primary {
-            background-color: theme('colors.primary');
-            color: white;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 14px 0 rgba(15, 23, 42, 0.39);
-        }
-        .btn-primary:hover {
-            background-color: theme('colors.accent');
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.23);
-        }
-
-        /* Forms */
-        .form-input {
-            width: 100%;
-            background: white;
-            border: 1px solid theme('colors.bordercolor');
-            border-radius: 12px;
-            padding: 16px;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-        }
-        .form-input:focus {
-            outline: none;
-            border-color: theme('colors.accent');
-            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
-        }
-    </style>
-</head>
-<body class="relative">
-
-    <!-- Loading Screen -->
-    <div id="loader">
-        <div class="spinner"></div>
-    </div>
-
-    <!-- Sticky Navbar -->
-    <nav id="navbar" class="fixed w-full top-0 z-50 transition-all duration-300 py-4 glass border-b border-gray-100">
-        <div class="container mx-auto px-6 md:px-12 flex justify-between items-center">
-            <!-- Logo -->
-            <a href="#" class="flex items-center gap-2 group">
-                <div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-white group-hover:bg-accent transition-colors">
-                    <i class="ph-bold ph-code text-lg"></i>
-                </div>
-                <span class="font-heading font-bold text-xl tracking-tight text-primary">The Dark & Bright</span>
-            </a>
-
-            <!-- Desktop Nav -->
-            <div class="hidden md:flex items-center gap-8 text-sm font-medium text-secondary">
-                <a href="#services" class="hover:text-accent transition-colors">Services</a>
-                <a href="#work" class="hover:text-accent transition-colors">Our Work</a>
-                <a href="#process" class="hover:text-accent transition-colors">Process</a>
-                <a href="#testimonials" class="hover:text-accent transition-colors">Testimonials</a>
-            </div>
-
-            <!-- CTA -->
-            <div class="hidden md:block">
-                <a href="#contact" class="btn-primary px-6 py-2.5 rounded-full font-medium text-sm">Start Project</a>
-            </div>
-
-            <!-- Mobile Menu Btn -->
-            <button id="mobile-menu-btn" class="md:hidden text-primary text-2xl focus:outline-none">
-                <i class="ph ph-list"></i>
-            </button>
+            /* Forms */
+            .form-input {
+                width: 100%;
+                background: white;
+                border: 1px solid theme('colors.bordercolor');
+                border-radius: 12px;
+                padding: 16px;
+                font-size: 0.95rem;
+                transition: all 0.3s ease;
+            }
+            .form-input:focus {
+                outline: none;
+                border-color: theme('colors.accent');
+                box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+            }
+        </style>
+    </head>
+    <body class="relative">
+        <!-- Loading Screen -->
+        <div id="loader">
+            <div class="spinner"></div>
         </div>
 
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden absolute top-full left-0 w-full glass border-b border-gray-200 py-6 px-6 flex flex-col gap-6 shadow-xl">
-            <a href="#services" class="text-lg font-medium text-secondary mobile-link">Services</a>
-            <a href="#work" class="text-lg font-medium text-secondary mobile-link">Our Work</a>
-            <a href="#process" class="text-lg font-medium text-secondary mobile-link">Process</a>
-            <a href="#testimonials" class="text-lg font-medium text-secondary mobile-link">Testimonials</a>
-            <a href="#contact" class="btn-primary w-full text-center py-3 rounded-xl font-medium mobile-link">Start Project</a>
-        </div>
-    </nav>
-
-    <!-- Hero Section (Mouse Parallax & CSS Background) -->
-    <section id="hero" class="relative min-h-screen flex items-center pt-24 overflow-hidden">
-        <!-- Grid Background -->
-        <div class="absolute inset-0 bg-grid z-0"></div>
-        
-        <!-- Subtle Glows -->
-        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-100/50 rounded-full blur-[100px] z-0"></div>
-        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-slate-100/80 rounded-full blur-[100px] z-0"></div>
-
-        <!-- Floating Elements (Mouse Parallax via JS + CSS float) -->
-        <div class="absolute inset-0 z-10 pointer-events-none" id="parallax-container">
-            <div class="absolute top-32 left-1/4 shape-float text-blue-100 mouse-p" data-speed="2"><i class="ph-fill ph-hexagon text-6xl"></i></div>
-            <div class="absolute bottom-40 left-10 shape-float text-slate-100 mouse-p" style="animation-delay: 1s;" data-speed="-3"><i class="ph-fill ph-circle text-8xl"></i></div>
-            <div class="absolute top-1/3 right-1/4 shape-float text-blue-50/80 mouse-p" style="animation-delay: 2s;" data-speed="1.5"><i class="ph-fill ph-square text-5xl transform rotate-45"></i></div>
-        </div>
-
-        <div class="container mx-auto px-6 md:px-12 relative z-20 text-center flex flex-col items-center">
-            <!-- Badge -->
-            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200 bg-white/50 backdrop-blur-sm text-sm font-medium text-secondary mb-8 reveal shadow-sm">
-                <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
-                Trusted by Growing Businesses
-            </div>
-
-            <!-- Headline -->
-            <h1 class="font-heading text-5xl md:text-7xl lg:text-[5rem] font-extrabold leading-[1.1] tracking-tight text-primary mb-6 max-w-5xl reveal delay-100">
-                We Build Websites That Help Businesses <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-highlight">Grow.</span>
-            </h1>
-
-            <!-- Subheadline -->
-            <p class="text-lg md:text-xl text-slate-600 max-w-2xl mb-10 leading-relaxed reveal delay-200">
-                Professional website solutions for modern businesses that want to increase credibility, generate leads, and improve customer experience.
-            </p>
-
-            <!-- CTAs -->
-            <div class="flex flex-col sm:flex-row gap-4 reveal delay-300 w-full sm:w-auto">
-                <a href="#work" class="btn-primary px-8 py-4 rounded-xl font-medium text-base flex justify-center items-center gap-2">
-                    View Our Work <i class="ph-bold ph-arrow-right"></i>
-                </a>
-                <a href="#contact" class="px-8 py-4 rounded-xl font-medium text-base text-primary bg-white border border-slate-200 hover:border-slate-300 hover:bg-slate-50 transition-all flex justify-center items-center shadow-sm">
-                    Get Free Consultation
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="py-24 lg:py-32 bg-white relative">
-        <div class="container mx-auto px-6 md:px-12">
-            <div class="grid lg:grid-cols-2 gap-16 items-center">
-                <!-- Image -->
-                <div class="relative reveal">
-                    <div class="relative rounded-3xl overflow-hidden border border-slate-100 shadow-2xl">
-                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1000" alt="Team at work" class="w-full h-auto object-cover transform hover:scale-105 transition-transform duration-700">
-                        <div class="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent"></div>
+        <!-- Sticky Navbar -->
+        <nav
+            id="navbar"
+            class="glass fixed top-0 z-50 w-full border-b border-gray-100 py-4 transition-all duration-300"
+        >
+            <div
+                class="container mx-auto flex items-center justify-between px-6 md:px-12"
+            >
+                <!-- Logo -->
+                <a href="#" class="group flex items-center gap-2">
+                    <div
+                        class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-white transition-colors group-hover:bg-accent"
+                    >
+                        <i class="ph-bold ph-code text-lg"></i>
                     </div>
-                    <!-- Floating Stats Card -->
-                    <div class="absolute -bottom-8 -right-8 md:-right-12 glass p-6 rounded-2xl shadow-xl w-64 hidden sm:block">
-                        <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-xl">
-                                <i class="ph-fill ph-trend-up"></i>
+                    <span
+                        class="font-heading text-xl font-bold tracking-tight text-primary"
+                        >The Dark & Bright</span
+                    >
+                </a>
+
+                <!-- Desktop Nav -->
+                <div
+                    class="hidden items-center gap-8 text-sm font-medium text-secondary md:flex"
+                >
+                    <a
+                        href="#services"
+                        class="transition-colors hover:text-accent"
+                        >Services</a
+                    >
+                    <a href="#work" class="transition-colors hover:text-accent"
+                        >Our Work</a
+                    >
+                    <a
+                        href="#process"
+                        class="transition-colors hover:text-accent"
+                        >Process</a
+                    >
+                    <a
+                        href="#testimonials"
+                        class="transition-colors hover:text-accent"
+                        >Testimonials</a
+                    >
+                </div>
+
+                <!-- CTA -->
+                <div class="hidden md:block">
+                    <a
+                        href="#contact"
+                        class="btn-primary rounded-full px-6 py-2.5 text-sm font-medium"
+                        >Start Project</a
+                    >
+                </div>
+
+                <!-- Mobile Menu Btn -->
+                <button
+                    id="mobile-menu-btn"
+                    class="text-2xl text-primary focus:outline-none md:hidden"
+                >
+                    <i class="ph ph-list"></i>
+                </button>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div
+                id="mobile-menu"
+                class="glass absolute top-full left-0 flex hidden w-full flex-col gap-6 border-b border-gray-200 px-6 py-6 shadow-xl"
+            >
+                <a
+                    href="#services"
+                    class="mobile-link text-lg font-medium text-secondary"
+                    >Services</a
+                >
+                <a
+                    href="#work"
+                    class="mobile-link text-lg font-medium text-secondary"
+                    >Our Work</a
+                >
+                <a
+                    href="#process"
+                    class="mobile-link text-lg font-medium text-secondary"
+                    >Process</a
+                >
+                <a
+                    href="#testimonials"
+                    class="mobile-link text-lg font-medium text-secondary"
+                    >Testimonials</a
+                >
+                <a
+                    href="#contact"
+                    class="btn-primary mobile-link w-full rounded-xl py-3 text-center font-medium"
+                    >Start Project</a
+                >
+            </div>
+        </nav>
+
+        <!-- Hero Section (Mouse Parallax & CSS Background) -->
+        <section
+            id="hero"
+            class="relative flex min-h-screen items-center overflow-hidden pt-24"
+        >
+            <!-- Grid Background -->
+            <div class="bg-grid absolute inset-0 z-0"></div>
+
+            <!-- Subtle Glows -->
+            <div
+                class="absolute top-1/4 left-1/4 z-0 h-96 w-96 rounded-full bg-blue-100/50 blur-[100px]"
+            ></div>
+            <div
+                class="absolute right-1/4 bottom-1/4 z-0 h-96 w-96 rounded-full bg-slate-100/80 blur-[100px]"
+            ></div>
+
+            <!-- Floating Elements (Mouse Parallax via JS + CSS float) -->
+            <div
+                class="pointer-events-none absolute inset-0 z-10"
+                id="parallax-container"
+            >
+                <div
+                    class="shape-float mouse-p absolute top-32 left-1/4 text-blue-100"
+                    data-speed="2"
+                >
+                    <i class="ph-fill ph-hexagon text-6xl"></i>
+                </div>
+                <div
+                    class="shape-float mouse-p absolute bottom-40 left-10 text-slate-100"
+                    style="animation-delay: 1s"
+                    data-speed="-3"
+                >
+                    <i class="ph-fill ph-circle text-8xl"></i>
+                </div>
+                <div
+                    class="shape-float mouse-p absolute top-1/3 right-1/4 text-blue-50/80"
+                    style="animation-delay: 2s"
+                    data-speed="1.5"
+                >
+                    <i
+                        class="ph-fill ph-square rotate-45 transform text-5xl"
+                    ></i>
+                </div>
+            </div>
+
+            <div
+                class="relative z-20 container mx-auto flex flex-col items-center px-6 text-center md:px-12"
+            >
+                <!-- Badge -->
+                <div
+                    class="reveal mb-8 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/50 px-4 py-2 text-sm font-medium text-secondary shadow-sm backdrop-blur-sm"
+                >
+                    <span
+                        class="h-2 w-2 animate-pulse rounded-full bg-accent"
+                    ></span>
+                    Trusted by Growing Businesses
+                </div>
+
+                <!-- Headline -->
+                <h1
+                    class="font-heading reveal mb-6 max-w-5xl text-5xl leading-[1.1] font-extrabold tracking-tight text-primary delay-100 md:text-7xl lg:text-[5rem]"
+                >
+                    We Build Websites That Help Businesses
+                    <span
+                        class="to-highlight bg-gradient-to-r from-accent bg-clip-text text-transparent"
+                        >Grow.</span
+                    >
+                </h1>
+
+                <!-- Subheadline -->
+                <p
+                    class="reveal mb-10 max-w-2xl text-lg leading-relaxed text-slate-600 delay-200 md:text-xl"
+                >
+                    Professional website solutions for modern businesses that
+                    want to increase credibility, generate leads, and improve
+                    customer experience.
+                </p>
+
+                <!-- CTAs -->
+                <div
+                    class="reveal flex w-full flex-col gap-4 delay-300 sm:w-auto sm:flex-row"
+                >
+                    <a
+                        href="#work"
+                        class="btn-primary flex items-center justify-center gap-2 rounded-xl px-8 py-4 text-base font-medium"
+                    >
+                        View Our Work <i class="ph-bold ph-arrow-right"></i>
+                    </a>
+                    <a
+                        href="#contact"
+                        class="flex items-center justify-center rounded-xl border border-slate-200 bg-white px-8 py-4 text-base font-medium text-primary shadow-sm transition-all hover:border-slate-300 hover:bg-slate-50"
+                    >
+                        Get Free Consultation
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="relative bg-white py-24 lg:py-32">
+            <div class="container mx-auto px-6 md:px-12">
+                <div class="grid items-center gap-16 lg:grid-cols-2">
+                    <!-- Image -->
+                    <div class="reveal relative">
+                        <div
+                            class="relative overflow-hidden rounded-3xl border border-slate-100 shadow-2xl"
+                        >
+                            <img
+                                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1000"
+                                alt="Team at work"
+                                class="h-auto w-full transform object-cover transition-transform duration-700 hover:scale-105"
+                            />
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent"
+                            ></div>
+                        </div>
+                        <!-- Floating Stats Card -->
+                        <div
+                            class="glass absolute -right-8 -bottom-8 hidden w-64 rounded-2xl p-6 shadow-xl sm:block md:-right-12"
+                        >
+                            <div class="flex items-center gap-4">
+                                <div
+                                    class="flex h-12 w-12 items-center justify-center rounded-full bg-green-100 text-xl text-green-600"
+                                >
+                                    <i class="ph-fill ph-trend-up"></i>
+                                </div>
+                                <div>
+                                    <p
+                                        class="font-heading text-2xl font-bold text-primary"
+                                    >
+                                        2.5x
+                                    </p>
+                                    <p
+                                        class="text-xs font-medium tracking-wide text-slate-500 uppercase"
+                                    >
+                                        Avg ROI Increase
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Content -->
+                    <div class="reveal delay-100">
+                        <h2
+                            class="font-heading mb-6 text-3xl font-bold text-primary md:text-4xl"
+                        >
+                            Partner Digital Terpercaya Untuk Bisnis Anda.
+                        </h2>
+                        <p class="mb-6 text-lg leading-relaxed text-slate-600">
+                            The Dark & Bright bukan sekadar agency pembuatan
+                            website. Kami adalah konsultan teknologi yang
+                            berfokus pada hasil. Kami merancang arsitektur
+                            digital yang cantik di luar, namun tangguh secara
+                            performa di dalam.
+                        </p>
+                        <p class="mb-10 leading-relaxed text-slate-600">
+                            Dari UMKM lokal hingga startup teknologi, kami
+                            memastikan setiap baris kode dan setiap pixel desain
+                            ditujukan untuk satu tujuan: konversi.
+                        </p>
+
+                        <!-- Stats Grid -->
+                        <div
+                            class="grid grid-cols-2 gap-x-8 gap-y-10 border-t border-slate-100 pt-10"
+                        >
+                            <div>
+                                <h3
+                                    class="font-heading mb-2 text-4xl font-extrabold text-primary"
+                                >
+                                    50+
+                                </h3>
+                                <p class="text-sm font-medium text-slate-500">
+                                    Projects Delivered
+                                </p>
                             </div>
                             <div>
-                                <p class="text-2xl font-bold font-heading text-primary">2.5x</p>
-                                <p class="text-xs font-medium text-slate-500 uppercase tracking-wide">Avg ROI Increase</p>
+                                <h3
+                                    class="font-heading mb-2 text-4xl font-extrabold text-primary"
+                                >
+                                    98%
+                                </h3>
+                                <p class="text-sm font-medium text-slate-500">
+                                    Client Satisfaction
+                                </p>
+                            </div>
+                            <div>
+                                <h3
+                                    class="font-heading mb-2 text-4xl font-extrabold text-primary"
+                                >
+                                    3+
+                                </h3>
+                                <p class="text-sm font-medium text-slate-500">
+                                    Years Experience
+                                </p>
+                            </div>
+                            <div>
+                                <h3
+                                    class="font-heading mb-2 text-4xl font-extrabold text-primary"
+                                >
+                                    24/7
+                                </h3>
+                                <p class="text-sm font-medium text-slate-500">
+                                    Technical Support
+                                </p>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <!-- Content -->
-                <div class="reveal delay-100">
-                    <h2 class="font-heading text-3xl md:text-4xl font-bold text-primary mb-6">Partner Digital Terpercaya Untuk Bisnis Anda.</h2>
-                    <p class="text-slate-600 leading-relaxed mb-6 text-lg">
-                        The Dark & Bright bukan sekadar agency pembuatan website. Kami adalah konsultan teknologi yang berfokus pada hasil. Kami merancang arsitektur digital yang cantik di luar, namun tangguh secara performa di dalam.
+        <!-- Parallax Mission Section -->
+        <section
+            id="mission"
+            class="parallax-bg relative flex h-[80vh] items-center justify-center"
+        >
+            <div
+                class="absolute inset-0 bg-primary/80 backdrop-blur-[2px]"
+            ></div>
+
+            <div
+                class="reveal relative z-10 container mx-auto px-6 text-center"
+            >
+                <h2
+                    class="font-heading mx-auto max-w-5xl text-4xl leading-tight font-bold tracking-tight text-white md:text-6xl lg:text-7xl"
+                >
+                    "A Website Is Not An Expense. <br />
+                    <span
+                        class="from-highlight bg-gradient-to-r to-accent bg-clip-text text-transparent"
+                        >It's A Business Asset."</span
+                    >
+                </h2>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="bg-slate-50/50 py-24 lg:py-32">
+            <div class="container mx-auto px-6 md:px-12">
+                <div class="reveal mx-auto mb-16 max-w-3xl text-center">
+                    <span
+                        class="mb-3 block text-sm font-semibold tracking-wide text-accent uppercase"
+                        >Our Services</span
+                    >
+                    <h2
+                        class="font-heading mb-4 text-3xl font-bold text-primary md:text-4xl"
+                    >
+                        Solusi End-to-End Untuk Presensi Digital Anda
+                    </h2>
+                </div>
+
+                <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+                    <!-- Service 1 -->
+                    <div class="saas-card reveal p-8">
+                        <div
+                            class="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-50 text-3xl text-accent"
+                        >
+                            <i class="ph-fill ph-browsers"></i>
+                        </div>
+                        <h3
+                            class="font-heading mb-3 text-xl font-bold text-primary"
+                        >
+                            Company Profile
+                        </h3>
+                        <p class="mb-6 text-sm leading-relaxed text-slate-600">
+                            Website profil perusahaan premium untuk meningkatkan
+                            kredibilitas brand di mata investor dan calon klien.
+                        </p>
+                    </div>
+
+                    <!-- Service 2 -->
+                    <div class="saas-card reveal p-8 delay-100">
+                        <div
+                            class="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-50 text-3xl text-accent"
+                        >
+                            <i class="ph-fill ph-rocket-launch"></i>
+                        </div>
+                        <h3
+                            class="font-heading mb-3 text-xl font-bold text-primary"
+                        >
+                            Landing Page
+                        </h3>
+                        <p class="mb-6 text-sm leading-relaxed text-slate-600">
+                            Halaman promosi satu halaman yang dioptimasi khusus
+                            dengan teknik copywriting dan UI/UX untuk konversi
+                            tinggi.
+                        </p>
+                    </div>
+
+                    <!-- Service 3 -->
+                    <div class="saas-card reveal p-8 delay-200">
+                        <div
+                            class="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-50 text-3xl text-accent"
+                        >
+                            <i class="ph-fill ph-shopping-cart"></i>
+                        </div>
+                        <h3
+                            class="font-heading mb-3 text-xl font-bold text-primary"
+                        >
+                            E-Commerce Website
+                        </h3>
+                        <p class="mb-6 text-sm leading-relaxed text-slate-600">
+                            Toko online lengkap dengan integrasi payment gateway
+                            (OVO, GoPay, VA) dan manajemen inventaris otomatis.
+                        </p>
+                    </div>
+
+                    <!-- Service 4 -->
+                    <div class="saas-card reveal p-8">
+                        <div
+                            class="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-50 text-3xl text-accent"
+                        >
+                            <i class="ph-fill ph-calendar-check"></i>
+                        </div>
+                        <h3
+                            class="font-heading mb-3 text-xl font-bold text-primary"
+                        >
+                            Booking System
+                        </h3>
+                        <p class="mb-6 text-sm leading-relaxed text-slate-600">
+                            Sistem reservasi pintar untuk klinik, salon, atau
+                            jasa profesional. Memudahkan klien mengatur jadwal
+                            tanpa admin.
+                        </p>
+                    </div>
+
+                    <!-- Service 5 -->
+                    <div class="saas-card reveal p-8 delay-100">
+                        <div
+                            class="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-50 text-3xl text-accent"
+                        >
+                            <i class="ph-fill ph-code-block"></i>
+                        </div>
+                        <h3
+                            class="font-heading mb-3 text-xl font-bold text-primary"
+                        >
+                            Custom Web App
+                        </h3>
+                        <p class="mb-6 text-sm leading-relaxed text-slate-600">
+                            Pengembangan aplikasi web berbasis SaaS, dashboard
+                            admin kompleks, atau sistem ERP internal sesuai
+                            kebutuhan bisnis.
+                        </p>
+                    </div>
+
+                    <!-- Service 6 -->
+                    <div class="saas-card reveal p-8 delay-200">
+                        <div
+                            class="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-50 text-3xl text-accent"
+                        >
+                            <i class="ph-fill ph-wrench"></i>
+                        </div>
+                        <h3
+                            class="font-heading mb-3 text-xl font-bold text-primary"
+                        >
+                            Website Maintenance
+                        </h3>
+                        <p class="mb-6 text-sm leading-relaxed text-slate-600">
+                            Layanan pengelolaan server, update keamanan, backup
+                            rutin, dan optimasi performa berkelanjutan bulanan.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Projects (Showcase) -->
+        <section
+            id="work"
+            class="border-t border-slate-100 bg-white py-24 lg:py-32"
+        >
+            <div class="container mx-auto px-6 md:px-12">
+                <div
+                    class="reveal mb-12 flex flex-col items-end justify-between md:flex-row"
+                >
+                    <div>
+                        <span
+                            class="mb-3 block text-sm font-semibold tracking-wide text-accent uppercase"
+                            >Featured Work</span
+                        >
+                        <h2
+                            class="font-heading text-3xl font-bold text-primary md:text-4xl"
+                        >
+                            Karya Terbaik Kami
+                        </h2>
+                    </div>
+
+                    <!-- Filters -->
+                    <div
+                        class="mt-6 flex flex-wrap gap-2 md:mt-0"
+                        id="portfolio-filters"
+                    >
+                        <button
+                            class="filter-btn active rounded-full border border-slate-200 px-5 py-2 text-sm font-medium text-slate-600 transition-all hover:border-slate-300"
+                            data-filter="all"
+                        >
+                            All
+                        </button>
+                        <button
+                            class="filter-btn rounded-full border border-slate-200 px-5 py-2 text-sm font-medium text-slate-600 transition-all hover:border-slate-300"
+                            data-filter="business"
+                        >
+                            Business
+                        </button>
+                        <button
+                            class="filter-btn rounded-full border border-slate-200 px-5 py-2 text-sm font-medium text-slate-600 transition-all hover:border-slate-300"
+                            data-filter="ecommerce"
+                        >
+                            E-Commerce
+                        </button>
+                        <button
+                            class="filter-btn rounded-full border border-slate-200 px-5 py-2 text-sm font-medium text-slate-600 transition-all hover:border-slate-300"
+                            data-filter="travel"
+                        >
+                            Travel
+                        </button>
+                    </div>
+                </div>
+
+                <div
+                    class="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
+                    id="portfolio-grid"
+                >
+                    <!-- Project 1 -->
+                    <div
+                        class="portfolio-item group reveal cursor-pointer"
+                        data-category="business"
+                    >
+                        <div
+                            class="relative mb-5 aspect-[4/3] overflow-hidden rounded-2xl border border-slate-200 bg-slate-100"
+                        >
+                            <img
+                                src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800"
+                                alt="Dashboard UI"
+                                class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                            />
+                            <div
+                                class="absolute inset-0 flex items-center justify-center bg-primary/0 transition-all duration-300 group-hover:bg-primary/20"
+                            >
+                                <div
+                                    class="flex h-12 w-12 translate-y-4 transform items-center justify-center rounded-full bg-white text-primary opacity-0 shadow-xl transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100"
+                                >
+                                    <i
+                                        class="ph-bold ph-arrow-up-right text-xl"
+                                    ></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="mb-2 flex items-center gap-2">
+                                <span
+                                    class="text-xs font-semibold tracking-wider text-accent uppercase"
+                                    >Business</span
+                                >
+                            </div>
+                            <h3
+                                class="font-heading mb-1 text-xl font-bold text-primary transition-colors group-hover:text-accent"
+                            >
+                                FinTech Analytic Dashboard
+                            </h3>
+                            <p class="text-sm text-slate-500">
+                                Custom web application for financial tracking.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Project 2 -->
+                    <div
+                        class="portfolio-item group reveal cursor-pointer delay-100"
+                        data-category="ecommerce"
+                    >
+                        <div
+                            class="relative mb-5 aspect-[4/3] overflow-hidden rounded-2xl border border-slate-200 bg-slate-100"
+                        >
+                            <img
+                                src="https://images.unsplash.com/photo-1661956602116-aa6865609028?auto=format&fit=crop&q=80&w=800"
+                                alt="E-commerce"
+                                class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                            />
+                            <div
+                                class="absolute inset-0 flex items-center justify-center bg-primary/0 transition-all duration-300 group-hover:bg-primary/20"
+                            >
+                                <div
+                                    class="flex h-12 w-12 translate-y-4 transform items-center justify-center rounded-full bg-white text-primary opacity-0 shadow-xl transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100"
+                                >
+                                    <i
+                                        class="ph-bold ph-arrow-up-right text-xl"
+                                    ></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="mb-2 flex items-center gap-2">
+                                <span
+                                    class="text-xs font-semibold tracking-wider text-accent uppercase"
+                                    >E-Commerce</span
+                                >
+                            </div>
+                            <h3
+                                class="font-heading mb-1 text-xl font-bold text-primary transition-colors group-hover:text-accent"
+                            >
+                                Aura Beauty Store
+                            </h3>
+                            <p class="text-sm text-slate-500">
+                                Modern storefront with seamless checkout flow.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Project 3 -->
+                    <div
+                        class="portfolio-item group reveal cursor-pointer delay-200"
+                        data-category="travel"
+                    >
+                        <div
+                            class="relative mb-5 aspect-[4/3] overflow-hidden rounded-2xl border border-slate-200 bg-slate-100"
+                        >
+                            <img
+                                src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&q=80&w=800"
+                                alt="Travel Web"
+                                class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                            />
+                            <div
+                                class="absolute inset-0 flex items-center justify-center bg-primary/0 transition-all duration-300 group-hover:bg-primary/20"
+                            >
+                                <div
+                                    class="flex h-12 w-12 translate-y-4 transform items-center justify-center rounded-full bg-white text-primary opacity-0 shadow-xl transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100"
+                                >
+                                    <i
+                                        class="ph-bold ph-arrow-up-right text-xl"
+                                    ></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="mb-2 flex items-center gap-2">
+                                <span
+                                    class="text-xs font-semibold tracking-wider text-accent uppercase"
+                                    >Travel</span
+                                >
+                            </div>
+                            <h3
+                                class="font-heading mb-1 text-xl font-bold text-primary transition-colors group-hover:text-accent"
+                            >
+                                Nusa Penida Booking
+                            </h3>
+                            <p class="text-sm text-slate-500">
+                                Tour reservation system with interactive maps.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Project 4 -->
+                    <div
+                        class="portfolio-item group reveal cursor-pointer"
+                        data-category="business"
+                    >
+                        <div
+                            class="relative mb-5 aspect-[4/3] overflow-hidden rounded-2xl border border-slate-200 bg-slate-100"
+                        >
+                            <img
+                                src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800"
+                                alt="SaaS Web"
+                                class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                            />
+                            <div
+                                class="absolute inset-0 flex items-center justify-center bg-primary/0 transition-all duration-300 group-hover:bg-primary/20"
+                            >
+                                <div
+                                    class="flex h-12 w-12 translate-y-4 transform items-center justify-center rounded-full bg-white text-primary opacity-0 shadow-xl transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100"
+                                >
+                                    <i
+                                        class="ph-bold ph-arrow-up-right text-xl"
+                                    ></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="mb-2 flex items-center gap-2">
+                                <span
+                                    class="text-xs font-semibold tracking-wider text-accent uppercase"
+                                    >Business</span
+                                >
+                            </div>
+                            <h3
+                                class="font-heading mb-1 text-xl font-bold text-primary transition-colors group-hover:text-accent"
+                            >
+                                CloudSync SaaS Landing
+                            </h3>
+                            <p class="text-sm text-slate-500">
+                                High conversion landing page for software
+                                product.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Project 5 -->
+                    <div
+                        class="portfolio-item group reveal cursor-pointer delay-100"
+                        data-category="ecommerce"
+                    >
+                        <div
+                            class="relative mb-5 aspect-[4/3] overflow-hidden rounded-2xl border border-slate-200 bg-slate-100"
+                        >
+                            <img
+                                src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&q=80&w=800"
+                                alt="Fashion Store"
+                                class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                            />
+                            <div
+                                class="absolute inset-0 flex items-center justify-center bg-primary/0 transition-all duration-300 group-hover:bg-primary/20"
+                            >
+                                <div
+                                    class="flex h-12 w-12 translate-y-4 transform items-center justify-center rounded-full bg-white text-primary opacity-0 shadow-xl transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100"
+                                >
+                                    <i
+                                        class="ph-bold ph-arrow-up-right text-xl"
+                                    ></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="mb-2 flex items-center gap-2">
+                                <span
+                                    class="text-xs font-semibold tracking-wider text-accent uppercase"
+                                    >E-Commerce</span
+                                >
+                            </div>
+                            <h3
+                                class="font-heading mb-1 text-xl font-bold text-primary transition-colors group-hover:text-accent"
+                            >
+                                UrbanWear Apparel
+                            </h3>
+                            <p class="text-sm text-slate-500">
+                                Minimalist fashion catalog & checkout.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Project 6 -->
+                    <div
+                        class="portfolio-item group reveal cursor-pointer delay-200"
+                        data-category="business"
+                    >
+                        <div
+                            class="relative mb-5 aspect-[4/3] overflow-hidden rounded-2xl border border-slate-200 bg-slate-100"
+                        >
+                            <img
+                                src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=800"
+                                alt="Corporate"
+                                class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                            />
+                            <div
+                                class="absolute inset-0 flex items-center justify-center bg-primary/0 transition-all duration-300 group-hover:bg-primary/20"
+                            >
+                                <div
+                                    class="flex h-12 w-12 translate-y-4 transform items-center justify-center rounded-full bg-white text-primary opacity-0 shadow-xl transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100"
+                                >
+                                    <i
+                                        class="ph-bold ph-arrow-up-right text-xl"
+                                    ></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="mb-2 flex items-center gap-2">
+                                <span
+                                    class="text-xs font-semibold tracking-wider text-accent uppercase"
+                                    >Business</span
+                                >
+                            </div>
+                            <h3
+                                class="font-heading mb-1 text-xl font-bold text-primary transition-colors group-hover:text-accent"
+                            >
+                                Nexus Architecture
+                            </h3>
+                            <p class="text-sm text-slate-500">
+                                Elegant portfolio site for architecture firm.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Process Timeline -->
+        <section
+            id="process"
+            class="relative overflow-hidden bg-slate-900 py-24 text-white lg:py-32"
+        >
+            <div class="bg-grid absolute inset-0 opacity-10"></div>
+            <div class="relative z-10 container mx-auto px-6 md:px-12">
+                <div class="reveal mx-auto mb-20 max-w-3xl text-center">
+                    <span
+                        class="text-highlight mb-3 block text-sm font-semibold tracking-wide uppercase"
+                        >How We Work</span
+                    >
+                    <h2
+                        class="font-heading mb-4 text-3xl font-bold md:text-4xl"
+                    >
+                        Proses Kerja Terstruktur & Transparan
+                    </h2>
+                </div>
+
+                <!-- CSS Grid Timeline for clean SaaS look -->
+                <div class="grid grid-cols-1 gap-8 md:grid-cols-5">
+                    <!-- Step 1 -->
+                    <div class="reveal relative">
+                        <div
+                            class="text-highlight font-heading mb-4 text-5xl font-bold opacity-50"
+                        >
+                            01
+                        </div>
+                        <h4 class="font-heading mb-2 text-xl font-bold">
+                            Discovery
+                        </h4>
+                        <p class="text-sm leading-relaxed text-slate-400">
+                            Diskusi mendalam untuk memahami model bisnis, target
+                            audiens, dan tujuan website Anda.
+                        </p>
+                        <div
+                            class="absolute top-6 right-0 -z-10 hidden h-[1px] w-full translate-x-1/2 bg-slate-700 md:block"
+                        ></div>
+                    </div>
+                    <!-- Step 2 -->
+                    <div class="reveal relative delay-100">
+                        <div
+                            class="text-highlight font-heading mb-4 text-5xl font-bold opacity-50"
+                        >
+                            02
+                        </div>
+                        <h4 class="font-heading mb-2 text-xl font-bold">
+                            Planning
+                        </h4>
+                        <p class="text-sm leading-relaxed text-slate-400">
+                            Pembuatan sitemap, wireframe, dan strategi teknologi
+                            (tech-stack) yang paling efisien.
+                        </p>
+                        <div
+                            class="absolute top-6 right-0 -z-10 hidden h-[1px] w-full translate-x-1/2 bg-slate-700 md:block"
+                        ></div>
+                    </div>
+                    <!-- Step 3 -->
+                    <div class="reveal relative delay-200">
+                        <div
+                            class="text-highlight font-heading mb-4 text-5xl font-bold opacity-50"
+                        >
+                            03
+                        </div>
+                        <h4 class="font-heading mb-2 text-xl font-bold">
+                            Design
+                        </h4>
+                        <p class="text-sm leading-relaxed text-slate-400">
+                            Merancang UI/UX visual yang modern, premium, dan
+                            selaras dengan identitas brand.
+                        </p>
+                        <div
+                            class="absolute top-6 right-0 -z-10 hidden h-[1px] w-full translate-x-1/2 bg-slate-700 md:block"
+                        ></div>
+                    </div>
+                    <!-- Step 4 -->
+                    <div class="reveal relative delay-300">
+                        <div
+                            class="text-highlight font-heading mb-4 text-5xl font-bold opacity-50"
+                        >
+                            04
+                        </div>
+                        <h4 class="font-heading mb-2 text-xl font-bold">
+                            Development
+                        </h4>
+                        <p class="text-sm leading-relaxed text-slate-400">
+                            Proses coding yang bersih (clean code) agar website
+                            cepat, responsif, dan SEO-friendly.
+                        </p>
+                        <div
+                            class="absolute top-6 right-0 -z-10 hidden h-[1px] w-full translate-x-1/2 bg-slate-700 md:block"
+                        ></div>
+                    </div>
+                    <!-- Step 5 -->
+                    <div class="reveal relative delay-300">
+                        <div
+                            class="text-highlight font-heading mb-4 text-5xl font-bold opacity-50"
+                        >
+                            05
+                        </div>
+                        <h4 class="font-heading mb-2 text-xl font-bold">
+                            Launch
+                        </h4>
+                        <p class="text-sm leading-relaxed text-slate-400">
+                            Testing akhir, integrasi analitik, perilisan ke
+                            server, dan serah terima (training).
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Choose Us -->
+        <section class="border-b border-slate-100 bg-white py-24">
+            <div class="container mx-auto px-6 md:px-12">
+                <div class="flex flex-col items-center gap-16 lg:flex-row">
+                    <div class="reveal lg:w-1/3">
+                        <h2
+                            class="font-heading mb-6 text-3xl font-bold text-primary md:text-4xl"
+                        >
+                            Mengapa Bisnis Memilih Kami?
+                        </h2>
+                        <p class="mb-8 leading-relaxed text-slate-600">
+                            Kami tidak menggunakan template murahan. Setiap
+                            arsitektur dibangun untuk memastikan bisnis Anda
+                            tampil dominan di mesin pencari dan memikat setiap
+                            pengunjung yang datang.
+                        </p>
+                        <a
+                            href="#contact"
+                            class="inline-flex items-center gap-2 font-medium text-accent transition-colors hover:text-primary"
+                        >
+                            Konsultasi Gratis
+                            <i class="ph-bold ph-arrow-right"></i>
+                        </a>
+                    </div>
+
+                    <div class="grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:w-2/3">
+                        <!-- Feature -->
+                        <div class="reveal flex gap-4">
+                            <div
+                                class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-slate-100 text-primary"
+                            >
+                                <i class="ph-bold ph-device-mobile text-xl"></i>
+                            </div>
+                            <div>
+                                <h4
+                                    class="font-heading mb-2 font-bold text-primary"
+                                >
+                                    Mobile Responsive
+                                </h4>
+                                <p
+                                    class="text-sm leading-relaxed text-slate-500"
+                                >
+                                    Tampil sempurna di semua ukuran layar
+                                    smartphone, tablet, maupun desktop.
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Feature -->
+                        <div class="reveal flex gap-4 delay-100">
+                            <div
+                                class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-slate-100 text-primary"
+                            >
+                                <i class="ph-bold ph-lightning text-xl"></i>
+                            </div>
+                            <div>
+                                <h4
+                                    class="font-heading mb-2 font-bold text-primary"
+                                >
+                                    Fast Loading
+                                </h4>
+                                <p
+                                    class="text-sm leading-relaxed text-slate-500"
+                                >
+                                    Optimasi speed tingkat tinggi untuk mencegah
+                                    bounce rate akibat loading lama.
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Feature -->
+                        <div class="reveal flex gap-4">
+                            <div
+                                class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-slate-100 text-primary"
+                            >
+                                <i
+                                    class="ph-bold ph-magnifying-glass text-xl"
+                                ></i>
+                            </div>
+                            <div>
+                                <h4
+                                    class="font-heading mb-2 font-bold text-primary"
+                                >
+                                    SEO Friendly
+                                </h4>
+                                <p
+                                    class="text-sm leading-relaxed text-slate-500"
+                                >
+                                    Struktur kode standar Google agar website
+                                    mudah diranking di halaman pertama.
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Feature -->
+                        <div class="reveal flex gap-4 delay-100">
+                            <div
+                                class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-slate-100 text-primary"
+                            >
+                                <i class="ph-bold ph-paint-brush text-xl"></i>
+                            </div>
+                            <div>
+                                <h4
+                                    class="font-heading mb-2 font-bold text-primary"
+                                >
+                                    Modern UI/UX
+                                </h4>
+                                <p
+                                    class="text-sm leading-relaxed text-slate-500"
+                                >
+                                    Desain antarmuka kelas dunia yang memudahkan
+                                    user menavigasi website.
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Feature -->
+                        <div class="reveal flex gap-4">
+                            <div
+                                class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-slate-100 text-primary"
+                            >
+                                <i class="ph-bold ph-shield-check text-xl"></i>
+                            </div>
+                            <div>
+                                <h4
+                                    class="font-heading mb-2 font-bold text-primary"
+                                >
+                                    Secure Website
+                                </h4>
+                                <p
+                                    class="text-sm leading-relaxed text-slate-500"
+                                >
+                                    Proteksi SSL, anti-malware, dan pengamanan
+                                    database standar industri.
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Feature -->
+                        <div class="reveal flex gap-4 delay-100">
+                            <div
+                                class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-slate-100 text-primary"
+                            >
+                                <i class="ph-bold ph-headset text-xl"></i>
+                            </div>
+                            <div>
+                                <h4
+                                    class="font-heading mb-2 font-bold text-primary"
+                                >
+                                    Ongoing Support
+                                </h4>
+                                <p
+                                    class="text-sm leading-relaxed text-slate-500"
+                                >
+                                    Dukungan teknis pasca rilis. Anda fokus
+                                    berbisnis, kami urus teknologinya.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="bg-slate-50/50 py-24">
+            <div class="container mx-auto px-6 md:px-12">
+                <div class="reveal mx-auto mb-16 max-w-3xl text-center">
+                    <h2
+                        class="font-heading text-3xl font-bold text-primary md:text-4xl"
+                    >
+                        Apa Kata Klien Kami
+                    </h2>
+                </div>
+
+                <div class="grid gap-6 md:grid-cols-3">
+                    <!-- Testimonial 1 -->
+                    <div class="saas-card reveal p-8">
+                        <div class="mb-6 flex text-sm text-amber-400">
+                            <i class="ph-fill ph-star"></i
+                            ><i class="ph-fill ph-star"></i
+                            ><i class="ph-fill ph-star"></i
+                            ><i class="ph-fill ph-star"></i
+                            ><i class="ph-fill ph-star"></i>
+                        </div>
+                        <p
+                            class="mb-8 text-sm leading-relaxed text-slate-600 italic"
+                        >
+                            "Tampilan website klinik kami berubah total menjadi
+                            sangat premium. Sistem booking onlinenya juga
+                            berjalan mulus. Omset pasien baru naik 40% di bulan
+                            pertama."
+                        </p>
+                        <div class="flex items-center gap-4">
+                            <img
+                                src="https://randomuser.me/api/portraits/women/32.jpg"
+                                alt="Client"
+                                class="h-10 w-10 rounded-full object-cover"
+                            />
+                            <div>
+                                <h4
+                                    class="font-heading text-sm font-bold text-primary"
+                                >
+                                    Dr. Amira
+                                </h4>
+                                <p class="text-xs text-slate-500">
+                                    Founder, Amira Dental Care
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 2 -->
+                    <div class="saas-card reveal p-8 delay-100">
+                        <div class="mb-6 flex text-sm text-amber-400">
+                            <i class="ph-fill ph-star"></i
+                            ><i class="ph-fill ph-star"></i
+                            ><i class="ph-fill ph-star"></i
+                            ><i class="ph-fill ph-star"></i
+                            ><i class="ph-fill ph-star"></i>
+                        </div>
+                        <p
+                            class="mb-8 text-sm leading-relaxed text-slate-600 italic"
+                        >
+                            "Sangat profesional. Brief kami dieksekusi dengan
+                            sempurna, design clean persis startup SaaS luar
+                            negeri. Komunikasi timnya juga sangat responsif."
+                        </p>
+                        <div class="flex items-center gap-4">
+                            <img
+                                src="https://randomuser.me/api/portraits/men/46.jpg"
+                                alt="Client"
+                                class="h-10 w-10 rounded-full object-cover"
+                            />
+                            <div>
+                                <h4
+                                    class="font-heading text-sm font-bold text-primary"
+                                >
+                                    Budi Santoso
+                                </h4>
+                                <p class="text-xs text-slate-500">
+                                    CEO, TechLogix
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 3 -->
+                    <div class="saas-card reveal p-8 delay-200">
+                        <div class="mb-6 flex text-sm text-amber-400">
+                            <i class="ph-fill ph-star"></i
+                            ><i class="ph-fill ph-star"></i
+                            ><i class="ph-fill ph-star"></i
+                            ><i class="ph-fill ph-star"></i
+                            ><i class="ph-fill ph-star"></i>
+                        </div>
+                        <p
+                            class="mb-8 text-sm leading-relaxed text-slate-600 italic"
+                        >
+                            "Dari awal meeting sampai website launch, prosesnya
+                            sangat transparan. E-commerce kami sekarang bisa
+                            handle traffic tinggi tanpa kendala loading."
+                        </p>
+                        <div class="flex items-center gap-4">
+                            <img
+                                src="https://randomuser.me/api/portraits/women/65.jpg"
+                                alt="Client"
+                                class="h-10 w-10 rounded-full object-cover"
+                            />
+                            <div>
+                                <h4
+                                    class="font-heading text-sm font-bold text-primary"
+                                >
+                                    Diana Putri
+                                </h4>
+                                <p class="text-xs text-slate-500">
+                                    Owner, Urban Hijab
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Parallax Showcase -->
+        <section
+            id="showcase"
+            class="parallax-bg relative flex h-screen items-center justify-center"
+        >
+            <div
+                class="absolute inset-0 bg-primary/70 backdrop-blur-[1px]"
+            ></div>
+            <div class="reveal relative z-10 px-6 text-center">
+                <span
+                    class="glass mb-6 inline-block rounded-full border border-white/20 px-4 py-1 text-sm font-medium text-white"
+                    >Experience Excellence</span
+                >
+                <h2
+                    class="font-heading text-5xl font-bold tracking-tight text-white md:text-7xl"
+                >
+                    Designed To Impress.<br />
+                    Built To Perform.
+                </h2>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="bg-white py-24">
+            <div class="container mx-auto max-w-3xl px-6 md:px-12">
+                <div class="reveal mb-16 text-center">
+                    <h2
+                        class="font-heading text-3xl font-bold text-primary md:text-4xl"
+                    >
+                        Frequently Asked Questions
+                    </h2>
+                </div>
+
+                <div class="space-y-4">
+                    <!-- FAQ Item 1 -->
+                    <div class="faq-item saas-card reveal cursor-pointer p-6">
+                        <div class="flex items-center justify-between">
+                            <h4 class="font-heading font-semibold text-primary">
+                                Berapa lama proses pembuatan website?
+                            </h4>
+                            <i
+                                class="ph-bold ph-caret-down faq-icon text-slate-400"
+                            ></i>
+                        </div>
+                        <div class="faq-content">
+                            <p
+                                class="pt-4 text-sm leading-relaxed text-slate-600"
+                            >
+                                Tergantung pada kompleksitas proyek. Untuk
+                                Landing Page atau Company Profile standar,
+                                biasanya membutuhkan waktu 1-2 minggu. Sementara
+                                untuk Custom E-commerce atau Web App bisa
+                                memakan waktu 4-8 minggu.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- FAQ Item 2 -->
+                    <div
+                        class="faq-item saas-card reveal cursor-pointer p-6 delay-100"
+                    >
+                        <div class="flex items-center justify-between">
+                            <h4 class="font-heading font-semibold text-primary">
+                                Apakah pembayaran bisa dicicil?
+                            </h4>
+                            <i
+                                class="ph-bold ph-caret-down faq-icon text-slate-400"
+                            ></i>
+                        </div>
+                        <div class="faq-content">
+                            <p
+                                class="pt-4 text-sm leading-relaxed text-slate-600"
+                            >
+                                Ya, kami menerapkan sistem termin pembayaran.
+                                Umumnya 50% Down Payment untuk memulai project,
+                                dan 50% pelunasan saat website siap diluncurkan
+                                (Go Live).
+                            </p>
+                        </div>
+                    </div>
+                    <!-- FAQ Item 3 -->
+                    <div
+                        class="faq-item saas-card reveal cursor-pointer p-6 delay-200"
+                    >
+                        <div class="flex items-center justify-between">
+                            <h4 class="font-heading font-semibold text-primary">
+                                Apakah harga sudah termasuk Domain dan Hosting?
+                            </h4>
+                            <i
+                                class="ph-bold ph-caret-down faq-icon text-slate-400"
+                            ></i>
+                        </div>
+                        <div class="faq-content">
+                            <p
+                                class="pt-4 text-sm leading-relaxed text-slate-600"
+                            >
+                                Ya, semua paket pembuatan website kami sudah
+                                termasuk pendaftaran nama domain (.com/.id) dan
+                                premium cloud hosting gratis untuk tahun
+                                pertama.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- FAQ Item 4 -->
+                    <div class="faq-item saas-card reveal cursor-pointer p-6">
+                        <div class="flex items-center justify-between">
+                            <h4 class="font-heading font-semibold text-primary">
+                                Apakah saya bisa mengupdate konten sendiri
+                                nanti?
+                            </h4>
+                            <i
+                                class="ph-bold ph-caret-down faq-icon text-slate-400"
+                            ></i>
+                        </div>
+                        <div class="faq-content">
+                            <p
+                                class="pt-4 text-sm leading-relaxed text-slate-600"
+                            >
+                                Tentu. Kami akan menyediakan Content Management
+                                System (CMS) yang mudah digunakan beserta video
+                                panduan. Anda dapat mengubah teks, gambar, atau
+                                produk tanpa perlu kemampuan coding.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section
+            id="contact"
+            class="relative overflow-hidden border-t border-slate-100 bg-slate-50/50 py-24 lg:py-32"
+        >
+            <div class="bg-grid absolute inset-0 z-0 opacity-50"></div>
+            <div class="relative z-10 container mx-auto px-6 md:px-12">
+                <div
+                    class="saas-card reveal mx-auto max-w-4xl p-8 shadow-xl md:p-12"
+                >
+                    <div class="mb-10 text-center">
+                        <h2
+                            class="font-heading mb-3 text-3xl font-bold text-primary md:text-4xl"
+                        >
+                            Let's Build Your Website
+                        </h2>
+                        <p class="text-slate-600">
+                            Isi form di bawah ini dan tim kami akan segera
+                            menghubungi Anda untuk sesi konsultasi gratis.
+                        </p>
+                    </div>
+
+                    <form>
+                        <div class="mb-6 grid gap-6 md:grid-cols-2">
+                            <div>
+                                <label
+                                    class="mb-2 block text-sm font-semibold text-primary"
+                                    >Nama Lengkap</label
+                                >
+                                <input
+                                    type="text"
+                                    class="form-input"
+                                    placeholder="John Doe"
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <label
+                                    class="mb-2 block text-sm font-semibold text-primary"
+                                    >Nama Bisnis / Perusahaan</label
+                                >
+                                <input
+                                    type="text"
+                                    class="form-input"
+                                    placeholder="PT ABC"
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <label
+                                    class="mb-2 block text-sm font-semibold text-primary"
+                                    >Nomor WhatsApp</label
+                                >
+                                <input
+                                    type="tel"
+                                    class="form-input"
+                                    placeholder="0812..."
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <label
+                                    class="mb-2 block text-sm font-semibold text-primary"
+                                    >Kebutuhan Website</label
+                                >
+                                <select class="form-input" required>
+                                    <option value="" disabled selected>
+                                        Pilih jenis layanan
+                                    </option>
+                                    <option>Company Profile</option>
+                                    <option>Landing Page</option>
+                                    <option>E-Commerce</option>
+                                    <option>Custom App</option>
+                                </select>
+                            </div>
+                            <div class="md:col-span-2">
+                                <label
+                                    class="mb-2 block text-sm font-semibold text-primary"
+                                    >Jelaskan singkat tentang bisnis Anda</label
+                                >
+                                <textarea
+                                    class="form-input resize-none"
+                                    rows="4"
+                                    placeholder="Bisnis kami bergerak di bidang..."
+                                ></textarea>
+                            </div>
+                        </div>
+                        <button
+                            type="button"
+                            class="btn-primary w-full rounded-xl py-4 text-lg font-bold"
+                        >
+                            Kirim Permintaan Konsultasi
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-primary pt-16 pb-8 text-slate-300">
+            <div class="container mx-auto px-6 md:px-12">
+                <div
+                    class="mb-12 grid grid-cols-1 gap-12 border-b border-slate-800 pb-12 md:grid-cols-4"
+                >
+                    <!-- Brand -->
+                    <div class="md:col-span-2">
+                        <a href="#" class="mb-6 flex items-center gap-2">
+                            <div
+                                class="flex h-8 w-8 items-center justify-center rounded-lg bg-accent text-white"
+                            >
+                                <i class="ph-bold ph-code text-lg"></i>
+                            </div>
+                            <span
+                                class="font-heading text-xl font-bold tracking-tight text-white"
+                                >The Dark & Bright</span
+                            >
+                        </a>
+                        <p class="mb-6 max-w-sm text-sm leading-relaxed">
+                            Premium Web Development Agency. Membangun
+                            infrastruktur digital yang elegan, cepat, dan
+                            berfokus pada pertumbuhan bisnis modern Anda.
+                        </p>
+                        <div class="flex gap-3">
+                            <a
+                                href="#"
+                                class="flex h-10 w-10 items-center justify-center rounded-full bg-slate-800 transition-colors hover:bg-accent hover:text-white"
+                                ><i class="ph-fill ph-linkedin-logo text-xl"></i
+                            ></a>
+                            <a
+                                href="#"
+                                class="flex h-10 w-10 items-center justify-center rounded-full bg-slate-800 transition-colors hover:bg-accent hover:text-white"
+                                ><i
+                                    class="ph-fill ph-instagram-logo text-xl"
+                                ></i
+                            ></a>
+                            <a
+                                href="#"
+                                class="flex h-10 w-10 items-center justify-center rounded-full bg-slate-800 transition-colors hover:bg-accent hover:text-white"
+                                ><i class="ph-fill ph-twitter-logo text-xl"></i
+                            ></a>
+                        </div>
+                    </div>
+
+                    <!-- Links -->
+                    <div>
+                        <h4 class="font-heading mb-6 font-semibold text-white">
+                            Quick Links
+                        </h4>
+                        <ul class="space-y-3 text-sm">
+                            <li>
+                                <a
+                                    href="#services"
+                                    class="transition-colors hover:text-accent"
+                                    >Services</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#work"
+                                    class="transition-colors hover:text-accent"
+                                    >Portfolio</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#process"
+                                    class="transition-colors hover:text-accent"
+                                    >Process</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#about"
+                                    class="transition-colors hover:text-accent"
+                                    >About Us</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Contact -->
+                    <div>
+                        <h4 class="font-heading mb-6 font-semibold text-white">
+                            Contact Us
+                        </h4>
+                        <ul class="space-y-4 text-sm">
+                            <li class="flex items-start gap-3">
+                                <i
+                                    class="ph-fill ph-envelope-simple shrink-0 text-lg text-accent"
+                                ></i>
+                                <span>hello@darkandbright.co</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <i
+                                    class="ph-fill ph-whatsapp-logo shrink-0 text-lg text-accent"
+                                ></i>
+                                <span>+62 811 2222 3333</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i
+                                    class="ph-fill ph-map-pin mt-0.5 shrink-0 text-lg text-accent"
+                                ></i>
+                                <span
+                                    >Jakarta Tech Center<br />DKI Jakarta,
+                                    Indonesia</span
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div
+                    class="flex flex-col items-center justify-between text-xs text-slate-500 md:flex-row"
+                >
+                    <p>
+                        &copy; 2026 The Dark & Bright Agency. All rights
+                        reserved.
                     </p>
-                    <p class="text-slate-600 leading-relaxed mb-10">
-                        Dari UMKM lokal hingga startup teknologi, kami memastikan setiap baris kode dan setiap pixel desain ditujukan untuk satu tujuan: konversi.
+                    <p class="mt-2 md:mt-0">
+                        Designed & Engineered for Growth.
                     </p>
-
-                    <!-- Stats Grid -->
-                    <div class="grid grid-cols-2 gap-x-8 gap-y-10 border-t border-slate-100 pt-10">
-                        <div>
-                            <h3 class="font-heading text-4xl font-extrabold text-primary mb-2">50+</h3>
-                            <p class="text-sm font-medium text-slate-500">Projects Delivered</p>
-                        </div>
-                        <div>
-                            <h3 class="font-heading text-4xl font-extrabold text-primary mb-2">98%</h3>
-                            <p class="text-sm font-medium text-slate-500">Client Satisfaction</p>
-                        </div>
-                        <div>
-                            <h3 class="font-heading text-4xl font-extrabold text-primary mb-2">3+</h3>
-                            <p class="text-sm font-medium text-slate-500">Years Experience</p>
-                        </div>
-                        <div>
-                            <h3 class="font-heading text-4xl font-extrabold text-primary mb-2">24/7</h3>
-                            <p class="text-sm font-medium text-slate-500">Technical Support</p>
-                        </div>
-                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </footer>
 
-    <!-- Parallax Mission Section -->
-    <section id="mission" class="relative h-[80vh] flex items-center justify-center parallax-bg">
-        <div class="absolute inset-0 bg-primary/80 backdrop-blur-[2px]"></div>
-        
-        <div class="relative z-10 container mx-auto px-6 text-center reveal">
-            <h2 class="font-heading text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight max-w-5xl mx-auto tracking-tight">
-                "A Website Is Not An Expense. <br/> <span class="text-transparent bg-clip-text bg-gradient-to-r from-highlight to-accent">It's A Business Asset."</span>
-            </h2>
-        </div>
-    </section>
+        <!-- Back to Top -->
+        <button
+            id="btt"
+            class="fixed right-6 bottom-6 z-40 flex h-12 w-12 translate-y-10 items-center justify-center rounded-full bg-primary text-white opacity-0 shadow-lg transition-all duration-300 hover:bg-accent"
+        >
+            <i class="ph-bold ph-arrow-up text-xl"></i>
+        </button>
 
-    <!-- Services Section -->
-    <section id="services" class="py-24 lg:py-32 bg-slate-50/50">
-        <div class="container mx-auto px-6 md:px-12">
-            <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-                <span class="text-accent font-semibold tracking-wide uppercase text-sm mb-3 block">Our Services</span>
-                <h2 class="font-heading text-3xl md:text-4xl font-bold text-primary mb-4">Solusi End-to-End Untuk Presensi Digital Anda</h2>
-            </div>
+        <!-- Scripts -->
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                // 1. Remove Loader
+                setTimeout(() => {
+                    const loader = document.getElementById('loader');
+                    loader.style.opacity = '0';
+                    setTimeout(() => {
+                        loader.style.visibility = 'hidden';
+                    }, 500);
+                }, 800);
 
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-                <!-- Service 1 -->
-                <div class="saas-card p-8 reveal">
-                    <div class="w-14 h-14 bg-blue-50 text-accent rounded-2xl flex items-center justify-center text-3xl mb-6">
-                        <i class="ph-fill ph-browsers"></i>
-                    </div>
-                    <h3 class="font-heading text-xl font-bold text-primary mb-3">Company Profile</h3>
-                    <p class="text-slate-600 text-sm leading-relaxed mb-6">Website profil perusahaan premium untuk meningkatkan kredibilitas brand di mata investor dan calon klien.</p>
-                </div>
+                // 2. Sticky Navbar & Back to Top Logic
+                const navbar = document.getElementById('navbar');
+                const btt = document.getElementById('btt');
 
-                <!-- Service 2 -->
-                <div class="saas-card p-8 reveal delay-100">
-                    <div class="w-14 h-14 bg-blue-50 text-accent rounded-2xl flex items-center justify-center text-3xl mb-6">
-                        <i class="ph-fill ph-rocket-launch"></i>
-                    </div>
-                    <h3 class="font-heading text-xl font-bold text-primary mb-3">Landing Page</h3>
-                    <p class="text-slate-600 text-sm leading-relaxed mb-6">Halaman promosi satu halaman yang dioptimasi khusus dengan teknik copywriting dan UI/UX untuk konversi tinggi.</p>
-                </div>
+                window.addEventListener('scroll', () => {
+                    if (window.scrollY > 50) {
+                        navbar.classList.add('shadow-sm');
+                    } else {
+                        navbar.classList.remove('shadow-sm');
+                    }
 
-                <!-- Service 3 -->
-                <div class="saas-card p-8 reveal delay-200">
-                    <div class="w-14 h-14 bg-blue-50 text-accent rounded-2xl flex items-center justify-center text-3xl mb-6">
-                        <i class="ph-fill ph-shopping-cart"></i>
-                    </div>
-                    <h3 class="font-heading text-xl font-bold text-primary mb-3">E-Commerce Website</h3>
-                    <p class="text-slate-600 text-sm leading-relaxed mb-6">Toko online lengkap dengan integrasi payment gateway (OVO, GoPay, VA) dan manajemen inventaris otomatis.</p>
-                </div>
-
-                <!-- Service 4 -->
-                <div class="saas-card p-8 reveal">
-                    <div class="w-14 h-14 bg-blue-50 text-accent rounded-2xl flex items-center justify-center text-3xl mb-6">
-                        <i class="ph-fill ph-calendar-check"></i>
-                    </div>
-                    <h3 class="font-heading text-xl font-bold text-primary mb-3">Booking System</h3>
-                    <p class="text-slate-600 text-sm leading-relaxed mb-6">Sistem reservasi pintar untuk klinik, salon, atau jasa profesional. Memudahkan klien mengatur jadwal tanpa admin.</p>
-                </div>
-
-                <!-- Service 5 -->
-                <div class="saas-card p-8 reveal delay-100">
-                    <div class="w-14 h-14 bg-blue-50 text-accent rounded-2xl flex items-center justify-center text-3xl mb-6">
-                        <i class="ph-fill ph-code-block"></i>
-                    </div>
-                    <h3 class="font-heading text-xl font-bold text-primary mb-3">Custom Web App</h3>
-                    <p class="text-slate-600 text-sm leading-relaxed mb-6">Pengembangan aplikasi web berbasis SaaS, dashboard admin kompleks, atau sistem ERP internal sesuai kebutuhan bisnis.</p>
-                </div>
-
-                <!-- Service 6 -->
-                <div class="saas-card p-8 reveal delay-200">
-                    <div class="w-14 h-14 bg-blue-50 text-accent rounded-2xl flex items-center justify-center text-3xl mb-6">
-                        <i class="ph-fill ph-wrench"></i>
-                    </div>
-                    <h3 class="font-heading text-xl font-bold text-primary mb-3">Website Maintenance</h3>
-                    <p class="text-slate-600 text-sm leading-relaxed mb-6">Layanan pengelolaan server, update keamanan, backup rutin, dan optimasi performa berkelanjutan bulanan.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Featured Projects (Showcase) -->
-    <section id="work" class="py-24 lg:py-32 bg-white border-t border-slate-100">
-        <div class="container mx-auto px-6 md:px-12">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-12 reveal">
-                <div>
-                    <span class="text-accent font-semibold tracking-wide uppercase text-sm mb-3 block">Featured Work</span>
-                    <h2 class="font-heading text-3xl md:text-4xl font-bold text-primary">Karya Terbaik Kami</h2>
-                </div>
-                
-                <!-- Filters -->
-                <div class="flex flex-wrap gap-2 mt-6 md:mt-0" id="portfolio-filters">
-                    <button class="filter-btn active px-5 py-2 rounded-full border border-slate-200 text-sm font-medium text-slate-600 hover:border-slate-300 transition-all" data-filter="all">All</button>
-                    <button class="filter-btn px-5 py-2 rounded-full border border-slate-200 text-sm font-medium text-slate-600 hover:border-slate-300 transition-all" data-filter="business">Business</button>
-                    <button class="filter-btn px-5 py-2 rounded-full border border-slate-200 text-sm font-medium text-slate-600 hover:border-slate-300 transition-all" data-filter="ecommerce">E-Commerce</button>
-                    <button class="filter-btn px-5 py-2 rounded-full border border-slate-200 text-sm font-medium text-slate-600 hover:border-slate-300 transition-all" data-filter="travel">Travel</button>
-                </div>
-            </div>
-
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="portfolio-grid">
-                
-                <!-- Project 1 -->
-                <div class="portfolio-item group cursor-pointer reveal" data-category="business">
-                    <div class="relative overflow-hidden rounded-2xl bg-slate-100 border border-slate-200 aspect-[4/3] mb-5">
-                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800" alt="Dashboard UI" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                        <div class="absolute inset-0 bg-primary/0 group-hover:bg-primary/20 transition-all duration-300 flex items-center justify-center">
-                            <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-primary opacity-0 transform translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 shadow-xl">
-                                <i class="ph-bold ph-arrow-up-right text-xl"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="flex items-center gap-2 mb-2">
-                            <span class="text-xs font-semibold uppercase tracking-wider text-accent">Business</span>
-                        </div>
-                        <h3 class="font-heading text-xl font-bold text-primary mb-1 group-hover:text-accent transition-colors">FinTech Analytic Dashboard</h3>
-                        <p class="text-sm text-slate-500">Custom web application for financial tracking.</p>
-                    </div>
-                </div>
-
-                <!-- Project 2 -->
-                <div class="portfolio-item group cursor-pointer reveal delay-100" data-category="ecommerce">
-                    <div class="relative overflow-hidden rounded-2xl bg-slate-100 border border-slate-200 aspect-[4/3] mb-5">
-                        <img src="https://images.unsplash.com/photo-1661956602116-aa6865609028?auto=format&fit=crop&q=80&w=800" alt="E-commerce" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                        <div class="absolute inset-0 bg-primary/0 group-hover:bg-primary/20 transition-all duration-300 flex items-center justify-center">
-                            <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-primary opacity-0 transform translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 shadow-xl">
-                                <i class="ph-bold ph-arrow-up-right text-xl"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="flex items-center gap-2 mb-2">
-                            <span class="text-xs font-semibold uppercase tracking-wider text-accent">E-Commerce</span>
-                        </div>
-                        <h3 class="font-heading text-xl font-bold text-primary mb-1 group-hover:text-accent transition-colors">Aura Beauty Store</h3>
-                        <p class="text-sm text-slate-500">Modern storefront with seamless checkout flow.</p>
-                    </div>
-                </div>
-
-                <!-- Project 3 -->
-                <div class="portfolio-item group cursor-pointer reveal delay-200" data-category="travel">
-                    <div class="relative overflow-hidden rounded-2xl bg-slate-100 border border-slate-200 aspect-[4/3] mb-5">
-                        <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&q=80&w=800" alt="Travel Web" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                        <div class="absolute inset-0 bg-primary/0 group-hover:bg-primary/20 transition-all duration-300 flex items-center justify-center">
-                            <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-primary opacity-0 transform translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 shadow-xl">
-                                <i class="ph-bold ph-arrow-up-right text-xl"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="flex items-center gap-2 mb-2">
-                            <span class="text-xs font-semibold uppercase tracking-wider text-accent">Travel</span>
-                        </div>
-                        <h3 class="font-heading text-xl font-bold text-primary mb-1 group-hover:text-accent transition-colors">Nusa Penida Booking</h3>
-                        <p class="text-sm text-slate-500">Tour reservation system with interactive maps.</p>
-                    </div>
-                </div>
-
-                <!-- Project 4 -->
-                <div class="portfolio-item group cursor-pointer reveal" data-category="business">
-                    <div class="relative overflow-hidden rounded-2xl bg-slate-100 border border-slate-200 aspect-[4/3] mb-5">
-                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800" alt="SaaS Web" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                        <div class="absolute inset-0 bg-primary/0 group-hover:bg-primary/20 transition-all duration-300 flex items-center justify-center">
-                            <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-primary opacity-0 transform translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 shadow-xl">
-                                <i class="ph-bold ph-arrow-up-right text-xl"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="flex items-center gap-2 mb-2">
-                            <span class="text-xs font-semibold uppercase tracking-wider text-accent">Business</span>
-                        </div>
-                        <h3 class="font-heading text-xl font-bold text-primary mb-1 group-hover:text-accent transition-colors">CloudSync SaaS Landing</h3>
-                        <p class="text-sm text-slate-500">High conversion landing page for software product.</p>
-                    </div>
-                </div>
-
-                <!-- Project 5 -->
-                <div class="portfolio-item group cursor-pointer reveal delay-100" data-category="ecommerce">
-                    <div class="relative overflow-hidden rounded-2xl bg-slate-100 border border-slate-200 aspect-[4/3] mb-5">
-                        <img src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&q=80&w=800" alt="Fashion Store" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                        <div class="absolute inset-0 bg-primary/0 group-hover:bg-primary/20 transition-all duration-300 flex items-center justify-center">
-                            <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-primary opacity-0 transform translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 shadow-xl">
-                                <i class="ph-bold ph-arrow-up-right text-xl"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="flex items-center gap-2 mb-2">
-                            <span class="text-xs font-semibold uppercase tracking-wider text-accent">E-Commerce</span>
-                        </div>
-                        <h3 class="font-heading text-xl font-bold text-primary mb-1 group-hover:text-accent transition-colors">UrbanWear Apparel</h3>
-                        <p class="text-sm text-slate-500">Minimalist fashion catalog & checkout.</p>
-                    </div>
-                </div>
-
-                <!-- Project 6 -->
-                <div class="portfolio-item group cursor-pointer reveal delay-200" data-category="business">
-                    <div class="relative overflow-hidden rounded-2xl bg-slate-100 border border-slate-200 aspect-[4/3] mb-5">
-                        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=800" alt="Corporate" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                        <div class="absolute inset-0 bg-primary/0 group-hover:bg-primary/20 transition-all duration-300 flex items-center justify-center">
-                            <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-primary opacity-0 transform translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 shadow-xl">
-                                <i class="ph-bold ph-arrow-up-right text-xl"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="flex items-center gap-2 mb-2">
-                            <span class="text-xs font-semibold uppercase tracking-wider text-accent">Business</span>
-                        </div>
-                        <h3 class="font-heading text-xl font-bold text-primary mb-1 group-hover:text-accent transition-colors">Nexus Architecture</h3>
-                        <p class="text-sm text-slate-500">Elegant portfolio site for architecture firm.</p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- Process Timeline -->
-    <section id="process" class="py-24 lg:py-32 bg-slate-900 text-white relative overflow-hidden">
-        <div class="absolute inset-0 bg-grid opacity-10"></div>
-        <div class="container mx-auto px-6 md:px-12 relative z-10">
-            <div class="text-center max-w-3xl mx-auto mb-20 reveal">
-                <span class="text-highlight font-semibold tracking-wide uppercase text-sm mb-3 block">How We Work</span>
-                <h2 class="font-heading text-3xl md:text-4xl font-bold mb-4">Proses Kerja Terstruktur & Transparan</h2>
-            </div>
-
-            <!-- CSS Grid Timeline for clean SaaS look -->
-            <div class="grid grid-cols-1 md:grid-cols-5 gap-8">
-                <!-- Step 1 -->
-                <div class="relative reveal">
-                    <div class="text-highlight font-heading font-bold text-5xl mb-4 opacity-50">01</div>
-                    <h4 class="font-heading text-xl font-bold mb-2">Discovery</h4>
-                    <p class="text-slate-400 text-sm leading-relaxed">Diskusi mendalam untuk memahami model bisnis, target audiens, dan tujuan website Anda.</p>
-                    <div class="hidden md:block absolute top-6 right-0 w-full h-[1px] bg-slate-700 -z-10 translate-x-1/2"></div>
-                </div>
-                <!-- Step 2 -->
-                <div class="relative reveal delay-100">
-                    <div class="text-highlight font-heading font-bold text-5xl mb-4 opacity-50">02</div>
-                    <h4 class="font-heading text-xl font-bold mb-2">Planning</h4>
-                    <p class="text-slate-400 text-sm leading-relaxed">Pembuatan sitemap, wireframe, dan strategi teknologi (tech-stack) yang paling efisien.</p>
-                    <div class="hidden md:block absolute top-6 right-0 w-full h-[1px] bg-slate-700 -z-10 translate-x-1/2"></div>
-                </div>
-                <!-- Step 3 -->
-                <div class="relative reveal delay-200">
-                    <div class="text-highlight font-heading font-bold text-5xl mb-4 opacity-50">03</div>
-                    <h4 class="font-heading text-xl font-bold mb-2">Design</h4>
-                    <p class="text-slate-400 text-sm leading-relaxed">Merancang UI/UX visual yang modern, premium, dan selaras dengan identitas brand.</p>
-                    <div class="hidden md:block absolute top-6 right-0 w-full h-[1px] bg-slate-700 -z-10 translate-x-1/2"></div>
-                </div>
-                <!-- Step 4 -->
-                <div class="relative reveal delay-300">
-                    <div class="text-highlight font-heading font-bold text-5xl mb-4 opacity-50">04</div>
-                    <h4 class="font-heading text-xl font-bold mb-2">Development</h4>
-                    <p class="text-slate-400 text-sm leading-relaxed">Proses coding yang bersih (clean code) agar website cepat, responsif, dan SEO-friendly.</p>
-                    <div class="hidden md:block absolute top-6 right-0 w-full h-[1px] bg-slate-700 -z-10 translate-x-1/2"></div>
-                </div>
-                <!-- Step 5 -->
-                <div class="relative reveal delay-300">
-                    <div class="text-highlight font-heading font-bold text-5xl mb-4 opacity-50">05</div>
-                    <h4 class="font-heading text-xl font-bold mb-2">Launch</h4>
-                    <p class="text-slate-400 text-sm leading-relaxed">Testing akhir, integrasi analitik, perilisan ke server, dan serah terima (training).</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Why Choose Us -->
-    <section class="py-24 bg-white border-b border-slate-100">
-        <div class="container mx-auto px-6 md:px-12">
-            <div class="flex flex-col lg:flex-row gap-16 items-center">
-                <div class="lg:w-1/3 reveal">
-                    <h2 class="font-heading text-3xl md:text-4xl font-bold text-primary mb-6">Mengapa Bisnis Memilih Kami?</h2>
-                    <p class="text-slate-600 mb-8 leading-relaxed">
-                        Kami tidak menggunakan template murahan. Setiap arsitektur dibangun untuk memastikan bisnis Anda tampil dominan di mesin pencari dan memikat setiap pengunjung yang datang.
-                    </p>
-                    <a href="#contact" class="font-medium text-accent hover:text-primary transition-colors inline-flex items-center gap-2">
-                        Konsultasi Gratis <i class="ph-bold ph-arrow-right"></i>
-                    </a>
-                </div>
-                
-                <div class="lg:w-2/3 grid sm:grid-cols-2 gap-x-8 gap-y-12">
-                    <!-- Feature -->
-                    <div class="flex gap-4 reveal">
-                        <div class="w-10 h-10 rounded-lg bg-slate-100 text-primary flex items-center justify-center shrink-0">
-                            <i class="ph-bold ph-device-mobile text-xl"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-heading font-bold text-primary mb-2">Mobile Responsive</h4>
-                            <p class="text-sm text-slate-500 leading-relaxed">Tampil sempurna di semua ukuran layar smartphone, tablet, maupun desktop.</p>
-                        </div>
-                    </div>
-                    <!-- Feature -->
-                    <div class="flex gap-4 reveal delay-100">
-                        <div class="w-10 h-10 rounded-lg bg-slate-100 text-primary flex items-center justify-center shrink-0">
-                            <i class="ph-bold ph-lightning text-xl"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-heading font-bold text-primary mb-2">Fast Loading</h4>
-                            <p class="text-sm text-slate-500 leading-relaxed">Optimasi speed tingkat tinggi untuk mencegah bounce rate akibat loading lama.</p>
-                        </div>
-                    </div>
-                    <!-- Feature -->
-                    <div class="flex gap-4 reveal">
-                        <div class="w-10 h-10 rounded-lg bg-slate-100 text-primary flex items-center justify-center shrink-0">
-                            <i class="ph-bold ph-magnifying-glass text-xl"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-heading font-bold text-primary mb-2">SEO Friendly</h4>
-                            <p class="text-sm text-slate-500 leading-relaxed">Struktur kode standar Google agar website mudah diranking di halaman pertama.</p>
-                        </div>
-                    </div>
-                    <!-- Feature -->
-                    <div class="flex gap-4 reveal delay-100">
-                        <div class="w-10 h-10 rounded-lg bg-slate-100 text-primary flex items-center justify-center shrink-0">
-                            <i class="ph-bold ph-paint-brush text-xl"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-heading font-bold text-primary mb-2">Modern UI/UX</h4>
-                            <p class="text-sm text-slate-500 leading-relaxed">Desain antarmuka kelas dunia yang memudahkan user menavigasi website.</p>
-                        </div>
-                    </div>
-                    <!-- Feature -->
-                    <div class="flex gap-4 reveal">
-                        <div class="w-10 h-10 rounded-lg bg-slate-100 text-primary flex items-center justify-center shrink-0">
-                            <i class="ph-bold ph-shield-check text-xl"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-heading font-bold text-primary mb-2">Secure Website</h4>
-                            <p class="text-sm text-slate-500 leading-relaxed">Proteksi SSL, anti-malware, dan pengamanan database standar industri.</p>
-                        </div>
-                    </div>
-                    <!-- Feature -->
-                    <div class="flex gap-4 reveal delay-100">
-                        <div class="w-10 h-10 rounded-lg bg-slate-100 text-primary flex items-center justify-center shrink-0">
-                            <i class="ph-bold ph-headset text-xl"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-heading font-bold text-primary mb-2">Ongoing Support</h4>
-                            <p class="text-sm text-slate-500 leading-relaxed">Dukungan teknis pasca rilis. Anda fokus berbisnis, kami urus teknologinya.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="py-24 bg-slate-50/50">
-        <div class="container mx-auto px-6 md:px-12">
-            <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-                <h2 class="font-heading text-3xl md:text-4xl font-bold text-primary">Apa Kata Klien Kami</h2>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-6">
-                <!-- Testimonial 1 -->
-                <div class="saas-card p-8 reveal">
-                    <div class="flex text-amber-400 mb-6 text-sm">
-                        <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
-                    </div>
-                    <p class="text-slate-600 italic mb-8 leading-relaxed text-sm">"Tampilan website klinik kami berubah total menjadi sangat premium. Sistem booking onlinenya juga berjalan mulus. Omset pasien baru naik 40% di bulan pertama."</p>
-                    <div class="flex items-center gap-4">
-                        <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Client" class="w-10 h-10 rounded-full object-cover">
-                        <div>
-                            <h4 class="font-bold text-primary text-sm font-heading">Dr. Amira</h4>
-                            <p class="text-xs text-slate-500">Founder, Amira Dental Care</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Testimonial 2 -->
-                <div class="saas-card p-8 reveal delay-100">
-                    <div class="flex text-amber-400 mb-6 text-sm">
-                        <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
-                    </div>
-                    <p class="text-slate-600 italic mb-8 leading-relaxed text-sm">"Sangat profesional. Brief kami dieksekusi dengan sempurna, design clean persis startup SaaS luar negeri. Komunikasi timnya juga sangat responsif."</p>
-                    <div class="flex items-center gap-4">
-                        <img src="https://randomuser.me/api/portraits/men/46.jpg" alt="Client" class="w-10 h-10 rounded-full object-cover">
-                        <div>
-                            <h4 class="font-bold text-primary text-sm font-heading">Budi Santoso</h4>
-                            <p class="text-xs text-slate-500">CEO, TechLogix</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Testimonial 3 -->
-                <div class="saas-card p-8 reveal delay-200">
-                    <div class="flex text-amber-400 mb-6 text-sm">
-                        <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
-                    </div>
-                    <p class="text-slate-600 italic mb-8 leading-relaxed text-sm">"Dari awal meeting sampai website launch, prosesnya sangat transparan. E-commerce kami sekarang bisa handle traffic tinggi tanpa kendala loading."</p>
-                    <div class="flex items-center gap-4">
-                        <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Client" class="w-10 h-10 rounded-full object-cover">
-                        <div>
-                            <h4 class="font-bold text-primary text-sm font-heading">Diana Putri</h4>
-                            <p class="text-xs text-slate-500">Owner, Urban Hijab</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Parallax Showcase -->
-    <section id="showcase" class="relative h-screen flex items-center justify-center parallax-bg">
-        <div class="absolute inset-0 bg-primary/70 backdrop-blur-[1px]"></div>
-        <div class="relative z-10 text-center px-6 reveal">
-            <span class="inline-block px-4 py-1 rounded-full border border-white/20 glass text-white text-sm font-medium mb-6">Experience Excellence</span>
-            <h2 class="font-heading text-5xl md:text-7xl font-bold text-white tracking-tight">
-                Designed To Impress.<br/> Built To Perform.
-            </h2>
-        </div>
-    </section>
-
-    <!-- FAQ Section -->
-    <section class="py-24 bg-white">
-        <div class="container mx-auto px-6 md:px-12 max-w-3xl">
-            <div class="text-center mb-16 reveal">
-                <h2 class="font-heading text-3xl md:text-4xl font-bold text-primary">Frequently Asked Questions</h2>
-            </div>
-
-            <div class="space-y-4">
-                <!-- FAQ Item 1 -->
-                <div class="faq-item saas-card p-6 cursor-pointer reveal">
-                    <div class="flex justify-between items-center">
-                        <h4 class="font-heading font-semibold text-primary">Berapa lama proses pembuatan website?</h4>
-                        <i class="ph-bold ph-caret-down text-slate-400 faq-icon"></i>
-                    </div>
-                    <div class="faq-content">
-                        <p class="pt-4 text-sm text-slate-600 leading-relaxed">Tergantung pada kompleksitas proyek. Untuk Landing Page atau Company Profile standar, biasanya membutuhkan waktu 1-2 minggu. Sementara untuk Custom E-commerce atau Web App bisa memakan waktu 4-8 minggu.</p>
-                    </div>
-                </div>
-                <!-- FAQ Item 2 -->
-                <div class="faq-item saas-card p-6 cursor-pointer reveal delay-100">
-                    <div class="flex justify-between items-center">
-                        <h4 class="font-heading font-semibold text-primary">Apakah pembayaran bisa dicicil?</h4>
-                        <i class="ph-bold ph-caret-down text-slate-400 faq-icon"></i>
-                    </div>
-                    <div class="faq-content">
-                        <p class="pt-4 text-sm text-slate-600 leading-relaxed">Ya, kami menerapkan sistem termin pembayaran. Umumnya 50% Down Payment untuk memulai project, dan 50% pelunasan saat website siap diluncurkan (Go Live).</p>
-                    </div>
-                </div>
-                <!-- FAQ Item 3 -->
-                <div class="faq-item saas-card p-6 cursor-pointer reveal delay-200">
-                    <div class="flex justify-between items-center">
-                        <h4 class="font-heading font-semibold text-primary">Apakah harga sudah termasuk Domain dan Hosting?</h4>
-                        <i class="ph-bold ph-caret-down text-slate-400 faq-icon"></i>
-                    </div>
-                    <div class="faq-content">
-                        <p class="pt-4 text-sm text-slate-600 leading-relaxed">Ya, semua paket pembuatan website kami sudah termasuk pendaftaran nama domain (.com/.id) dan premium cloud hosting gratis untuk tahun pertama.</p>
-                    </div>
-                </div>
-                <!-- FAQ Item 4 -->
-                <div class="faq-item saas-card p-6 cursor-pointer reveal">
-                    <div class="flex justify-between items-center">
-                        <h4 class="font-heading font-semibold text-primary">Apakah saya bisa mengupdate konten sendiri nanti?</h4>
-                        <i class="ph-bold ph-caret-down text-slate-400 faq-icon"></i>
-                    </div>
-                    <div class="faq-content">
-                        <p class="pt-4 text-sm text-slate-600 leading-relaxed">Tentu. Kami akan menyediakan Content Management System (CMS) yang mudah digunakan beserta video panduan. Anda dapat mengubah teks, gambar, atau produk tanpa perlu kemampuan coding.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="py-24 lg:py-32 bg-slate-50/50 border-t border-slate-100 relative overflow-hidden">
-        <div class="absolute inset-0 bg-grid opacity-50 z-0"></div>
-        <div class="container mx-auto px-6 md:px-12 relative z-10">
-            <div class="max-w-4xl mx-auto saas-card p-8 md:p-12 reveal shadow-xl">
-                <div class="text-center mb-10">
-                    <h2 class="font-heading text-3xl md:text-4xl font-bold text-primary mb-3">Let's Build Your Website</h2>
-                    <p class="text-slate-600">Isi form di bawah ini dan tim kami akan segera menghubungi Anda untuk sesi konsultasi gratis.</p>
-                </div>
-
-                <form>
-                    <div class="grid md:grid-cols-2 gap-6 mb-6">
-                        <div>
-                            <label class="block text-sm font-semibold text-primary mb-2">Nama Lengkap</label>
-                            <input type="text" class="form-input" placeholder="John Doe" required>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-semibold text-primary mb-2">Nama Bisnis / Perusahaan</label>
-                            <input type="text" class="form-input" placeholder="PT ABC" required>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-semibold text-primary mb-2">Nomor WhatsApp</label>
-                            <input type="tel" class="form-input" placeholder="0812..." required>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-semibold text-primary mb-2">Kebutuhan Website</label>
-                            <select class="form-input" required>
-                                <option value="" disabled selected>Pilih jenis layanan</option>
-                                <option>Company Profile</option>
-                                <option>Landing Page</option>
-                                <option>E-Commerce</option>
-                                <option>Custom App</option>
-                            </select>
-                        </div>
-                        <div class="md:col-span-2">
-                            <label class="block text-sm font-semibold text-primary mb-2">Jelaskan singkat tentang bisnis Anda</label>
-                            <textarea class="form-input resize-none" rows="4" placeholder="Bisnis kami bergerak di bidang..."></textarea>
-                        </div>
-                    </div>
-                    <button type="button" class="btn-primary w-full py-4 rounded-xl font-bold text-lg">
-                        Kirim Permintaan Konsultasi
-                    </button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-primary pt-16 pb-8 text-slate-300">
-        <div class="container mx-auto px-6 md:px-12">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12 border-b border-slate-800 pb-12">
-                <!-- Brand -->
-                <div class="md:col-span-2">
-                    <a href="#" class="flex items-center gap-2 mb-6">
-                        <div class="w-8 h-8 rounded-lg bg-accent flex items-center justify-center text-white">
-                            <i class="ph-bold ph-code text-lg"></i>
-                        </div>
-                        <span class="font-heading font-bold text-xl tracking-tight text-white">The Dark & Bright</span>
-                    </a>
-                    <p class="text-sm leading-relaxed max-w-sm mb-6">
-                        Premium Web Development Agency. Membangun infrastruktur digital yang elegan, cepat, dan berfokus pada pertumbuhan bisnis modern Anda.
-                    </p>
-                    <div class="flex gap-3">
-                        <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-accent hover:text-white transition-colors"><i class="ph-fill ph-linkedin-logo text-xl"></i></a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-accent hover:text-white transition-colors"><i class="ph-fill ph-instagram-logo text-xl"></i></a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-accent hover:text-white transition-colors"><i class="ph-fill ph-twitter-logo text-xl"></i></a>
-                    </div>
-                </div>
-
-                <!-- Links -->
-                <div>
-                    <h4 class="font-heading font-semibold text-white mb-6">Quick Links</h4>
-                    <ul class="space-y-3 text-sm">
-                        <li><a href="#services" class="hover:text-accent transition-colors">Services</a></li>
-                        <li><a href="#work" class="hover:text-accent transition-colors">Portfolio</a></li>
-                        <li><a href="#process" class="hover:text-accent transition-colors">Process</a></li>
-                        <li><a href="#about" class="hover:text-accent transition-colors">About Us</a></li>
-                    </ul>
-                </div>
-
-                <!-- Contact -->
-                <div>
-                    <h4 class="font-heading font-semibold text-white mb-6">Contact Us</h4>
-                    <ul class="space-y-4 text-sm">
-                        <li class="flex items-start gap-3">
-                            <i class="ph-fill ph-envelope-simple text-accent text-lg shrink-0"></i>
-                            <span>hello@darkandbright.co</span>
-                        </li>
-                        <li class="flex items-center gap-3">
-                            <i class="ph-fill ph-whatsapp-logo text-accent text-lg shrink-0"></i>
-                            <span>+62 811 2222 3333</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <i class="ph-fill ph-map-pin text-accent text-lg shrink-0 mt-0.5"></i>
-                            <span>Jakarta Tech Center<br/>DKI Jakarta, Indonesia</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="flex flex-col md:flex-row justify-between items-center text-xs text-slate-500">
-                <p>&copy; 2026 The Dark & Bright Agency. All rights reserved.</p>
-                <p class="mt-2 md:mt-0">Designed & Engineered for Growth.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Back to Top -->
-    <button id="btt" class="fixed bottom-6 right-6 w-12 h-12 bg-primary text-white rounded-full shadow-lg flex items-center justify-center opacity-0 translate-y-10 transition-all duration-300 z-40 hover:bg-accent">
-        <i class="ph-bold ph-arrow-up text-xl"></i>
-    </button>
-
-    <!-- Scripts -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            
-            // 1. Remove Loader
-            setTimeout(() => {
-                const loader = document.getElementById('loader');
-                loader.style.opacity = '0';
-                setTimeout(() => { loader.style.visibility = 'hidden'; }, 500);
-            }, 800);
-
-            // 2. Sticky Navbar & Back to Top Logic
-            const navbar = document.getElementById('navbar');
-            const btt = document.getElementById('btt');
-            
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    navbar.classList.add('shadow-sm');
-                } else {
-                    navbar.classList.remove('shadow-sm');
-                }
-
-                if (window.scrollY > 400) {
-                    btt.classList.remove('opacity-0', 'translate-y-10');
-                    btt.classList.add('opacity-100', 'translate-y-0');
-                } else {
-                    btt.classList.add('opacity-0', 'translate-y-10');
-                    btt.classList.remove('opacity-100', 'translate-y-0');
-                }
-            });
-
-            btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-
-            // 3. Mobile Menu
-            const menuBtn = document.getElementById('mobile-menu-btn');
-            const mobileMenu = document.getElementById('mobile-menu');
-            const mobileLinks = document.querySelectorAll('.mobile-link');
-            let isMenuOpen = false;
-
-            function toggleMenu() {
-                isMenuOpen = !isMenuOpen;
-                if (isMenuOpen) {
-                    mobileMenu.classList.remove('hidden');
-                    menuBtn.innerHTML = '<i class="ph ph-x"></i>';
-                } else {
-                    mobileMenu.classList.add('hidden');
-                    menuBtn.innerHTML = '<i class="ph ph-list"></i>';
-                }
-            }
-
-            menuBtn.addEventListener('click', toggleMenu);
-            mobileLinks.forEach(link => link.addEventListener('click', () => { if(isMenuOpen) toggleMenu(); }));
-
-            // 4. Scroll Reveal (Intersection Observer)
-            const revealElements = document.querySelectorAll('.reveal');
-            const revealObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
-                        observer.unobserve(entry.target);
+                    if (window.scrollY > 400) {
+                        btt.classList.remove('opacity-0', 'translate-y-10');
+                        btt.classList.add('opacity-100', 'translate-y-0');
+                    } else {
+                        btt.classList.add('opacity-0', 'translate-y-10');
+                        btt.classList.remove('opacity-100', 'translate-y-0');
                     }
                 });
-            }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
-            
-            revealElements.forEach(el => revealObserver.observe(el));
 
-            // 5. Hero Mouse Parallax Effect
-            const mouseParallaxElements = document.querySelectorAll('.mouse-p');
-            const heroSection = document.getElementById('hero');
+                btt.addEventListener('click', () =>
+                    window.scrollTo({ top: 0, behavior: 'smooth' }),
+                );
 
-            heroSection.addEventListener('mousemove', (e) => {
-                const x = (window.innerWidth - e.pageX * 2) / 100;
-                const y = (window.innerHeight - e.pageY * 2) / 100;
+                // 3. Mobile Menu
+                const menuBtn = document.getElementById('mobile-menu-btn');
+                const mobileMenu = document.getElementById('mobile-menu');
+                const mobileLinks = document.querySelectorAll('.mobile-link');
+                let isMenuOpen = false;
 
-                mouseParallaxElements.forEach(el => {
-                    const speed = el.getAttribute('data-speed');
-                    // using transform instead of left/top for smoother rendering
-                    el.style.transform = `translateX(${x * speed}px) translateY(${y * speed}px)`;
+                function toggleMenu() {
+                    isMenuOpen = !isMenuOpen;
+                    if (isMenuOpen) {
+                        mobileMenu.classList.remove('hidden');
+                        menuBtn.innerHTML = '<i class="ph ph-x"></i>';
+                    } else {
+                        mobileMenu.classList.add('hidden');
+                        menuBtn.innerHTML = '<i class="ph ph-list"></i>';
+                    }
+                }
+
+                menuBtn.addEventListener('click', toggleMenu);
+                mobileLinks.forEach((link) =>
+                    link.addEventListener('click', () => {
+                        if (isMenuOpen) toggleMenu();
+                    }),
+                );
+
+                // 4. Scroll Reveal (Intersection Observer)
+                const revealElements = document.querySelectorAll('.reveal');
+                const revealObserver = new IntersectionObserver(
+                    (entries, observer) => {
+                        entries.forEach((entry) => {
+                            if (entry.isIntersecting) {
+                                entry.target.classList.add('active');
+                                observer.unobserve(entry.target);
+                            }
+                        });
+                    },
+                    { threshold: 0.1, rootMargin: '0px 0px -50px 0px' },
+                );
+
+                revealElements.forEach((el) => revealObserver.observe(el));
+
+                // 5. Hero Mouse Parallax Effect
+                const mouseParallaxElements =
+                    document.querySelectorAll('.mouse-p');
+                const heroSection = document.getElementById('hero');
+
+                heroSection.addEventListener('mousemove', (e) => {
+                    const x = (window.innerWidth - e.pageX * 2) / 100;
+                    const y = (window.innerHeight - e.pageY * 2) / 100;
+
+                    mouseParallaxElements.forEach((el) => {
+                        const speed = el.getAttribute('data-speed');
+                        // using transform instead of left/top for smoother rendering
+                        el.style.transform = `translateX(${x * speed}px) translateY(${y * speed}px)`;
+                    });
                 });
-            });
-            heroSection.addEventListener('mouseleave', () => {
-                mouseParallaxElements.forEach(el => {
-                    el.style.transform = `translateX(0px) translateY(0px)`;
+                heroSection.addEventListener('mouseleave', () => {
+                    mouseParallaxElements.forEach((el) => {
+                        el.style.transform = `translateX(0px) translateY(0px)`;
+                    });
                 });
-            });
 
-            // 6. Portfolio Filter Logic
-            const filterBtns = document.querySelectorAll('.filter-btn');
-            const portfolioItems = document.querySelectorAll('.portfolio-item');
+                // 6. Portfolio Filter Logic
+                const filterBtns = document.querySelectorAll('.filter-btn');
+                const portfolioItems =
+                    document.querySelectorAll('.portfolio-item');
 
-            filterBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    // Remove active from all
-                    filterBtns.forEach(b => b.classList.remove('active'));
-                    // Add active to clicked
-                    btn.classList.add('active');
-                    
-                    const filterValue = btn.getAttribute('data-filter');
+                filterBtns.forEach((btn) => {
+                    btn.addEventListener('click', () => {
+                        // Remove active from all
+                        filterBtns.forEach((b) => b.classList.remove('active'));
+                        // Add active to clicked
+                        btn.classList.add('active');
 
-                    portfolioItems.forEach(item => {
-                        if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
-                            item.classList.remove('hide');
-                        } else {
-                            item.classList.add('hide');
+                        const filterValue = btn.getAttribute('data-filter');
+
+                        portfolioItems.forEach((item) => {
+                            if (
+                                filterValue === 'all' ||
+                                item.getAttribute('data-category') ===
+                                    filterValue
+                            ) {
+                                item.classList.remove('hide');
+                            } else {
+                                item.classList.add('hide');
+                            }
+                        });
+                    });
+                });
+
+                // 7. FAQ Accordion Logic
+                const faqItems = document.querySelectorAll('.faq-item');
+                faqItems.forEach((item) => {
+                    item.addEventListener('click', () => {
+                        const content = item.querySelector('.faq-content');
+                        const isActive = item.classList.contains('active');
+
+                        // Close all others
+                        faqItems.forEach((otherItem) => {
+                            otherItem.classList.remove('active');
+                            otherItem.querySelector(
+                                '.faq-content',
+                            ).style.maxHeight = null;
+                        });
+
+                        // Toggle current
+                        if (!isActive) {
+                            item.classList.add('active');
+                            content.style.maxHeight =
+                                content.scrollHeight + 'px';
                         }
                     });
                 });
             });
-
-            // 7. FAQ Accordion Logic
-            const faqItems = document.querySelectorAll('.faq-item');
-            faqItems.forEach(item => {
-                item.addEventListener('click', () => {
-                    const content = item.querySelector('.faq-content');
-                    const isActive = item.classList.contains('active');
-
-                    // Close all others
-                    faqItems.forEach(otherItem => {
-                        otherItem.classList.remove('active');
-                        otherItem.querySelector('.faq-content').style.maxHeight = null;
-                    });
-
-                    // Toggle current
-                    if (!isActive) {
-                        item.classList.add('active');
-                        content.style.maxHeight = content.scrollHeight + "px";
-                    }
-                });
-            });
-        });
-    </script>
-</body>
+        </script>
+    </body>
 </html>
