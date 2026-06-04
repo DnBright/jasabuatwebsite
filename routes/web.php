@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Dashboard\AnalyticsController;
 use App\Http\Controllers\Dashboard\BerandaController;
+use App\Http\Controllers\Dashboard\ChatController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\PricingPackageController;
 use App\Http\Controllers\Dashboard\ReviewController;
@@ -12,11 +13,10 @@ use App\Models\PricingPackage;
 use App\Models\Setting;
 use App\Models\Template;
 use App\Models\TemplateReview;
-use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 
 // Force preloading of Eloquent models to prevent unserialize() failures on incomplete classes
@@ -30,12 +30,12 @@ Route::get('/sitemap.xml', function () {
         $templates = Cache::remember('landing_templates_sitemap', 86400, function () {
             return Template::all();
         });
-        if (!is_object($templates) || get_class($templates) === '__PHP_Incomplete_Class') {
+        if (! is_object($templates) || get_class($templates) === '__PHP_Incomplete_Class') {
             throw new Exception('Corrupted Templates sitemap cache');
         }
-        if ($templates instanceof \Illuminate\Support\Collection) {
+        if ($templates instanceof Collection) {
             foreach ($templates as $t) {
-                if (!is_object($t) || get_class($t) === '__PHP_Incomplete_Class') {
+                if (! is_object($t) || get_class($t) === '__PHP_Incomplete_Class') {
                     throw new Exception('Corrupted Template model inside collection');
                 }
             }
@@ -55,7 +55,7 @@ Route::get('/', function () {
         $hero = Cache::remember('landing_hero', 86400, function () {
             return Hero::first();
         });
-        if (!is_object($hero) || get_class($hero) === '__PHP_Incomplete_Class') {
+        if (! is_object($hero) || get_class($hero) === '__PHP_Incomplete_Class') {
             throw new Exception('Corrupted Hero cache');
         }
     } catch (Throwable $e) {
@@ -68,7 +68,7 @@ Route::get('/', function () {
         $templatesDB = Cache::remember('landing_templates', 86400, function () {
             return Template::all();
         });
-        if (!is_object($templatesDB) || get_class($templatesDB) === '__PHP_Incomplete_Class') {
+        if (! is_object($templatesDB) || get_class($templatesDB) === '__PHP_Incomplete_Class') {
             throw new Exception('Corrupted Templates cache');
         }
     } catch (Throwable $e) {
@@ -85,7 +85,7 @@ Route::get('/', function () {
                 return collect();
             }
         });
-        if (!is_object($packages) || get_class($packages) === '__PHP_Incomplete_Class') {
+        if (! is_object($packages) || get_class($packages) === '__PHP_Incomplete_Class') {
             throw new Exception('Corrupted Packages cache');
         }
     } catch (Throwable $e) {
@@ -106,7 +106,7 @@ Route::get('/', function () {
                 return [];
             }
         });
-        if (!is_array($setting) || (is_object($setting) && get_class($setting) === '__PHP_Incomplete_Class')) {
+        if (! is_array($setting) || (is_object($setting) && get_class($setting) === '__PHP_Incomplete_Class')) {
             throw new Exception('Corrupted Setting cache');
         }
     } catch (Throwable $e) {
@@ -123,13 +123,14 @@ Route::get('/', function () {
 
 Route::get('/portfolio/{slug}', function ($slug) {
     // Only allow alphanumeric, underscore, hyphen to prevent directory traversal
-    if (!preg_match('/^[a-zA-Z0-9_\-]+$/', $slug)) {
+    if (! preg_match('/^[a-zA-Z0-9_\-]+$/', $slug)) {
         abort(404);
     }
-    $viewName = 'portfolio.' . $slug;
-    if (!view()->exists($viewName)) {
+    $viewName = 'portfolio.'.$slug;
+    if (! view()->exists($viewName)) {
         abort(404);
     }
+
     return view($viewName);
 })->name('portfolio.show');
 
@@ -202,6 +203,10 @@ Route::get('/debug-files', function () {
     return response($output)->header('Content-Type', 'text/plain');
 });
 
+// Visitor Chat API Routes
+Route::post('/api/chat/send', [ChatController::class, 'userSendMessage'])->name('api.chat.send');
+Route::get('/api/chat/messages', [ChatController::class, 'userGetMessages'])->name('api.chat.messages');
+
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
@@ -224,6 +229,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
         Route::post('/settings', [SettingController::class, 'update'])->name('settings.update');
+
+        // Live Chat Admin Routes
+        Route::get('/chat', [ChatController::class, 'adminIndex'])->name('chat.index');
+        Route::post('/chat/send', [ChatController::class, 'adminSendMessage'])->name('chat.send');
+        Route::delete('/chat/session/{sessionId}', [ChatController::class, 'adminDeleteSession'])->name('chat.destroy');
     });
 });
 
@@ -238,11 +248,11 @@ Route::get('/deploy-maintenance-trigger', function (Request $request) {
     try {
         if (function_exists('shell_exec')) {
             $pullOutput = @shell_exec('git pull origin main 2>&1');
-            $output[] = 'Git Pull: ' . (is_string($pullOutput) ? trim($pullOutput) : 'Tidak ada output/Gagal');
+            $output[] = 'Git Pull: '.(is_string($pullOutput) ? trim($pullOutput) : 'Tidak ada output/Gagal');
         } else {
             $output[] = 'Git Pull: Dilewati (fungsi shell_exec dinonaktifkan di server).';
         }
-    } catch (\Throwable $e) {
+    } catch (Throwable $e) {
         $output[] = 'Git Pull Gagal: '.$e->getMessage();
     }
 
@@ -259,7 +269,7 @@ Route::get('/deploy-maintenance-trigger', function (Request $request) {
     try {
         Artisan::call('migrate', ['--force' => true]);
         $output[] = 'Migrasi: '.trim(Artisan::output());
-    } catch (\Throwable $e) {
+    } catch (Throwable $e) {
         $output[] = 'Migrasi Gagal: '.$e->getMessage();
     }
 
@@ -277,7 +287,7 @@ Route::get('/deploy-maintenance-trigger', function (Request $request) {
         } else {
             $output[] = 'Symlink Storage: Sudah ada.';
         }
-    } catch (\Throwable $e) {
+    } catch (Throwable $e) {
         $output[] = 'Symlink Storage Gagal: '.$e->getMessage();
     }
 
@@ -290,7 +300,7 @@ Route::get('/deploy-maintenance-trigger', function (Request $request) {
         } else {
             $output[] = 'Seeding Data Awal: Dilewati (database sudah berisi data).';
         }
-    } catch (\Throwable $e) {
+    } catch (Throwable $e) {
         $output[] = 'Seeding Gagal: '.$e->getMessage();
     }
 
@@ -298,28 +308,28 @@ Route::get('/deploy-maintenance-trigger', function (Request $request) {
     try {
         Artisan::call('view:clear');
         $output[] = 'View Cache: Berhasil dihapus!';
-    } catch (\Throwable $e) {
+    } catch (Throwable $e) {
         $output[] = 'View Clear Gagal: '.$e->getMessage();
     }
 
     try {
         Artisan::call('config:clear');
         $output[] = 'Config Cache: Berhasil dihapus!';
-    } catch (\Throwable $e) {
+    } catch (Throwable $e) {
         $output[] = 'Config Clear Gagal: '.$e->getMessage();
     }
 
     try {
         Artisan::call('route:clear');
         $output[] = 'Route Cache: Berhasil dihapus!';
-    } catch (\Throwable $e) {
+    } catch (Throwable $e) {
         $output[] = 'Route Clear Gagal: '.$e->getMessage();
     }
 
     try {
         Artisan::call('cache:clear');
         $output[] = 'Application Cache: Berhasil dihapus!';
-    } catch (\Throwable $e) {
+    } catch (Throwable $e) {
         $output[] = 'Application Cache Clear Gagal: '.$e->getMessage();
     }
 
@@ -331,7 +341,7 @@ Route::get('/deploy-maintenance-trigger', function (Request $request) {
         } else {
             $output[] = 'OPcache: Lewat (fungsi opcache_reset dinonaktifkan/tidak tersedia).';
         }
-    } catch (\Throwable $e) {
+    } catch (Throwable $e) {
         $output[] = 'OPcache Gagal: '.$e->getMessage();
     }
 
@@ -339,7 +349,7 @@ Route::get('/deploy-maintenance-trigger', function (Request $request) {
     try {
         Artisan::call('optimize');
         $output[] = 'Cache Optimize: '.trim(Artisan::output());
-    } catch (\Throwable $e) {
+    } catch (Throwable $e) {
         $output[] = 'Optimize Gagal: '.$e->getMessage();
     }
 

@@ -596,5 +596,8 @@
             }
         });
     </script>
+    
+    <!-- Floating Live Chatbox Widget -->
+    @include('landing.nav.chatbox')
 </body>
 </html>

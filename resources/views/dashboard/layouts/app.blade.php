@@ -85,6 +85,16 @@
                 <i data-lucide="message-square" class="mr-3 w-5 h-5 {{ request()->routeIs('dashboard.reviews.*') ? 'text-blue-500' : '' }}"></i> Ulasan
             </a>
 
+            <a href="{{ route('dashboard.chat.index') }}" class="flex items-center px-4 py-3 rounded-lg transition-all duration-200 {{ request()->routeIs('dashboard.chat.*') ? 'active shadow-md' : '' }}">
+                <i data-lucide="message-circle" class="mr-3 w-5 h-5 {{ request()->routeIs('dashboard.chat.*') ? 'text-blue-500' : '' }}"></i> Live Chat
+                @php
+                    $unreadCountTotal = \App\Models\ChatMessage::where('is_from_admin', false)->where('is_read', false)->count();
+                @endphp
+                @if($unreadCountTotal > 0)
+                    <span class="ml-auto bg-blue-500 text-white text-xs font-bold px-2 py-0.5 rounded-full shadow-sm animate-pulse">{{ $unreadCountTotal }}</span>
+                @endif
+            </a>
+
             <a href="{{ route('dashboard.packages.index') }}" class="flex items-center px-4 py-3 rounded-lg transition-all duration-200 {{ request()->routeIs('dashboard.packages.*') ? 'active shadow-md' : '' }}">
                 <i data-lucide="package" class="mr-3 w-5 h-5 {{ request()->routeIs('dashboard.packages.*') ? 'text-blue-500' : '' }}"></i> Paket Harga
             </a>
