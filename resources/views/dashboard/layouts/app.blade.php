@@ -9,42 +9,88 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root {
-            --color-black: #001229; /* Deep Dark Blue */
-            --color-black-light: #002147; /* Dark and Bright Primary Dark */
-            --color-yellow: #3b82f6; /* Bright Blue */
-            --color-yellow-hover: #2563eb; /* Darker Bright Blue */
+            --color-black: #0b1329; /* Sophisticated Deep Dark Blue */
+            --color-black-light: #1e293b; /* Dark Navy Slate */
+            --color-blue-primary: #2563eb; /* Cobalt Blue */
+            --color-blue-glow: rgba(37, 99, 235, 0.4);
         }
         body {
             background-color: #f8fafc; /* Slate 50 */
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(219, 234, 254, 0.3) 0, transparent 50%), 
+                radial-gradient(at 50% 0%, rgba(224, 242, 254, 0.2) 0, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(243, 244, 246, 0.4) 0, transparent 50%);
+            background-attachment: fixed;
         }
+        
+        /* Premium Custom Scrollbars */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(148, 163, 184, 0.3);
+            border-radius: 99px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(148, 163, 184, 0.5);
+        }
+
+        /* Sidebar Glass & Gradients */
         .sidebar {
-            background: linear-gradient(180deg, var(--color-black) 0%, var(--color-black-light) 100%);
-            color: white;
+            background: linear-gradient(180deg, #090d1a 0%, #0e172a 100%);
+            color: #f1f5f9;
             min-height: 100vh;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 10px 0 30px -15px rgba(0, 0, 0, 0.2);
         }
-        .sidebar a {
-            color: #94a3b8; /* Slate 400 */
+        
+        .sidebar-nav-item {
+            color: #94a3b8;
+            position: relative;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 500;
         }
-        .sidebar a:hover, .sidebar .active {
-            background-color: rgba(59, 130, 246, 0.1); /* Subtle Blue */
+        .sidebar-nav-item:hover {
             color: #ffffff;
-            border-left: 4px solid var(--color-yellow);
+            background-color: rgba(255, 255, 255, 0.03);
+            transform: translateX(4px);
         }
+        .sidebar-nav-item.active {
+            background: linear-gradient(90deg, rgba(37, 99, 235, 0.15) 0%, rgba(37, 99, 235, 0.02) 100%);
+            color: #3b82f6;
+            font-weight: 600;
+            border-left: 3px solid #3b82f6;
+            box-shadow: inset 4px 0 12px -2px rgba(37, 99, 235, 0.15);
+        }
+        .sidebar-nav-item.active i {
+            color: #3b82f6;
+            filter: drop-shadow(0 0 5px rgba(59, 130, 246, 0.4));
+        }
+        
         .btn-yellow {
-            background-color: var(--color-yellow);
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
             color: #ffffff;
             font-weight: bold;
+            box-shadow: 0 4px 12px 0 rgba(37, 99, 235, 0.2);
+            transition: all 0.25s ease;
         }
         .btn-yellow:hover {
-            background-color: var(--color-yellow-hover);
+            background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+            box-shadow: 0 6px 16px 0 rgba(37, 99, 235, 0.3);
+            transform: translateY(-1px);
         }
         
         /* Glassmorphism Header */
         .glass-header {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.7);
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.03);
         }
         
         /* Content Container */
@@ -52,6 +98,21 @@
             max-width: 80rem; /* 1280px */
             margin: 0 auto;
             width: 100%;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .animate-fade-in-up {
+            animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
     </style>
 </head>
@@ -61,58 +122,63 @@
     <div id="sidebar-backdrop" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-30 hidden transition-opacity duration-300 opacity-0 lg:hidden"></div>
 
     <!-- Sidebar -->
-    <aside id="sidebar" class="sidebar w-64 flex flex-col fixed inset-y-0 shadow-xl z-40 transition-transform duration-300 transform -translate-x-full lg:translate-x-0">
-        <div class="h-16 flex items-center justify-between px-6 border-b border-white/10">
-            <h1 class="text-2xl font-bold text-white tracking-tight">DarkandBright <i data-lucide="zap" class="inline text-blue-500"></i></h1>
-            <button id="sidebar-close" class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 lg:hidden focus:outline-none" aria-label="Close Sidebar">
+    <aside id="sidebar" class="sidebar w-64 flex flex-col fixed inset-y-0 shadow-2xl z-40 transition-transform duration-300 transform -translate-x-full lg:translate-x-0">
+        <div class="h-16 flex items-center justify-between px-6 border-b border-white/5">
+            <h1 class="text-2xl font-bold text-white tracking-tight flex items-center gap-2">
+                <span>DarkandBright</span>
+                <span class="inline-flex items-center justify-center w-6 h-6 rounded-lg bg-blue-500/10 text-blue-400 border border-blue-500/20 shadow-[0_0_15px_rgba(59,130,246,0.15)]">
+                    <i data-lucide="zap" class="w-4 h-4 fill-current"></i>
+                </span>
+            </h1>
+            <button id="sidebar-close" class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 lg:hidden focus:outline-none" aria-label="Close Sidebar">
                 <i data-lucide="x" class="w-5 h-5"></i>
             </button>
         </div>
         <nav class="flex-1 px-3 py-6 space-y-1 overflow-y-auto">
-            <p class="px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Main Menu</p>
+            <p class="px-4 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-3">Menu Utama</p>
             
-            <a href="{{ route('dashboard') }}" class="flex items-center px-4 py-3 rounded-lg transition-all duration-200 {{ request()->routeIs('dashboard') ? 'active shadow-md' : '' }}">
-                <i data-lucide="layout-dashboard" class="mr-3 w-5 h-5 {{ request()->routeIs('dashboard') ? 'text-blue-500' : '' }}"></i> Dashboard
-            </a>
-            
-            <a href="{{ route('dashboard.analytics.index') }}" class="flex items-center px-4 py-3 rounded-lg transition-all duration-200 {{ request()->routeIs('dashboard.analytics.*') ? 'active shadow-md' : '' }}">
-                <i data-lucide="line-chart" class="mr-3 w-5 h-5 {{ request()->routeIs('dashboard.analytics.*') ? 'text-blue-500' : '' }}"></i> Prospek Target
-            </a>
-
-            <a href="{{ route('dashboard.beranda.index') }}" class="flex items-center px-4 py-3 rounded-lg transition-all duration-200 {{ request()->routeIs('dashboard.beranda.*') ? 'active shadow-md' : '' }}">
-                <i data-lucide="monitor" class="mr-3 w-5 h-5 {{ request()->routeIs('dashboard.beranda.*') ? 'text-blue-500' : '' }}"></i> Beranda / Hero
+            <a href="{{ route('dashboard') }}" class="sidebar-nav-item flex items-center px-4 py-2.5 rounded-xl {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                <i data-lucide="layout-dashboard" class="mr-3 w-5 h-5"></i> Dashboard
             </a>
             
-            <a href="{{ route('dashboard.template.index') }}" class="flex items-center px-4 py-3 rounded-lg transition-all duration-200 {{ request()->routeIs('dashboard.template.*') ? 'active shadow-md' : '' }}">
-                <i data-lucide="layout-template" class="mr-3 w-5 h-5 {{ request()->routeIs('dashboard.template.*') ? 'text-blue-500' : '' }}"></i> Templates
+            <a href="{{ route('dashboard.analytics.index') }}" class="sidebar-nav-item flex items-center px-4 py-2.5 rounded-xl {{ request()->routeIs('dashboard.analytics.*') ? 'active' : '' }}">
+                <i data-lucide="line-chart" class="mr-3 w-5 h-5"></i> Prospek Target
             </a>
 
-            <a href="{{ route('dashboard.reviews.index') }}" class="flex items-center px-4 py-3 rounded-lg transition-all duration-200 {{ request()->routeIs('dashboard.reviews.*') ? 'active shadow-md' : '' }}">
-                <i data-lucide="message-square" class="mr-3 w-5 h-5 {{ request()->routeIs('dashboard.reviews.*') ? 'text-blue-500' : '' }}"></i> Ulasan
+            <a href="{{ route('dashboard.beranda.index') }}" class="sidebar-nav-item flex items-center px-4 py-2.5 rounded-xl {{ request()->routeIs('dashboard.beranda.*') ? 'active' : '' }}">
+                <i data-lucide="monitor" class="mr-3 w-5 h-5"></i> Beranda / Hero
+            </a>
+            
+            <a href="{{ route('dashboard.template.index') }}" class="sidebar-nav-item flex items-center px-4 py-2.5 rounded-xl {{ request()->routeIs('dashboard.template.*') ? 'active' : '' }}">
+                <i data-lucide="layout-template" class="mr-3 w-5 h-5"></i> Templates
             </a>
 
-            <a href="{{ route('dashboard.chat.index') }}" class="flex items-center px-4 py-3 rounded-lg transition-all duration-200 {{ request()->routeIs('dashboard.chat.*') ? 'active shadow-md' : '' }}">
-                <i data-lucide="message-circle" class="mr-3 w-5 h-5 {{ request()->routeIs('dashboard.chat.*') ? 'text-blue-500' : '' }}"></i> Live Chat
+            <a href="{{ route('dashboard.reviews.index') }}" class="sidebar-nav-item flex items-center px-4 py-2.5 rounded-xl {{ request()->routeIs('dashboard.reviews.*') ? 'active' : '' }}">
+                <i data-lucide="message-square" class="mr-3 w-5 h-5"></i> Ulasan
+            </a>
+
+            <a href="{{ route('dashboard.chat.index') }}" class="sidebar-nav-item flex items-center px-4 py-2.5 rounded-xl {{ request()->routeIs('dashboard.chat.*') ? 'active' : '' }}">
+                <i data-lucide="message-circle" class="mr-3 w-5 h-5"></i> Live Chat
                 @php
                     $unreadCountTotal = \App\Models\ChatMessage::where('is_from_admin', false)->where('is_read', false)->count();
                 @endphp
                 @if($unreadCountTotal > 0)
-                    <span class="ml-auto bg-blue-500 text-white text-xs font-bold px-2 py-0.5 rounded-full shadow-sm animate-pulse">{{ $unreadCountTotal }}</span>
+                    <span class="ml-auto bg-blue-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm animate-pulse">{{ $unreadCountTotal }}</span>
                 @endif
             </a>
 
-            <a href="{{ route('dashboard.packages.index') }}" class="flex items-center px-4 py-3 rounded-lg transition-all duration-200 {{ request()->routeIs('dashboard.packages.*') ? 'active shadow-md' : '' }}">
-                <i data-lucide="package" class="mr-3 w-5 h-5 {{ request()->routeIs('dashboard.packages.*') ? 'text-blue-500' : '' }}"></i> Paket Harga
+            <a href="{{ route('dashboard.packages.index') }}" class="sidebar-nav-item flex items-center px-4 py-2.5 rounded-xl {{ request()->routeIs('dashboard.packages.*') ? 'active' : '' }}">
+                <i data-lucide="package" class="mr-3 w-5 h-5"></i> Paket Harga
             </a>
 
-            <a href="{{ route('dashboard.settings.index') }}" class="flex items-center px-4 py-3 rounded-lg transition-all duration-200 {{ request()->routeIs('dashboard.settings.*') ? 'active shadow-md' : '' }}">
-                <i data-lucide="settings" class="mr-3 w-5 h-5 {{ request()->routeIs('dashboard.settings.*') ? 'text-blue-500' : '' }}"></i> Pengaturan
+            <a href="{{ route('dashboard.settings.index') }}" class="sidebar-nav-item flex items-center px-4 py-2.5 rounded-xl {{ request()->routeIs('dashboard.settings.*') ? 'active' : '' }}">
+                <i data-lucide="settings" class="mr-3 w-5 h-5"></i> Pengaturan
             </a>
         </nav>
-        <div class="p-4 border-t border-white/10 bg-black/10">
+        <div class="p-4 border-t border-white/5 bg-slate-950/20">
             <form action="{{ route('logout') }}" method="POST">
                 @csrf
-                <button type="submit" class="w-full flex items-center justify-center px-4 py-2.5 rounded-lg bg-white/5 text-slate-300 hover:text-white hover:bg-red-500/80 transition-colors shadow-sm">
+                <button type="submit" class="w-full flex items-center justify-center px-4 py-2.5 rounded-xl bg-white/5 text-slate-400 hover:text-white hover:bg-red-500/20 hover:border-red-500/30 border border-transparent transition-all shadow-sm font-semibold text-sm">
                     <i data-lucide="log-out" class="mr-2 w-4 h-4"></i> Keluar
                 </button>
             </form>
@@ -128,20 +194,20 @@
                     <button id="sidebar-toggle" class="mr-3 p-1.5 rounded-lg text-slate-600 hover:bg-slate-100 lg:hidden focus:outline-none shrink-0" aria-label="Toggle Sidebar">
                         <i data-lucide="menu" class="w-6 h-6"></i>
                     </button>
-                    <h2 class="text-lg sm:text-xl font-bold text-slate-800 tracking-tight truncate">
+                    <h2 class="text-base sm:text-lg font-bold text-slate-800 tracking-tight truncate">
                         @yield('header', 'Dashboard')
                     </h2>
                 </div>
                 <div class="flex items-center gap-2 sm:gap-3 shrink-0">
-                    <a href="/" target="_blank" class="text-sm font-semibold text-blue-600 bg-blue-50 hover:bg-blue-100 px-2.5 py-1.5 sm:px-3 rounded-full transition-colors flex items-center">
-                        <i data-lucide="external-link" class="w-4 h-4 sm:mr-1.5"></i> <span class="hidden sm:inline">Lihat Website</span>
+                    <a href="/" target="_blank" class="text-xs font-semibold text-blue-600 bg-blue-50/70 hover:bg-blue-100/70 px-3 py-1.8 rounded-xl transition-all flex items-center gap-1.5 border border-blue-100">
+                        <i data-lucide="external-link" class="w-3.5 h-3.5"></i> <span class="hidden sm:inline">Lihat Website</span>
                     </a>
                     <div class="h-6 w-px bg-slate-200 mx-0.5 sm:mx-1"></div>
                     <span class="text-sm font-medium text-slate-600 flex items-center">
-                        <div class="w-8 h-8 rounded-full bg-slate-200 text-slate-600 flex items-center justify-center font-bold border border-slate-300 shadow-sm shrink-0" title="{{ auth()->user()->name ?? 'Admin' }}">
+                        <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center font-bold border border-blue-400/20 shadow-sm shrink-0" title="{{ auth()->user()->name ?? 'Admin' }}">
                             {{ substr(auth()->user()->name ?? 'A', 0, 1) }}
                         </div>
-                        <span class="hidden md:inline ml-2 truncate max-w-[120px]">{{ auth()->user()->name ?? 'Admin' }}</span>
+                        <span class="hidden md:inline ml-2.5 truncate max-w-[120px] font-semibold text-slate-700">{{ auth()->user()->name ?? 'Admin' }}</span>
                     </span>
                 </div>
             </div>
