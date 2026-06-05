@@ -3,12 +3,10 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-
-use App\Models\Template;
-use App\Models\UmkmTrend;
 use App\Models\Hero;
+use App\Models\Template;
 use App\Models\TemplateReview;
+use App\Models\UmkmTrend;
 
 class DashboardController extends Controller
 {
@@ -22,6 +20,8 @@ class DashboardController extends Controller
             'pending_reviews' => TemplateReview::where('is_approved', false)->count(),
         ];
 
-        return view('dashboard.index', compact('stats'));
+        $topTrends = UmkmTrend::orderBy('score_value', 'desc')->take(3)->get();
+
+        return view('dashboard.index', compact('stats', 'topTrends'));
     }
 }
