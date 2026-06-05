@@ -10,293 +10,287 @@
             <p class="section-subtitle">Lihat bagaimana kami mentransformasi berbagai jenis bisnis UMKM menjadi lebih profesional, terpercaya, dan siap bersaing di era digital dengan website kelas dunia.</p>
         </div>
 
-        <div class="swiper kategori-swiper portfolio-showcase">
-            <div class="swiper-wrapper">
+        <div class="portfolio-slider-container relative">
+            <div class="swiper kategori-swiper portfolio-showcase">
+                <div class="swiper-wrapper">
 
-                <!-- 1. Roast & Ritual — Coffee House -->
-                <div class="swiper-slide">
-                    <div class="umkm-card">
-                        <div class="umkm-img-wrap">
-                            <img src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&q=80&w=800" alt="Website Coffee House" loading="lazy" width="800" height="571" />
-                        </div>
-                        <div class="umkm-content">
-                            <span class="umkm-tag">Kuliner / F&amp;B</span>
-                            <h3>Roast &amp; Ritual Coffee</h3>
-                            <p>Website premium untuk coffee house dengan menu, galeri, dan sistem reservasi meja online.</p>
-                            <div class="umkm-actions">
-                                <a href="{{ route('portfolio.show', 'roast_ritual_coffee_house') }}" target="_blank" rel="noopener" class="umkm-btn-portfolio">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                                    Lihat Portfolio
-                                </a>
-                                <a href="#kontak" class="umkm-btn-order">Pesan <span aria-hidden="true">&rarr;</span></a>
+                    <!-- 1. Roast & Ritual — Coffee House -->
+                    <div class="swiper-slide">
+                        <div class="umkm-card">
+                            <div class="umkm-img-wrap">
+                                <span class="umkm-image-badge">Kuliner / F&amp;B</span>
+                                <img src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&q=80&w=800" alt="Website Coffee House" loading="lazy" width="800" height="571" />
+                            </div>
+                            <div class="umkm-content">
+                                <h3>Roast &amp; Ritual Coffee</h3>
+                                <p>Website premium untuk coffee house dengan menu, galeri, dan sistem reservasi meja online.</p>
+                                <div class="umkm-actions">
+                                    <a href="{{ route('portfolio.show', 'roast_ritual_coffee_house') }}" target="_blank" rel="noopener" class="umkm-btn-portfolio">
+                                        Lihat Detail
+                                    </a>
+                                    <a href="#kontak" class="umkm-btn-order">Pesan Website</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- 2. Aurelia Fine Dining -->
-                <div class="swiper-slide">
-                    <div class="umkm-card">
-                        <div class="umkm-img-wrap">
-                            <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&q=80&w=800" alt="Website Fine Dining" loading="lazy" width="800" height="571" />
-                        </div>
-                        <div class="umkm-content">
-                            <span class="umkm-tag">Restoran Mewah</span>
-                            <h3>Aurelia Fine Dining</h3>
-                            <p>Website eksklusif untuk restoran fine dining dengan menu degustasi dan reservasi online.</p>
-                            <div class="umkm-actions">
-                                <a href="{{ route('portfolio.show', 'aurelia_fine_dining') }}" target="_blank" rel="noopener" class="umkm-btn-portfolio">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                                    Lihat Portfolio
-                                </a>
-                                <a href="#kontak" class="umkm-btn-order">Pesan <span aria-hidden="true">&rarr;</span></a>
+                    <!-- 2. Aurelia Fine Dining -->
+                    <div class="swiper-slide">
+                        <div class="umkm-card">
+                            <div class="umkm-img-wrap">
+                                <span class="umkm-image-badge">Restoran Mewah</span>
+                                <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&q=80&w=800" alt="Website Fine Dining" loading="lazy" width="800" height="571" />
+                            </div>
+                            <div class="umkm-content">
+                                <h3>Aurelia Fine Dining</h3>
+                                <p>Website eksklusif untuk restoran fine dining dengan menu degustasi dan reservasi online.</p>
+                                <div class="umkm-actions">
+                                    <a href="{{ route('portfolio.show', 'aurelia_fine_dining') }}" target="_blank" rel="noopener" class="umkm-btn-portfolio">
+                                        Lihat Detail
+                                    </a>
+                                    <a href="#kontak" class="umkm-btn-order">Pesan Website</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- 3. Lumière Beauty Studio -->
-                <div class="swiper-slide">
-                    <div class="umkm-card">
-                        <div class="umkm-img-wrap">
-                            <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&q=80&w=800" alt="Website Beauty Studio" loading="lazy" width="800" height="571" />
-                        </div>
-                        <div class="umkm-content">
-                            <span class="umkm-tag">Klinik / Salon</span>
-                            <h3>Lumière Beauty Studio</h3>
-                            <p>Tampilkan layanan kecantikan premium dan mudahkan pelanggan booking jadwal perawatan.</p>
-                            <div class="umkm-actions">
-                                <a href="{{ route('portfolio.show', 'lumi_re_beauty_studio') }}" target="_blank" rel="noopener" class="umkm-btn-portfolio">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                                    Lihat Portfolio
-                                </a>
-                                <a href="#kontak" class="umkm-btn-order">Pesan <span aria-hidden="true">&rarr;</span></a>
+                    <!-- 3. Lumière Beauty Studio -->
+                    <div class="swiper-slide">
+                        <div class="umkm-card">
+                            <div class="umkm-img-wrap">
+                                <span class="umkm-image-badge">Klinik / Salon</span>
+                                <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&q=80&w=800" alt="Website Beauty Studio" loading="lazy" width="800" height="571" />
+                            </div>
+                            <div class="umkm-content">
+                                <h3>Lumière Beauty Studio</h3>
+                                <p>Tampilkan layanan kecantikan premium dan mudahkan pelanggan booking jadwal perawatan.</p>
+                                <div class="umkm-actions">
+                                    <a href="{{ route('portfolio.show', 'lumi_re_beauty_studio') }}" target="_blank" rel="noopener" class="umkm-btn-portfolio">
+                                        Lihat Detail
+                                    </a>
+                                    <a href="#kontak" class="umkm-btn-order">Pesan Website</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- 4. Vitalis Medical Center -->
-                <div class="swiper-slide">
-                    <div class="umkm-card">
-                        <div class="umkm-img-wrap">
-                            <img src="https://images.unsplash.com/photo-1551076805-e1869043e560?auto=format&fit=crop&q=80&w=800" alt="Website Klinik Medis" loading="lazy" width="800" height="571" />
-                        </div>
-                        <div class="umkm-content">
-                            <span class="umkm-tag">Klinik / Kesehatan</span>
-                            <h3>Vitalis Medical Center</h3>
-                            <p>Website profesional untuk klinik medis dengan profil dokter dan sistem pendaftaran online.</p>
-                            <div class="umkm-actions">
-                                <a href="{{ route('portfolio.show', 'vitalis_medical_center') }}" target="_blank" rel="noopener" class="umkm-btn-portfolio">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                                    Lihat Portfolio
-                                </a>
-                                <a href="#kontak" class="umkm-btn-order">Pesan <span aria-hidden="true">&rarr;</span></a>
+                    <!-- 4. Vitalis Medical Center -->
+                    <div class="swiper-slide">
+                        <div class="umkm-card">
+                            <div class="umkm-img-wrap">
+                                <span class="umkm-image-badge">Klinik / Kesehatan</span>
+                                <img src="https://images.unsplash.com/photo-1551076805-e1869043e560?auto=format&fit=crop&q=80&w=800" alt="Website Klinik Medis" loading="lazy" width="800" height="571" />
+                            </div>
+                            <div class="umkm-content">
+                                <h3>Vitalis Medical Center</h3>
+                                <p>Website profesional untuk klinik medis dengan profil dokter dan sistem pendaftaran online.</p>
+                                <div class="umkm-actions">
+                                    <a href="{{ route('portfolio.show', 'vitalis_medical_center') }}" target="_blank" rel="noopener" class="umkm-btn-portfolio">
+                                        Lihat Detail
+                                    </a>
+                                    <a href="#kontak" class="umkm-btn-order">Pesan Website</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- 5. Paw Haven Pet Care -->
-                <div class="swiper-slide">
-                    <div class="umkm-card">
-                        <div class="umkm-img-wrap">
-                            <img src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&q=80&w=800" alt="Website Pet Shop" loading="lazy" width="800" height="571" />
-                        </div>
-                        <div class="umkm-content">
-                            <span class="umkm-tag">Pet Shop &amp; Care</span>
-                            <h3>Paw Haven Pet Care</h3>
-                            <p>Katalog produk, layanan grooming, dan info klinik hewan dalam satu website lengkap.</p>
-                            <div class="umkm-actions">
-                                <a href="{{ route('portfolio.show', 'paw_haven_pet_care') }}" target="_blank" rel="noopener" class="umkm-btn-portfolio">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                                    Lihat Portfolio
-                                </a>
-                                <a href="#kontak" class="umkm-btn-order">Pesan <span aria-hidden="true">&rarr;</span></a>
+                    <!-- 5. Paw Haven Pet Care -->
+                    <div class="swiper-slide">
+                        <div class="umkm-card">
+                            <div class="umkm-img-wrap">
+                                <span class="umkm-image-badge">Pet Shop &amp; Care</span>
+                                <img src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&q=80&w=800" alt="Website Pet Shop" loading="lazy" width="800" height="571" />
+                            </div>
+                            <div class="umkm-content">
+                                <h3>Paw Haven Pet Care</h3>
+                                <p>Katalog produk, layanan grooming, dan info klinik hewan dalam satu website lengkap.</p>
+                                <div class="umkm-actions">
+                                    <a href="{{ route('portfolio.show', 'paw_haven_pet_care') }}" target="_blank" rel="noopener" class="umkm-btn-portfolio">
+                                        Lihat Detail
+                                    </a>
+                                    <a href="#kontak" class="umkm-btn-order">Pesan Website</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- 6. NovaMart E-Commerce -->
-                <div class="swiper-slide">
-                    <div class="umkm-card">
-                        <div class="umkm-img-wrap">
-                            <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&q=80&w=800" alt="Website E-Commerce" loading="lazy" width="800" height="571" />
-                        </div>
-                        <div class="umkm-content">
-                            <span class="umkm-tag">Retail / E-Commerce</span>
-                            <h3>NovaMart E-Commerce</h3>
-                            <p>Toko online modern dengan katalog produk lengkap, keranjang belanja, dan checkout mudah.</p>
-                            <div class="umkm-actions">
-                                <a href="{{ route('portfolio.show', 'novamart_e_commerce') }}" target="_blank" rel="noopener" class="umkm-btn-portfolio">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                                    Lihat Portfolio
-                                </a>
-                                <a href="#kontak" class="umkm-btn-order">Pesan <span aria-hidden="true">&rarr;</span></a>
+                    <!-- 6. NovaMart E-Commerce -->
+                    <div class="swiper-slide">
+                        <div class="umkm-card">
+                            <div class="umkm-img-wrap">
+                                <span class="umkm-image-badge">Retail / E-Commerce</span>
+                                <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&q=80&w=800" alt="Website E-Commerce" loading="lazy" width="800" height="571" />
+                            </div>
+                            <div class="umkm-content">
+                                <h3>NovaMart E-Commerce</h3>
+                                <p>Toko online modern dengan katalog produk lengkap, keranjang belanja, dan checkout mudah.</p>
+                                <div class="umkm-actions">
+                                    <a href="{{ route('portfolio.show', 'novamart_e_commerce') }}" target="_blank" rel="noopener" class="umkm-btn-portfolio">
+                                        Lihat Detail
+                                    </a>
+                                    <a href="#kontak" class="umkm-btn-order">Pesan Website</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- 7. DriveTrust Motors -->
-                <div class="swiper-slide">
-                    <div class="umkm-card">
-                        <div class="umkm-img-wrap">
-                            <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&q=80&w=800" alt="Website Showroom Mobil" loading="lazy" width="800" height="571" />
-                        </div>
-                        <div class="umkm-content">
-                            <span class="umkm-tag">Otomotif / Showroom</span>
-                            <h3>DriveTrust Motors</h3>
-                            <p>Website showroom kendaraan dengan katalog mobil, filter pencarian, dan form test drive.</p>
-                            <div class="umkm-actions">
-                                <a href="{{ route('portfolio.show', 'drivetrust_motors') }}" target="_blank" rel="noopener" class="umkm-btn-portfolio">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                                    Lihat Portfolio
-                                </a>
-                                <a href="#kontak" class="umkm-btn-order">Pesan <span aria-hidden="true">&rarr;</span></a>
+                    <!-- 7. DriveTrust Motors -->
+                    <div class="swiper-slide">
+                        <div class="umkm-card">
+                            <div class="umkm-img-wrap">
+                                <span class="umkm-image-badge">Otomotif / Showroom</span>
+                                <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&q=80&w=800" alt="Website Showroom Mobil" loading="lazy" width="800" height="571" />
+                            </div>
+                            <div class="umkm-content">
+                                <h3>DriveTrust Motors</h3>
+                                <p>Website showroom kendaraan dengan katalog mobil, filter pencarian, dan form test drive.</p>
+                                <div class="umkm-actions">
+                                    <a href="{{ route('portfolio.show', 'drivetrust_motors') }}" target="_blank" rel="noopener" class="umkm-btn-portfolio">
+                                        Lihat Detail
+                                    </a>
+                                    <a href="#kontak" class="umkm-btn-order">Pesan Website</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- 8. Torque Garage -->
-                <div class="swiper-slide">
-                    <div class="umkm-card">
-                        <div class="umkm-img-wrap">
-                            <img src="https://images.unsplash.com/photo-1635787610093-41dc3f8c8d8b?auto=format&fit=crop&q=80&w=800" alt="Website Bengkel" loading="lazy" width="800" height="571" />
-                        </div>
-                        <div class="umkm-content">
-                            <span class="umkm-tag">Bengkel / Servis</span>
-                            <h3>Torque Garage</h3>
-                            <p>Website bengkel modern dengan daftar layanan servis, booking online, dan testimoni pelanggan.</p>
-                            <div class="umkm-actions">
-                                <a href="{{ route('portfolio.show', 'torque_garage') }}" target="_blank" rel="noopener" class="umkm-btn-portfolio">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                                    Lihat Portfolio
-                                </a>
-                                <a href="#kontak" class="umkm-btn-order">Pesan <span aria-hidden="true">&rarr;</span></a>
+                    <!-- 8. Torque Garage -->
+                    <div class="swiper-slide">
+                        <div class="umkm-card">
+                            <div class="umkm-img-wrap">
+                                <span class="umkm-image-badge">Bengkel / Servis</span>
+                                <img src="https://images.unsplash.com/photo-1635787610093-41dc3f8c8d8b?auto=format&fit=crop&q=80&w=800" alt="Website Bengkel" loading="lazy" width="800" height="571" />
+                            </div>
+                            <div class="umkm-content">
+                                <h3>Torque Garage</h3>
+                                <p>Website bengkel modern dengan daftar layanan servis, booking online, dan testimoni pelanggan.</p>
+                                <div class="umkm-actions">
+                                    <a href="{{ route('portfolio.show', 'torque_garage') }}" target="_blank" rel="noopener" class="umkm-btn-portfolio">
+                                        Lihat Detail
+                                    </a>
+                                    <a href="#kontak" class="umkm-btn-order">Pesan Website</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- 9. Velocity AutoStyle -->
-                <div class="swiper-slide">
-                    <div class="umkm-card">
-                        <div class="umkm-img-wrap">
-                            <img src="https://images.unsplash.com/photo-1542282088-fe8426682b8f?auto=format&fit=crop&q=80&w=800" alt="Website Aksesori Mobil" loading="lazy" width="800" height="571" />
-                        </div>
-                        <div class="umkm-content">
-                            <span class="umkm-tag">Aksesori / Modifikasi</span>
-                            <h3>Velocity AutoStyle</h3>
-                            <p>Toko aksesori dan modifikasi kendaraan dengan galeri karya dan pemesanan yang mudah.</p>
-                            <div class="umkm-actions">
-                                <a href="{{ route('portfolio.show', 'velocity_autostyle') }}" target="_blank" rel="noopener" class="umkm-btn-portfolio">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                                    Lihat Portfolio
-                                </a>
-                                <a href="#kontak" class="umkm-btn-order">Pesan <span aria-hidden="true">&rarr;</span></a>
+                    <!-- 9. Velocity AutoStyle -->
+                    <div class="swiper-slide">
+                        <div class="umkm-card">
+                            <div class="umkm-img-wrap">
+                                <span class="umkm-image-badge">Aksesori / Modifikasi</span>
+                                <img src="https://images.unsplash.com/photo-1542282088-fe8426682b8f?auto=format&fit=crop&q=80&w=800" alt="Website Aksesori Mobil" loading="lazy" width="800" height="571" />
+                            </div>
+                            <div class="umkm-content">
+                                <h3>Velocity AutoStyle</h3>
+                                <p>Toko aksesori dan modifikasi kendaraan dengan galeri karya dan pemesanan yang mudah.</p>
+                                <div class="umkm-actions">
+                                    <a href="{{ route('portfolio.show', 'velocity_autostyle') }}" target="_blank" rel="noopener" class="umkm-btn-portfolio">
+                                        Lihat Detail
+                                    </a>
+                                    <a href="#kontak" class="umkm-btn-order">Pesan Website</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- 10. Grand Aruna Residence -->
-                <div class="swiper-slide">
-                    <div class="umkm-card">
-                        <div class="umkm-img-wrap">
-                            <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=800" alt="Website Properti" loading="lazy" width="800" height="571" />
-                        </div>
-                        <div class="umkm-content">
-                            <span class="umkm-tag">Properti / Real Estate</span>
-                            <h3>Grand Aruna Residence</h3>
-                            <p>Website properti eksklusif dengan galeri unit, spesifikasi, dan form konsultasi pembelian.</p>
-                            <div class="umkm-actions">
-                                <a href="{{ route('portfolio.show', 'grand_aruna_residence') }}" target="_blank" rel="noopener" class="umkm-btn-portfolio">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                                    Lihat Portfolio
-                                </a>
-                                <a href="#kontak" class="umkm-btn-order">Pesan <span aria-hidden="true">&rarr;</span></a>
+                    <!-- 10. Grand Aruna Residence -->
+                    <div class="swiper-slide">
+                        <div class="umkm-card">
+                            <div class="umkm-img-wrap">
+                                <span class="umkm-image-badge">Properti / Real Estate</span>
+                                <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=800" alt="Website Properti" loading="lazy" width="800" height="571" />
+                            </div>
+                            <div class="umkm-content">
+                                <h3>Grand Aruna Residence</h3>
+                                <p>Website properti eksklusif dengan galeri unit, spesifikasi, dan form konsultasi pembelian.</p>
+                                <div class="umkm-actions">
+                                    <a href="{{ route('portfolio.show', 'grand_aruna_residence') }}" target="_blank" rel="noopener" class="umkm-btn-portfolio">
+                                        Lihat Detail
+                                    </a>
+                                    <a href="#kontak" class="umkm-btn-order">Pesan Website</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- 11. Nordhaven Living -->
-                <div class="swiper-slide">
-                    <div class="umkm-card">
-                        <div class="umkm-img-wrap">
-                            <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&q=80&w=800" alt="Website Furnitur Interior" loading="lazy" width="800" height="571" />
-                        </div>
-                        <div class="umkm-content">
-                            <span class="umkm-tag">Furnitur / Interior</span>
-                            <h3>Nordhaven Living</h3>
-                            <p>Website toko furnitur Scandinavian dengan katalog produk, lookbook, dan pemesanan custom.</p>
-                            <div class="umkm-actions">
-                                <a href="{{ route('portfolio.show', 'nordhaven_living') }}" target="_blank" rel="noopener" class="umkm-btn-portfolio">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                                    Lihat Portfolio
-                                </a>
-                                <a href="#kontak" class="umkm-btn-order">Pesan <span aria-hidden="true">&rarr;</span></a>
+                    <!-- 11. Nordhaven Living -->
+                    <div class="swiper-slide">
+                        <div class="umkm-card">
+                            <div class="umkm-img-wrap">
+                                <span class="umkm-image-badge">Furnitur / Interior</span>
+                                <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&q=80&w=800" alt="Website Furnitur Interior" loading="lazy" width="800" height="571" />
+                            </div>
+                            <div class="umkm-content">
+                                <h3>Nordhaven Living</h3>
+                                <p>Website toko furnitur Scandinavian dengan katalog produk, lookbook, dan pemesanan custom.</p>
+                                <div class="umkm-actions">
+                                    <a href="{{ route('portfolio.show', 'nordhaven_living') }}" target="_blank" rel="noopener" class="umkm-btn-portfolio">
+                                        Lihat Detail
+                                    </a>
+                                    <a href="#kontak" class="umkm-btn-order">Pesan Website</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- 12. Vertex Global Group -->
-                <div class="swiper-slide">
-                    <div class="umkm-card">
-                        <div class="umkm-img-wrap">
-                            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=800" alt="Website Company Profile" loading="lazy" width="800" height="571" />
-                        </div>
-                        <div class="umkm-content">
-                            <span class="umkm-tag">Company Profile</span>
-                            <h3>Vertex Global Group</h3>
-                            <p>Website company profile korporat yang elegan untuk membangun kepercayaan klien dan investor.</p>
-                            <div class="umkm-actions">
-                                <a href="{{ route('portfolio.show', 'vertex_global_group') }}" target="_blank" rel="noopener" class="umkm-btn-portfolio">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                                    Lihat Portfolio
-                                </a>
-                                <a href="#kontak" class="umkm-btn-order">Pesan <span aria-hidden="true">&rarr;</span></a>
+                    <!-- 12. Vertex Global Group -->
+                    <div class="swiper-slide">
+                        <div class="umkm-card">
+                            <div class="umkm-img-wrap">
+                                <span class="umkm-image-badge">Company Profile</span>
+                                <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=800" alt="Website Company Profile" loading="lazy" width="800" height="571" />
+                            </div>
+                            <div class="umkm-content">
+                                <h3>Vertex Global Group</h3>
+                                <p>Website company profile korporat yang elegan untuk membangun kepercayaan klien dan investor.</p>
+                                <div class="umkm-actions">
+                                    <a href="{{ route('portfolio.show', 'vertex_global_group') }}" target="_blank" rel="noopener" class="umkm-btn-portfolio">
+                                        Lihat Detail
+                                    </a>
+                                    <a href="#kontak" class="umkm-btn-order">Pesan Website</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- 13. The Dark & Bright Portfolio -->
-                <div class="swiper-slide">
-                    <div class="umkm-card">
-                        <div class="umkm-img-wrap">
-                            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800" alt="Website Web Agency" loading="lazy" width="800" height="571" />
-                        </div>
-                        <div class="umkm-content">
-                            <span class="umkm-tag">Jasa / Web Agency</span>
-                            <h3>The Dark &amp; Bright Agency</h3>
-                            <p>Website portofolio agency digital yang memukau dengan showcase proyek dan halaman layanan.</p>
-                            <div class="umkm-actions">
-                                <a href="{{ route('portfolio.show', 'the_dark_bright_portfolio') }}" target="_blank" rel="noopener" class="umkm-btn-portfolio">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                                    Lihat Portfolio
-                                </a>
-                                <a href="#kontak" class="umkm-btn-order">Pesan <span aria-hidden="true">&rarr;</span></a>
+                    <!-- 13. The Dark & Bright Portfolio -->
+                    <div class="swiper-slide">
+                        <div class="umkm-card">
+                            <div class="umkm-img-wrap">
+                                <span class="umkm-image-badge">Jasa / Web Agency</span>
+                                <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800" alt="Website Web Agency" loading="lazy" width="800" height="571" />
+                            </div>
+                            <div class="umkm-content">
+                                <h3>The Dark &amp; Bright Agency</h3>
+                                <p>Website portofolio agency digital yang memukau dengan showcase proyek dan halaman layanan.</p>
+                                <div class="umkm-actions">
+                                    <a href="{{ route('portfolio.show', 'the_dark_bright_portfolio') }}" target="_blank" rel="noopener" class="umkm-btn-portfolio">
+                                        Lihat Detail
+                                    </a>
+                                    <a href="#kontak" class="umkm-btn-order">Pesan Website</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-            </div>
-            
-            <!-- Swiper Navigation & Pagination -->
-            <div class="swiper-controls-container">
-                <p class="swipe-hint">Geser untuk melihat kategori lain</p>
-                <div class="swiper-nav-wrapper">
-                    <div class="swiper-button-prev" aria-label="Slide sebelumnya"></div>
-                    <div class="swiper-pagination"></div>
-                    <div class="swiper-button-next" aria-label="Slide berikutnya"></div>
                 </div>
             </div>
+
+            <!-- Custom 3D Navigation Controls -->
+            <button class="swiper-btn-prev" aria-label="Slide sebelumnya">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="20" height="20">
+                    <path d="M15 19l-7-7 7-7"/>
+                </svg>
+            </button>
+            <button class="swiper-btn-next" aria-label="Slide berikutnya">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="20" height="20">
+                    <path d="M9 5l7 7-7 7"/>
+                </svg>
+            </button>
+
+            <!-- Custom 3D Pagination Dots -->
+            <div class="swiper-pagination-dots"></div>
         </div>
     </div>
 </section>
@@ -314,7 +308,7 @@
     .section-container {
         max-width: 1400px;
         margin: 0 auto;
-        padding: 0 7%;
+        padding: 0 4%;
         position: relative;
         z-index: 1;
     }
@@ -353,51 +347,72 @@
     .section-subtitle {
         color: var(--color-text-muted);
         font-size: 1.15rem;
-        margin-bottom: 4rem;
+        margin-bottom: 3rem;
         max-width: 750px;
         margin-left: auto;
         margin-right: auto;
         line-height: 1.6;
     }
 
-    .portfolio-showcase {
-        margin-top: 2rem;
-        padding-bottom: 4.5rem;
+    /* 3D Coverflow Container */
+    .portfolio-slider-container {
         position: relative;
+        padding: 2rem 4rem; /* Leave horizontal space for arrows */
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .portfolio-showcase {
+        margin-top: 1rem;
+        padding-bottom: 2rem;
+        position: relative;
+        overflow: visible !important; /* Extremely important for 3D elements rotation */
     }
 
     .kategori-swiper .swiper-slide {
         height: auto;
+        width: 380px; /* Precise card width */
+        opacity: 0.5;
+        filter: blur(1.5px) grayscale(15%);
+        transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        pointer-events: none; /* Disable click on side cards */
+        transform-style: preserve-3d;
     }
     
+    .kategori-swiper .swiper-slide-active {
+        opacity: 1;
+        filter: none;
+        pointer-events: auto; /* Enable click on center active card */
+    }
+
     .kategori-swiper .swiper-wrapper {
         align-items: stretch;
     }
 
+    /* Card styling based on the image reference */
     .umkm-card {
         background: #ffffff;
-        border: 1px solid rgba(226, 232, 240, 0.8);
-        border-radius: 24px;
+        border: 1px solid rgba(226, 232, 240, 0.7);
+        border-radius: 20px;
         overflow: hidden;
         display: flex;
         flex-direction: column;
         height: 100%;
         text-decoration: none;
-        box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02);
+        box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.01);
         transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        position: relative;
     }
 
-    .umkm-card:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 20px 40px -15px rgba(20, 18, 19, 0.08), 0 1px 3px rgba(0, 0, 0, 0.01);
-        border-color: rgba(59, 130, 246, 0.2);
+    .swiper-slide-active .umkm-card {
+        box-shadow: 0 25px 55px -15px rgba(20, 18, 19, 0.12), 0 10px 25px -10px rgba(59, 130, 246, 0.05);
+        border-color: rgba(226, 232, 240, 0.9);
     }
 
     .umkm-img-wrap {
         width: 100%;
-        aspect-ratio: 4/3;
+        aspect-ratio: 16/11;
         overflow: hidden;
-        border-bottom: 1px solid #f1f5f9;
         background-color: #f8fafc;
         position: relative;
     }
@@ -409,78 +424,82 @@
         transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
     
-    .umkm-card:hover .umkm-img-wrap img {
-        transform: scale(1.05);
+    .swiper-slide-active .umkm-card:hover .umkm-img-wrap img {
+        transform: scale(1.04);
+    }
+
+    /* Image Tag Overlay (Pill style on top-right, similar to reference photo) */
+    .umkm-image-badge {
+        position: absolute;
+        top: 1.15rem;
+        right: 1.15rem;
+        background: #ffffff;
+        color: #1e293b;
+        padding: 0.35rem 0.9rem;
+        border-radius: 50px;
+        font-size: 0.7rem;
+        font-weight: 750;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        z-index: 10;
+        letter-spacing: 0.2px;
     }
 
     .umkm-content {
-        padding: 1.75rem;
+        padding: 2rem;
         text-align: left;
         display: flex;
         flex-direction: column;
         flex-grow: 1;
     }
 
-    .umkm-tag {
-        display: inline-block;
-        align-self: flex-start;
-        color: #3b82f6;
-        background: rgba(59, 130, 246, 0.08);
-        padding: 0.3rem 0.8rem;
-        border-radius: 30px;
-        font-size: 0.7rem;
-        font-weight: 700;
-        margin-bottom: 0.75rem;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
-
     .umkm-content h3 {
         color: var(--color-primary);
-        font-size: 1.35rem;
+        font-size: 1.4rem;
         font-weight: 800;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.75rem;
         line-height: 1.3;
+        letter-spacing: -0.5px;
     }
 
     .umkm-content p {
         color: var(--color-text-muted);
         font-size: 0.95rem;
-        line-height: 1.5;
-        margin-bottom: 1.75rem;
+        line-height: 1.55;
+        margin-bottom: 2rem;
         flex-grow: 1;
     }
     
     .umkm-actions {
         margin-top: auto;
         display: flex;
-        gap: 0.6rem;
+        gap: 0.75rem;
         align-items: center;
     }
 
+    /* Fully rounded pills for modern aesthetics */
     .umkm-btn-portfolio {
-        flex: 1;
+        flex: 1.2;
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        gap: 0.4rem;
-        padding: 0.65rem 0.9rem;
-        border-radius: 12px;
-        font-size: 0.8rem;
-        font-weight: 700;
-        color: #3b82f6;
-        background: rgba(59, 130, 246, 0.07);
-        border: 1px solid rgba(59, 130, 246, 0.2);
+        padding: 0.75rem 1.25rem;
+        border-radius: 50px;
+        font-size: 0.825rem;
+        font-weight: 750;
+        color: #ffffff;
+        background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+        border: none;
         text-decoration: none;
         transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
         white-space: nowrap;
     }
 
     .umkm-btn-portfolio:hover {
-        background: rgba(59, 130, 246, 0.14);
-        border-color: rgba(59, 130, 246, 0.4);
-        transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+        background: linear-gradient(135deg, #2563eb, #1e40af);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(59, 130, 246, 0.35);
+        color: #ffffff;
     }
 
     .umkm-btn-order {
@@ -488,140 +507,121 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        gap: 0.4rem;
-        padding: 0.65rem 0.9rem;
-        border-radius: 12px;
-        font-size: 0.8rem;
-        font-weight: 700;
-        color: #ffffff;
-        background: linear-gradient(135deg, var(--color-primary), #3b82f6);
-        border: 1px solid transparent;
+        padding: 0.75rem 1.25rem;
+        border-radius: 50px;
+        font-size: 0.825rem;
+        font-weight: 750;
+        color: #3b82f6;
+        background: rgba(59, 130, 246, 0.05);
+        border: 1px solid rgba(59, 130, 246, 0.25);
         text-decoration: none;
         transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         white-space: nowrap;
     }
 
     .umkm-btn-order:hover {
-        box-shadow: 0 6px 16px rgba(59, 130, 246, 0.3);
-        transform: translateY(-1px);
+        background: rgba(59, 130, 246, 0.1);
+        border-color: rgba(59, 130, 246, 0.4);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 14px rgba(59, 130, 246, 0.08);
     }
 
-    .umkm-btn-order span {
-        transition: transform 0.3s ease;
-    }
-
-    .umkm-btn-order:hover span {
-        transform: translateX(3px);
-    }
-
-    .swiper-controls-container {
-        margin-top: 3rem;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .swipe-hint {
-        color: var(--color-text-muted);
-        font-size: 0.85rem;
-        font-weight: 600;
-        margin-bottom: 1.25rem;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        letter-spacing: 0.5px;
-    }
-
-    .swipe-hint::before, .swipe-hint::after {
-        content: '';
-        display: block;
-        width: 30px;
-        height: 1px;
-        background-color: #cbd5e1;
-    }
-
-    .swiper-nav-wrapper {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 1.5rem;
-    }
-
-    .swiper-button-prev, .swiper-button-next {
-        position: static !important;
-        margin: 0 !important;
-        width: 48px !important;
-        height: 48px !important;
-        background: #ffffff;
-        border: 1px solid #e2e8f0;
+    /* Custom 3D Navigation Arrows */
+    .swiper-btn-prev, .swiper-btn-next {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 52px;
+        height: 52px;
+        background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+        border: none;
         border-radius: 50%;
-        color: var(--color-primary) !important;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+        color: #ffffff;
         display: flex;
         align-items: center;
         justify-content: center;
-        transition: all 0.3s ease;
+        cursor: pointer;
+        box-shadow: 0 5px 16px rgba(59, 130, 246, 0.35);
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        z-index: 10;
     }
     
-    .swiper-button-prev:hover, .swiper-button-next:hover {
-        background: var(--color-primary);
-        color: #ffffff !important;
-        border-color: var(--color-primary);
-        box-shadow: 0 6px 15px rgba(20, 18, 19, 0.15);
-        transform: translateY(-1px);
+    .swiper-btn-prev {
+        left: 0.5rem;
+    }
+    
+    .swiper-btn-next {
+        right: 0.5rem;
+    }
+    
+    .swiper-btn-prev:hover, .swiper-btn-next:hover {
+        transform: translateY(-50%) scale(1.08);
+        box-shadow: 0 8px 24px rgba(59, 130, 246, 0.5);
+        background: linear-gradient(135deg, #2563eb, #1e40af);
+    }
+    
+    .swiper-btn-prev:active, .swiper-btn-next:active {
+        transform: translateY(-50%) scale(0.96);
     }
 
-    .swiper-button-prev::after, .swiper-button-next::after {
-        font-size: 1rem !important;
-        font-weight: bold;
-    }
-
-    .swiper-pagination {
-        position: static !important;
-        width: auto !important;
-        margin: 0 !important;
+    /* Custom Pagination Dots */
+    .swiper-pagination-dots {
         display: flex;
-        align-items: center;
         justify-content: center;
+        align-items: center;
+        gap: 0.6rem;
+        margin-top: 2.5rem;
+    }
+    
+    .swiper-pagination-dots .swiper-pagination-bullet {
+        width: 10px;
+        height: 10px;
+        background: #cbd5e1;
+        opacity: 1;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+    
+    .swiper-pagination-dots .swiper-pagination-bullet-active {
+        width: 26px;
+        border-radius: 5px;
+        background: #3b82f6;
     }
 
-    .swiper-pagination-bullet {
-        width: 8px !important;
-        height: 8px !important;
-        margin: 0 5px !important;
-        background: #cbd5e1 !important;
-        opacity: 1 !important;
-        transition: all 0.3s ease !important;
-        border-radius: 4px !important;
-    }
-
-    .swiper-pagination-bullet-active {
-        width: 24px !important;
-        background: #3b82f6 !important;
-    }
-
-    @@media (max-width: 768px) {
-        .categories-section { padding: 4rem 0; }
-        .section-container { padding: 0 5%; }
+    @media (max-width: 768px) {
+        .categories-section { padding: 4.5rem 0; }
+        .section-container { padding: 0 3%; }
         .badge-mini { margin-bottom: 1rem; font-size: 0.7rem; padding: 0.4rem 1rem; }
-        .section-title { font-size: 1.85rem; margin-bottom: 1rem; letter-spacing: -1px; }
-        .section-subtitle { font-size: 0.95rem; margin-bottom: 2.5rem; padding: 0; line-height: 1.5; }
-        .portfolio-showcase { padding-bottom: 1.5rem; margin-top: 1rem; }
+        .section-title { font-size: 2rem; margin-bottom: 1rem; letter-spacing: -1px; }
+        .section-subtitle { font-size: 0.95rem; margin-bottom: 2rem; padding: 0; line-height: 1.5; }
         
-        .umkm-card { border-radius: 20px; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05); }
-        .umkm-img-wrap { aspect-ratio: 16/10; }
-        .umkm-content { padding: 1.25rem; }
-        .umkm-tag { font-size: 0.65rem; margin-bottom: 0.5rem; padding: 0.25rem 0.7rem; }
-        .umkm-content h3 { font-size: 1.15rem; margin-bottom: 0.4rem; }
-        .umkm-content p { font-size: 0.85rem; margin-bottom: 1.25rem; line-height: 1.45; }
-        .umkm-btn-portfolio, .umkm-btn-order { font-size: 0.75rem; padding: 0.55rem 0.75rem; border-radius: 10px; }
-        
-        .swiper-button-prev, .swiper-button-next { 
-            display: none !important;
+        .portfolio-slider-container {
+            padding: 1rem 0rem;
         }
-        .swiper-controls-container { margin-top: 1.5rem; }
-        .swipe-hint { font-size: 0.8rem; margin-bottom: 0.75rem; }
-        .swiper-nav-wrapper { gap: 0; }
+
+        .kategori-swiper .swiper-slide {
+            width: 290px; /* Card size for tablets & phones */
+            opacity: 0.65;
+            filter: blur(1px);
+        }
+
+        .kategori-swiper .swiper-slide-active {
+            opacity: 1;
+            filter: none;
+        }
+        
+        .umkm-card { border-radius: 16px; }
+        .umkm-image-badge { top: 0.85rem; right: 0.85rem; padding: 0.3rem 0.75rem; font-size: 0.65rem; }
+        .umkm-content { padding: 1.5rem; }
+        .umkm-content h3 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+        .umkm-content p { font-size: 0.875rem; margin-bottom: 1.5rem; line-height: 1.45; }
+        .umkm-btn-portfolio, .umkm-btn-order { font-size: 0.775rem; padding: 0.65rem 1rem; }
+        
+        .swiper-btn-prev, .swiper-btn-next { 
+            display: none !important; /* Hide arrows on mobile for gesture layout */
+        }
+        .swiper-pagination-dots { margin-top: 1.75rem; }
     }
 </style>
 
@@ -629,36 +629,31 @@
     document.addEventListener('DOMContentLoaded', function () {
         if (typeof Swiper !== 'undefined') {
             new Swiper('.kategori-swiper', {
-                slidesPerView: 1.15,
-                spaceBetween: 12,
-                loop: false,
+                effect: 'coverflow',
                 grabCursor: true,
+                centeredSlides: true,
+                slidesPerView: 'auto',
+                loop: true,
+                speed: 600,
                 autoplay: {
                     delay: 5000,
                     disableOnInteraction: false,
+                    pauseOnMouseEnter: true,
+                },
+                coverflowEffect: {
+                    rotate: 15,       // Slide angle tilt
+                    stretch: 22,      // Shrink space to overlap
+                    depth: 140,       // Scale and push back side slides
+                    modifier: 1.25,   // Multiplier scaling
+                    slideShadows: false, // Custom CSS shadow overlay
                 },
                 navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
+                    nextEl: '.swiper-btn-next',
+                    prevEl: '.swiper-btn-prev',
                 },
                 pagination: {
-                    el: '.swiper-pagination',
+                    el: '.swiper-pagination-dots',
                     clickable: true,
-                    dynamicBullets: false,
-                },
-                breakpoints: {
-                    640: {
-                        slidesPerView: 1.5,
-                        spaceBetween: 20,
-                    },
-                    768: {
-                        slidesPerView: 2.2,
-                        spaceBetween: 24,
-                    },
-                    1024: {
-                        slidesPerView: 3,
-                        spaceBetween: 30,
-                    }
                 }
             });
         }
