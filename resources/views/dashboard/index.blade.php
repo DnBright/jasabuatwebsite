@@ -50,7 +50,7 @@
 </div>
 
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-    <div class="lg:col-span-2 bg-gradient-to-br from-[#002147] to-blue-700 text-white rounded-3xl p-10 relative overflow-hidden shadow-xl border border-[#001229]">
+    <div class="lg:col-span-2 bg-gradient-to-br from-[#002147] to-blue-700 text-white rounded-3xl p-6 sm:p-10 relative overflow-hidden shadow-xl border border-[#001229]">
         <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+CjxwYXRoIGQ9Ik0wIDBoNDB2NDBIMHoiIGZpbGw9Im5vbmUiLz4KPHBhdGggZD0iTTAgMTBoNDBNMCAzMGg0ME0xMCAwdjQwTTMwIDB2NDAiIHN0cm9rZT0icmdiYSsyNTUsMjU1LDI1NSwwLjA1KSIgc3Ryb2tlLXdpZHRoPSIxIi8+Cjwvc3ZnPg==')] opacity-30"></div>
         <div class="relative z-10">
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-blue-100 text-xs font-semibold uppercase tracking-wider mb-6">
@@ -76,7 +76,7 @@
         <i data-lucide="zap" class="absolute -bottom-16 -right-16 w-64 h-64 text-white opacity-5 transform rotate-12 drop-shadow-2xl"></i>
     </div>
 
-    <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-8 flex flex-col">
+    <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 sm:p-8 flex flex-col">
         <h3 class="text-xl font-bold text-slate-800 mb-6 flex items-center">
             <div class="p-2 bg-blue-50 rounded-lg mr-3 text-blue-600">
                 <i data-lucide="zap" class="w-5 h-5"></i>

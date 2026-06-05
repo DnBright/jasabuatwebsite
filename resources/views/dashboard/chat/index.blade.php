@@ -6,7 +6,7 @@
 <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex h-[calc(100vh-12rem)] min-h-[500px]">
     
     <!-- Left Column: Active Sessions List -->
-    <div class="w-1/3 border-r border-slate-200 flex flex-col h-full bg-slate-50/50">
+    <div class="w-full md:w-1/3 border-r border-slate-200 flex flex-col h-full bg-slate-50/50 @if($activeSessionId) hidden md:flex @endif">
         <div class="p-4 border-b border-slate-200 bg-white">
             <h3 class="font-bold text-slate-800 text-lg flex items-center">
                 <i data-lucide="message-square" class="w-5 h-5 mr-2 text-blue-500"></i>
@@ -73,12 +73,15 @@
     </div>
 
     <!-- Right Column: Selected Chat Window -->
-    <div class="flex-1 flex flex-col h-full bg-slate-50">
+    <div class="flex-1 flex flex-col h-full bg-slate-50 @if(!$activeSessionId) hidden md:flex @endif">
         @if($activeSessionId && $activeSession)
             <!-- Active Chat Header -->
             <div class="p-4 border-b border-slate-200 bg-white flex justify-between items-center shadow-sm">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold border border-blue-200">
+                <div class="flex items-center gap-2 sm:gap-3 min-w-0">
+                    <a href="{{ route('dashboard.chat.index') }}" class="md:hidden p-1.5 rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-700 transition-colors shrink-0" title="Kembali ke Daftar Chat">
+                        <i data-lucide="chevron-left" class="w-6 h-6"></i>
+                    </a>
+                    <div class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold border border-blue-200 shrink-0">
                         {{ substr($activeSession->name ?? 'V', 0, 1) }}
                     </div>
                     <div>
