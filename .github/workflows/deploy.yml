@@ -74,9 +74,28 @@ jobs:
 
         def ensure_dir(ftp, path):
             try:
-                ftp.mkd(path)
+                ftp.cwd(path)
+                return
             except ftplib.error_perm:
-                pass  # sudah ada
+                pass
+
+            parts = path.strip('/').split('/')
+            try:
+                ftp.cwd('/')
+            except Exception:
+                pass
+
+            for part in parts:
+                if not part:
+                    continue
+                try:
+                    ftp.cwd(part)
+                except ftplib.error_perm:
+                    try:
+                        ftp.mkd(part)
+                        ftp.cwd(part)
+                    except ftplib.error_perm:
+                        pass
 
         try:
             ftp = ftplib.FTP(server)
@@ -91,7 +110,6 @@ jobs:
                     remote_dir = remote_base + '/' + rel_root.replace('\\', '/')
 
                 ensure_dir(ftp, remote_dir)
-                ftp.cwd(remote_dir)
 
                 # Get existing files in the remote folder to avoid uploading duplicates
                 remote_files = {}
