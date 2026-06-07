@@ -69,7 +69,7 @@ jobs:
         server   = "${{ secrets.FTP_SERVER }}"
         username = "${{ secrets.FTP_USERNAME }}"
         password = "${{ secrets.FTP_PASSWORD }}"
-        remote_base = "/public_html/thedarkandbright.com/public/images"
+        remote_base = "/public_html/buatwebjogja.gro.co.id/public/images"
         local_base  = "public/images"
 
         def ensure_dir(ftp, path):
@@ -134,7 +134,7 @@ jobs:
         server: ${{ secrets.FTP_SERVER }}
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
-        server-dir: /public_html/thedarkandbright.com/
+        server-dir: /public_html/buatwebjogja.gro.co.id/
         exclude: |
           **/.git*
           **/.git*/**
@@ -147,4 +147,4 @@ jobs:
 
     - name: Trigger Post-Deployment Artisan Tasks
       run: |
-        curl -i "https://thedarkandbright.com/deploy-maintenance-trigger?token=bPXwtuggH5qk81"
+        curl -i "https://buatwebjogja.gro.co.id/deploy-maintenance-trigger?token=bPXwtuggH5qk81"
