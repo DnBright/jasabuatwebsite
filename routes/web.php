@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard\AiPlannerController;
 use App\Http\Controllers\Dashboard\AnalyticsController;
 use App\Http\Controllers\Dashboard\BerandaController;
 use App\Http\Controllers\Dashboard\ChatController;
@@ -229,6 +230,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
         Route::post('/settings', [SettingController::class, 'update'])->name('settings.update');
+
+        // AI Website Planner Routes
+        Route::get('/ai-planner', [AiPlannerController::class, 'index'])->name('ai-planner.index');
+        Route::post('/ai-planner', [AiPlannerController::class, 'generate'])->name('ai-planner.generate');
 
         // Live Chat Admin Routes
         Route::get('/chat', [ChatController::class, 'adminIndex'])->name('chat.index');

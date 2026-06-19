@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\ChatMessage;
+use App\Services\GeminiService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class ChatController extends Controller
@@ -52,6 +54,52 @@ class ChatController extends Controller
             'is_from_admin' => false,
             'is_read' => false,
         ]);
+
+        // AI Auto-Reply (Gemini Integration)
+        if (! empty(env('GEMINI_API_KEY'))) {
+            try {
+                // Ambil riwayat chat session ini untuk konteks percakapan
+                $history = ChatMessage::where('session_id', $request->session_id)
+                    ->orderBy('created_at', 'asc')
+                    ->take(10)
+                    ->get();
+
+                $historyText = '';
+                foreach ($history as $msg) {
+                    $sender = $msg->is_from_admin ? 'DnB Assistant (AI)' : 'Pengunjung ('.($msg->name ?: 'Visitor').')';
+                    $historyText .= "{$sender}: {$msg->message}\n";
+                }
+
+                $systemInstruction = "Anda adalah 'DnB Assistant (AI)', asisten cerdas dari PT. DnB (Digital Networks Business), agensi kreatif yang melayani:\n"
+                    ."1. Jasa Buat Website Premium (menggunakan teknologi modern seperti Laravel, React, Vue, Tailwind).\n"
+                    ."2. Jasa Desain Logo & Brand Identity.\n"
+                    ."3. Jasa Iklan/Performance Ads (Google Ads, Meta Ads).\n"
+                    ."4. Jasa 3D Mockup & Visualisasi Aset.\n"
+                    ."5. Jasa Desain 3D Arsitek & Interior.\n"
+                    ."6. Jasa Manajemen & Konten Social Media.\n\n"
+                    .'Tugas Anda adalah membalas pesan pengunjung secara profesional, ramah, persuasif, dan informatif. Tuntun mereka untuk mengambil paket harga yang sesuai atau hubungi Admin via WhatsApp. Jawablah langsung secara ringkas dalam bahasa Indonesia.';
+
+                $prompt = "Berikut adalah riwayat percakapan sejauh ini:\n"
+                    .$historyText
+                    ."\nBerikan tanggapan yang relevan dan langsung menjawab pertanyaan terakhir pengunjung tersebut.";
+
+                $aiReply = GeminiService::generate($prompt, $systemInstruction);
+
+                if (! empty($aiReply)) {
+                    ChatMessage::create([
+                        'session_id' => $request->session_id,
+                        'name' => 'DnB Assistant (AI)',
+                        'email_whatsapp' => $emailWhatsapp,
+                        'message' => $aiReply,
+                        'is_from_admin' => true,
+                        'is_read' => false,
+                    ]);
+                }
+            } catch (\Throwable $e) {
+                // Log error silently agar tidak mematahkan request visitor
+                Log::error('AI Auto-reply error: '.$e->getMessage());
+            }
+        }
 
         return response()->json([
             'status' => 'success',

@@ -167,6 +167,10 @@
                 @endif
             </a>
 
+            <a href="{{ route('dashboard.ai-planner.index') }}" class="sidebar-nav-item flex items-center px-4 py-2.5 rounded-xl {{ request()->routeIs('dashboard.ai-planner.*') ? 'active' : '' }}">
+                <i data-lucide="sparkles" class="mr-3 w-5 h-5"></i> AI Website Planner
+            </a>
+
             <a href="{{ route('dashboard.packages.index') }}" class="sidebar-nav-item flex items-center px-4 py-2.5 rounded-xl {{ request()->routeIs('dashboard.packages.*') ? 'active' : '' }}">
                 <i data-lucide="package" class="mr-3 w-5 h-5"></i> Paket Harga
             </a>
